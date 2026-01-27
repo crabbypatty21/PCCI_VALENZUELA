@@ -6,18 +6,28 @@
         <title>PCCI Valenzuela</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700&family=dm-sans:400,500,600,700" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
             body {
-                font-family: 'Instrument Sans', sans-serif;
+                font-family: 'Poppins', sans-serif;
                 background-color: #FDFDFC;
                 color: #1b1b18;
                 min-height: 100vh;
                 display: flex;
                 flex-direction: column;
                 margin: 0;
+            }
+
+            /* --- DM Sans for Titles and Buttons --- */
+            h1, h2, h3, h4, h5, h6,
+            .headline-text,
+            .brand-title,
+            .btn-primary-custom,
+            .btn-outline-custom,
+            .btn-ghost-custom {
+                font-family: 'DM Sans', sans-serif;
             }
 
             /* --- Custom Header Styles --- */
@@ -66,7 +76,7 @@
                 text-decoration: none;
                 border-radius: 6px;
                 transition: all 0.2s ease;
-                white-space: nowrap; /* Prevents text from breaking */
+                white-space: nowrap;
             }
             .btn-ghost-custom:hover {
                 color: #000;
@@ -83,7 +93,7 @@
                 text-decoration: none;
                 border-radius: 6px;
                 transition: all 0.2s;
-                white-space: nowrap; /* Prevents text from breaking */
+                white-space: nowrap;
             }
             .btn-outline-custom:hover {
                 border-color: #000;
@@ -91,8 +101,8 @@
             }
 
             .btn-primary-custom {
-                background-color: #0d6efd;
-                border: 1px solid #0d6efd;
+                background-color: #A40033;
+                border: 1px solid #A40033;
                 color: white;
                 padding: 0.5rem 1.25rem;
                 font-size: 0.9rem;
@@ -100,10 +110,10 @@
                 text-decoration: none;
                 border-radius: 6px;
                 transition: all 0.2s;
-                white-space: nowrap; /* Prevents text from breaking */
+                white-space: nowrap;
             }
             .btn-primary-custom:hover {
-                background-color: #0b5ed7;
+                background-color: #8a002b;
             }
 
             /* --- Dark Mode Styles --- */
@@ -137,8 +147,8 @@
             }
 
             /* --- Layout --- */
-            .text-accent { color: #F53003; }
-            @media (prefers-color-scheme: dark) { .text-accent { color: #FF4433; } }
+            .text-accent { color: #A40033; }
+            @media (prefers-color-scheme: dark) { .text-accent { color: #A40033; } }
             
             /* Responsive Font Sizes */
             .headline-text {
@@ -157,6 +167,44 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+            }
+
+            /* --- Impact Cards --- */
+            .impact-card {
+                background-color: #A40033;
+                border-radius: 8px;
+                padding: 8px;
+            }
+
+            .impact-card-inner {
+                background-color: #C4909D;
+                border-radius: 4px;
+                padding: 2rem;
+                text-align: center;
+            }
+
+            .impact-number {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 3rem;
+                font-weight: 700;
+                color: #D4E157;
+                margin-bottom: 0;
+                line-height: 1;
+            }
+
+            .impact-label {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #D4E157;
+                margin-bottom: 0.75rem;
+            }
+
+            .impact-desc {
+                font-family: 'Poppins', sans-serif;
+                color: #4a3a3f;
+                font-size: 0.95rem;
+                margin-bottom: 0;
             }
         </style>
     </head>
