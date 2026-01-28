@@ -2,25 +2,43 @@
 
 @section('content')
 
-<div class="w-100 bg-light border-bottom mb-5 py-5">
+<div class="w-100 mb-5" style="
+    padding-top: 140px; 
+    padding-bottom: 3rem;
+    margin-top: -1px; /* Ensures overlap with fixed header */
+    background: linear-gradient(rgba(164, 13, 15, 0.85), rgba(164, 13, 15, 0.85)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center top;
+">
     <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-accent fw-bold text-uppercase mb-3 d-block" style="font-size: 0.85rem; letter-spacing: 0.05em;">
+        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
             PCCI - Valenzuela
         </span>
-        <h1 class="headline-text fw-bold mb-4 text-uppercase" style="letter-spacing: -0.02em;">
+        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="letter-spacing: -0.02em;">
             Discover Local Businesses
         </h1>
-        <p class="text-secondary mb-4" style="max-width: 600px; line-height: 1.7; font-size: 1.1rem;">
+        <p class="text-white mb-4" style="max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
             Connect with our diverse community of innovative businesses and entrepreneurs driving economic growth and excellence in Valenzuela City.
         </p>
+
+        <div class="w-100 mt-2" style="max-width: 600px;">
+            <div class="input-group shadow-sm bg-white rounded overflow-hidden border-0">
+                <span class="input-group-text bg-white border-0 ps-3">
+                    <svg width="20" height="20" fill="none" stroke="#6c757d" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" class="form-control border-0 py-3 shadow-none text-secondary" placeholder="Search businesses, services..." aria-label="Search">
+                <button class="btn btn-primary px-4 fw-bold text-uppercase" type="button" style="letter-spacing: 0.05em;">Search</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <div class="container mb-5">
     
-<div class="d-flex justify-content-end align-items-left mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
         
-        <div class="d-flex flex-wrap gap-2">
+        <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
             <select class="form-select form-select-sm bg-light border-0" style="width: auto; cursor: pointer; font-weight: 500;">
                 <option selected>All Categories</option>
                 <option value="tech">Technology</option>
@@ -42,6 +60,10 @@
             </select>
         </div>
 
+        <div class="text-secondary small fw-medium">
+            Showing 3 of 3 results
+        </div>
+
     </div>
 
     <div class="row g-4">
@@ -57,23 +79,23 @@
                         <small class="text-muted">Technology & Software</small>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <p class="small text-secondary mb-3">
+                <div class="card-body p-0 d-flex flex-column flex-grow-1">
+                    <p class="small text-secondary mb-3 flex-grow-1">
                         Leading provider of innovative software solutions for local businesses in Valenzuela.
                     </p>
-                    <div class="d-flex flex-column gap-2 small text-muted">
-                        <div class="d-flex align-items-center gap-2">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            contact@techcorp.ph
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                        <div class="d-flex flex-column gap-2 small text-muted">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                contact@techcorp.ph
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                +63 912 345 6789
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                            +63 912 345 6789
-                        </div>
+                        <a href="{{ route('business.show') }}" class="btn-outline-custom py-1 px-3 text-center ms-2" style="font-size: 0.8rem; white-space: nowrap;">View Profile</a>
                     </div>
-                </div>
-                <div class="card-footer bg-transparent border-0 p-0 mt-3 pt-3 border-top">
-                    <a href="#" class="btn-outline-custom py-1 w-100 text-center" style="font-size: 0.85rem;">View Profile</a>
                 </div>
             </div>
         </div>
@@ -89,23 +111,23 @@
                         <small class="text-muted">Agriculture & Supply</small>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <p class="small text-secondary mb-3">
+                <div class="card-body p-0 d-flex flex-column flex-grow-1">
+                    <p class="small text-secondary mb-3 flex-grow-1">
                         Sustainable farming supplies and organic produce distributor.
                     </p>
-                    <div class="d-flex flex-column gap-2 small text-muted">
-                        <div class="d-flex align-items-center gap-2">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            sales@greenfields.com
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                        <div class="d-flex flex-column gap-2 small text-muted">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                sales@greenfields.com
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                (02) 8123 4567
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                            (02) 8123 4567
-                        </div>
+                        <a href="#" class="btn-outline-custom py-1 px-3 text-center ms-2" style="font-size: 0.8rem; white-space: nowrap;">View Profile</a>
                     </div>
-                </div>
-                <div class="card-footer bg-transparent border-0 p-0 mt-3 pt-3 border-top">
-                    <a href="#" class="btn-outline-custom py-1 w-100 text-center" style="font-size: 0.85rem;">View Profile</a>
                 </div>
             </div>
         </div>
@@ -121,23 +143,23 @@
                         <small class="text-muted">Construction</small>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <p class="small text-secondary mb-3">
+                <div class="card-body p-0 d-flex flex-column flex-grow-1">
+                    <p class="small text-secondary mb-3 flex-grow-1">
                         Reliable construction materials and architectural planning services.
                     </p>
-                    <div class="d-flex flex-column gap-2 small text-muted">
-                        <div class="d-flex align-items-center gap-2">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            inquire@buildlink.ph
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                        <div class="d-flex flex-column gap-2 small text-muted">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                inquire@buildlink.ph
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                (02) 8987 6543
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                            (02) 8987 6543
-                        </div>
+                        <a href="#" class="btn-outline-custom py-1 px-3 text-center ms-2" style="font-size: 0.8rem; white-space: nowrap;">View Profile</a>
                     </div>
-                </div>
-                <div class="card-footer bg-transparent border-0 p-0 mt-3 pt-3 border-top">
-                    <a href="#" class="btn-outline-custom py-1 w-100 text-center" style="font-size: 0.85rem;">View Profile</a>
                 </div>
             </div>
         </div>

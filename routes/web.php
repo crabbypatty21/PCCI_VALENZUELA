@@ -17,3 +17,7 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+// Updated route to use the specified filename
+Route::get('/business/tech-corp', function () {
+    return view('MembershipBusinessProfileDetails');
+})->name('business.show');
