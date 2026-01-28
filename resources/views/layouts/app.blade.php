@@ -22,10 +22,10 @@
 
             /* --- Custom Header Styles --- */
             .header-custom {
-                background-color: rgba(253, 253, 252, 0.95);
-                backdrop-filter: blur(12px);
-                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                /* Background is handled inline or via utility now for transparency */
+                backdrop-filter: blur(4px); /* Reduced blur for clearer image visibility */
                 z-index: 1000;
+                transition: all 0.3s ease;
             }
 
             /* --- Logo & Title Styles --- */
@@ -66,7 +66,7 @@
                 text-decoration: none;
                 border-radius: 6px;
                 transition: all 0.2s ease;
-                white-space: nowrap; /* Prevents text from breaking */
+                white-space: nowrap;
             }
             .btn-ghost-custom:hover {
                 color: #000;
@@ -83,7 +83,7 @@
                 text-decoration: none;
                 border-radius: 6px;
                 transition: all 0.2s;
-                white-space: nowrap; /* Prevents text from breaking */
+                white-space: nowrap;
             }
             .btn-outline-custom:hover {
                 border-color: #000;
@@ -100,7 +100,7 @@
                 text-decoration: none;
                 border-radius: 6px;
                 transition: all 0.2s;
-                white-space: nowrap; /* Prevents text from breaking */
+                white-space: nowrap;
             }
             .btn-primary-custom:hover {
                 background-color: #0b5ed7;
@@ -113,7 +113,6 @@
                     color: #EDEDEC;
                 }
                 .header-custom {
-                    background-color: rgba(10, 10, 10, 0.90);
                     border-color: #3E3E3A !important;
                 }
                 .logo-box {
@@ -152,7 +151,8 @@
             }
 
             .content-spacer { 
-                margin-top: 1px;
+                /* Removed margin-top to allow content to sit behind fixed header */
+                margin-top: 0; 
                 flex: 1;
                 display: flex;
                 flex-direction: column;
@@ -164,7 +164,7 @@
 
         @include('partials.topbar')
 
-        <div class="content-spacer w-100 px-4 mb-5">
+        <div class="content-spacer w-100 mb-5">
             @yield('content')
         </div>
 
