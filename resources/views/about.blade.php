@@ -2,6 +2,7 @@
 
 @section('content')
 {{-- Hero Section --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="position-relative w-100 overflow-hidden" style="background: linear-gradient(135deg, rgba(245, 48, 3, 0.9), rgba(200, 35, 0, 0.9)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 500px;">
     <div class="container text-white text-center py-5" style="position: relative; z-index: 2;">
         <p class="text-uppercase fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.95;">
@@ -25,7 +26,7 @@
 </div>
 
 {{-- Our Purpose Section --}}
-<div class="bg-light py-5">
+<div class="bg-light text-dark py-5">
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
@@ -57,9 +58,7 @@
 
                 <a href="#leadership" class="btn btn-danger fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="background-color: #F53003; border: none; border-radius: 6px;">
                     Meet Our Leadership
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                    </svg>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
 
@@ -130,16 +129,14 @@
         <div class="text-center">
             <a href="#events" class="btn btn-light fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="border-radius: 6px; color: #1f1f1f;">
                 Explore our Events
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                </svg>
+                <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </div>
 </div>
 
 {{-- Our Values Section --}}
-<div class="bg-light py-5">
+<div class="bg-light text-dark py-5">
     <div class="container">
         <div class="text-center mb-5">
             <h6 class="text-accent fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.05em;">Our Values</h6>
@@ -213,27 +210,357 @@
     </div>
 </div>
 
-{{-- Community Gallery Section --}}
-<div class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">Glimpses of our Community in Action</h2>
+{{-- ============================================== --}}
+{{-- COMMUNITY GALLERY - SMOOTH COVERFLOW CAROUSEL --}}
+{{-- ============================================== --}}
+
+{{-- Swiper CSS --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+    .community-section {
+        background-color: #fdf2f4;
+        padding: 60px 0 80px;
+        overflow: hidden;
+    }
+    
+    .carousel-outer-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .carousel-content {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    /* Navigation Arrows - Far sides */
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .nav-arrow:hover {
+        transform: translateY(-50%) scale(1.15);
+    }
+    
+    .nav-arrow:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+    
+    .nav-arrow svg {
+        width: 40px;
+        height: 40px;
+        stroke: #333;
+        stroke-width: 2;
+        fill: none;
+        transition: stroke 0.3s ease;
+    }
+    
+    .nav-arrow:hover svg {
+        stroke: #A40033;
+    }
+    
+    .nav-prev {
+        left: 20px;
+    }
+    
+    .nav-next {
+        right: 20px;
+    }
+    
+    /* Swiper customization */
+    .communitySwiper {
+        width: 100%;
+        padding: 40px 0 60px;
+        overflow: visible;
+    }
+    
+    .communitySwiper .swiper-wrapper {
+        align-items: center;
+        transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+    }
+    
+    .communitySwiper .swiper-slide {
+        width: 400px;
+        height: 270px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity: 0.5;
+        transform: scale(0.85);
+    }
+    
+    .communitySwiper .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .communitySwiper .swiper-slide:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Active slide - prominent center */
+    .communitySwiper .swiper-slide-active {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        z-index: 10;
+    }
+    
+    /* Adjacent slides */
+    .communitySwiper .swiper-slide-prev,
+    .communitySwiper .swiper-slide-next {
+        opacity: 0.7;
+        transform: scale(0.9);
+    }
+    
+    /* Pagination Dots */
+    .swiper-pagination {
+        position: relative;
+        margin-top: 25px;
+        bottom: auto !important;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background: #ccc;
+        opacity: 1;
+        margin: 0 6px !important;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border-radius: 50%;
+    }
+    
+    .swiper-pagination-bullet:hover {
+        background: #999;
+        transform: scale(1.2);
+    }
+    
+    .swiper-pagination-bullet-active {
+        background: #333;
+        transform: scale(1.4);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .nav-prev {
+            left: 10px;
+        }
+        
+        .nav-next {
+            right: 10px;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .communitySwiper .swiper-slide {
+            width: 350px;
+            height: 240px;
+        }
+        
+        .nav-arrow svg {
+            width: 32px;
+            height: 32px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .communitySwiper .swiper-slide {
+            width: 300px;
+            height: 210px;
+        }
+        
+        .nav-prev {
+            left: 5px;
+        }
+        
+        .nav-next {
+            right: 5px;
+        }
+        
+        .nav-arrow svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .communitySwiper .swiper-slide {
+            width: 260px;
+            height: 180px;
+        }
+        
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .nav-arrow svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+</style>
+
+<div class="community-section">
+    <div class="container-fluid px-0">
+        <div class="text-center  text-dark mb-4">
+            <h2 class="fw-bold" style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-family: 'DM Sans', sans-serif;">Glimpses of our Community in Action</h2>
         </div>
 
-        <div class="row g-4 mb-4">
-            @for($i = 1; $i <= 6; $i++)
-            <div class="col-md-6 col-lg-4">
-                <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 12px;">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&h=600&fit=crop" 
-                         alt="Community Event {{ $i }}" 
-                         class="img-fluid"
-                         style="height: 300px; object-fit: cover;">
+        <div class="carousel-outer-container">
+            {{-- Navigation Arrow - Left --}}
+            <button class="nav-arrow nav-prev" id="prevBtn" aria-label="Previous slide">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            {{-- Carousel Content --}}
+            <div class="carousel-content">
+                <div class="swiper communitySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=800&h=600&fit=crop" alt="Mountain Lake">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=800&h=600&fit=crop" alt="Sunset Dock">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=800&h=600&fit=crop" alt="Flower Field">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&h=600&fit=crop" alt="Team Meeting">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&h=600&fit=crop" alt="Portrait">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&h=600&fit=crop" alt="Workshop">
+                        </div>
+                    </div>
+                    
+                    {{-- Pagination Dots --}}
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
-            @endfor
+
+            {{-- Navigation Arrow - Right --}}
+            <button class="nav-arrow nav-next" id="nextBtn" aria-label="Next slide">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
         </div>
     </div>
 </div>
+
+{{-- Swiper JS --}}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.communitySwiper', {
+            // Coverflow effect
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            
+            // Smooth animation settings
+            speed: 800,
+            
+            // Coverflow configuration
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 100,
+                depth: 250,
+                modifier: 1,
+                slideShadows: false,
+            },
+            
+            // Pagination
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: false,
+            },
+            
+            // Autoplay with smooth transition
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            
+            // Smooth easing
+            cssMode: false,
+            
+            // Keyboard navigation
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+            
+            // Touch settings for smooth mobile experience
+            touchRatio: 1.5,
+            touchAngle: 45,
+            
+            // Resistance for edge bounce
+            resistance: true,
+            resistanceRatio: 0.85,
+        });
+        
+        // Custom navigation with smooth animation
+        var prevBtn = document.getElementById('prevBtn');
+        var nextBtn = document.getElementById('nextBtn');
+        
+        prevBtn.addEventListener('click', function() {
+            swiper.slidePrev(800); // 800ms smooth transition
+        });
+        
+        nextBtn.addEventListener('click', function() {
+            swiper.slideNext(800); // 800ms smooth transition
+        });
+        
+        // Add visual feedback on button click
+        [prevBtn, nextBtn].forEach(function(btn) {
+            btn.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(-50%) scale(0.9)';
+            });
+            btn.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-50%) scale(1.15)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-50%) scale(1)';
+            });
+        });
+    });
+</script>
+
+{{-- ============================================== --}}
+{{-- END COMMUNITY GALLERY CAROUSEL --}}
+{{-- ============================================== --}}
 
 {{-- Final CTA Section --}}
 <div class="py-5 bg-white">
@@ -245,37 +572,26 @@
             PCCI Valenzuela is more than a chamber; it's a community dedicated to fostering a vibrant, sustainable, and inclusive business environment. Invest in your future and the future of Valenzuela.
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="{{ url('/membership') }}" class="btn fw-bold px-5 py-3 d-inline-flex align-items-center gap-2" style="background-color: #B91C1C; color: white; border: none; border-radius: 6px;">
+            <a href="#membership" class="btn btn-danger fw-bold px-5 py-3" style="background-color: #F53003; border: none; border-radius: 6px; font-size: 1.1rem;">
                 Become a Member Today
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                </svg>
+                <i class="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="#" class="btn btn-outline-dark fw-bold px-5 py-3" style="border-radius: 6px; border-width: 2px;">
-                Get in Touch
+            <a href="#contact" class="btn btn-outline-dark fw-bold px-5 py-3" style="border-radius: 6px; font-size: 1.1rem;">
+                Contact Us
             </a>
+            
         </div>
     </div>
 </div>
 
-{{-- Footer --}}
-<footer class="py-5 text-white" style="background-color: #B91C1C;">
+{{-- Footer Section --}}
+<footer class="py-5 text-white" style="background-color: #1f1f1f;">
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-4">
-                <div class="d-flex align-items-center gap-3 mb-3">
-                    <div class="d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; background-color: white; border-radius: 10px;">
-                        <svg class="text-danger" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h5 class="fw-bold mb-0">PCCI - Valenzuela</h5>
-                        <small style="opacity: 0.9;">Philippine Chamber of Commerce</small>
-                    </div>
-                </div>
-                <p class="mb-4" style="opacity: 0.9; line-height: 1.7; font-size: 0.95rem;">
-                    Empowering local businesses and fostering economic growth in Marikina City through collaboration, networking, and advocacy. Building the future of businesses in our community.
+                <h5 class="fw-bold mb-3">PCCI Valenzuela</h5>
+                <p class="mb-3" style="opacity: 0.9; line-height: 1.7;">
+                    Building the future of businesses in our community.
                 </p>
                 <div class="d-flex gap-2">
                     <a href="#" class="btn btn-light btn-sm" style="width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
@@ -306,35 +622,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span style="opacity: 0.9;">4th Floor, Legislative Bldg. Valenzuela City Hall,<br>MacArthur Highway, Valenzuela City, Philippines</span>
+                        <span style="opacity: 0.9;">4th Floor, Legislative Bldg., Valenzuela City, Metro Manila</span>
                     </li>
-                    <li class="mb-3 d-flex align-items-center gap-2">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="mb-3 d-flex align-items-start gap-2">
+                        <svg class="mt-1" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
-                        <span style="opacity: 0.9;">09505085085505095</span>
+                        <span style="opacity: 0.9;">09822658382</span>
                     </li>
-                    <li class="mb-3 d-flex align-items-center gap-2">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="mb-3 d-flex align-items-start gap-2">
+                        <svg class="mt-1" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
-                        <span style="opacity: 0.9;">support@tfcresua.tech</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-center gap-2">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                        </svg>
-                        <span style="opacity: 0.9;">pcci-valenzuela.com</span>
+                        <span style="opacity: 0.9;">info@pccivalenzuela.org</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <hr class="my-4" style="opacity: 0.3;">
-
-        <div class="text-center" style="opacity: 0.8; font-size: 0.9rem;">
-            <p class="mb-0">© YYYY - 2026 PCCI - Valenzuela. All rights reserved. | Philippine Chamber of Commerce and Industry - Valenzuela Chapter</p>
-            <p class="mb-0 mt-2">Fostering economic growth and business excellence in Valenzuela City since YYYY</p>
+        <hr class="my-4" style="opacity: 0.2;">
+        
+        <div class="text-center" style="opacity: 0.7;">
+            <p class="mb-0 small">&copy; {{ date('Y') }} PCCI Valenzuela. All rights reserved.</p>
         </div>
     </div>
 </footer>

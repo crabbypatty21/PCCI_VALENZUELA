@@ -32,8 +32,7 @@
 
             /* --- Custom Header Styles --- */
             .header-custom {
-                /* Background is handled inline or via utility now for transparency */
-                backdrop-filter: blur(4px); /* Reduced blur for clearer image visibility */
+                backdrop-filter: blur(4px);
                 z-index: 1000;
                 transition: all 0.3s ease;
             }
@@ -67,7 +66,7 @@
                 white-space: nowrap;
             }
 
-            /* --- Navigation Links (Updated) --- */
+            /* --- Navigation Links --- */
             .btn-ghost-custom {
                 color: #4a4a4a;
                 padding: 0.5rem 0.85rem;
@@ -83,7 +82,7 @@
                 background-color: rgba(0,0,0,0.04);
             }
 
-            /* --- Buttons (Updated) --- */
+            /* --- Buttons --- */
             .btn-outline-custom {
                 color: #1b1b18;
                 border: 1px solid rgba(0, 0, 0, 0.15);
@@ -161,7 +160,6 @@
             }
 
             .content-spacer { 
-                /* Removed margin-top to allow content to sit behind fixed header */
                 margin-top: 0; 
                 flex: 1;
                 display: flex;
@@ -206,6 +204,165 @@
                 font-size: 0.95rem;
                 margin-bottom: 0;
             }
+
+            /* ============================================== */
+            /* COMMUNITY CAROUSEL STYLES - START */
+            /* ============================================== */
+            
+            .community-carousel-section {
+                background-color: #fdf2f4;
+                padding: 60px 0;
+            }
+
+            .community-carousel-wrapper {
+                position: relative;
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 0 60px;
+            }
+
+            /* The slides container */
+            .carousel-inner {
+                overflow: visible !important;
+            }
+
+            /* Each slide */
+            .community-slide {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                padding: 20px 0;
+            }
+
+            /* Individual image cards */
+            .slide-image-wrapper {
+                position: relative;
+                transition: all 0.5s ease;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .slide-image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* Center image - larger */
+            .slide-image-wrapper.center {
+                width: 420px;
+                height: 300px;
+                z-index: 10;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            }
+
+            /* Side images - smaller and faded */
+            .slide-image-wrapper.side {
+                width: 200px;
+                height: 250px;
+                opacity: 0.6;
+                filter: brightness(0.85);
+            }
+
+            /* Navigation Arrows */
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 50px;
+                height: 50px;
+                background: white;
+                border-radius: 50%;
+                top: 50%;
+                transform: translateY(-50%);
+                opacity: 1;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .carousel-control-prev {
+                left: 0;
+            }
+
+            .carousel-control-next {
+                right: 0;
+            }
+
+            .carousel-control-prev:hover,
+            .carousel-control-next:hover {
+                background: #A40033;
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                width: 20px;
+                height: 20px;
+                filter: invert(1) grayscale(100) brightness(0);
+            }
+
+            .carousel-control-prev:hover .carousel-control-prev-icon,
+            .carousel-control-next:hover .carousel-control-next-icon {
+                filter: invert(1) grayscale(100) brightness(100);
+            }
+
+            /* Pagination Dots */
+            .carousel-indicators {
+                bottom: -40px;
+            }
+
+            .carousel-indicators [data-bs-target] {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #ccc;
+                border: none;
+                opacity: 1;
+                margin: 0 5px;
+                transition: all 0.3s ease;
+            }
+
+            .carousel-indicators .active {
+                background-color: #333;
+                transform: scale(1.2);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .community-carousel-wrapper {
+                    padding: 0 40px;
+                }
+                
+                .slide-image-wrapper.center {
+                    width: 280px;
+                    height: 200px;
+                }
+                
+                .slide-image-wrapper.side {
+                    width: 120px;
+                    height: 160px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .community-carousel-wrapper {
+                    padding: 0 30px;
+                }
+                
+                .slide-image-wrapper.side {
+                    display: none;
+                }
+                
+                .slide-image-wrapper.center {
+                    width: 100%;
+                    max-width: 320px;
+                    height: 220px;
+                }
+            }
+
+            /* ============================================== */
+            /* COMMUNITY CAROUSEL STYLES - END */
+            /* ============================================== */
         </style>
     </head>
     <body>
@@ -215,7 +372,7 @@
         <div class="content-spacer w-100 mb-5">
             @yield('content')
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
