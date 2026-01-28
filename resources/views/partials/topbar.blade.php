@@ -21,11 +21,29 @@
         <div class="collapse navbar-collapse" id="navbarContent">
 
             <div class="d-flex flex-column flex-xl-row align-items-start align-items-xl-center ms-auto gap-2 gap-xl-1 mt-3 mt-xl-0">
-                <a href="{{ url('/') }}" class="btn-ghost-custom w-100 w-xl-auto {{ Request::is('/') ? 'fw-bold text-dark' : '' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">Home</a>
-                <a href="#" class="btn-ghost-custom w-100 w-xl-auto {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">About Us</a>
-                <a href="{{ url('/membership') }}" class="btn-ghost-custom w-100 w-xl-auto {{ Request::is('membership') ? 'fw-bold text-white' : '' }} {{ Request::is('business/*') ? 'text-white' : '' }}">Membership</a>
-                <a href="#" class="btn-ghost-custom w-100 w-xl-auto {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">Business Directory</a>
-                <a href="#" class="btn-ghost-custom w-100 w-xl-auto {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">Contact Us</a>
+                <a href="{{ url('/') }}" class="btn-ghost-custom w-100 w-xl-auto 
+                    {{ Request::is('/') ? 'fw-bold text-dark' : '' }} 
+                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                    Home
+                </a>
+                <a href="{{ route('about') }}" class="btn-ghost-custom w-100 w-xl-auto 
+                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                    About Us
+                </a>
+                <a href="{{ url('/membership') }}" class="btn-ghost-custom w-100 w-xl-auto 
+                    {{ Request::is('membership') ? 'fw-bold text-white' : '' }} 
+                    {{ Request::is('business/*') ? 'text-white' : '' }}">
+                    Membership
+                </a>
+                <a href="#" class="btn-ghost-custom w-100 w-xl-auto 
+                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                    Business Directory
+                </a>
+                <a href="{{ url('/contact') }}" class="btn-ghost-custom w-100 w-xl-auto 
+                    {{ Request::is('contact') ? 'fw-bold text-dark' : '' }} 
+                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                    Contact Us
+                </a>
             </div>
 
             <div class="d-flex flex-column flex-xl-row align-items-start align-items-xl-center gap-2 ms-xl-2 mt-2 mt-xl-0">
