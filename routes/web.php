@@ -21,3 +21,7 @@ Route::get('/contact', function () {
 Route::get('/business/tech-corp', function () {
     return view('MembershipBusinessProfileDetails');
 })->name('business.show');
+
+Route::get('/leadership', function () {
+    return view('leadership');
+})->name('leadership');
