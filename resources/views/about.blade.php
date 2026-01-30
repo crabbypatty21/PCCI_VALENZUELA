@@ -58,8 +58,7 @@
 
                 <a href="{{ route('leadership') }}" class="btn btn-danger fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="background-color: #F53003; border: none; border-radius: 6px;">
                     Meet Our Leadership
-                    <i class="fa-solid fa-arrow-right"> </i>
-                   
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
 
