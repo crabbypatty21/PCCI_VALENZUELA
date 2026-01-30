@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="w-100" style="
+    height: 500px;
     padding-top: 180px; 
     padding-bottom: 5rem; 
     margin-top: -1px;
