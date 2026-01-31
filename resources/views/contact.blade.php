@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- Hero Section --}}
-<div class="position-relative w-100 overflow-hidden" style="background: linear-gradient(135deg, rgba(245, 48, 3, 0.9), rgba(200, 35, 0, 0.9)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 400px;">
+<div class="position-relative w-100 overflow-hidden" style="background: linear-gradient(135deg, rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 500px;">
     <div class="container text-white text-center py-5" style="position: relative; z-index: 2;">
         <p class="text-uppercase fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.95;">
             JOIN PCCI - VALENZUELA

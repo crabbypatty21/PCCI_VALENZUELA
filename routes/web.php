@@ -6,6 +6,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', function () {
+    return view('home');
+});
 Route::get('/membership', function () {
     return view('membership');
 });
@@ -25,3 +28,7 @@ Route::get('/business/tech-corp', function () {
 Route::get('/leadership', function () {
     return view('leadership');
 })->name('leadership');
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');

@@ -3,7 +3,8 @@
 @section('content')
 {{-- Hero Section --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="position-relative w-100 overflow-hidden" style="background: linear-gradient(135deg, rgba(245, 48, 3, 0.9), rgba(200, 35, 0, 0.9)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 500px;">
+<div class="position-relative w-100 overflow-hidden" style="background: 
+linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 500px;">
     <div class="container text-white text-center py-5" style="position: relative; z-index: 2;">
         <p class="text-uppercase fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.95;">
             JOIN PCCI - VALENZUELA
@@ -37,14 +38,14 @@
                 
                 <div class="mb-4">
                     <h5 class="text-accent fw-bold mb-3">Our Mission</h5>
-                    <p style="line-height: 1.8; color: #4a4a4a;">
+                    <p style="line-height: 1.8; color: #000000;">
                         To champion the growth and success of Marikina businesses through robust advocacy, impactful networking, comprehensive development programs, and dedicated community engagement.
                     </p>
                 </div>
 
                 <div class="mb-5">
                     <h5 class="text-accent fw-bold mb-3">Our Vision</h5>
-                    <p style="line-height: 1.8; color: #4a4a4a;">
+                    <p style="line-height: 1.8; color: #000000;">
                         To be the leading catalyst for a vibrant, innovative, and sustainable business environment in Marikina City, recognized for driving economic prosperity and community well-being.
                     </p>
                 </div>
@@ -56,7 +57,7 @@
                     <p class="text-accent fw-bold mb-0">– Mr. Jundio Salvador, President</p>
                 </div>
 
-                <a href="{{ route('leadership') }}" class="btn btn-danger fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="background-color: #F53003; border: none; border-radius: 6px;">
+                <a href="{{ route('leadership') }}" class="btn btn-danger fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="background-color: #fd0000; border: none; border-radius: 6px;">
                     Meet Our Leadership
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -181,34 +182,58 @@
 </div>
 
 {{-- Our Impact Section --}}
-<div class="py-5" style="background-color: #B91C1C;" id="impact">
-    <div class="container text-white">
-        <div class="text-center mb-5">
-            <h6 class="text-uppercase fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.9;">Our Impact</h6>
-            <h2 class="fw-bold mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">Building a Stronger Valenzuela, One Business at a Time.</h2>
-            <p class="mx-auto" style="max-width: 800px; font-size: 1.05rem; opacity: 0.95;">
-                We measure our success by the tangible growth and prosperity of our members and the broader Marikina community.
-            </p>
+{{-- Impact Section (Split Layout Style) --}}
+<section class="w-100 overflow-hidden bg-white" id="impact">
+    <div class="row g-0">
+        {{-- Left: Visual Side (Image) --}}
+        <div class="col-lg-6 position-relative" style="min-height: 600px;">
+            {{-- Placeholder Image representing Growth/Impact --}}
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000" 
+                 alt="Valenzuela Business Impact" 
+                 class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+            
+            {{-- Red Tint Overlay (Consistent with theme) --}}
+            <div class="position-absolute top-0 start-0 w-100 h-100" 
+                 style="background: linear-gradient(to right, rgba(185, 28, 28, 0.4), rgba(185, 28, 28, 0));"></div>
         </div>
 
-        <div class="row g-4 mb-5">
-            @foreach([
-                ['number' => '100+', 'label' => 'Active Members', 'desc' => 'A growing network of diverse businesses', 'highlight' => true],
-                ['number' => '32+', 'label' => 'Years of Service', 'desc' => 'Dedicated to Marikina\'s economic progress', 'highlight' => false],
-                ['number' => '200+', 'label' => 'Events Hosted', 'desc' => 'Fostering connections and knowledge sharing', 'highlight' => false],
-                ['number' => '₱500M+', 'label' => 'Business Facilitated', 'desc' => 'Fueling member collaborations and growth', 'highlight' => false],
-            ] as $stat)
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 text-center p-4" style="border-radius: 12px; background-color: {{ $stat['highlight'] ? '#FCA5A5' : 'white' }};">
-                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: {{ $stat['highlight'] ? '#7F1D1D' : '#1f1f1f' }};">{{ $stat['number'] }}</h2>
-                    <h6 class="fw-bold mb-2" style="color: {{ $stat['highlight'] ? '#7F1D1D' : '#1f1f1f' }};">{{ $stat['label'] }}</h6>
-                    <p class="mb-0 small" style="color: {{ $stat['highlight'] ? '#7F1D1D' : '#6b7280' }};">{{ $stat['desc'] }}</p>
+        {{-- Right: Content Side (Red Background) --}}
+        <div class="col-lg-6 d-flex flex-column justify-content-center bg-danger text-white p-5">
+            <div class="p-lg-4 mx-auto w-100" style="max-width: 650px;">
+                
+                {{-- Header --}}
+                <h6 class="text-uppercase fw-bold mb-3 opacity-75" style="letter-spacing: 0.15em; font-size: 0.85rem;">
+                    Our Impact
+                </h6>
+                <h2 class="display-5 fw-bold mb-4">
+                    Building a Stronger Valenzuela, One Business at a Time.
+                </h2>
+                <p class="lead mb-5 opacity-90" style="font-weight: 300; line-height: 1.7; font-size: 1.1rem;">
+                    We measure our success by the tangible growth and prosperity of our members and the broader Valenzuela community.
+                </p>
+
+                {{-- Stats Grid --}}
+                <div class="row g-4">
+                    @foreach([
+                        ['number' => '100+', 'label' => 'Active Members', 'desc' => 'Growing network'],
+                        ['number' => '32+', 'label' => 'Years of Service', 'desc' => 'Dedicated progress'],
+                        ['number' => '200+', 'label' => 'Events Hosted', 'desc' => 'Fostering connections'],
+                        ['number' => '₱500M+', 'label' => 'Business Value', 'desc' => ' facilitated growth'],
+                    ] as $stat)
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-3 h-100" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);">
+                            <h3 class="fw-bold mb-1" style="font-size: 2rem;">{{ $stat['number'] }}</h3>
+                            <div class="fw-bold text-uppercase small opacity-75 mb-1" style="letter-spacing: 0.05em;">{{ $stat['label'] }}</div>
+                            <p class="mb-0 small opacity-50">{{ $stat['desc'] }}</p>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
+
             </div>
-            @endforeach
         </div>
     </div>
-</div>
+</section>
 
 {{-- ============================================== --}}
 {{-- COMMUNITY GALLERY - SMOOTH COVERFLOW CAROUSEL --}}
@@ -357,7 +382,7 @@
     }
     
     .swiper-pagination-bullet-active {
-        background: #333;
+        background: #ff0202;
         transform: scale(1.4);
     }
     
@@ -425,7 +450,9 @@
 <div class="community-section">
     <div class="container-fluid px-0">
         <div class="text-center  text-dark mb-4">
-            <h2 class="fw-bold" style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-family: 'DM Sans', sans-serif;">Glimpses of our Community in Action</h2>
+            <h2 class="fw-bold" style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-family: 'DM Sans', sans-serif;">Glimpses of our <span style="color: red;">Community</span> in Action
+</h2>
+
         </div>
 
         <div class="carousel-outer-container">
@@ -572,16 +599,16 @@
             PCCI Valenzuela is more than a chamber; it's a community dedicated to fostering a vibrant, sustainable, and inclusive business environment. Invest in your future and the future of Valenzuela.
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#membership" class="btn btn-danger fw-bold px-5 py-3" style="background-color: #F53003; border: none; border-radius: 6px; font-size: 1.1rem;">
+            <a href="#membership" class="btn btn-danger fw-bold px-5 py-3" style="background-color: #f50303; border: none; border-radius: 6px; font-size: 1.1rem;">
                 Become a Member Today
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="#contact" class="btn btn-outline-dark fw-bold px-5 py-3" style="border-radius: 6px; font-size: 1.1rem;">
+            <a href="{{ url('/contact') }}" class="btn btn-outline-dark fw-bold px-5 py-3" style="border-radius: 6px; font-size: 1.1rem;">
                 Contact Us
+                 
             </a>
             
         </div>
     </div>
 </div>
-
 @endsection
