@@ -5,7 +5,7 @@
 <div class="w-100" style="
     height: 500px;
     padding-top: 180px; 
-    padding-bottom: 5rem; 
+    padding-bottom: 3rem; 
     margin-top: -1px;
     background: linear-gradient(rgba(164, 13, 15, 0.6), rgba(164, 13, 15, 0.6)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
@@ -21,12 +21,24 @@
         <p class="text-white mb-0" style="max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
             Connect with our diverse community of innovative businesses and entrepreneurs driving economic growth and excellence in Valenzuela City.
         </p>
+
+        <div class="w-100 d-flex justify-content-end gap-3 mt-5">
+            <a href="mailto:pcci@gmail.com" class="btn fw-bold px-4 py-2 rounded-pill shadow" 
+               style="background-color: #ffffff; color: #a40d0f; border: 2px solid white;">
+               Contact Us
+            </a>
+            
+            <a href="tel:+639624407449" class="btn fw-bold px-4 py-2 rounded-pill shadow text-white" 
+               style="background-color: #a40d0f; border: 2px solid white;">
+               <i class="bi bi-telephone-fill me-2"></i>Call Now
+            </a>
+        </div>
+
     </div>
 </div>
 
-    <div class="container"> 
-
-<div class="row g-5 mt-2">
+<div class="container"> 
+    <div class="row g-5 mt-2">
 
     <div class="col-lg-8">
         
@@ -52,76 +64,67 @@
             </div>
         </div>
 
-    <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-5">
-        <h4 class="fw-bold text-danger mb-4">Our Location</h4>
-        
-        <div class="mb-4">
-            <div class="d-flex align-items-center gap-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                </svg>
-                <h5 class="fw-bold text-dark mb-0">Address</h5>
-            </div>
-            <p class="text-secondary ms-4 mb-0" style="font-size: 1.05rem;">
-                No. 04 fatima lane Milagrosa Village, Marikina heights 1810
-            </p>
-        </div>
-
-        <div class="position-relative rounded-3 overflow-hidden border shadow-sm">
+        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-5">
+            <h4 class="fw-bold text-danger mb-4">Our Location</h4>
             
-            <div class="position-absolute top-0 start-0 m-3 z-3">
-                <div class="bg-white rounded shadow-sm d-flex overflow-hidden">
-                    <button id="btn-map" onclick="setMapType('map')" 
-                            class="btn btn-sm text-dark fw-bold px-3 py-2 border-end rounded-0 hover-bg-light transition-all">
-                        Map
-                    </button>
-                    <button id="btn-sat" onclick="setMapType('satellite')" 
-                            class="btn btn-sm text-secondary fw-medium px-3 py-2 rounded-0 hover-bg-light transition-all">
-                        Satellite
-                    </button>
+            <div class="mb-4">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    <h5 class="fw-bold text-dark mb-0">Address</h5>
                 </div>
+                <p class="text-secondary ms-4 mb-0" style="font-size: 1.05rem;">
+                    No. 04 fatima lane Milagrosa Village, Marikina heights 1810
+                </p>
             </div>
 
-            <iframe 
-                id="map-frame"
-                src="https://maps.google.com/maps?q=No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810&t=m&z=15&output=embed&iwloc=near" 
-                width="100%" 
-                height="350" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+            <div class="position-relative rounded-3 overflow-hidden border shadow-sm">
+                
+                <div class="position-absolute top-0 start-0 m-3 z-3">
+                    <div class="bg-white rounded shadow-sm d-flex overflow-hidden">
+                        <button id="btn-map" onclick="setMapType('map')" 
+                                class="btn btn-sm text-dark fw-bold px-3 py-2 border-end rounded-0 hover-bg-light transition-all">
+                            Map
+                        </button>
+                        <button id="btn-sat" onclick="setMapType('satellite')" 
+                                class="btn btn-sm text-secondary fw-medium px-3 py-2 rounded-0 hover-bg-light transition-all">
+                            Satellite
+                        </button>
+                    </div>
+                </div>
+
+                <iframe 
+                    id="map-frame"
+                    src="https://maps.google.com/maps?q=No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810&t=m&z=15&output=embed&iwloc=near" 
+                    width="100%" 
+                    height="350" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
-    </div>
 
-    <script>
-        function setMapType(type) {
-            // 1. Get references to the elements
-            const iframe = document.getElementById('map-frame');
-            const btnMap = document.getElementById('btn-map');
-            const btnSat = document.getElementById('btn-sat');
-            
-            // Base URL for the address (Marikina Heights)
-            const baseUrl = "https://maps.google.com/maps?q=No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810&z=15&output=embed&iwloc=near";
+        <script>
+            function setMapType(type) {
+                const iframe = document.getElementById('map-frame');
+                const btnMap = document.getElementById('btn-map');
+                const btnSat = document.getElementById('btn-sat');
+                const baseUrl = "https://maps.google.com/maps?q=No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810&z=15&output=embed&iwloc=near";
 
-            if (type === 'map') {
-                // Set iframe to Map Mode (t=m)
-                iframe.src = baseUrl + "&t=m";
-                
-                // Update Button Styles (Map Active)
-                btnMap.className = "btn btn-sm text-dark fw-bold px-3 py-2 border-end rounded-0 hover-bg-light transition-all";
-                btnSat.className = "btn btn-sm text-secondary fw-medium px-3 py-2 rounded-0 hover-bg-light transition-all";
-            } else {
-                // Set iframe to Satellite Mode (t=k)
-                iframe.src = baseUrl + "&t=k";
-                
-                // Update Button Styles (Satellite Active)
-                btnMap.className = "btn btn-sm text-secondary fw-medium px-3 py-2 border-end rounded-0 hover-bg-light transition-all";
-                btnSat.className = "btn btn-sm text-dark fw-bold px-3 py-2 rounded-0 hover-bg-light transition-all";
+                if (type === 'map') {
+                    iframe.src = baseUrl + "&t=m";
+                    btnMap.className = "btn btn-sm text-dark fw-bold px-3 py-2 border-end rounded-0 hover-bg-light transition-all";
+                    btnSat.className = "btn btn-sm text-secondary fw-medium px-3 py-2 rounded-0 hover-bg-light transition-all";
+                } else {
+                    iframe.src = baseUrl + "&t=k";
+                    btnMap.className = "btn btn-sm text-secondary fw-medium px-3 py-2 border-end rounded-0 hover-bg-light transition-all";
+                    btnSat.className = "btn btn-sm text-dark fw-bold px-3 py-2 rounded-0 hover-bg-light transition-all";
+                }
             }
-        }
-    </script>
+        </script>
 
     </div>
 
@@ -184,8 +187,4 @@
 
     </div>
 
-</div>
-    
-</div>
-</div>
-@endsection
+</div> </div> @endsection

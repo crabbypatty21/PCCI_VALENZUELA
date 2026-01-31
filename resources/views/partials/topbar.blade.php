@@ -2,17 +2,30 @@
         style="background-color: {{ (Request::is('membership') || Request::is('business/*')) ? 'transparent' : '#A40D0F99' }}; transition: background-color 0.3s ease;">
     <nav class="navbar navbar-expand-xl w-100 p-0">
         
-        <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset me-auto">
-            <div class="logo-box flex-shrink-0">
-                <svg class="text-accent" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                </svg>
-            </div>
+            <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset me-auto">
+                <div class="logo-box flex-shrink-0 rounded-circle">
+                    <img 
+                        src="{{ asset('images/PCCI-Logo.svg') }}" 
+                        alt="PCCI Logo"
+                        width="50"
+                        height="50"
+                        style="object-fit: contain; display: block;"
+                    >
+                </div>
+
             <div class="d-flex flex-column brand-text">
-                <span class="brand-title" style="color: {{ (Request::is('membership') || Request::is('business/*')) ? '#fff' : '#1b1b18' }};">PCCI - Valenzuela</span>
-                <span class="brand-subtitle d-none d-sm-block" style="color: {{ (Request::is('membership') || Request::is('business/*')) ? 'rgba(255,255,255,0.8)' : '#6c757d' }};">Philippine Chambers of Commerce and Industry</span>
+                <span class="brand-title"
+                    style="color: {{ (Request::is('membership') || Request::is('business/*')) ? '#fff' : '#1b1b18' }};">
+                    PCCI - Valenzuela
+                </span>
+
+                <span class="brand-subtitle d-none d-sm-block"
+                    style="color: {{ (Request::is('membership') || Request::is('business/*')) ? 'rgba(255,255,255,0.8)' : '#6c757d' }};">
+                    Philippine Chambers of Commerce and Industry
+                </span>
             </div>
         </a>
+
 
         <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
