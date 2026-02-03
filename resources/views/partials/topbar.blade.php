@@ -1,76 +1,74 @@
-<header class="header-custom w-100 px-4 py-3 {{ (Request::is('membership') || Request::is('business/*')) ? 'fixed-top' : 'sticky-top' }}" 
-        style="background-color: {{ (Request::is('membership') || Request::is('business/*')) ? 'transparent' : '#A40D0F99' }}; transition: background-color 0.3s ease;">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<header id="main-topbar" 
+        class="fixed-top w-100 px-4 py-3" 
+        style="background-color: transparent; transition: background-color 0.3s ease;">
+    
     <nav class="navbar navbar-expand-xl w-100 p-0">
         
-            <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset me-auto">
-                <div class="logo-box flex-shrink-0 rounded-circle">
-                    <img 
-                        src="{{ asset('images/PCCI-Logo.svg') }}" 
-                        alt="PCCI Logo"
-                        width="50"
-                        height="50"
-                        style="object-fit: contain; display: block;"
-                    >
-                </div>
+        <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset">
+            <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
+                <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo" class="w-100 h-100 object-fit-contain">
+            </div>
 
-            <div class="d-flex flex-column brand-text">
-                <span class="brand-title"
-                    style="color: {{ (Request::is('membership') || Request::is('business/*')) ? '#fff' : '#1b1b18' }};">
+            <div class="d-flex flex-column">
+                <span class="fw-bold" style="font-family: 'Poppins', sans-serif; color: {{ (Request::is('membership') || Request::is('business/*')) ? '#fff' : '#1b1b18' }};">
                     PCCI - Valenzuela
                 </span>
-
-                <span class="brand-subtitle d-none d-sm-block"
-                    style="color: {{ (Request::is('membership') || Request::is('business/*')) ? 'rgba(255,255,255,0.8)' : '#6c757d' }};">
+                <span class="d-none d-sm-block small" style="font-family: 'DM Sans', sans-serif; color: {{ (Request::is('membership') || Request::is('business/*')) ? 'rgba(255,255,255,0.8)' : '#6c757d' }};">
                     Philippine Chambers of Commerce and Industry
                 </span>
             </div>
         </a>
 
-
-        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarContent">
-
-            <div class="d-flex flex-column flex-xl-row align-items-start align-items-xl-center ms-auto gap-2 gap-xl-1 mt-3 mt-xl-0">
-                <a href="{{ url('/') }}" class="btn-ghost-custom w-100 w-xl-auto 
-                    {{ Request::is('/') ? 'fw-bold text-dark' : '' }} 
-                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+            
+            <div class="d-flex flex-column flex-xl-row align-items-xl-center mx-auto gap-3 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
+                
+                <a href="{{ url('/') }}" class="text-decoration-none px-2 {{ Request::is('/') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
                     Home
                 </a>
-                <a href="{{ route('about') }}" class="btn-ghost-custom w-100 w-xl-auto 
-                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                <a href="{{ route('about') }}" class="text-decoration-none px-2 text-secondary {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
                     About Us
                 </a>
-                <a href="{{ url('/membership') }}" class="btn-ghost-custom w-100 w-xl-auto 
-                    {{ Request::is('membership') ? 'fw-bold text-white' : '' }} 
-                    {{ Request::is('business/*') ? 'text-white' : '' }}">
+                <a href="{{ url('/membership') }}" class="text-decoration-none px-2 {{ Request::is('membership') ? 'fw-bold text-white' : 'text-secondary' }} {{ Request::is('business/*') ? 'text-white' : '' }}">
                     Membership
                 </a>
-                <a href="#" class="btn-ghost-custom w-100 w-xl-auto 
-                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                <a href="#" class="text-decoration-none px-2 text-secondary {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
                     Business Directory
                 </a>
-                <a href="{{ url('/contact') }}" class="btn-ghost-custom w-100 w-xl-auto 
-                    {{ Request::is('contact') ? 'fw-bold text-dark' : '' }} 
-                    {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                <a href="{{ url('/contact') }}" class="text-decoration-none px-2 {{ Request::is('contact') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
                     Contact Us
                 </a>
             </div>
 
-            <div class="d-flex flex-column flex-xl-row align-items-start align-items-xl-center gap-2 ms-xl-2 mt-2 mt-xl-0">
+            <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
                 
-                <a href="{{ url('/membership') }}" class="btn-primary-custom w-100 w-xl-auto text-center text-nowrap">Join PCCI</a>
+                {{-- UPDATED BUTTON BELOW --}}
+                <a href="{{ url('/membership') }}" 
+                   id="join-pcci-btn"
+                   class="btn btn-danger text-nowrap rounded-2 px-4"
+                   style="background-color: #A40D0F; border-color: #A40D0F; transition: all 0.3s ease;">
+                    Join PCCI
+                </a>
 
                 @if (Route::has('login'))
-                    <div class="d-flex flex-column flex-xl-row align-items-start align-items-xl-center gap-2 border-start-xl ps-xl-3 ms-xl-1 w-100 w-xl-auto" style="border-color: rgba(0,0,0,0.1) !important;">
+                    <div class="d-flex gap-2 ps-xl-3 border-start-xl" style="border-color: rgba(0,0,0,0.1);">
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="btn-outline-custom w-100 w-xl-auto text-center text-nowrap {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white border-white' : '' }}">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" 
+                               class="btn {{ (Request::is('membership') || Request::is('business/*')) ? 'btn-outline-light' : 'btn-outline-dark' }} rounded-pill px-4">
+                                Dashboard
+                            </a>
                         @else
-                            <a href="{{ route('login') }}" class="btn-ghost-custom w-100 w-xl-auto text-center text-nowrap {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">Log in</a>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn-outline-custom w-100 w-xl-auto text-center text-nowrap {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white border-white' : '' }}">Register</a>
+                                <a href="{{ route('register') }}" 
+                                   class="btn {{ (Request::is('membership') || Request::is('business/*')) ? 'btn-outline-light' : 'btn-outline-dark' }} rounded-pill px-4 text-nowrap">
+                                    Register
+                                </a>
                             @endif
                         @endauth
                     </div>
@@ -80,3 +78,41 @@
         </div>
     </nav>
 </header>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const topbar = document.getElementById("main-topbar");
+        const joinBtn = document.getElementById("join-pcci-btn"); // Select the button
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 50) {
+                // --- SCROLLED STATE ---
+                
+                // Navbar: Red with 0.9 Opacity
+                topbar.style.backgroundColor = "rgba(164, 13, 15, 0.9)";
+                topbar.classList.add("shadow-sm");
+
+                // Button: White BG, Red Text
+                if (joinBtn) {
+                    joinBtn.style.backgroundColor = "#ffffff";
+                    joinBtn.style.borderColor = "#ffffff";
+                    joinBtn.style.color = "#A40D0F"; 
+                }
+
+            } else {
+                // --- TOP STATE (DEFAULT) ---
+
+                // Navbar: Transparent
+                topbar.style.backgroundColor = "transparent";
+                topbar.classList.remove("shadow-sm");
+
+                // Button: Red BG, White Text (Revert to original)
+                if (joinBtn) {
+                    joinBtn.style.backgroundColor = "#A40D0F";
+                    joinBtn.style.borderColor = "#A40D0F";
+                    joinBtn.style.color = "#ffffff";
+                }
+            }
+        });
+    });
+</script>
