@@ -8,4 +8,55 @@
 @theme {
     --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}:root {
+    --primary-red: #A40033;
+}
+
+/* Navbar Initial State (Transparent/Clean) */
+#mainNavbar {
+    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    padding: 15px 0;
+    transition: all 0.4s ease;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Navbar Scrolled State (Solid & Compact) */
+#mainNavbar.scrolled {
+    background-color: #ffffff !important;
+    padding: 10px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Link Styles */
+.nav-link {
+    font-weight: 500;
+    color: #333 !important;
+    font-size: 0.95rem;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-red) !important;
+}
+
+/* Underline effect on hover */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 5px;
+    left: 50%;
+    background-color: var(--primary-red);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 20px;
+}
+body {
+    padding-top: 80px; /* Adjust this number to match your navbar height */
 }

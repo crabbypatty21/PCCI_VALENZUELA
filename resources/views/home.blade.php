@@ -822,6 +822,15 @@
         color: #A40033;
     }
     
+    /* ===== SWIPER CUSTOMIZATION ===== */
+    /* .swiper-pagination-bullet {
+        background: #A40033;
+    }
+    
+    .swiper-pagination-bullet-active {
+        background: #A40033;
+    }
+     */
     /* ===== RESPONSIVE ===== */
     @media (max-width: 767px) {
         .hero-title {
