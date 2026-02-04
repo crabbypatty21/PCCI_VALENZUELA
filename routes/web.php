@@ -7,11 +7,12 @@ Route::get('/', function () {
 });
 
 Route::get('/', function () {
-    return view('home');
-});
+    return view('home'); // or whatever your homepage view is
+})->name('home');
+
 Route::get('/membership', function () {
     return view('membership');
-});
+})->name('membership');
 
 Route::get('/about', function () {
     return view('about');
@@ -19,7 +20,7 @@ Route::get('/about', function () {
 
 Route::get('/contact', function () {
     return view('contact');
-});
+})->name('contact');
 // Updated route to use the specified filename
 Route::get('/business/tech-corp', function () {
     return view('MembershipBusinessProfileDetails');
@@ -32,3 +33,7 @@ Route::get('/leadership', function () {
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
+Route::get('/event', function () {
+    return view('event');
+})->name('event');

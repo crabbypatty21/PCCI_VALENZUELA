@@ -1,5 +1,5 @@
 {{-- resources/views/partials/footer.blade.php --}}
-<footer class="py-5 text-white" style="background-color: #1f1f1f;">
+<footer class="py-5 text-white" style="background-color: #AC1D32;">
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-4">
@@ -74,8 +74,8 @@
         <hr class="my-4" style="opacity: 0.2;">
         
         <div class="text-center" style="opacity: 0.7;">
-            <p class="mb-0 small">&copy; © -  {{ date('Y') }} Valenzuela. All rights reserved. | Philippine Chamber of Commerce and Industry - Valenzuela Chapter <br>
-                                        Fostering economic growth and business excellence in Valenzuela City since YYYY</p>
+            <p class="mb-0 small">&copy; © -  {{ date('Y') }} Valenzuela. All rights reserved. | Philippine Chamber of Commerce and Industry - Valenzuela Chapter <br>
+                                            Fostering economic growth and business excellence in Valenzuela City since YYYY</p>
         </div>
     </div>
 </footer>
