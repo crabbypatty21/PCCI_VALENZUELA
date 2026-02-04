@@ -2,13 +2,15 @@
 
 @section('content')
 
-<div class="w-100 mb-5" style="
-    height: 500px;
+{{-- 
+    FIX NOTES: 
+    1. Consolidated the merged "div" tags into one container.
+    2. Kept the "Red" overlay.
+    3. UPDATED: Added Business Type Tags (Manufacturing, Distributor, etc.) with background colors above the company names.
+--}}
 <div class="w-100 mb-0" style="
     padding-top: 140px; 
     padding-bottom: 3rem;
-    margin-top: -1px; /* Ensures overlap with fixed header */
-    background: linear-gradient(rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
     margin-top: -1px; 
     background: linear-gradient(rgba(164, 13, 15, 0.43), rgba(164, 13, 15, 0.43)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
@@ -31,7 +33,10 @@
                     <svg width="20" height="20" fill="none" stroke="#6c757d" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </span>
                 <input type="text" class="form-control border-0 py-3 shadow-none text-secondary" placeholder="Search businesses, services..." aria-label="Search">
-                <button class="btn btn-primary px-4 fw-bold text-uppercase" type="button" style="letter-spacing: 0.05em;">Search</button>
+                <button class="btn text-white px-4 fw-bold text-uppercase" type="button" 
+                        style="letter-spacing: 0.05em; background-color: #D40032; border-color: #D40032;">
+                    Search
+                </button>
             </div>
         </div>
     </div>
@@ -70,6 +75,7 @@
 
         <div class="row g-4">
             
+            {{-- Tech Corp --}}
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm p-3" style="border-radius: 12px; background: #fff;">
                     <div class="d-flex align-items-center gap-3 mb-3">
@@ -77,6 +83,11 @@
                             TC
                         </div>
                         <div>
+                            {{-- NEW: Business Type Tag (Blue) --}}
+                            <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
+                                  style="font-size: 0.65rem; background-color: #e7f1ff; color: #0d6efd; letter-spacing: 0.05em;">
+                                Manufacturing
+                            </span>
                             <h5 class="fw-bold mb-0 text-dark">Tech Corp Inc.</h5>
                             <small class="text-muted">Technology & Software</small>
                         </div>
@@ -101,12 +112,16 @@
                                     +63 912 345 6789
                                 </div>
                             </div>
-                            <a href="{{ route('business.show') }}" class="btn-outline-custom py-1 px-3 text-center ms-2" style="font-size: 0.8rem; white-space: nowrap;">View Details</a>
+                            <a href="{{ route('business.show') }}" class="btn py-1 px-3 text-center ms-2 text-white fw-bold" 
+                               style="font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
+            {{-- Green Fields --}}
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm p-3" style="border-radius: 12px; background: #fff;">
                     <div class="d-flex align-items-center gap-3 mb-3">
@@ -114,6 +129,11 @@
                             GF
                         </div>
                         <div>
+                            {{-- NEW: Business Type Tag (Green) --}}
+                            <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
+                                  style="font-size: 0.65rem; background-color: #d1e7dd; color: #146c43; letter-spacing: 0.05em;">
+                                Distributor
+                            </span>
                             <h5 class="fw-bold mb-0 text-dark">Green Fields</h5>
                             <small class="text-muted">Agriculture & Supply</small>
                         </div>
@@ -138,12 +158,16 @@
                                     (02) 8123 4567
                                 </div>
                             </div>
-                            <a href="#" class="btn-outline-custom py-1 px-3 text-center ms-2" style="font-size: 0.8rem; white-space: nowrap;">View Details</a>
+                            <a href="{{ route('business.show') }}" class="btn py-1 px-3 text-center ms-2 text-white fw-bold" 
+                               style="font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
+            {{-- BuildLink --}}
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm p-3" style="border-radius: 12px; background: #fff;">
                     <div class="d-flex align-items-center gap-3 mb-3">
@@ -151,6 +175,11 @@
                             BL
                         </div>
                         <div>
+                            {{-- NEW: Business Type Tag (Yellow/Orange) --}}
+                            <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
+                                  style="font-size: 0.65rem; background-color: #fff3cd; color: #664d03; letter-spacing: 0.05em;">
+                                Services
+                            </span>
                             <h5 class="fw-bold mb-0 text-dark">BuildLink</h5>
                             <small class="text-muted">Construction</small>
                         </div>
@@ -175,7 +204,10 @@
                                     (02) 8987 6543
                                 </div>
                             </div>
-                            <a href="#" class="btn-outline-custom py-1 px-3 text-center ms-2" style="font-size: 0.8rem; white-space: nowrap;">View Details</a>
+                            <a href="{{ route('business.show') }}" class="btn py-1 px-3 text-center ms-2 text-white fw-bold" 
+                               style="font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
