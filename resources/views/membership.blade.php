@@ -12,7 +12,7 @@
     padding-top: 140px; 
     padding-bottom: 3rem;
     margin-top: -1px; 
-    background: linear-gradient(rgba(164, 13, 15, 0.43), rgba(164, 13, 15, 0.43)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center top;
 ">
