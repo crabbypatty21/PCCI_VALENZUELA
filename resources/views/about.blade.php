@@ -272,12 +272,13 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
         height: 50px;
         background: transparent;
         border: none;
-        cursor: pointer;
-        z-index: 100;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        cursor: pointer;
+        z-index: 50;
+        transition: all 0.3s ease;
+        padding: 0;
     }
     
     .nav-arrow:hover {
