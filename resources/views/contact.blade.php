@@ -22,7 +22,7 @@
         <div class="row g-4">
             {{-- Get in Touch Section --}}
             <div class="col-lg-5">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px;">
+               <div class="card border-2 shadow-sm h-70" style="border-radius: 12px; border-color: #A40033;">
                     <div class="card-body p-4">
                         <h3 class="fw-bold mb-4" style="color: #1f1f1f;">Get in Touch</h3>
                         
@@ -102,7 +102,7 @@
                 </div>
 
                 {{-- Board of Trustees Section --}}
-                <div class="card border-0 shadow-sm mt-4" style="border-radius: 12px;">
+                <div class="card border-2 shadow-sm mt-4" style="border-radius: 12px; border-color: #A40033;">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <div class="d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #FEE2E2; border-radius: 10px;">
@@ -124,7 +124,7 @@
 
             {{-- Map Section --}}
             <div class="col-lg-7">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow: hidden;">
+                <div class="card border-2 shadow-sm h-100" style="border-radius: 12px; border-color: #A40033; overflow: hidden;">
                     <div class="card-header bg-white border-0 p-4">
                         <h3 class="fw-bold mb-0" style="color: #1f1f1f;">Our Location</h3>
                     </div>
