@@ -754,10 +754,302 @@
         color: #fff;
     }
     
-    /* ===== EVENTS SECTION ===== */
+     /* ===== EVENTS SECTION ===== */
     .events-section {
         padding: 5rem 0;
         background-color: #faf8f5;
+    }
+    
+    /* Event Cards Carousel */
+    .events-carousel-wrapper {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .events-swiper {
+        padding: 30px 10px 50px;
+        overflow: visible !important;
+    }
+    
+    .event-card {
+        background: #1a1a2e;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        height: 380px;
+        transition: all 0.3s ease;
+    }
+    
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .event-card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .event-card-bg::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+    }
+    
+    .event-card-content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem;
+    }
+    
+    .event-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .event-date-badge {
+        background: #A40033;
+        color: #fff;
+        border-radius: 10px;
+        padding: 0.5rem 0.75rem;
+        text-align: center;
+        min-width: 60px;
+    }
+    
+    .event-date-badge .day-name {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        opacity: 0.9;
+        display: block;
+    }
+    
+    .event-date-badge .day-number {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1;
+        display: block;
+    }
+    
+    .event-date-badge .month {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        opacity: 0.9;
+        display: block;
+    }
+    
+    .event-info-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .event-info-icon:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .event-info-icon svg {
+        width: 18px;
+        height: 18px;
+        stroke: #fff;
+    }
+    
+    .event-card-body {
+        margin-top: auto;
+    }
+    
+    .event-location {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #fff;
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .event-location svg {
+        width: 16px;
+        height: 16px;
+        fill: #A40033;
+    }
+    
+    .event-card-title {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
+    .btn-event-details {
+        display: block;
+        width: 100%;
+        background: #A40033;
+        color: #fff;
+        text-align: center;
+        padding: 0.875rem;
+        border-radius: 8px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-event-details:hover {
+        background: #8a002b;
+        color: #fff;
+    }
+    
+    /* Events Swiper Navigation */
+    .events-nav-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .events-nav-btn {
+        width: 50px;
+        height: 50px;
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .events-nav-btn:hover {
+        background: #A40033;
+        border-color: #A40033;
+    }
+    
+    .events-nav-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: #333;
+        transition: stroke 0.3s ease;
+    }
+    
+    .events-nav-btn:hover svg {
+        stroke: #fff;
+    }
+    
+    .events-swiper .swiper-pagination {
+        position: relative;
+        margin-top: 0;
+        display: flex;
+        gap: 8px;
+    }
+    
+    .events-swiper .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background: #ccc;
+        opacity: 1;
+        transition: all 0.3s ease;
+    }
+    
+    .events-swiper .swiper-pagination-bullet-active {
+        background: #A40033;
+        transform: scale(1.2);
+    }
+    
+    .btn-view-all-events {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #A40033;
+        color: #fff;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-top: 2rem;
+    }
+    
+    .btn-view-all-events:hover {
+        background: #8a002b;
+        color: #fff;
+    }
+    
+    .btn-view-all-events svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+    }
+    
+    .btn-view-all-events:hover svg {
+        transform: translateX(5px);
+    }
+    
+    /* Events Section Responsive */
+    @media (max-width: 992px) {
+        .event-card {
+            height: 360px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .events-section {
+            padding: 3rem 0;
+        }
+        
+        .event-card {
+            height: 340px;
+        }
+        
+        .event-card-title {
+            font-size: 1.1rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .events-carousel-wrapper {
+            padding: 0 10px;
+        }
+        
+        .event-card {
+            height: 320px;
+        }
+        
+        .events-nav-btn {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .events-nav-btn svg {
+            width: 16px;
+            height: 16px;
+        }
     }
     
     /* ===== TESTIMONIALS SECTION ===== */
@@ -821,16 +1113,7 @@
         border-color: #A40033;
         color: #A40033;
     }
-    
-    /* ===== SWIPER CUSTOMIZATION ===== */
-    /* .swiper-pagination-bullet {
-        background: #A40033;
-    }
-    
-    .swiper-pagination-bullet-active {
-        background: #A40033;
-    }
-     */
+ 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 767px) {
         .hero-title {
@@ -1124,7 +1407,7 @@
     </div>
 </section>
 
-<!-- Events Section -->
+<!-- Events Section - Join Our Business Community -->
 <section class="events-section">
     <div class="container">
         <div class="text-center">
@@ -1133,8 +1416,191 @@
             <p class="section-description">Participate in our upcoming events designed to foster networking, learning, and business growth</p>
         </div>
         
-        <div class="text-center mt-4">
-            <a href="#" class="btn-hero-primary">View All Events</a>
+        <!-- Events Carousel -->
+        <div class="events-carousel-wrapper">
+            <div class="swiper events-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Event Card 1 -->
+                    <div class="swiper-slide">
+                        <div class="event-card">
+                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop');"></div>
+                            <div class="event-card-content">
+                                <div class="event-card-header">
+                                    <div class="event-date-badge">
+                                        <span class="day-name">Tue</span>
+                                        <span class="day-number">21</span>
+                                        <span class="month">Jan</span>
+                                    </div>
+                                    <div class="event-info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="event-card-body">
+                                    <div class="event-location">
+                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Valenzuela
+                                    </div>
+                                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
+                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Event Card 2 -->
+                    <div class="swiper-slide">
+                        <div class="event-card">
+                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop');"></div>
+                            <div class="event-card-content">
+                                <div class="event-card-header">
+                                    <div class="event-date-badge">
+                                        <span class="day-name">Tue</span>
+                                        <span class="day-number">21</span>
+                                        <span class="month">Jan</span>
+                                    </div>
+                                    <div class="event-info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="event-card-body">
+                                    <div class="event-location">
+                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Valenzuela
+                                    </div>
+                                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
+                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Event Card 3 -->
+                    <div class="swiper-slide">
+                        <div class="event-card">
+                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop');"></div>
+                            <div class="event-card-content">
+                                <div class="event-card-header">
+                                    <div class="event-date-badge">
+                                        <span class="day-name">Tue</span>
+                                        <span class="day-number">21</span>
+                                        <span class="month">Jan</span>
+                                    </div>
+                                    <div class="event-info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="event-card-body">
+                                    <div class="event-location">
+                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Valenzuela
+                                    </div>
+                                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
+                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Event Card 4 -->
+                    <div class="swiper-slide">
+                        <div class="event-card">
+                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop');"></div>
+                            <div class="event-card-content">
+                                <div class="event-card-header">
+                                    <div class="event-date-badge">
+                                        <span class="day-name">Wed</span>
+                                        <span class="day-number">15</span>
+                                        <span class="month">Feb</span>
+                                    </div>
+                                    <div class="event-info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="event-card-body">
+                                    <div class="event-location">
+                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Valenzuela
+                                    </div>
+                                    <h3 class="event-card-title">Business Networking Summit 2025</h3>
+                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Event Card 5 -->
+                    <div class="swiper-slide">
+                        <div class="event-card">
+                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop');"></div>
+                            <div class="event-card-content">
+                                <div class="event-card-header">
+                                    <div class="event-date-badge">
+                                        <span class="day-name">Fri</span>
+                                        <span class="day-number">28</span>
+                                        <span class="month">Feb</span>
+                                    </div>
+                                    <div class="event-info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="event-card-body">
+                                    <div class="event-location">
+                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Valenzuela
+                                    </div>
+                                    <h3 class="event-card-title">Entrepreneurship Workshop Series</h3>
+                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation at bottom -->
+            <div class="events-nav-container">
+                <button class="events-nav-btn" id="events-prev" aria-label="Previous event">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="swiper-pagination events-pagination"></div>
+                <button class="events-nav-btn" id="events-next" aria-label="Next event">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ route('event') }}" class="btn-view-all-events">
+                View All Events
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
         </div>
     </div>
 </section>
