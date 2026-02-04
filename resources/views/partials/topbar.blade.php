@@ -38,8 +38,9 @@
                 <a href="{{ url('/membership') }}" class="text-decoration-none px-2 {{ Request::is('membership') ? 'fw-bold text-white' : 'text-secondary' }} {{ Request::is('business/*') ? 'text-white' : '' }}">
                     Membership
                 </a>
-                <a href="#" class="text-decoration-none px-2 text-secondary {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
-                    Business Directory
+                {{-- FIXED: Changed Business Directory to Events --}}
+                <a href="{{ route('event') }}" class="text-decoration-none px-2 {{ Request::is('event') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
+                    Events
                 </a>
                 <a href="{{ url('/contact') }}" class="text-decoration-none px-2 {{ Request::is('contact') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
                     Contact Us
