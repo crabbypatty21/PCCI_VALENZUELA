@@ -4,9 +4,9 @@
 
 {{-- 
     FIX NOTES: 
-    1. Consolidated the merged "div" tags into one container.
-    2. Kept the "Red" overlay.
-    3. UPDATED: Added Business Type Tags (Manufacturing, Distributor, etc.) with background colors above the company names.
+    1. Replaced raw SVG icons with Bootstrap Icons (bi-*)
+    2. Maintained previous layout and "Red" overlay
+    3. Applied Font Styles: Poppins for Headings, DM Sans for Body/Buttons
 --}}
 <div class="w-100 mb-0" style="
     padding-top: 140px; 
@@ -17,24 +17,27 @@
     background-position: center top;
 ">
     <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
+        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
             PCCI - Valenzuela
         </span>
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="letter-spacing: -0.02em;">
+        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'Poppins', sans-serif; letter-spacing: -0.02em;">
             Discover Local Businesses
         </h1>
-        <p class="text-white mb-4" style="max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
+        <p class="text-white mb-4" style="font-family: 'DM Sans', sans-serif; max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
             Connect with our diverse community of innovative businesses and entrepreneurs driving economic growth and excellence in Valenzuela City.
         </p>
 
         <div class="w-100 mt-2" style="max-width: 600px;">
             <div class="input-group shadow-sm bg-white rounded overflow-hidden border-0">
                 <span class="input-group-text bg-white border-0 ps-3">
-                    <svg width="20" height="20" fill="none" stroke="#6c757d" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    {{-- Updated: Bootstrap Search Icon --}}
+                    <i class="bi bi-search text-secondary" style="font-size: 1.1rem;"></i>
                 </span>
-                <input type="text" class="form-control border-0 py-3 shadow-none text-secondary" placeholder="Search businesses, services..." aria-label="Search">
+                <input type="text" class="form-control border-0 py-3 shadow-none text-secondary" 
+                       style="font-family: 'DM Sans', sans-serif;"
+                       placeholder="Search businesses, services..." aria-label="Search">
                 <button class="btn text-white px-4 fw-bold text-uppercase" type="button" 
-                        style="letter-spacing: 0.05em; background-color: #D40032; border-color: #D40032;">
+                        style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.05em; background-color: #D40032; border-color: #D40032;">
                     Search
                 </button>
             </div>
@@ -46,7 +49,7 @@
     <div class="container mb-5">
         
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
-            <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+            <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start" style="font-family: 'DM Sans', sans-serif;">
                 <select class="form-select form-select-sm bg-white border-0 shadow-sm" style="width: auto; cursor: pointer; font-weight: 500;">
                     <option selected>All Categories</option>
                     <option value="tech">Technology</option>
@@ -68,7 +71,7 @@
                 </select>
             </div>
 
-            <div class="text-secondary small fw-medium">
+            <div class="text-secondary small fw-medium" style="font-family: 'DM Sans', sans-serif;">
                 Showing 3 of 3 results
             </div>
         </div>
@@ -79,41 +82,43 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm p-3" style="border-radius: 12px; background: #fff;">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold" style="font-family: 'Poppins', sans-serif; width: 56px; height: 56px; font-size: 1.2rem;">
                             TC
                         </div>
                         <div>
-                            {{-- NEW: Business Type Tag (Blue) --}}
+                            {{-- Business Type Tag (Blue) --}}
                             <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
-                                  style="font-size: 0.65rem; background-color: #e7f1ff; color: #0d6efd; letter-spacing: 0.05em;">
+                                  style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #e7f1ff; color: #0d6efd; letter-spacing: 0.05em;">
                                 Manufacturing
                             </span>
-                            <h5 class="fw-bold mb-0 text-dark">Tech Corp Inc.</h5>
-                            <small class="text-muted">Technology & Software</small>
+                            <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">Tech Corp Inc.</h5>
+                            <small class="text-muted" style="font-family: 'DM Sans', sans-serif;">Technology & Software</small>
                         </div>
                     </div>
                     
                     <div class="card-body p-0 d-flex flex-column flex-grow-1">
                         <div class="mb-3">
-                            <div class="d-flex gap-2 small text-secondary overflow-hidden text-nowrap">
+                            <div class="d-flex gap-2 small text-secondary overflow-hidden text-nowrap" style="font-family: 'DM Sans', sans-serif;">
                                 <span class="bg-body-secondary px-2 py-1 rounded">Metal Fabrication</span>
                                 <span class="bg-body-secondary px-2 py-1 rounded">Industrial Manufacturing</span>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
-                            <div class="d-flex flex-column gap-2 small text-muted">
+                            <div class="d-flex flex-column gap-2 small text-muted" style="font-family: 'DM Sans', sans-serif;">
                                 <div class="d-flex align-items-center gap-2">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    {{-- Updated: Bootstrap Envelope Icon --}}
+                                    <i class="bi bi-envelope"></i>
                                     contact@techcorp.ph
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    {{-- Updated: Bootstrap Phone Icon --}}
+                                    <i class="bi bi-telephone"></i>
                                     +63 912 345 6789
                                 </div>
                             </div>
                             <a href="{{ route('business.show') }}" class="btn py-1 px-3 text-center ms-2 text-white fw-bold" 
-                               style="font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
+                               style="font-family: 'DM Sans', sans-serif; font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
                                 View Details
                             </a>
                         </div>
@@ -125,41 +130,43 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm p-3" style="border-radius: 12px; background: #fff;">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center text-white fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
+                        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center text-white fw-bold" style="font-family: 'Poppins', sans-serif; width: 56px; height: 56px; font-size: 1.2rem;">
                             GF
                         </div>
                         <div>
-                            {{-- NEW: Business Type Tag (Green) --}}
+                            {{-- Business Type Tag (Green) --}}
                             <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
-                                  style="font-size: 0.65rem; background-color: #d1e7dd; color: #146c43; letter-spacing: 0.05em;">
+                                  style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #d1e7dd; color: #146c43; letter-spacing: 0.05em;">
                                 Distributor
                             </span>
-                            <h5 class="fw-bold mb-0 text-dark">Green Fields</h5>
-                            <small class="text-muted">Agriculture & Supply</small>
+                            <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">Green Fields</h5>
+                            <small class="text-muted" style="font-family: 'DM Sans', sans-serif;">Agriculture & Supply</small>
                         </div>
                     </div>
                     
                     <div class="card-body p-0 d-flex flex-column flex-grow-1">
                         <div class="mb-3">
-                            <div class="d-flex gap-2 small text-secondary overflow-hidden text-nowrap">
+                            <div class="d-flex gap-2 small text-secondary overflow-hidden text-nowrap" style="font-family: 'DM Sans', sans-serif;">
                                 <span class="bg-body-secondary px-2 py-1 rounded">Organic Fertilizer</span>
                                 <span class="bg-body-secondary px-2 py-1 rounded">Agricultural Tools</span>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
-                            <div class="d-flex flex-column gap-2 small text-muted">
+                            <div class="d-flex flex-column gap-2 small text-muted" style="font-family: 'DM Sans', sans-serif;">
                                 <div class="d-flex align-items-center gap-2">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    {{-- Updated: Bootstrap Envelope Icon --}}
+                                    <i class="bi bi-envelope"></i>
                                     sales@greenfields.com
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    {{-- Updated: Bootstrap Phone Icon --}}
+                                    <i class="bi bi-telephone"></i>
                                     (02) 8123 4567
                                 </div>
                             </div>
                             <a href="{{ route('business.show') }}" class="btn py-1 px-3 text-center ms-2 text-white fw-bold" 
-                               style="font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
+                               style="font-family: 'DM Sans', sans-serif; font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
                                 View Details
                             </a>
                         </div>
@@ -171,41 +178,43 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm p-3" style="border-radius: 12px; background: #fff;">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center text-dark fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
+                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center text-dark fw-bold" style="font-family: 'Poppins', sans-serif; width: 56px; height: 56px; font-size: 1.2rem;">
                             BL
                         </div>
                         <div>
-                            {{-- NEW: Business Type Tag (Yellow/Orange) --}}
+                            {{-- Business Type Tag (Yellow/Orange) --}}
                             <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
-                                  style="font-size: 0.65rem; background-color: #fff3cd; color: #664d03; letter-spacing: 0.05em;">
+                                  style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #fff3cd; color: #664d03; letter-spacing: 0.05em;">
                                 Services
                             </span>
-                            <h5 class="fw-bold mb-0 text-dark">BuildLink</h5>
-                            <small class="text-muted">Construction</small>
+                            <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">BuildLink</h5>
+                            <small class="text-muted" style="font-family: 'DM Sans', sans-serif;">Construction</small>
                         </div>
                     </div>
                     
                     <div class="card-body p-0 d-flex flex-column flex-grow-1">
                         <div class="mb-3">
-                            <div class="d-flex gap-2 small text-secondary overflow-hidden text-nowrap">
+                            <div class="d-flex gap-2 small text-secondary overflow-hidden text-nowrap" style="font-family: 'DM Sans', sans-serif;">
                                 <span class="bg-body-secondary px-2 py-1 rounded">General Construction</span>
                                 <span class="bg-body-secondary px-2 py-1 rounded">Architectural Planning</span>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
-                            <div class="d-flex flex-column gap-2 small text-muted">
+                            <div class="d-flex flex-column gap-2 small text-muted" style="font-family: 'DM Sans', sans-serif;">
                                 <div class="d-flex align-items-center gap-2">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    {{-- Updated: Bootstrap Envelope Icon --}}
+                                    <i class="bi bi-envelope"></i>
                                     inquire@buildlink.ph
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    {{-- Updated: Bootstrap Phone Icon --}}
+                                    <i class="bi bi-telephone"></i>
                                     (02) 8987 6543
                                 </div>
                             </div>
                             <a href="{{ route('business.show') }}" class="btn py-1 px-3 text-center ms-2 text-white fw-bold" 
-                               style="font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
+                               style="font-family: 'DM Sans', sans-serif; font-size: 0.8rem; white-space: nowrap; background-color: #D40032; border-radius: 6px;">
                                 View Details
                             </a>
                         </div>
