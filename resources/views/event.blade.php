@@ -20,10 +20,10 @@
 
     /* --- Existing Hero & Layout Styles --- */
     .events-hero {
-        background: linear-gradient(rgb(0, 0, 0, 0.43), rgb(0, 0, 0, 0.43)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069');
+        background: linear-gradient(rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.9));
         background-size: cover;
         background-position: center;
-        padding: 100px 0;
+        padding: 150px 0;
         color: white;
         text-align: center;
     }
@@ -48,7 +48,7 @@
     }
     .event-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 15px 30px rgba(236, 119, 119, 0.15);
         border-color: transparent; 
     }
     .event-img-container { position: relative; overflow: hidden; height: 220px; }
