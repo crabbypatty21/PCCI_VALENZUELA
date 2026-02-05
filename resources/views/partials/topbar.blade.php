@@ -19,6 +19,7 @@
                     Philippine Chambers of Commerce and Industry
                 </span>
             </div>
+            <span class="fw-bold">PCCI Valenzuela</span>
         </a>
 
         <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
