@@ -1,197 +1,393 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>PCCI Valenzuela</title>
-
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700&family=dm-sans:400,500,600,700" rel="stylesheet" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@yield('title', 'PCCI Valenzuela')</title>
+        
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+        
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
         <style>
+            /* ============================================== */
+            /* GLOBAL STYLES */
+            /* ============================================== */
+            
+            :root {
+                --pcci-red: #A40033;
+                --pcci-red-dark: #8a002b;
+                --pcci-dark: #1a1a2e;
+                --pcci-dark-alt: #252631;
+                --pcci-light: #fdf2f4;
+                --pcci-bg: #faf8f5;
+                --font-heading: 'DM Sans', sans-serif;
+                --font-body: 'Poppins', sans-serif;
+            }
+            
+            * {
+                box-sizing: border-box;
+            }
+            
+            html {
+                scroll-behavior: smooth;
+            }
+            
             body {
-                font-family: 'Poppins', sans-serif;
-                background-color: #FDFDFC;
-                color: #1b1b18;
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
+                font-family: var(--font-body);
                 margin: 0;
-            }
-
-            /* --- DM Sans for Titles and Buttons --- */
-            h1, h2, h3, h4, h5, h6,
-            .headline-text,
-            .brand-title,
-            .btn-primary-custom,
-            .btn-outline-custom,
-            .btn-ghost-custom {
-                font-family: 'DM Sans', sans-serif;
-            }
-
-            /* --- Custom Header Styles --- */
-            .header-custom {
-                backdrop-filter: blur(4px);
-                z-index: 1000;
-                transition: all 0.3s ease;
-            }
-
-            /* --- Logo & Title Styles --- */
-            .logo-box {
-                width: 40px;
-                height: 40px;
-                background-color: #ffffff;
-                border: 1px solid rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            }
-
-            .brand-text {
-                line-height: 1.1;
-            }
-            .brand-title {
-                font-weight: 600;
-                font-size: 1.1rem;
-                letter-spacing: -0.02em;
-                color: #1b1b18;
-            }
-            .brand-subtitle {
-                font-size: 0.75rem;
-                color: #6c757d;
-                font-weight: 500;
-                white-space: nowrap;
-            }
-
-            /* --- Navigation Links --- */
-            .btn-ghost-custom {
-                color: #4a4a4a;
-                padding: 0.5rem 0.85rem;
-                font-size: 0.875rem;
-                font-weight: 500;
-                text-decoration: none;
-                border-radius: 6px;
-                transition: all 0.2s ease;
-                white-space: nowrap;
-            }
-            .btn-ghost-custom:hover {
-                color: #000;
-                background-color: rgba(0,0,0,0.04);
-            }
-
-            /* --- Buttons --- */
-            .btn-outline-custom {
-                color: #1b1b18;
-                border: 1px solid rgba(0, 0, 0, 0.15);
-                padding: 0.5rem 1.25rem;
-                font-size: 0.9rem;
-                font-weight: 500;
-                text-decoration: none;
-                border-radius: 6px;
-                transition: all 0.2s;
-                white-space: nowrap;
-            }
-            .btn-outline-custom:hover {
-                border-color: #000;
+                padding: 0;
+                overflow-x: hidden;
                 background-color: #fff;
             }
-
-            .btn-primary-custom {
-                background-color: #A40033;
-                border: 1px solid #A40033;
-                color: white;
-                padding: 0.5rem 1.25rem;
-                font-size: 0.9rem;
-                font-weight: 500;
-                text-decoration: none;
-                border-radius: 6px;
-                transition: all 0.2s;
-                white-space: nowrap;
-            }
-            .btn-primary-custom:hover {
-                background-color: #8a002b;
-            }
-
-            /* --- Dark Mode Styles --- */
-            @media (prefers-color-scheme: dark) {
-                body {
-                    background-color: #0a0a0a;
-                    color: #EDEDEC;
-                }
-                .header-custom {
-                    border-color: #3E3E3A !important;
-                }
-                .logo-box {
-                    background-color: #161615;
-                    border-color: #3E3E3A;
-                }
-                .brand-title { color: #EDEDEC; }
-                .brand-subtitle { color: #A1A09A; }
-                
-                .btn-ghost-custom { color: #A1A09A; }
-                .btn-ghost-custom:hover { color: #EDEDEC; background-color: rgba(255,255,255,0.05); }
-
-                .btn-outline-custom {
-                    color: #EDEDEC;
-                    border-color: #3E3E3A;
-                }
-                .btn-outline-custom:hover {
-                    border-color: #62605b;
-                    background-color: transparent;
-                }
-            }
-
-            /* --- Layout --- */
-            .text-accent { color: #A40033; }
-            @media (prefers-color-scheme: dark) { .text-accent { color: #A40033; } }
             
-            /* Responsive Font Sizes */
-            .headline-text {
-                font-size: 2rem;
-                line-height: 1.2;
+            h1, h2, h3, h4, h5, h6 {
+                font-family: var(--font-heading);
             }
-            @media (min-width: 768px) {
-                .headline-text {
-                    font-size: 2.75rem;
+            
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            
+            /* ============================================== */
+            /* NAVBAR STYLES */
+            /* ============================================== */
+            
+            .navbar {
+                background-color: transparent;
+                transition: all 0.3s ease;
+                padding: 1rem 0;
+            }
+            
+            .navbar.scrolled {
+                background-color: rgba(255, 255, 255, 0.45);
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem 0;
+            }
+            
+            .navbar-brand {
+                font-family: var(--font-heading);
+                font-weight: 700;
+                font-size: 1.5rem;
+                color: #fff !important;
+            }
+            
+            .navbar.scrolled .navbar-brand {
+                color: var(--pcci-dark) !important;
+            }
+            
+            .navbar-nav .nav-link {
+                font-family: var(--font-heading);
+                font-weight: 500;
+                color: rgba(255, 255, 255, 0.9) !important;
+                padding: 0.5rem 1rem !important;
+                transition: color 0.3s ease;
+            }
+            
+            .navbar.scrolled .navbar-nav .nav-link {
+                color: var(--pcci-dark) !important;
+            }
+            
+            .navbar-nav .nav-link:hover {
+                color: var(--pcci-red) !important;
+            }
+            
+            .navbar-toggler {
+                border: none;
+                padding: 0.5rem;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            .navbar.scrolled .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2826, 26, 46, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            /* Mobile Navigation */
+            @media (max-width: 991.98px) {
+                .navbar-collapse {
+                    background-color: #fff;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    margin-top: 1rem;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                }
+                
+                .navbar-collapse .navbar-nav .nav-link {
+                    color: var(--pcci-dark) !important;
+                    padding: 0.75rem 1rem !important;
+                }
+                
+                .navbar-collapse .navbar-nav .nav-link:hover {
+                    background-color: var(--pcci-light);
+                    border-radius: 6px;
                 }
             }
-
-            .content-spacer { 
-                margin-top: 0; 
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+            
+            /* ============================================== */
+            /* CONTENT SPACER */
+            /* ============================================== */
+            
+            .content-spacer {
+                min-height: 100%;
             }
-
-            /* --- Impact Cards --- */
-            .impact-card {
-                background-color: #A40033;
+            
+            /* ============================================== */
+            /* FOOTER STYLES */
+            /* ============================================== */
+            
+            .footer {
+                background-color: var(--pcci-dark);
+                color: #fff;
+                padding: 4rem 0 2rem;
+            }
+            
+            .footer a {
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            
+            .footer a:hover {
+                color: var(--pcci-red);
+            }
+            
+            .footer-bottom {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                padding-top: 2rem;
+                margin-top: 3rem;
+            }
+            
+            /* ============================================== */
+            /* RESPONSIVE UTILITIES */
+            /* ============================================== */
+            
+            /* Container responsive adjustments */
+            @media (max-width: 1400px) {
+                .container {
+                    max-width: 1140px;
+                }
+            }
+            
+            @media (max-width: 1200px) {
+                .container {
+                    max-width: 960px;
+                }
+            }
+            
+            @media (max-width: 992px) {
+                .container {
+                    max-width: 720px;
+                }
+                
+                .py-5 {
+                    padding-top: 3rem !important;
+                    padding-bottom: 3rem !important;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                .container {
+                    max-width: 540px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+                
+                .py-5 {
+                    padding-top: 2.5rem !important;
+                    padding-bottom: 2.5rem !important;
+                }
+                
+                h1 {
+                    font-size: 2rem;
+                }
+                
+                h2 {
+                    font-size: 1.75rem;
+                }
+                
+                .display-4 {
+                    font-size: 2.25rem;
+                }
+            }
+            
+            @media (max-width: 576px) {
+                .container {
+                    padding-left: 12px;
+                    padding-right: 12px;
+                }
+                
+                .py-5 {
+                    padding-top: 2rem !important;
+                    padding-bottom: 2rem !important;
+                }
+                
+                h1 {
+                    font-size: 1.75rem;
+                }
+                
+                h2 {
+                    font-size: 1.5rem;
+                }
+                
+                .display-4 {
+                    font-size: 1.75rem;
+                }
+                
+                .lead {
+                    font-size: 1rem;
+                }
+                
+                .btn {
+                    padding: 0.75rem 1.25rem;
+                    font-size: 0.9rem;
+                }
+            }
+            
+            /* ============================================== */
+            /* BUTTON STYLES */
+            /* ============================================== */
+            
+            .btn-pcci-primary {
+                background-color: var(--pcci-red);
+                color: #fff;
+                border: none;
+                padding: 0.875rem 1.75rem;
                 border-radius: 8px;
-                padding: 8px;
+                font-family: var(--font-heading);
+                font-weight: 600;
+                transition: all 0.3s ease;
             }
-
-            .impact-card-inner {
-                background-color: #C4909D;
-                border-radius: 4px;
-                padding: 2rem;
-                text-align: center;
+            
+            .btn-pcci-primary:hover {
+                background-color: var(--pcci-red-dark);
+                color: #fff;
+                transform: translateY(-2px);
             }
-
+            
+            .btn-pcci-outline {
+                background-color: transparent;
+                color: var(--pcci-red);
+                border: 2px solid var(--pcci-red);
+                padding: 0.875rem 1.75rem;
+                border-radius: 8px;
+                font-family: var(--font-heading);
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+            
+            .btn-pcci-outline:hover {
+                background-color: var(--pcci-red);
+                color: #fff;
+                transform: translateY(-2px);
+            }
+            
+            /* ============================================== */
+            /* CARD STYLES */
+            /* ============================================== */
+            
+            .card {
+                border: none;
+                border-radius: 12px;
+                transition: all 0.3s ease;
+            }
+            
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* ============================================== */
+            /* SECTION LABEL STYLES */
+            /* ============================================== */
+            
+            .section-label {
+                color: var(--pcci-red);
+                font-family: var(--font-heading);
+                font-size: 0.875rem;
+                font-weight: 600;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            }
+            
+            .section-title {
+                font-family: var(--font-heading);
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--pcci-dark);
+                margin-bottom: 1rem;
+            }
+            
+            .section-title span {
+                color: var(--pcci-red);
+            }
+            
+            .section-description {
+                font-family: var(--font-body);
+                color: #666;
+                font-size: 1rem;
+                margin-bottom: 2.5rem;
+            }
+            
+            /* Responsive section typography */
+            @media (max-width: 768px) {
+                .section-label {
+                    font-size: 0.75rem;
+                }
+                
+                .section-title {
+                    font-size: 1.75rem;
+                }
+                
+                .section-description {
+                    font-size: 0.95rem;
+                }
+            }
+            
+            @media (max-width: 576px) {
+                .section-title {
+                    font-size: 1.5rem;
+                }
+                
+                .section-description {
+                    font-size: 0.9rem;
+                    margin-bottom: 1.5rem;
+                }
+            }
+            
+            /* ============================================== */
+            /* IMPACT SECTION STYLES */
+            /* ============================================== */
+            
             .impact-number {
-                font-family: 'DM Sans', sans-serif;
+                font-family: var(--font-heading);
                 font-size: 3rem;
                 font-weight: 700;
-                color: #D4E157;
+                color: #fff;
                 margin-bottom: 0;
                 line-height: 1;
             }
 
             .impact-label {
-                font-family: 'DM Sans', sans-serif;
+                font-family: var(--font-heading);
                 font-size: 1.1rem;
                 font-weight: 600;
                 color: #D4E157;
@@ -199,196 +395,152 @@
             }
 
             .impact-desc {
-                font-family: 'Poppins', sans-serif;
+                font-family: var(--font-body);
                 color: #4a3a3f;
                 font-size: 0.95rem;
                 margin-bottom: 0;
             }
-
+            
             /* ============================================== */
-            /* COMMUNITY CAROUSEL STYLES - START */
+            /* SWIPER GLOBAL OVERRIDES */
             /* ============================================== */
             
-            .community-carousel-section {
-                background-color: #fdf2f4;
-                padding: 60px 0;
-            }
-
-            .community-carousel-wrapper {
-                position: relative;
-                max-width: 1000px;
-                margin: 0 auto;
-                padding: 0 60px;
-            }
-
-            /* The slides container */
-            .carousel-inner {
-                overflow: visible !important;
-            }
-
-            /* Each slide */
-            .community-slide {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 20px;
-                padding: 20px 0;
-            }
-
-            /* Individual image cards */
-            .slide-image-wrapper {
-                position: relative;
-                transition: all 0.5s ease;
-                border-radius: 16px;
-                overflow: hidden;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            }
-
-            .slide-image-wrapper img {
+            .swiper {
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
+                overflow: hidden;
             }
-
-            /* Center image - larger */
-            .slide-image-wrapper.center {
-                width: 420px;
-                height: 300px;
-                z-index: 10;
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            
+            .swiper-pagination-bullet {
+                cursor: pointer;
             }
-
-            /* Side images - smaller and faded */
-            .slide-image-wrapper.side {
-                width: 200px;
-                height: 250px;
-                opacity: 0.6;
-                filter: brightness(0.85);
+            
+            /* ============================================== */
+            /* UTILITY CLASSES */
+            /* ============================================== */
+            
+            .text-pcci-red {
+                color: var(--pcci-red) !important;
             }
-
-            /* Navigation Arrows */
-            .carousel-control-prev,
-            .carousel-control-next {
+            
+            .bg-pcci-red {
+                background-color: var(--pcci-red) !important;
+            }
+            
+            .bg-pcci-light {
+                background-color: var(--pcci-light) !important;
+            }
+            
+            .bg-pcci-dark {
+                background-color: var(--pcci-dark) !important;
+            }
+            
+            /* Smooth transitions for interactive elements */
+            a, button, .btn {
+                transition: all 0.3s ease;
+            }
+            
+            /* Focus states for accessibility */
+            a:focus, button:focus, .btn:focus {
+                outline: 2px solid var(--pcci-red);
+                outline-offset: 2px;
+            }
+            
+            /* ============================================== */
+            /* SCROLL TO TOP BUTTON */
+            /* ============================================== */
+            
+            .scroll-to-top {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
                 width: 50px;
                 height: 50px;
-                background: white;
-                border-radius: 50%;
-                top: 50%;
-                transform: translateY(-50%);
-                opacity: 1;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                transition: all 0.3s ease;
-            }
-
-            .carousel-control-prev {
-                left: 0;
-            }
-
-            .carousel-control-next {
-                right: 0;
-            }
-
-            .carousel-control-prev:hover,
-            .carousel-control-next:hover {
-                background: #A40033;
-            }
-
-            .carousel-control-prev-icon,
-            .carousel-control-next-icon {
-                width: 20px;
-                height: 20px;
-                filter: invert(1) grayscale(100) brightness(0);
-            }
-
-            .carousel-control-prev:hover .carousel-control-prev-icon,
-            .carousel-control-next:hover .carousel-control-next-icon {
-                filter: invert(1) grayscale(100) brightness(100);
-            }
-
-            /* Pagination Dots */
-            .carousel-indicators {
-                bottom: -40px;
-            }
-
-            .carousel-indicators [data-bs-target] {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                background-color: #ccc;
+                background: var(--pcci-red);
+                color: #fff;
                 border: none;
-                opacity: 1;
-                margin: 0 5px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                box-shadow: 0 5px 20px rgba(164, 0, 51, 0.3);
                 transition: all 0.3s ease;
             }
-
-            .carousel-indicators .active {
-                background-color: #333;
-                transform: scale(1.2);
+            
+            .scroll-to-top:hover {
+                background: var(--pcci-red-dark);
+                transform: translateY(-3px);
             }
-
-            /* Responsive */
-            @media (max-width: 768px) {
-                .community-carousel-wrapper {
-                    padding: 0 40px;
-                }
-                
-                .slide-image-wrapper.center {
-                    width: 280px;
-                    height: 200px;
-                }
-                
-                .slide-image-wrapper.side {
-                    width: 120px;
-                    height: 160px;
-                }
+            
+            .scroll-to-top.visible {
+                display: flex;
             }
-
+            
             @media (max-width: 576px) {
-                .community-carousel-wrapper {
-                    padding: 0 30px;
-                }
-                
-                .slide-image-wrapper.side {
-                    display: none;
-                }
-                
-                .slide-image-wrapper.center {
-                    width: 100%;
-                    max-width: 320px;
-                    height: 220px;
+                .scroll-to-top {
+                    width: 40px;
+                    height: 40px;
+                    bottom: 20px;
+                    right: 20px;
                 }
             }
-
-            /* ============================================== */
-            /* COMMUNITY CAROUSEL STYLES - END */
-            /* ============================================== */
         </style>
     </head>
     <body>
 
         @include('partials.topbar')
 
-        <div class="content-spacer w-100 mb-5">
+        <div class="content-spacer w-100">
             @yield('content')
         </div>
 
-        {{-- Add this line here --}}
         @include('partials.footer')
         
+        <!-- Scroll to Top Button -->
+        <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </button>
+        
+        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
         <script>
-    window.addEventListener('scroll', function() {
-        const navbar = document.getElementById('mainNavbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-</script>
+            // Navbar scroll behavior
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('mainNavbar');
+                if (navbar) {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                }
+            });
+            
+            // Scroll to top button
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        </script>
 
     </body>
 </html>

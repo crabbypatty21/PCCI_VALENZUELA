@@ -1,119 +1,79 @@
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-<header id="main-topbar" 
-        class="fixed-top w-100 px-4 py-3" 
-        style="background-color: transparent; transition: background-color 0.3s ease;">
-    
-    <nav class="navbar navbar-expand-xl w-100 p-0">
-        
-        <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset">
-            <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
-                <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo" class="w-100 h-100 object-fit-contain">
+{{-- Responsive Navigation Bar --}}
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+    <div class="container">
+        {{-- Logo/Brand --}}
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
+            <div class="d-flex align-items-center justify-content-center rounded" style="width: 40px; height: 40px; background-color: #A40033;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
             </div>
-
-            <div class="d-flex flex-column">
-                <span class="fw-bold" style="font-family: 'Poppins', sans-serif; color: {{ (Request::is('membership') || Request::is('business/*')) ? '#fff' : '#1b1b18' }};">
-                    PCCI - Valenzuela
-                </span>
-                <span class="d-none d-sm-block small" style="font-family: 'DM Sans', sans-serif; color: {{ (Request::is('membership') || Request::is('business/*')) ? 'rgba(255,255,255,0.8)' : '#6c757d' }};">
-                    Philippine Chambers of Commerce and Industry
-                </span>
-            </div>
+            <span class="fw-bold">PCCI Valenzuela</span>
         </a>
-
-        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        
+        {{-- Mobile Toggle Button --}}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarContent">
-            
-            <div class="d-flex flex-column flex-xl-row align-items-xl-center mx-auto gap-3 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
-                
-                <a href="{{ url('/') }}" class="text-decoration-none px-2 {{ Request::is('/') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
-                    Home
-                </a>
-                <a href="{{ route('about') }}" class="text-decoration-none px-2 text-secondary {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
-                    About Us
-                </a>
-                <a href="{{ url('/membership') }}" class="text-decoration-none px-2 {{ Request::is('membership') ? 'fw-bold text-white' : 'text-secondary' }} {{ Request::is('business/*') ? 'text-white' : '' }}">
-                    Membership
-                </a>
-                {{-- FIXED: Changed Business Directory to Events --}}
-                <a href="{{ route('event') }}" class="text-decoration-none px-2 {{ Request::is('event') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
-                    Events
-                </a>
-                <a href="{{ url('/contact') }}" class="text-decoration-none px-2 {{ Request::is('contact') ? 'fw-bold text-dark' : 'text-secondary' }} {{ (Request::is('membership') || Request::is('business/*')) ? 'text-white' : '' }}">
-                    Contact Us
-                </a>
-            </div>
-
-            <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
-                
-                {{-- UPDATED BUTTON BELOW --}}
-                <a href="{{ url('/membership') }}" 
-                   id="join-pcci-btn"
-                   class="btn btn-danger text-nowrap rounded-2 px-4"
-                   style="background-color: #A40D0F; border-color: #A40D0F; transition: all 0.3s ease;">
-                    Join PCCI
-                </a>
-
-                @if (Route::has('login'))
-                    <div class="d-flex gap-2 ps-xl-3 border-start-xl" style="border-color: rgba(0,0,0,0.1);">
-                        @auth
-                            <a href="{{ url('/dashboard') }}" 
-                               class="btn {{ (Request::is('membership') || Request::is('business/*')) ? 'btn-outline-light' : 'btn-outline-dark' }} rounded-pill px-4">
-                                Dashboard
-                            </a>
-                        @else
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" 
-                                   class="btn {{ (Request::is('membership') || Request::is('business/*')) ? 'btn-outline-light' : 'btn-outline-dark' }} rounded-pill px-4 text-nowrap">
-                                    Register
-                                </a>
-                            @endif
-                        @endauth
-                    </div>
-                @endif
-            </div>
-
+        
+        {{-- Navigation Links --}}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('membership') ? 'active' : '' }}" href="{{ route('membership') }}">Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('event') ? 'active' : '' }}" href="{{ route('event') }}">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
+                </li>
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                    <a class="btn px-4 py-2 fw-semibold" href="{{ route('login') }}" style="background-color: #A40033; color: white; border-radius: 6px;">
+                        Login
+                    </a>
+                </li>
+            </ul>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const topbar = document.getElementById("main-topbar");
-        const joinBtn = document.getElementById("join-pcci-btn"); // Select the button
-
-        window.addEventListener("scroll", function () {
-            if (window.scrollY > 50) {
-                // --- SCROLLED STATE ---
-                
-                // Navbar: Red with 0.9 Opacity
-                topbar.style.backgroundColor = "rgba(164, 13, 15, 0.9)";
-                topbar.classList.add("shadow-sm");
-
-                // Button: White BG, Red Text
-                if (joinBtn) {
-                    joinBtn.style.backgroundColor = "#ffffff";
-                    joinBtn.style.borderColor = "#ffffff";
-                    joinBtn.style.color = "#A40D0F"; 
-                }
-
-            } else {
-                // --- TOP STATE (DEFAULT) ---
-
-                // Navbar: Transparent
-                topbar.style.backgroundColor = "transparent";
-                topbar.classList.remove("shadow-sm");
-
-                // Button: Red BG, White Text (Revert to original)
-                if (joinBtn) {
-                    joinBtn.style.backgroundColor = "#A40D0F";
-                    joinBtn.style.borderColor = "#A40D0F";
-                    joinBtn.style.color = "#ffffff";
-                }
-            }
-        });
-    });
-</script>
+<style>
+    /* Additional Topbar Responsive Styles */
+    .navbar .nav-link.active {
+        color: #A40033 !important;
+        font-weight: 600;
+    }
+    
+    @media (max-width: 991.98px) {
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar .navbar-brand {
+            color: #1a1a2e !important;
+        }
+        
+        .navbar .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2826, 26, 46, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+    }
+    
+    @media (max-width: 575.98px) {
+        .navbar-brand span {
+            font-size: 1.1rem;
+        }
+        
+        .navbar-collapse .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
