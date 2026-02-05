@@ -1,4 +1,75 @@
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* ============================================== */
+    /* JOIN PCCI BUTTON ANIMATION (Solid Fill Slide)  */
+    /* ============================================== */
+    
+    .btn-pcci-slide {
+        position: relative;
+        background-color: #A40D0F !important; 
+        color: #ffffff;
+        border: 2px solid #A40D0F;
+        overflow: hidden; 
+        z-index: 1;
+        font-weight: 800 !important;
+
+        /* Sliding White Fill */
+        background-image: linear-gradient(to right, #ffffff, #ffffff);
+        background-position: left center;
+        background-size: 0% 100%; 
+        background-repeat: no-repeat;
+        
+        transition: background-size 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+    }
+
+    /* HOVER STATE */
+    .btn-pcci-slide:hover {
+        background-size: 100% 100%; 
+        color: #A40D0F !important;   
+        border-color: #ffffff;       
+    }
+
+    /* SCROLLED STATE */
+    .btn-pcci-slide.scrolled-mode {
+        background-color: #ffffff !important;
+        color: #A40D0F !important;
+        border-color: #ffffff !important;
+        background-image: none; 
+    }
+
+    .btn-pcci-slide.scrolled-mode:hover {
+        background-color: #f2f2f2 !important; 
+    }
+
+    .btn-pcci-slide:focus, .btn-pcci-slide:active {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* ============================================== */
+    /* NAVIGATION LINKS STYLING                       */
+    /* ============================================== */
+    
+    .nav-link-custom {
+        font-weight: 600 !important;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* Hover effect for inactive links */
+    .nav-link-custom:hover {
+        opacity: 0.8; 
+    }
+
+    /* ACTIVE STATE: White Underline (No Black Color) */
+    .active-nav-underline {
+        text-decoration: underline !important;
+        text-decoration-color: #ffffff !important;
+        text-decoration-thickness: 3px !important; /* Thicker line */
+        text-underline-offset: 8px !important;     /* Push it down */
+        opacity: 1 !important;
+    }
+</style>
 
 <header id="main-topbar" 
         class="fixed-top w-100 px-4 py-3" 
@@ -19,7 +90,7 @@
                     Philippine Chambers of Commerce and Industry
                 </span>
             </div>
-            <span class="fw-bold">PCCI Valenzuela</span>
+            <span class="fw-bold d-xl-none text-white">PCCI Valenzuela</span>
         </a>
 
         <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -30,24 +101,30 @@
             
             <div class="d-flex flex-column flex-xl-row align-items-xl-center mx-auto gap-3 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
                 
-                <a href="{{ url('/') }}" class="text-decoration-none px-2 {{ Request::is('/') ? 'fw-bold text-dark' : 'text-white' }}">
+                {{-- 
+                    UPDATED LINKS: 
+                    1. Removed 'text-dark'.
+                    2. Added 'text-white' to ALL links.
+                    3. Condition adds 'active-nav-underline' class instead.
+                --}}
+                
+                <a href="{{ url('/') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('/') ? 'active-nav-underline' : '' }}">
                     Home
                 </a>
                 
-                <a href="{{ route('about') }}" class="text-decoration-none px-2 {{ Request::is('about') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ route('about') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('about') ? 'active-nav-underline' : '' }}">
                     About Us
                 </a>
                 
-                {{-- UPDATED: Link remains 'text-dark' (Black) on business profile pages --}}
-                <a href="{{ url('/membership') }}" class="text-decoration-none px-2 {{ (Request::is('membership') || Request::is('business/*')) ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ url('/membership') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ (Request::is('membership') || Request::is('business/*')) ? 'active-nav-underline' : '' }}">
                     Membership
                 </a>
                 
-                <a href="{{ route('event') }}" class="text-decoration-none px-2 {{ Request::is('event') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ route('event') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('event') ? 'active-nav-underline' : '' }}">
                     Events
                 </a>
                 
-                <a href="{{ url('/contact') }}" class="text-decoration-none px-2 {{ Request::is('contact') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ url('/contact') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('contact') ? 'active-nav-underline' : '' }}">
                     Contact Us
                 </a>
             </div>
@@ -56,8 +133,7 @@
                 
                 <a href="{{ url('/membership') }}" 
                    id="join-pcci-btn"
-                   class="btn btn-danger text-nowrap rounded-2 px-4"
-                   style="background-color: #A40D0F; border-color: #A40D0F; transition: all 0.3s ease;">
+                   class="btn btn-pcci-slide text-nowrap rounded-2 px-4">
                     Join PCCI
                 </a>
 
@@ -89,33 +165,19 @@
         const topbar = document.getElementById("main-topbar");
         const joinBtn = document.getElementById("join-pcci-btn");
 
-        window.addEventListener("scroll", function () {
+        function handleScroll() {
             if (window.scrollY > 50) {
-                // --- SCROLLED STATE ---
-                // Navbar: Red with 0.9 Opacity
                 topbar.style.backgroundColor = "rgba(164, 13, 15, 0.9)";
                 topbar.classList.add("shadow-sm");
-
-                // Button: White BG, Red Text
-                if (joinBtn) {
-                    joinBtn.style.backgroundColor = "#ffffff";
-                    joinBtn.style.borderColor = "#ffffff";
-                    joinBtn.style.color = "#A40D0F"; 
-                }
-
+                if (joinBtn) joinBtn.classList.add("scrolled-mode");
             } else {
-                // --- TOP STATE (DEFAULT) ---
-                // Navbar: Transparent
                 topbar.style.backgroundColor = "transparent";
                 topbar.classList.remove("shadow-sm");
-
-                // Button: Red BG, White Text
-                if (joinBtn) {
-                    joinBtn.style.backgroundColor = "#A40D0F";
-                    joinBtn.style.borderColor = "#A40D0F";
-                    joinBtn.style.color = "#ffffff";
-                }
+                if (joinBtn) joinBtn.classList.remove("scrolled-mode");
             }
-        });
+        }
+
+        window.addEventListener("scroll", handleScroll);
+        handleScroll(); 
     });
 </script>
