@@ -47,26 +47,52 @@
         outline: none !important;
     }
 
-    /* ============================================== */
+   /* ============================================== */
     /* NAVIGATION LINKS STYLING                       */
     /* ============================================== */
     
     .nav-link-custom {
         font-weight: 600 !important;
-        transition: opacity 0.3s ease;
+        border-radius: 5px; 
+        
+        /* UPDATED: Removed background/color transitions so there is no lag */
+        transition: opacity 0.2s ease;
     }
     
-    /* Hover effect for inactive links */
+    /* Hover effect */
     .nav-link-custom:hover {
         opacity: 0.8; 
     }
 
-    /* ACTIVE STATE: White Underline (No Black Color) */
+    /* REMOVE ALL OUTLINES/BORDERS ON CLICK */
+    .nav-link-custom:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* ACTIVE STATE (WHILE CLICKING) */
+    .nav-link-custom:active {
+        /* 1. Remove Background Highlight */
+        background-color: transparent !important; 
+        
+        /* 2. Force text to stay WHITE (prevents it turning black) */
+        color: #ffffff !important; 
+        
+        /* 3. Instant Reaction (No Animation) */
+        transition: none !important; 
+        
+        /* Optional: A tiny opacity dip so you know you clicked it, 
+           without changing colors. Remove this line if you want zero effect. */
+        opacity: 0.7 !important; 
+    }
+
+    /* CURRENT PAGE UNDERLINE STATE */
     .active-nav-underline {
         text-decoration: underline !important;
         text-decoration-color: #ffffff !important;
-        text-decoration-thickness: 3px !important; /* Thicker line */
-        text-underline-offset: 8px !important;     /* Push it down */
+        text-decoration-thickness: 3px !important; 
+        text-underline-offset: 8px !important;    
         opacity: 1 !important;
     }
 </style>
@@ -100,13 +126,6 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             
             <div class="d-flex flex-column flex-xl-row align-items-xl-center mx-auto gap-3 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
-                
-                {{-- 
-                    UPDATED LINKS: 
-                    1. Removed 'text-dark'.
-                    2. Added 'text-white' to ALL links.
-                    3. Condition adds 'active-nav-underline' class instead.
-                --}}
                 
                 <a href="{{ url('/') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('/') ? 'active-nav-underline' : '' }}">
                     Home
@@ -162,10 +181,13 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        
+        // --- PART 1: OPTIMIZED SCROLL HANDLER (Prevents lag during scrolling) ---
         const topbar = document.getElementById("main-topbar");
         const joinBtn = document.getElementById("join-pcci-btn");
+        let ticking = false; // Flag to prevent function from running too often
 
-        function handleScroll() {
+        function updateNavbar() {
             if (window.scrollY > 50) {
                 topbar.style.backgroundColor = "rgba(164, 13, 15, 0.9)";
                 topbar.classList.add("shadow-sm");
@@ -175,9 +197,37 @@
                 topbar.classList.remove("shadow-sm");
                 if (joinBtn) joinBtn.classList.remove("scrolled-mode");
             }
+            ticking = false; // Reset flag after work is done
         }
 
-        window.addEventListener("scroll", handleScroll);
-        handleScroll(); 
+        window.addEventListener("scroll", function() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
+        });
+
+        // Run once on load to set initial state
+        updateNavbar();
+
+
+        // --- PART 2: CLICK DELAY FEEDBACK (Shows 'Wait' cursor instantly) ---
+        // This makes the user feel the system is reacting, even if the server is slow.
+        const links = document.querySelectorAll('a');
+        
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // If it's a real link (not an anchor # or javascript:)
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('/') || href.startsWith('http')) {
+                    document.body.style.cursor = 'wait'; // Change cursor to spinner
+                }
+            });
+        });
+
+        // Reset cursor if the user presses "Back" to return to this page
+        window.addEventListener('pageshow', () => {
+            document.body.style.cursor = 'default';
+        });
     });
 </script>
