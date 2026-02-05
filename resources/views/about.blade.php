@@ -3,23 +3,33 @@
 @section('content')
 {{-- Hero Section --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="position-relative w-100 overflow-hidden" style="background: 
-linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 500px;">
-    <div class="container text-white text-center py-5" style="position: relative; z-index: 2;">
-        <p class="text-uppercase fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.95; padding-top: 70px">
-            JOIN PCCI - VALENZUELA
-        </p>
-        <h1 class="display-4 fw-bold mb-4" style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2;">
+<div class="w-100 mb-0 d-flex align-items-center" style="
+    min-height: 500px;
+    margin-top: -1px; 
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069');
+    background-size: cover;
+    background-position: center;
+">
+    <div class="container d-flex flex-column align-items-center text-center">
+        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
+            PCCI - Valenzuela
+        </span>
+        
+        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'Poppins', sans-serif; letter-spacing: -0.02em; max-width: 900px;">
             Empowering Valenzuela's Future, Together.
         </h1>
-        <p class="mx-auto mb-5" style="max-width: 800px; font-size: 1.1rem; line-height: 1.7; opacity: 0.95;">
-            PCCI New Marikina is the vibrant heart of our city's business ecosystem. We are passionately committed to fostering economic growth, driving innovation, and building a resilient community where every enterprise can flourish.
+
+        <p class="text-white mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 800px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
+            PCCI Valenzuela is the vibrant heart of our city's business ecosystem. We are passionately committed to fostering economic growth, driving innovation, and building a resilient community where every enterprise can flourish.
         </p>
+
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#membership" class="btn btn-light fw-bold px-4 py-2" style="border-radius: 6px; text-decoration: none; color: #F53003;">
+            <a href="#membership" class="btn btn-light px-4 py-2 fw-bold text-uppercase" 
+               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; color: #D40032;">
                 Become a Member
             </a>
-            <a href="#impact" class="btn btn-outline-light fw-bold px-4 py-2" style="border-radius: 6px; text-decoration: none;">
+            <a href="#impact" class="btn btn-outline-light px-4 py-2 fw-bold text-uppercase" 
+               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px;">
                 Discover our Impact
             </a>
         </div>
@@ -27,51 +37,56 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
 </div>
 
 {{-- Our Purpose Section --}}
-<div class="bg-light text-dark py-5">
-    <div class="container">
+<div class="py-5" style="background-color: #e9ecef;">
+    <div class="container py-4">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
-                <h6 class="text-accent fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.05em;">OUR PURPOSE</h6>
-                <h2 class="fw-bold mb-4" style="font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.3;">
+                <span class="fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: #D40032;">
+                    Our Purpose
+                </span>
+                <h2 class="fw-bold mb-4" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.2; color: #212529;">
                     Guiding Principles for a Thriving Valenzuela.
                 </h2>
                 
                 <div class="mb-4">
-                    <h5 class="text-accent fw-bold mb-3">Our Mission</h5>
-                    <p style="line-height: 1.8; color: #000000;">
-                        To champion the growth and success of Marikina businesses through robust advocacy, impactful networking, comprehensive development programs, and dedicated community engagement.
+                    <h5 class="fw-bold mb-2" style="font-family: 'Poppins', sans-serif; color: #D40032;">Our Mission</h5>
+                    <p style="font-family: 'DM Sans', sans-serif; line-height: 1.7; color: #4b4b4b; font-size: 1.05rem;">
+                        To champion the growth and success of Valenzuela businesses through robust advocacy, impactful networking, comprehensive development programs, and dedicated community engagement.
                     </p>
                 </div>
 
                 <div class="mb-5">
-                    <h5 class="text-accent fw-bold mb-3">Our Vision</h5>
-                    <p style="line-height: 1.8; color: #000000;">
-                        To be the leading catalyst for a vibrant, innovative, and sustainable business environment in Marikina City, recognized for driving economic prosperity and community well-being.
+                    <h5 class="fw-bold mb-2" style="font-family: 'Poppins', sans-serif; color: #D40032;">Our Vision</h5>
+                    <p style="font-family: 'DM Sans', sans-serif; line-height: 1.7; color: #4b4b4b; font-size: 1.05rem;">
+                        To be the leading catalyst for a vibrant, innovative, and sustainable business environment in Valenzuela City, recognized for driving economic prosperity and community well-being.
                     </p>
                 </div>
 
-                <div class="p-4 mb-4" style="background-color: #ffe5e0; border-radius: 8px; border-left: 4px solid #F53003;">
-                    <p class="fst-italic mb-3" style="line-height: 1.8; color: #2c2c2c; font-size: 1.05rem;">
+                <div class="p-4 mb-4" style="background-color: #fff1f3; border-radius: 12px; border-left: 5px solid #D40032;">
+                    <p class="fst-italic mb-3" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; color: #2c2c2c; font-size: 1.1rem;">
                         "Together, we are forging a resilient and dynamic future for Valenzuela. Our Chamber is committed to empowering every member to reach their full potential and contribute to our city's collective success."
                     </p>
-                    <p class="text-accent fw-bold mb-0">– Mr. Jundio Salvador, President</p>
+                    <p class="fw-bold mb-0" style="font-family: 'DM Sans', sans-serif; color: #D40032;">– Mr. Jundio Salvador, President</p>
                 </div>
 
-                <a href="{{ route('leadership') }}" class="btn btn-danger fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="background-color: #fd0000; border: none; border-radius: 6px;">
+                <a href="{{ route('leadership') }}" class="btn text-white px-4 py-2 fw-bold text-uppercase d-inline-flex align-items-center gap-2" 
+                   style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; background-color: #D40032; border-radius: 6px;">
                     Meet Our Leadership
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
 
             <div class="col-lg-6">
                 <div class="position-relative">
                     <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000" 
-                         alt="President" 
-                         class="img-fluid rounded shadow-lg"
-                         style="border-radius: 12px !important; border: 8px solid white;">
-                    <div class="position-absolute bottom-0 start-0 p-4 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); width: 100%; border-radius: 0 0 12px 12px;">
-                        <h5 class="fw-bold mb-0">Mr. Jundio Salvador</h5>
-                        <p class="mb-0" style="opacity: 0.9;">President, PCCI Valenzuela</p>
+                         alt="President Jundio Salvador" 
+                         class="img-fluid shadow-sm"
+                         style="border-radius: 12px; border: 8px solid white;">
+                    
+                    <div class="position-absolute bottom-0 start-0 p-4 text-white w-100" 
+                         style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); border-radius: 0 0 12px 12px;">
+                        <h5 class="fw-bold mb-0" style="font-family: 'Poppins', sans-serif;">Mr. Jundio Salvador</h5>
+                        <p class="mb-0" style="font-family: 'DM Sans', sans-serif; opacity: 0.9;">President, PCCI Valenzuela</p>
                     </div>
                 </div>
             </div>
@@ -80,135 +95,168 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
 </div>
 
 {{-- The PCCI Advantage Section --}}
-<div class="py-5" style="background-color: #B91C1C;">
-    <div class="container text-white">
+<div class="py-5" style="background-color: #D40032;">
+    <div class="container text-white py-4">
         <div class="text-center mb-5">
-            <p class="text-uppercase fw-bold mb-2" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.9;">The PCCI Advantage</p>
-            <h2 class="fw-bold mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">Your Partner Growth & Success</h2>
-            <p class="mx-auto" style="max-width: 800px; font-size: 1.05rem; opacity: 0.95;">
-                Joining PCCI New Marikina unlocks a wealth of opportunities and resources tailored to elevate your business.
+            <span class="text-white fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
+                The PCCI Advantage
+            </span>
+            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.01em;">
+                Your Partner in Growth & Success
+            </h2>
+            <p class="mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; line-height: 1.7; opacity: 0.9;">
+                Joining PCCI Valenzuela unlocks a wealth of opportunities and resources tailored to elevate your business and drive local economic excellence.
             </p>
         </div>
 
         <div class="row g-4 mb-5">
-            @foreach([
-                [
-                    'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-                    'title' => 'Connect & Collaborate',
-                    'desc' => 'Unlock unparalleled networking opportunities. We foster a dynamic ecosystem where businesses connect, share insights, and forge powerful collaborations that drive mutual growth.'
-                ],
-                [
-                    'icon' => 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
-                    'title' => 'Advocate and Represent',
-                    'desc' => 'Your voice, amplified. We champion the interests of Marikina\'s businesses, ensuring your concerns are heard and addressed at key policy-making levels.'
-                ],
-                [
-                    'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-                    'title' => 'Develop and Innovate',
-                    'desc' => 'Stay ahead of the curve. Gain access to cutting-edge training, workshops, and resources designed to enhance your operations, embrace innovation, and achieve new heights.'
-                ],
-                [
-                    'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-                    'title' => 'Strengthen our Community',
-                    'desc' => 'More than just business. We actively invest in Marikina\'s future through community-focused programs and initiatives that promote social responsibility and shared prosperity.'
-                ],
-            ] as $advantage)
+            {{-- Connect & Collaborate --}}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 text-center p-4" style="border-radius: 12px; background-color: white;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #FEE2E2; border-radius: 12px;">
-                        <svg class="text-danger" width="30" height="30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $advantage['icon'] }}"></path>
-                        </svg>
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-people-fill" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="color: #1f1f1f;">{{ $advantage['title'] }}</h5>
-                    <p class="text-secondary mb-0 small" style="line-height: 1.6;">{{ $advantage['desc'] }}</p>
+                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Connect & Collaborate</h5>
+                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                        Unlock unparalleled networking opportunities. We foster a dynamic ecosystem where businesses connect and forge powerful collaborations.
+                    </p>
                 </div>
             </div>
-            @endforeach
+
+            {{-- Advocate & Represent --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-megaphone-fill" style="font-size: 1.75rem; color: #D40032;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Advocate & Represent</h5>
+                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                        Your voice, amplified. We champion the interests of Valenzuela's businesses, ensuring your concerns are heard at key policy-making levels.
+                    </p>
+                </div>
+            </div>
+
+            {{-- Develop & Innovate --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-lightbulb-fill" style="font-size: 1.75rem; color: #D40032;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Develop & Innovate</h5>
+                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                        Stay ahead of the curve. Gain access to cutting-edge training and resources designed to enhance your operations and embrace innovation.
+                    </p>
+                </div>
+            </div>
+
+            {{-- Strengthen Community --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-building-fill-check" style="font-size: 1.75rem; color: #D40032;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Build Community</h5>
+                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                        We invest in Valenzuela's future through community-focused programs that promote social responsibility and shared prosperity.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="text-center">
-            <a href="#events" class="btn btn-light fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" style="border-radius: 6px; color: #1f1f1f;">
+            <a href="#events" class="btn btn-light fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2" 
+               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; color: #D40032;">
                 Explore our Events
-                <i class="fa-solid fa-arrow-right"></i>
+                <i class="bi bi-arrow-right"></i>
             </a>
         </div>
     </div>
 </div>
 
 {{-- Our Values Section --}}
-<div class="bg-light text-dark py-5">
-    <div class="container">
+<div class="py-5" style="background-color: #e9ecef;">
+    <div class="container py-4">
         <div class="text-center mb-5">
-            <h6 class="text-accent fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.05em;">Our Values</h6>
-            <h2 class="fw-bold mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">The Foundation of Our Commitment.</h2>
-            <p class="text-secondary mx-auto" style="max-width: 800px;">
-                These principles are woven into every action we take and every service we provide.
+            <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: #D40032;">
+                Our Values
+            </span>
+            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: #212529;">
+                The Foundation of Our Commitment.
+            </h2>
+            <p class="text-secondary mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.05rem; line-height: 1.7;">
+                These principles are woven into every action we take and every service we provide to the Valenzuela business community.
             </p>
         </div>
 
         <div class="row g-4 justify-content-center">
-            @foreach([
-                [
-                    'icon' => 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
-                    'title' => 'Discipline',
-                    'desc' => 'Unlock unparalleled networking opportunities. We foster a dynamic ecosystem where businesses connect, share insights, and forge powerful collaborations that drive mutual growth.'
-                ],
-                [
-                    'icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-                    'title' => 'Good Taste',
-                    'desc' => 'Fostering a community that values quality, aesthetics, and thoughtful execution.'
-                ],
-                [
-                    'icon' => 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
-                    'title' => 'Excellence',
-                    'desc' => 'Striving for the highest standards in all our endeavors and initiatives.'
-                ],
-            ] as $value)
+            {{-- Discipline --}}
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 text-center text-white p-4" style="border-radius: 16px; background-color: #B91C1C;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2); border-radius: 12px;">
-                        <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $value['icon'] }}"></path>
-                        </svg>
+                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
+                        <i class="bi bi-shield-check" style="font-size: 1.75rem;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">{{ $value['title'] }}</h5>
-                    <p class="mb-0 small" style="line-height: 1.6; opacity: 0.95;">{{ $value['desc'] }}</p>
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Discipline</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                        We uphold the highest levels of professional integrity and organizational order in every initiative we lead.
+                    </p>
                 </div>
             </div>
-            @endforeach
+
+            {{-- Good Taste --}}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
+                        <i class="bi bi-heart-fill" style="font-size: 1.75rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Good Taste</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                        Fostering a community that values quality, professional aesthetics, and thoughtful execution in business.
+                    </p>
+                </div>
+            </div>
+
+            {{-- Excellence --}}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
+                        <i class="bi bi-star-fill" style="font-size: 1.75rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Excellence</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                        Striving for the highest standards in all our endeavors to ensure Valenzuela remains a competitive business hub.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-{{-- Our Impact Section --}}
-{{-- Impact Section (Split Layout Style) --}}
+{{-- Our Impact Section (Split Layout Style) --}}
 <section class="w-100 overflow-hidden bg-white" id="impact">
     <div class="row g-0">
         {{-- Left: Visual Side (Image) --}}
         <div class="col-lg-6 position-relative" style="min-height: 600px;">
-            {{-- Placeholder Image representing Growth/Impact --}}
             <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000" 
                  alt="Valenzuela Business Impact" 
                  class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
             
-            {{-- Red Tint Overlay (Consistent with theme) --}}
+            {{-- Brand Red Tint Overlay --}}
             <div class="position-absolute top-0 start-0 w-100 h-100" 
-                 style="background: linear-gradient(to right, rgba(185, 28, 28, 0.4), rgba(185, 28, 28, 0));"></div>
+                 style="background: linear-gradient(to right, rgba(212, 0, 50, 0.4), rgba(212, 0, 50, 0));"></div>
         </div>
 
-        {{-- Right: Content Side (Red Background) --}}
-        <div class="col-lg-6 d-flex flex-column justify-content-center bg-danger text-white p-5">
-            <div class="p-lg-4 mx-auto w-100" style="max-width: 650px;">
+        {{-- Right: Content Side (Brand Red Background) --}}
+        <div class="col-lg-6 d-flex flex-column justify-content-center p-5" style="background-color: #D40032;">
+            <div class="p-lg-4 mx-auto w-100 text-white" style="max-width: 650px;">
                 
                 {{-- Header --}}
-                <h6 class="text-uppercase fw-bold mb-3 opacity-75" style="letter-spacing: 0.15em; font-size: 0.85rem;">
+                <span class="text-uppercase fw-bold mb-3 d-block" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.15em; font-size: 0.85rem; opacity: 0.9;">
                     Our Impact
-                </h6>
-                <h2 class="display-5 fw-bold mb-4">
+                </span>
+                <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1;">
                     Building a Stronger Valenzuela, One Business at a Time.
                 </h2>
-                <p class="lead mb-5 opacity-90" style="font-weight: 300; line-height: 1.7; font-size: 1.1rem;">
+                <p class="mb-5" style="font-family: 'DM Sans', sans-serif; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
                     We measure our success by the tangible growth and prosperity of our members and the broader Valenzuela community.
                 </p>
 
@@ -218,13 +266,13 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
                         ['number' => '100+', 'label' => 'Active Members', 'desc' => 'Growing network'],
                         ['number' => '32+', 'label' => 'Years of Service', 'desc' => 'Dedicated progress'],
                         ['number' => '200+', 'label' => 'Events Hosted', 'desc' => 'Fostering connections'],
-                        ['number' => '₱500M+', 'label' => 'Business Value', 'desc' => ' facilitated growth'],
+                        ['number' => '₱500M+', 'label' => 'Value Created', 'desc' => 'Facilitated growth'],
                     ] as $stat)
                     <div class="col-sm-6">
-                        <div class="p-3 rounded-3 h-100" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);">
-                            <h3 class="fw-bold mb-1" style="font-size: 2rem;">{{ $stat['number'] }}</h3>
-                            <div class="fw-bold text-uppercase small opacity-75 mb-1" style="letter-spacing: 0.05em;">{{ $stat['label'] }}</div>
-                            <p class="mb-0 small opacity-50">{{ $stat['desc'] }}</p>
+                        <div class="p-4 h-100" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px;">
+                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em;">{{ $stat['number'] }}</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; opacity: 0.9;">{{ $stat['label'] }}</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; opacity: 0.7;">{{ $stat['desc'] }}</p>
                         </div>
                     </div>
                     @endforeach
@@ -235,17 +283,13 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
     </div>
 </section>
 
-{{-- ============================================== --}}
-{{-- COMMUNITY GALLERY - SMOOTH COVERFLOW CAROUSEL --}}
-{{-- ============================================== --}}
-
 {{-- Swiper CSS --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
     .community-section {
         background-color: #fdf2f4;
-        padding: 60px 0 80px;
+        padding: 80px 0;
         overflow: hidden;
     }
     
@@ -257,58 +301,34 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
         justify-content: center;
     }
     
-    .carousel-content {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    
-    /* Navigation Arrows - Far sides */
+    /* Navigation Arrows */
     .nav-arrow {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         width: 50px;
         height: 50px;
-        background: transparent;
+        background: white;
         border: none;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         z-index: 50;
         transition: all 0.3s ease;
-        padding: 0;
+        color: #333;
     }
     
     .nav-arrow:hover {
-        transform: translateY(-50%) scale(1.15);
+        background-color: #D40032;
+        color: white;
+        transform: translateY(-50%) scale(1.1);
     }
     
-    .nav-arrow:active {
-        transform: translateY(-50%) scale(0.95);
-    }
-    
-    .nav-arrow svg {
-        width: 40px;
-        height: 40px;
-        stroke: #333;
-        stroke-width: 2;
-        fill: none;
-        transition: stroke 0.3s ease;
-    }
-    
-    .nav-arrow:hover svg {
-        stroke: #A40033;
-    }
-    
-    .nav-prev {
-        left: 20px;
-    }
-    
-    .nav-next {
-        right: 20px;
-    }
+    .nav-prev { left: 20px; }
+    .nav-next { right: 20px; }
     
     /* Swiper customization */
     .communitySwiper {
@@ -317,174 +337,155 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
         overflow: visible;
     }
     
-    .communitySwiper .swiper-wrapper {
-        align-items: center;
-        transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1) !important;
-    }
-    
     .communitySwiper .swiper-slide {
-        width: 400px;
-        height: 270px;
-        border-radius: 16px;
+        width: 450px;
+        height: 300px;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        opacity: 0.5;
-        transform: scale(0.85);
+        opacity: 0.4;
+        transform: scale(0.8);
     }
     
     .communitySwiper .swiper-slide img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
-        transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    .communitySwiper .swiper-slide:hover img {
-        transform: scale(1.05);
-    }
-    
-    /* Active slide - prominent center */
     .communitySwiper .swiper-slide-active {
         opacity: 1;
-        transform: scale(1);
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        transform: scale(1.05);
+        box-shadow: 0 25px 50px rgba(212, 0, 50, 0.2);
         z-index: 10;
     }
-    
-    /* Adjacent slides */
-    .communitySwiper .swiper-slide-prev,
-    .communitySwiper .swiper-slide-next {
-        opacity: 0.7;
-        transform: scale(0.9);
-    }
-    
-    /* Pagination Dots */
-    .swiper-pagination {
-        position: relative;
-        margin-top: 25px;
-        bottom: auto !important;
-    }
-    
-    .swiper-pagination-bullet {
-        width: 10px;
-        height: 10px;
-        background: #ccc;
-        opacity: 1;
-        margin: 0 6px !important;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        border-radius: 50%;
-    }
-    
-    .swiper-pagination-bullet:hover {
-        background: #999;
+
+    .swiper-pagination-bullet-active {
+        background: #D40032 !important;
         transform: scale(1.2);
     }
-    
-    .swiper-pagination-bullet-active {
-        background: #ff0202;
-        transform: scale(1.4);
-    }
-    
-    /* Responsive */
-    @media (max-width: 1200px) {
-        .nav-prev {
-            left: 10px;
-        }
-        
-        .nav-next {
-            right: 10px;
-        }
-    }
-    
-    @media (max-width: 992px) {
-        .communitySwiper .swiper-slide {
-            width: 350px;
-            height: 240px;
-        }
-        
-        .nav-arrow svg {
-            width: 32px;
-            height: 32px;
-        }
-    }
-    
+
     @media (max-width: 768px) {
-        .communitySwiper .swiper-slide {
-            width: 300px;
-            height: 210px;
-        }
-        
-        .nav-prev {
-            left: 5px;
-        }
-        
-        .nav-next {
-            right: 5px;
-        }
-        
-        .nav-arrow svg {
-            width: 28px;
-            height: 28px;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .communitySwiper .swiper-slide {
-            width: 260px;
-            height: 180px;
-        }
-        
-        .nav-arrow {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .nav-arrow svg {
-            width: 24px;
-            height: 24px;
-        }
+        .communitySwiper .swiper-slide { width: 300px; height: 200px; }
+        .nav-arrow { display: none; } /* Hide arrows on mobile for better touch experience */
     }
 </style>
 
+<section class="community-section">
+    <div class="container text-center mb-4">
+        <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: #D40032;">
+            Our Community
+        </span>
+        <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem);">
+            Moments of Collaboration
+        </h2>
+        <p class="text-secondary mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 600px;">
+            A glimpse into the events, workshops, and partnerships that drive Valenzuela's economy forward.
+        </p>
+    </div>
+
+    <div class="carousel-outer-container">
+        <button class="nav-arrow nav-prev"><i class="bi bi-chevron-left"></i></button>
+        <button class="nav-arrow nav-next"><i class="bi bi-chevron-right"></i></button>
+
+        <div class="carousel-content">
+            <div class="swiper communitySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1000" alt="Networking Event">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000" alt="Business Workshop">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1528605248644-14dd04322119?q=80&w=1000" alt="Community Growth">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000" alt="Leadership Meeting">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Swiper JS --}}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const swiper = new Swiper(".communitySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2.5,
+                slideShadows: false,
+            },
+            navigation: {
+                nextEl: ".nav-next",
+                prevEl: ".nav-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+        });
+    });
+</script>
+
+{{-- Community Gallery Section --}}
 <div class="community-section">
     <div class="container-fluid px-0">
-        <div class="text-center  text-dark mb-4">
-            <h2 class="fw-bold" style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-family: 'DM Sans', sans-serif;">Glimpses of our <span style="color: red;">Community</span> in Action
-</h2>
-
+        {{-- Section Header --}}
+        <div class="text-center mb-4">
+            <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: #D40032;">
+                Gallery
+            </span>
+            <h2 class="fw-bold text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: #212529;">
+                Glimpses of our <span style="color: #D40032;">Community</span> in Action
+            </h2>
         </div>
 
         <div class="carousel-outer-container">
             {{-- Navigation Arrow - Left --}}
             <button class="nav-arrow nav-prev" id="prevBtn" aria-label="Previous slide">
-                <svg viewBox="0 0 24 24">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
+                <i class="bi bi-chevron-left" style="font-size: 1.5rem;"></i>
             </button>
 
             {{-- Carousel Content --}}
             <div class="carousel-content">
                 <div class="swiper communitySwiper">
                     <div class="swiper-wrapper">
+                        {{-- Slide 1: Networking --}}
                         <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=800&h=600&fit=crop" alt="Mountain Lake">
+                            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800&h=600&fit=crop" alt="PCCI Valenzuela Networking">
                         </div>
+                        {{-- Slide 2: Industry/Manufacturing --}}
                         <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=800&h=600&fit=crop" alt="Sunset Dock">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&h=600&fit=crop" alt="Valenzuela Industry">
                         </div>
+                        {{-- Slide 3: Team Collaboration --}}
                         <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=800&h=600&fit=crop" alt="Flower Field">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&h=600&fit=crop" alt="Business Collaboration">
                         </div>
+                        {{-- Slide 4: Leadership Meeting --}}
                         <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&h=600&fit=crop" alt="Team Meeting">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&h=600&fit=crop" alt="Board Meeting">
                         </div>
+                        {{-- Slide 5: Seminar/Workshop --}}
                         <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&h=600&fit=crop" alt="Portrait">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&h=600&fit=crop" alt="Workshop">
+                            <img src="https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?q=80&w=800&h=600&fit=crop" alt="Business Workshop">
                         </div>
                     </div>
                     
@@ -495,122 +496,121 @@ linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://im
 
             {{-- Navigation Arrow - Right --}}
             <button class="nav-arrow nav-next" id="nextBtn" aria-label="Next slide">
-                <svg viewBox="0 0 24 24">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
+                <i class="bi bi-chevron-right" style="font-size: 1.5rem;"></i>
             </button>
         </div>
     </div>
 </div>
 
-{{-- Swiper JS --}}
+{{-- Swiper JS Implementation --}}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Swiper with Coverflow Effect
         var swiper = new Swiper('.communitySwiper', {
-            // Coverflow effect
             effect: 'coverflow',
             grabCursor: true,
             centeredSlides: true,
             slidesPerView: 'auto',
             loop: true,
             
-            // Smooth animation settings
+            // Smooth premium animation speed
             speed: 800,
             
-            // Coverflow configuration
+            // Refined Coverflow configuration
             coverflowEffect: {
                 rotate: 0,
-                stretch: 100,
-                depth: 250,
+                stretch: 100, // Pulls slides closer for overlap
+                depth: 250,   // Enhances the 3D perspective
                 modifier: 1,
                 slideShadows: false,
             },
             
-            // Pagination
+            // Interactive Pagination (Brand Red via CSS)
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
                 dynamicBullets: false,
             },
             
-            // Autoplay with smooth transition
+            // Autoplay with user-friendly pause
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
             },
             
-            // Smooth easing
-            cssMode: false,
-            
-            // Keyboard navigation
             keyboard: {
                 enabled: true,
                 onlyInViewport: true,
             },
             
-            // Touch settings for smooth mobile experience
+            // Optimized Touch for Mobile
             touchRatio: 1.5,
-            touchAngle: 45,
-            
-            // Resistance for edge bounce
             resistance: true,
             resistanceRatio: 0.85,
         });
         
-        // Custom navigation with smooth animation
+        // Custom Navigation Elements
         var prevBtn = document.getElementById('prevBtn');
         var nextBtn = document.getElementById('nextBtn');
         
-        prevBtn.addEventListener('click', function() {
-            swiper.slidePrev(800); // 800ms smooth transition
-        });
-        
-        nextBtn.addEventListener('click', function() {
-            swiper.slideNext(800); // 800ms smooth transition
-        });
-        
-        // Add visual feedback on button click
-        [prevBtn, nextBtn].forEach(function(btn) {
-            btn.addEventListener('mousedown', function() {
-                this.style.transform = 'translateY(-50%) scale(0.9)';
+        // Manual Navigation triggers
+        if(prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', function() {
+                swiper.slidePrev(800);
             });
-            btn.addEventListener('mouseup', function() {
-                this.style.transform = 'translateY(-50%) scale(1.15)';
+            
+            nextBtn.addEventListener('click', function() {
+                swiper.slideNext(800);
             });
-            btn.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-50%) scale(1)';
+            
+            // Tactile Feedback for Navigation Buttons
+            [prevBtn, nextBtn].forEach(function(btn) {
+                btn.addEventListener('mousedown', function() {
+                    this.style.transform = 'translateY(-50%) scale(0.92)';
+                });
+                btn.addEventListener('mouseup', function() {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                });
             });
-        });
+        }
     });
 </script>
 
-{{-- ============================================== --}}
-{{-- END COMMUNITY GALLERY CAROUSEL --}}
-{{-- ============================================== --}}
-
 {{-- Final CTA Section --}}
-<div class="py-5 bg-white">
-    <div class="container text-center py-4">
-        <h2 class="fw-bold mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem); color: #1f1f1f;">
-            Be Part of our Valenzuela's Business Renaissance.
+<section class="py-5 bg-white border-top">
+    <div class="container text-center py-5">
+        {{-- Section Header --}}
+        <span class="fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: #D40032;">
+            Take the Next Step
+        </span>
+        <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 5vw, 2.75rem); color: #212529; line-height: 1.2;">
+            Be Part of Valenzuela's <br class="d-none d-md-block"> Business Renaissance.
         </h2>
-        <p class="text-secondary mx-auto mb-5" style="max-width: 800px; font-size: 1.05rem; line-height: 1.7;">
-            PCCI Valenzuela is more than a chamber; it's a community dedicated to fostering a vibrant, sustainable, and inclusive business environment. Invest in your future and the future of Valenzuela.
+        
+        <p class="text-secondary mx-auto mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.15rem; line-height: 1.8;">
+            PCCI Valenzuela is more than a chamber; it's a community dedicated to fostering a vibrant, sustainable, and inclusive business environment. Invest in your growth and the future of our city.
         </p>
+
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#membership" class="btn btn-danger fw-bold px-5 py-3" style="background-color: #f50303; border: none; border-radius: 6px; font-size: 1.1rem;">
+            {{-- Primary Action --}}
+            <a href="#membership" class="btn text-white fw-bold px-5 py-3 text-uppercase d-inline-flex align-items-center gap-3 shadow-sm" 
+               style="font-family: 'DM Sans', sans-serif; background-color: #D40032; border: none; border-radius: 6px; font-size: 1rem; letter-spacing: 0.05em;">
                 Become a Member Today
-                <i class="fa-solid fa-arrow-right"></i>
+                <i class="bi bi-arrow-right" style="font-size: 1.2rem;"></i>
             </a>
-            <a href="{{ url('/contact') }}" class="btn btn-outline-dark fw-bold px-5 py-3" style="border-radius: 6px; font-size: 1.1rem;">
+
+            {{-- Secondary Action --}}
+            <a href="{{ url('/contact') }}" class="btn btn-outline-dark fw-bold px-5 py-3 text-uppercase" 
+               style="font-family: 'DM Sans', sans-serif; border-radius: 6px; font-size: 1rem; letter-spacing: 0.05em;">
                 Contact Us
-                 
             </a>
-            
         </div>
     </div>
-</div>
+</section>
 
 @endsection

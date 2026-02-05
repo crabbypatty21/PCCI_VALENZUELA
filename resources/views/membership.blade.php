@@ -8,9 +8,8 @@
     2. Maintained previous layout and "Red" overlay
     3. Applied Font Styles: Poppins for Headings, DM Sans for Body/Buttons
 --}}
-<div class="w-100 mb-0" style="
-    padding-top: 140px; 
-    padding-bottom: 3rem;
+<div class="w-100 mb-0 d-flex align-items-center justify-content-center flex-column" style="
+    min-height: 500px;
     margin-top: -1px; 
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;

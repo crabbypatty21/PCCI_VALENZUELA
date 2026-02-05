@@ -1,4 +1,101 @@
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* ============================================== */
+    /* JOIN PCCI BUTTON ANIMATION (Solid Fill Slide)  */
+    /* ============================================== */
+    
+    .btn-pcci-slide {
+        position: relative;
+        background-color: #A40D0F !important; 
+        color: #ffffff;
+        border: 2px solid #A40D0F;
+        overflow: hidden; 
+        z-index: 1;
+        font-weight: 800 !important;
+
+        /* Sliding White Fill */
+        background-image: linear-gradient(to right, #ffffff, #ffffff);
+        background-position: left center;
+        background-size: 0% 100%; 
+        background-repeat: no-repeat;
+        
+        transition: background-size 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+    }
+
+    /* HOVER STATE */
+    .btn-pcci-slide:hover {
+        background-size: 100% 100%; 
+        color: #A40D0F !important;   
+        border-color: #ffffff;       
+    }
+
+    /* SCROLLED STATE */
+    .btn-pcci-slide.scrolled-mode {
+        background-color: #ffffff !important;
+        color: #A40D0F !important;
+        border-color: #ffffff !important;
+        background-image: none; 
+    }
+
+    .btn-pcci-slide.scrolled-mode:hover {
+        background-color: #f2f2f2 !important; 
+    }
+
+    .btn-pcci-slide:focus, .btn-pcci-slide:active {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+   /* ============================================== */
+    /* NAVIGATION LINKS STYLING                       */
+    /* ============================================== */
+    
+    .nav-link-custom {
+        font-weight: 600 !important;
+        border-radius: 5px; 
+        
+        /* UPDATED: Removed background/color transitions so there is no lag */
+        transition: opacity 0.2s ease;
+    }
+    
+    /* Hover effect */
+    .nav-link-custom:hover {
+        opacity: 0.8; 
+    }
+
+    /* REMOVE ALL OUTLINES/BORDERS ON CLICK */
+    .nav-link-custom:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* ACTIVE STATE (WHILE CLICKING) */
+    .nav-link-custom:active {
+        /* 1. Remove Background Highlight */
+        background-color: transparent !important; 
+        
+        /* 2. Force text to stay WHITE (prevents it turning black) */
+        color: #ffffff !important; 
+        
+        /* 3. Instant Reaction (No Animation) */
+        transition: none !important; 
+        
+        /* Optional: A tiny opacity dip so you know you clicked it, 
+           without changing colors. Remove this line if you want zero effect. */
+        opacity: 0.7 !important; 
+    }
+
+    /* CURRENT PAGE UNDERLINE STATE */
+    .active-nav-underline {
+        text-decoration: underline !important;
+        text-decoration-color: #ffffff !important;
+        text-decoration-thickness: 3px !important; 
+        text-underline-offset: 8px !important;    
+        opacity: 1 !important;
+    }
+</style>
 
 <header id="main-topbar" 
         class="fixed-top w-100 px-4 py-3" 
@@ -19,7 +116,7 @@
                     Philippine Chambers of Commerce and Industry
                 </span>
             </div>
-            <span class="fw-bold">PCCI Valenzuela</span>
+            <span class="fw-bold d-xl-none text-white">PCCI Valenzuela</span>
         </a>
 
         <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -30,24 +127,23 @@
             
             <div class="d-flex flex-column flex-xl-row align-items-xl-center mx-auto gap-3 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
                 
-                <a href="{{ url('/') }}" class="text-decoration-none px-2 {{ Request::is('/') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ url('/') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('/') ? 'active-nav-underline' : '' }}">
                     Home
                 </a>
                 
-                <a href="{{ route('about') }}" class="text-decoration-none px-2 {{ Request::is('about') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ route('about') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('about') ? 'active-nav-underline' : '' }}">
                     About Us
                 </a>
                 
-                {{-- UPDATED: Link remains 'text-dark' (Black) on business profile pages --}}
-                <a href="{{ url('/membership') }}" class="text-decoration-none px-2 {{ (Request::is('membership') || Request::is('business/*')) ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ url('/membership') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ (Request::is('membership') || Request::is('business/*')) ? 'active-nav-underline' : '' }}">
                     Membership
                 </a>
                 
-                <a href="{{ route('event') }}" class="text-decoration-none px-2 {{ Request::is('event') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ route('event') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('event') ? 'active-nav-underline' : '' }}">
                     Events
                 </a>
                 
-                <a href="{{ url('/contact') }}" class="text-decoration-none px-2 {{ Request::is('contact') ? 'fw-bold text-dark' : 'text-white' }}">
+                <a href="{{ url('/contact') }}" class="text-decoration-none px-2 nav-link-custom text-white {{ Request::is('contact') ? 'active-nav-underline' : '' }}">
                     Contact Us
                 </a>
             </div>
@@ -56,8 +152,7 @@
                 
                 <a href="{{ route('join') }}" 
                    id="join-pcci-btn"
-                   class="btn btn-danger text-nowrap rounded-2 px-4"
-                   style="background-color: #A40D0F; border-color: #A40D0F; transition: all 0.3s ease;">
+                   class="btn btn-pcci-slide text-nowrap rounded-2 px-4">
                     Join PCCI
                 </a>
 
@@ -86,36 +181,53 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        
+        // --- PART 1: OPTIMIZED SCROLL HANDLER (Prevents lag during scrolling) ---
         const topbar = document.getElementById("main-topbar");
         const joinBtn = document.getElementById("join-pcci-btn");
+        let ticking = false; // Flag to prevent function from running too often
 
-        window.addEventListener("scroll", function () {
+        function updateNavbar() {
             if (window.scrollY > 50) {
-                // --- SCROLLED STATE ---
-                // Navbar: Red with 0.9 Opacity
                 topbar.style.backgroundColor = "rgba(164, 13, 15, 0.9)";
                 topbar.classList.add("shadow-sm");
-
-                // Button: White BG, Red Text
-                if (joinBtn) {
-                    joinBtn.style.backgroundColor = "#ffffff";
-                    joinBtn.style.borderColor = "#ffffff";
-                    joinBtn.style.color = "#A40D0F"; 
-                }
-
+                if (joinBtn) joinBtn.classList.add("scrolled-mode");
             } else {
-                // --- TOP STATE (DEFAULT) ---
-                // Navbar: Transparent
                 topbar.style.backgroundColor = "transparent";
                 topbar.classList.remove("shadow-sm");
-
-                // Button: Red BG, White Text
-                if (joinBtn) {
-                    joinBtn.style.backgroundColor = "#A40D0F";
-                    joinBtn.style.borderColor = "#A40D0F";
-                    joinBtn.style.color = "#ffffff";
-                }
+                if (joinBtn) joinBtn.classList.remove("scrolled-mode");
             }
+            ticking = false; // Reset flag after work is done
+        }
+
+        window.addEventListener("scroll", function() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
+        });
+
+        // Run once on load to set initial state
+        updateNavbar();
+
+
+        // --- PART 2: CLICK DELAY FEEDBACK (Shows 'Wait' cursor instantly) ---
+        // This makes the user feel the system is reacting, even if the server is slow.
+        const links = document.querySelectorAll('a');
+        
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // If it's a real link (not an anchor # or javascript:)
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('/') || href.startsWith('http')) {
+                    document.body.style.cursor = 'wait'; // Change cursor to spinner
+                }
+            });
+        });
+
+        // Reset cursor if the user presses "Back" to return to this page
+        window.addEventListener('pageshow', () => {
+            document.body.style.cursor = 'default';
         });
     });
 </script>
