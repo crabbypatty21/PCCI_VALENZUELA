@@ -37,3 +37,7 @@ Route::get('/login', function () {
 Route::get('/event', function () {
     return view('event');
 })->name('event');
+
+Route::get('/join', function () {
+    return view('signup');
+})->name('join');

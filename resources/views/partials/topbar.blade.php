@@ -54,7 +54,7 @@
 
             <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
                 
-                <a href="{{ url('/membership') }}" 
+                <a href="{{ route('join') }}" 
                    id="join-pcci-btn"
                    class="btn btn-danger text-nowrap rounded-2 px-4"
                    style="background-color: #A40D0F; border-color: #A40D0F; transition: all 0.3s ease;">
