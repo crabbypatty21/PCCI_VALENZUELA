@@ -10,16 +10,14 @@
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                         </svg>
                     </div>
-                    <span class="fw-bold fs-5">PCCI Valenzuela</span>
+                    <h5 class="fw-bold mb-0" style="font-family: 'Poppins', sans-serif;">PCCI Valenzuela</h5>
                 </div>
-                <p class="text-white-50 mb-4" style="line-height: 1.7;">
-                    Philippine Chamber of Commerce and Industry - Valenzuela Chapter. Empowering local businesses since 1992.
+                <p class="mb-4" style="font-family: 'DM Sans', sans-serif; opacity: 0.9; line-height: 1.7; font-size: 0.95rem;">
+                    Empowering local businesses and fostering economic growth in Marikina City through collaboration, networking, and advocacy. Building the future of businesses in our community.
                 </p>
-                <div class="d-flex gap-3">
-                    <a href="#" class="d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background-color: rgba(255,255,255,0.1); transition: all 0.3s ease;" aria-label="Facebook">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
+                <div class="d-flex gap-2">
+                    <a href="#" class="btn btn-light btn-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; border-radius: 8px;">
+                        <i class="bi bi-facebook" style="font-size: 1.1rem; color: #AC1D32;"></i>
                     </a>
                     <a href="#" class="d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; background-color: rgba(255,255,255,0.1); transition: all 0.3s ease;" aria-label="Twitter">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -38,73 +36,43 @@
                     </a>
                 </div>
             </div>
-            
-            {{-- Quick Links --}}
-            <div class="col-lg-2 col-md-6 col-6">
-                <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 1px; font-size: 0.85rem;">Quick Links</h6>
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none">Home</a></li>
-                    <li class="mb-2"><a href="{{ route('about') }}" class="text-decoration-none">About Us</a></li>
-                    <li class="mb-2"><a href="{{ route('membership') }}" class="text-decoration-none">Members</a></li>
-                    <li class="mb-2"><a href="{{ route('event') }}" class="text-decoration-none">Events</a></li>
-                    <li class="mb-2"><a href="{{ route('leadership') }}" class="text-decoration-none">Leadership</a></li>
+
+            <div class="col-lg-2 col-md-4">
+                <h6 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Quick Links</h6>
+                <ul class="list-unstyled" style="font-family: 'DM Sans', sans-serif;">
+                    <li class="mb-2"><a href="{{ url('/') }}" class="text-white text-decoration-none" style="opacity: 0.9;">Home</a></li>
+                    <li class="mb-2"><a href="{{ url('/about') }}" class="text-white text-decoration-none" style="opacity: 0.9;">About Us</a></li>
+                    <li class="mb-2"><a href="{{ url('/membership') }}" class="text-white text-decoration-none" style="opacity: 0.9;">Membership</a></li>
+                    <li class="mb-2"><a href="{{ url('/contact') }}" class="text-white text-decoration-none" style="opacity: 0.9;">Contact Us</a></li>
                 </ul>
             </div>
-            
-            {{-- Resources --}}
-            <div class="col-lg-2 col-md-6 col-6">
-                <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 1px; font-size: 0.85rem;">Resources</h6>
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a href="#" class="text-decoration-none">News & Updates</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none">Business Directory</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none">Career Center</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none">Downloads</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none">FAQs</a></li>
-                </ul>
-            </div>
-            
-            {{-- Contact Info --}}
-            <div class="col-lg-4 col-md-6">
-                <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 1px; font-size: 0.85rem;">Contact Us</h6>
-                <ul class="list-unstyled mb-0">
-                    <li class="d-flex align-items-start gap-3 mb-3">
-                        <svg width="20" height="20" fill="#A40033" viewBox="0 0 20 20" class="flex-shrink-0 mt-1">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span class="text-white-50">Valenzuela City, Metro Manila, Philippines</span>
+
+            <div class="col-lg-6 col-md-8">
+                <h6 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Contact Information</h6>
+                <ul class="list-unstyled" style="font-family: 'DM Sans', sans-serif;">
+                    <li class="mb-3 d-flex align-items-start gap-2">
+                        <i class="bi bi-geo-alt-fill mt-1 flex-shrink-0" style="font-size: 1.1rem;"></i>
+                        <span style="opacity: 0.9;">4th Floor, Legislative Bldg, Valenzuela City Hall, MacArthur Highway 1800 Philippines</span>
                     </li>
-                    <li class="d-flex align-items-start gap-3 mb-3">
-                        <svg width="20" height="20" fill="#A40033" viewBox="0 0 20 20" class="flex-shrink-0 mt-1">
-                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                        </svg>
-                        <span class="text-white-50">(02) 8123-4567</span>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-telephone-fill flex-shrink-0" style="font-size: 1.1rem;"></i>
+                        <span style="opacity: 0.9;">09822658382</span>
                     </li>
-                    <li class="d-flex align-items-start gap-3 mb-3">
-                        <svg width="20" height="20" fill="#A40033" viewBox="0 0 20 20" class="flex-shrink-0 mt-1">
-                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                        </svg>
-                        <span class="text-white-50">info@pccivalenzuela.org</span>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-envelope-fill flex-shrink-0" style="font-size: 1.1rem;"></i>
+                        <span style="opacity: 0.9;">support@nfcnexus.tech</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-globe flex-shrink-0" style="font-size: 1.1rem;"></i>
+                        <span style="opacity: 0.9;">pcci-valenzuela.com</span>
                     </li>
                 </ul>
             </div>
         </div>
         
-        {{-- Footer Bottom --}}
-        <div class="footer-bottom text-center">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-md-start mb-3 mb-md-0">
-                    <p class="text-white-50 mb-0 small">
-                        © {{ date('Y') }} PCCI Valenzuela. All rights reserved.
-                    </p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <div class="d-flex justify-content-center justify-content-md-end gap-3">
-                        <a href="#" class="text-white-50 small text-decoration-none">Privacy Policy</a>
-                        <a href="#" class="text-white-50 small text-decoration-none">Terms of Service</a>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center" style="font-family: 'DM Sans', sans-serif; opacity: 0.7;">
+            <p class="mb-0 small">&copy; {{ date('Y') }} Valenzuela. All rights reserved. | Philippine Chamber of Commerce and Industry - Valenzuela Chapter <br>
+                                            Fostering economic growth and business excellence in Valenzuela City since YYYY</p>
         </div>
     </div>
 </footer>
