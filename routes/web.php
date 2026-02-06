@@ -34,6 +34,7 @@ Route::get('/event', function () {
     return view('event');
 })->name('event');
 
-Route::get('/join', function () {
-    return view('signup');
-})->name('join');
+Route::post('/logout', function () {
+    // Placeholder logout
+    return redirect()->route('home');
+})->name('logout');
