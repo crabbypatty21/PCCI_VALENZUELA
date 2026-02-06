@@ -3,9 +3,16 @@
 @section('content')
 {{-- Hero Section --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="position-relative w-100 overflow-hidden" style="background: 
-linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069') center/cover; min-height: 500px;">
-    <div class="container text-white text-center py-5" style="position: relative; z-index: 2;">
+<div class="w-100 mb-0" style="
+    padding-top: 140px; 
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    background: linear-gradient(rgba(164, 13, 15, 0.43), rgba(164, 13, 15, 0.43)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center top;
+">
+
+<div class="container text-white text-center py-5" style="position: relative; z-index: 2;">
         <p class="text-uppercase fw-bold mb-3" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.95;">
             JOIN PCCI - VALENZUELA
         </p>

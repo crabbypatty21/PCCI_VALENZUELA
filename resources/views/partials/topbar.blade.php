@@ -26,7 +26,7 @@
                     <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('membership') ? 'active' : '' }}" href="{{ route('membership') }}">Members</a>
+                    <a class="nav-link {{ request()->routeIs('membership') ? 'active' : '' }}" href="{{ route('membership') }}">Membership</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('event') ? 'active' : '' }}" href="{{ route('event') }}">Events</a>
@@ -35,10 +35,14 @@
                     <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
                 </li>
                 <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                    <a class="btn px-4 py-2 fw-semibold" href="{{ route('login') }}" style="background-color: #A40033; color: white; border-radius: 6px;">
-                        Login
+                    <a href="{{ route('login') }}" class="text-decoration-none fw-medium px-3 text-white topbar-text"  style="font-size: 0.95rem; transition: color 0.3s;">
+                     Log In
                     </a>
                 </li>
+                <li>
+                   
+                </li>
+                
             </ul>
         </div>
     </div>

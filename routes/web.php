@@ -37,3 +37,12 @@ Route::get('/login', function () {
 Route::get('/event', function () {
     return view('event');
 })->name('event');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/logout', function () {
+    // Placeholder logout
+    return redirect()->route('home');
+})->name('logout');

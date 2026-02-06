@@ -20,6 +20,9 @@
 
     /* --- Existing Hero & Layout Styles --- */
     .events-hero {
+        
+    padding-top: 140px; 
+
         background: linear-gradient(rgb(0, 0, 0, 0.43), rgb(0, 0, 0, 0.43)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069');
         background-size: cover;
         background-position: center;

@@ -177,7 +177,7 @@
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
         font-weight: 700;
-        color: #2d2d2d;
+        color: #ffff;
         margin-bottom: 1rem;
     }
     
@@ -754,85 +754,88 @@
         color: #fff;
     }
     
-     /* ===== EVENTS SECTION ===== */
+/* ===== EVENTS SECTION (Static Grid) ===== */
     .events-section {
         padding: 5rem 0;
         background-color: #faf8f5;
     }
     
-    /* Event Cards Carousel */
-    .events-carousel-wrapper {
-        position: relative;
+    /* Grid Container instead of Carousel */
+    .events-grid-wrapper {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr; /* Mobile: 1 column */
+        gap: 2rem;
+    }
+
+    /* Tablet: 2 columns */
+    @media (min-width: 768px) {
+        .events-grid-wrapper {
+            grid-template-columns: repeat(2, 1fr); 
+        }
+    }
+
+    /* Desktop: 3 columns (As requested) */
+    @media (min-width: 1024px) {
+        .events-grid-wrapper {
+            grid-template-columns: repeat(3, 1fr); 
+        }
     }
     
-    .events-swiper {
-        padding: 30px 10px 50px;
-        overflow: visible !important;
-    }
-    
+    /* Card Styles (Kept your "White Card" clone design) */
     .event-card {
-        background: #1a1a2e;
+        background: #ffffff;
         border-radius: 16px;
         overflow: hidden;
-        position: relative;
-        height: 380px;
+        height: 100%;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         transition: all 0.3s ease;
+        border: 1px solid #f3f4f6;
+        display: flex;
+        flex-direction: column;
     }
     
     .event-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     
-    .event-card-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .event-card-bg::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
-    }
-    
-    .event-card-content {
+    .event-card-image-wrapper {
         position: relative;
-        z-index: 2;
+        height: 220px;
+        overflow: hidden;
+    }
+    
+    .event-card-image-wrapper img {
+        width: 100%;
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 1.25rem;
+        object-fit: cover;
+        transition: transform 0.5s ease;
     }
     
-    .event-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
+    .event-card:hover .event-card-image-wrapper img {
+        transform: scale(1.05);
     }
     
+    /* Date Badge */
     .event-date-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
         background: #A40033;
         color: #fff;
-        border-radius: 10px;
+        border-radius: 8px;
         padding: 0.5rem 0.75rem;
         text-align: center;
         min-width: 60px;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     
     .event-date-badge .day-name {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 500;
         text-transform: uppercase;
         opacity: 0.9;
@@ -840,53 +843,37 @@
     }
     
     .event-date-badge .day-number {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         font-weight: 700;
         line-height: 1;
         display: block;
     }
     
     .event-date-badge .month {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 500;
         text-transform: uppercase;
         opacity: 0.9;
         display: block;
     }
     
-    .event-info-icon {
-        width: 36px;
-        height: 36px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .event-info-icon:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
-    
-    .event-info-icon svg {
-        width: 18px;
-        height: 18px;
-        stroke: #fff;
-    }
-    
+    /* Card Body */
     .event-card-body {
-        margin-top: auto;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        text-align: left;
     }
     
     .event-location {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: #fff;
+        color: #6b7280;
         font-size: 0.85rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
     }
     
     .event-location svg {
@@ -897,118 +884,55 @@
     
     .event-card-title {
         font-family: 'DM Sans', sans-serif;
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         font-weight: 700;
-        color: #fff;
+        color: #111827;
         margin-bottom: 1rem;
-        line-height: 1.3;
+        line-height: 1.4;
+        min-height: 3.5rem; 
     }
     
     .btn-event-details {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
-        background: #A40033;
-        color: #fff;
-        text-align: center;
-        padding: 0.875rem;
+        background: white;
+        color: #A40033;
+        padding: 0.75rem;
         border-radius: 8px;
         font-family: 'DM Sans', sans-serif;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.3s ease;
+        border: 1px solid #A40033;
+        margin-top: auto;
     }
     
     .btn-event-details:hover {
-        background: #8a002b;
+        background: #A40033;
         color: #fff;
     }
-    
-    /* Events Swiper Navigation */
-    .events-nav-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-    
-    .events-nav-btn {
-        width: 50px;
-        height: 50px;
-        background: #fff;
-        border: 2px solid #e0e0e0;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .events-nav-btn:hover {
-        background: #A40033;
-        border-color: #A40033;
-    }
-    
-    .events-nav-btn svg {
-        width: 20px;
-        height: 20px;
-        stroke: #333;
-        transition: stroke 0.3s ease;
-    }
-    
-    .events-nav-btn:hover svg {
-        stroke: #fff;
-    }
-    
-    .events-swiper .swiper-pagination {
-        position: relative;
-        margin-top: 0;
-        display: flex;
-        gap: 8px;
-    }
-    
-    .events-swiper .swiper-pagination-bullet {
-        width: 10px;
-        height: 10px;
-        background: #ccc;
-        opacity: 1;
-        transition: all 0.3s ease;
-    }
-    
-    .events-swiper .swiper-pagination-bullet-active {
-        background: #A40033;
-        transform: scale(1.2);
-    }
-    
+
     .btn-view-all-events {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: #A40033;
-        color: #fff;
-        padding: 1rem 2rem;
-        border-radius: 8px;
+        background: transparent;
+        color: #A40033;
+        padding: 0.75rem 2rem;
+        border-radius: 30px;
         font-family: 'DM Sans', sans-serif;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.3s ease;
-        margin-top: 2rem;
+        margin-top: 3rem; /* More space above button */
+        border: 2px solid #A40033;
     }
     
     .btn-view-all-events:hover {
-        background: #8a002b;
+        background: #A40033;
         color: #fff;
-    }
-    
-    .btn-view-all-events svg {
-        width: 20px;
-        height: 20px;
-        transition: transform 0.3s ease;
-    }
-    
-    .btn-view-all-events:hover svg {
-        transform: translateX(5px);
     }
     
     /* Events Section Responsive */
@@ -1052,66 +976,112 @@
         }
     }
     
-    /* ===== TESTIMONIALS SECTION ===== */
+  /* ===== TESTIMONIALS SECTION ===== */
     .testimonials-section {
         padding: 5rem 0;
-        background-color: #fff;
+        background-color: #252631; /* White background to contrast with Events section */
     }
     
+    /* Grid Layout (Matches Events) */
+    .testimonials-grid-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .testimonials-grid-wrapper {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .testimonials-grid-wrapper {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Testimonial Card Design */
     .testimonial-card {
-        background: #fff;
+        background: #252631; /* Light contrasting card bg */
         border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        padding: 2.5rem 2rem;
         height: 100%;
+        border: 1px solid #f3f4f6;
+        transition: all 0.3s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center content */
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     }
-    
+
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border-color: #A40033; /* Red border on hover */
+    }
+
+    /* Quote Icon */
+    .testimonial-quote-icon {
+        width: 40px;
+        height: 40px;
+        background: #A40033;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 10px rgba(164, 0, 51, 0.3);
+    }
+
+    .testimonial-quote-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+    }
+
+    /* Avatar */
     .testimonial-avatar {
         width: 80px;
         height: 80px;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid #A40033;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         margin-bottom: 1.5rem;
     }
-    
+
+    /* Text Content */
     .testimonial-text {
-        color: #2d2d2d;
+        font-family: 'Poppins', sans-serif;
         font-size: 0.95rem;
-        line-height: 1.7;
+        line-height: 1.8;
+        color: #9e9e9e;
+        font-style: italic;
         margin-bottom: 1.5rem;
+        flex-grow: 1; /* Pushes name to bottom */
     }
-    
-    .testimonial-name {
+
+    /* Author Info */
+    .testimonial-author h5 {
         font-family: 'DM Sans', sans-serif;
         font-weight: 700;
-        color: #2d2d2d;
-        margin-bottom: 0;
+        font-size: 1.1rem;
+        color: #bcbcbc;
+        margin-bottom: 0.2rem;
     }
-    
-    .testimonials-nav {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: flex-end;
-        margin-bottom: 2rem;
-    }
-    
-    .testimonials-nav button {
-        width: 45px;
-        height: 45px;
-        border: 1px solid #e0e0e0;
-        background: #fff;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .testimonials-nav button:hover {
-        border-color: #A40033;
+
+    .testimonial-author span {
+        font-size: 0.85rem;
         color: #A40033;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
  
     /* ===== RESPONSIVE ===== */
@@ -1407,199 +1377,79 @@
     </div>
 </section>
 
-<!-- Events Section - Join Our Business Community -->
 <section class="events-section">
     <div class="container">
-        <div class="text-center">
+        <div class="text-center mb-5">
             <p class="section-label">PCCI – VALENZUELA</p>
             <h2 class="section-title">Join Our Business <span>Community</span></h2>
             <p class="section-description">Participate in our upcoming events designed to foster networking, learning, and business growth</p>
         </div>
         
-        <!-- Events Carousel -->
-        <div class="events-carousel-wrapper">
-            <div class="swiper events-swiper">
-                <div class="swiper-wrapper">
-                    <!-- Event Card 1 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop');"></div>
-                            <div class="event-card-content">
-                                <div class="event-card-header">
-                                    <div class="event-date-badge">
-                                        <span class="day-name">Tue</span>
-                                        <span class="day-number">21</span>
-                                        <span class="month">Jan</span>
-                                    </div>
-                                    <div class="event-info-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="event-card-body">
-                                    <div class="event-location">
-                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                        Valenzuela
-                                    </div>
-                                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
-                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                                </div>
-                            </div>
-                        </div>
+        <div class="events-grid-wrapper">
+            
+            <div class="event-card">
+                <div class="event-card-image-wrapper">
+                    <div class="event-date-badge">
+                        <span class="day-name">Tue</span>
+                        <span class="day-number">21</span>
+                        <span class="month">Jan</span>
                     </div>
-                    
-                    <!-- Event Card 2 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop');"></div>
-                            <div class="event-card-content">
-                                <div class="event-card-header">
-                                    <div class="event-date-badge">
-                                        <span class="day-name">Tue</span>
-                                        <span class="day-number">21</span>
-                                        <span class="month">Jan</span>
-                                    </div>
-                                    <div class="event-info-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="event-card-body">
-                                    <div class="event-location">
-                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                        Valenzuela
-                                    </div>
-                                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
-                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                                </div>
-                            </div>
-                        </div>
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop" alt="Event Image">
+                </div>
+                <div class="event-card-body">
+                    <div class="event-location">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Valenzuela City
                     </div>
-                    
-                    <!-- Event Card 3 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop');"></div>
-                            <div class="event-card-content">
-                                <div class="event-card-header">
-                                    <div class="event-date-badge">
-                                        <span class="day-name">Tue</span>
-                                        <span class="day-number">21</span>
-                                        <span class="month">Jan</span>
-                                    </div>
-                                    <div class="event-info-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="event-card-body">
-                                    <div class="event-location">
-                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                        Valenzuela
-                                    </div>
-                                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
-                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Event Card 4 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop');"></div>
-                            <div class="event-card-content">
-                                <div class="event-card-header">
-                                    <div class="event-date-badge">
-                                        <span class="day-name">Wed</span>
-                                        <span class="day-number">15</span>
-                                        <span class="month">Feb</span>
-                                    </div>
-                                    <div class="event-info-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="event-card-body">
-                                    <div class="event-location">
-                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                        Valenzuela
-                                    </div>
-                                    <h3 class="event-card-title">Business Networking Summit 2025</h3>
-                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Event Card 5 -->
-                    <div class="swiper-slide">
-                        <div class="event-card">
-                            <div class="event-card-bg" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop');"></div>
-                            <div class="event-card-content">
-                                <div class="event-card-header">
-                                    <div class="event-date-badge">
-                                        <span class="day-name">Fri</span>
-                                        <span class="day-number">28</span>
-                                        <span class="month">Feb</span>
-                                    </div>
-                                    <div class="event-info-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="event-card-body">
-                                    <div class="event-location">
-                                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                        Valenzuela
-                                    </div>
-                                    <h3 class="event-card-title">Entrepreneurship Workshop Series</h3>
-                                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
+                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
                 </div>
             </div>
             
-            <!-- Navigation at bottom -->
-            <div class="events-nav-container">
-                <button class="events-nav-btn" id="events-prev" aria-label="Previous event">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <div class="swiper-pagination events-pagination"></div>
-                <button class="events-nav-btn" id="events-next" aria-label="Next event">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
+            <div class="event-card">
+                <div class="event-card-image-wrapper">
+                    <div class="event-date-badge">
+                        <span class="day-name">Wed</span>
+                        <span class="day-number">05</span>
+                        <span class="month">Feb</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop" alt="Event Image">
+                </div>
+                <div class="event-card-body">
+                    <div class="event-location">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        PCCI Hall
+                    </div>
+                    <h3 class="event-card-title">Business Networking Summit 2025</h3>
+                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                </div>
             </div>
+            
+            <div class="event-card">
+                <div class="event-card-image-wrapper">
+                    <div class="event-date-badge">
+                        <span class="day-name">Fri</span>
+                        <span class="day-number">15</span>
+                        <span class="month">Mar</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="Event Image">
+                </div>
+                <div class="event-card-body">
+                    <div class="event-location">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Valenzuela Trade Center
+                    </div>
+                    <h3 class="event-card-title">Entrepreneurship Workshop Series</h3>
+                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                </div>
+            </div>
+
         </div>
         
         <div class="text-center">
             <a href="{{ route('event') }}" class="btn-view-all-events">
                 View All Events
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
     </div>
@@ -1608,55 +1458,50 @@
 <!-- Testimonials Section -->
 <section class="testimonials-section">
     <div class="container">
-        <div class="row align-items-start">
-            <div class="col-lg-4">
-                <p class="section-label">MEMBER DIRECTORY</p>
-                <h2 class="section-title">Hear What Our Members Have to Say about PCCI-Valenzuela!</h2>
-            </div>
-            <div class="col-lg-8">
-                <div class="testimonials-nav">
-                    <button class="testimonial-prev">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15 18 9 12 15 6"></polyline>
-                        </svg>
-                    </button>
-                    <button class="testimonial-next">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </button>
+        <div class="text-center mb-5">
+            <p class="section-label">MEMBER VOICES</p>
+            <h2 class="section-title">What Our Members <span style="color: #EB3223;">Say</span></h2>
+            <p class="section-description">Real stories from business leaders who have grown with PCCI-Valenzuela.</p>
+        </div>
+
+        <div class="testimonials-grid-wrapper">
+            
+            <div class="testimonial-card">
+                <div class="testimonial-quote-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/></svg>
                 </div>
-                
-                <div class="swiper testimonials-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="row g-4">
-                                <div class="col-md-4">
-                                    <div class="testimonial-card">
-                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
-                                        <p class="testimonial-text">I am very satisfied with the quality of service and professionalism they provide. Their team is organized, responsive, and easy to work with, making the entire process smooth and efficient.</p>
-                                        <p class="testimonial-name">Maria Santos</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="testimonial-card">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
-                                        <p class="testimonial-text">I am very satisfied with the quality of service and professionalism they provide. Their team is organized, responsive, and easy to work with, making the entire process smooth and efficient.</p>
-                                        <p class="testimonial-name">Juan Dela Cruz</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="testimonial-card">
-                                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
-                                        <p class="testimonial-text">I am very satisfied with the quality of service and professionalism they provide. Their team is organized, responsive, and easy to work with, making the entire process smooth and efficient.</p>
-                                        <p class="testimonial-name">Ana Reyes</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
+                <p class="testimonial-text">"PCCI Valenzuela has been instrumental in connecting us with key partners. The networking events are top-notch and always well-organized."</p>
+                <div class="testimonial-author">
+                    <h5>Maria Santos</h5>
+                    <span>CEO, Santos Trading</span>
                 </div>
             </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-quote-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/></svg>
+                </div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
+                <p class="testimonial-text">"The advocacy programs have really helped our industry voice concerns to the local government. Highly recommended for any business owner."</p>
+                <div class="testimonial-author">
+                    <h5>Juan Dela Cruz</h5>
+                    <span>Founder, TechSolutions</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-quote-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/></svg>
+                </div>
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
+                <p class="testimonial-text">"Joining PCCI was the best decision for my startup. The mentorship and support from fellow members are invaluable."</p>
+                <div class="testimonial-author">
+                    <h5>Ana Reyes</h5>
+                    <span>Director, Reyes Logistics</span>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -1665,7 +1510,23 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 {{-- Carousel and slider scripts --}}
+
 <script>
+    if (document.querySelector('.events-swiper')) {
+    const eventsSwiper = new Swiper('.events-swiper', {
+
+    });
+    }  
+
+    if (document.querySelector('.testimonials-swiper')) {
+    const testimonialsSwiper = new Swiper('.testimonials-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true
+    });
+    // ...
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Hero Slider
     const heroSlides = document.querySelectorAll('.hero-slide');
@@ -1767,5 +1628,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+
 
 @endsection
