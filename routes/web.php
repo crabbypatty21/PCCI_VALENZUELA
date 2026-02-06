@@ -26,15 +26,14 @@ Route::get('/leadership', function () {
     return view('leadership');
 })->name('leadership');
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
 Route::get('/event', function () {
     return view('event');
 })->name('event');
 
-Route::post('/logout', function () {
-    // Placeholder logout
-    return redirect()->route('home');
-})->name('logout');
+Route::get('/signup', function () {
+    return view('signup'); 
+})->name('signup');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');

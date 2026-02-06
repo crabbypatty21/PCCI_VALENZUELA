@@ -70,6 +70,9 @@
                 <input type="password" name="password" required placeholder="••••••••">
             </div>
             <button type="submit" class="btn-login">Sign In</button>
+            <p>Don't have an account? <a href="{{ route('signup') }}">Sign Up</a></p>
+
+
         </form>
 </body>
 </html>
