@@ -177,7 +177,7 @@
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
         font-weight: 700;
-        color: #ffff;
+        color: #ffffff;
         margin-bottom: 1rem;
     }
     
