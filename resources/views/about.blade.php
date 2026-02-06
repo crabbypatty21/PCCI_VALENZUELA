@@ -3,33 +3,42 @@
 @section('content')
 {{-- Hero Section --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="w-100 mb-0 d-flex align-items-center" style="
-    min-height: 500px;
+<div class="w-100 mb-0 d-flex flex-column align-items-center" style="
+    height: 623px;
     margin-top: -1px; 
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069');
+    background-color: #252631;
     background-size: cover;
     background-position: center;
+    padding-top: 130px;
 ">
     <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
-            PCCI - Valenzuela
-        </span>
         
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'Poppins', sans-serif; letter-spacing: -0.02em; max-width: 900px;">
-            Empowering Valenzuela's Future, Together.
+        {{-- Subtitle --}}
+        <span class="text-white mb-3 d-block" 
+            style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; text-align: center;">
+            PCCI - VALENZUELA
+        </span>
+
+        {{-- Main Headline --}}
+        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" 
+            style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
+            Empowering Valenzuela's <span style="color: #EB3223; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">Future.</span>
         </h1>
 
-        <p class="text-white mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 800px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
-            PCCI Valenzuela is the vibrant heart of our city's business ecosystem. We are passionately committed to fostering economic growth, driving innovation, and building a resilient community where every enterprise can flourish.
+        {{-- Paragraph --}}
+        <p class="text-white" 
+        style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 120%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1262px; margin: 0 auto 30px auto;">
+            We are passionately committed to fostering economic growth, driving innovation, and building a resilient community.
         </p>
 
+        {{-- Buttons --}}
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <a href="#membership" class="btn btn-light px-4 py-2 fw-bold text-uppercase" 
-               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; color: #D40032;">
+               style="font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: 0.05em; border-radius: 6px; color: #EB3223; font-weight: 900;">
                 Become a Member
             </a>
             <a href="#impact" class="btn btn-outline-light px-4 py-2 fw-bold text-uppercase" 
-               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px;">
+               style="font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: 0.05em; border-radius: 6px; font-weight: 900;">
                 Discover our Impact
             </a>
         </div>
