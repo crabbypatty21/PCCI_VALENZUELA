@@ -3,40 +3,74 @@
 @section('content')
 
 {{-- 
-    FIX NOTES: 
-    1. Replaced raw SVG icons with Bootstrap Icons (bi-*)
-    2. Maintained previous layout and "Red" overlay
-    3. Applied Font Styles: Poppins for Headings, DM Sans for Body/Buttons
+    REVISION NOTES:
+    1. Hero: Height 623px, BG #252631, Top Padding 130px.
+    2. Search Button: Floating style. 
+       - Margins: 11px top/bottom, 13px right.
+       - Height: 40px.
 --}}
-<div class="w-100 mb-0 d-flex align-items-center justify-content-center flex-column" style="
-    min-height: 500px;
+<div class="w-100 mb-0 d-flex flex-column align-items-center" style="
+    height: 623px;
     margin-top: -1px; 
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-position: center top;
+    background-color: #252631;
+    opacity: 1;
+    padding-top: 130px;
 ">
     <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
-            PCCI - Valenzuela
+        
+        {{-- Subtitle --}}
+        <span class="text-white mb-3 d-block" 
+            style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 1522px; height: 31px; text-align: center;">
+            JOIN PCCI - VALENZUELA
         </span>
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'Poppins', sans-serif; letter-spacing: -0.02em;">
-            Discover Local Businesses
+
+        {{-- Main Headline --}}
+        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" 
+            style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
+            Discover Local <span style="color: #EB3223; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">Businesses</span>
         </h1>
-        <p class="text-white mb-4" style="font-family: 'DM Sans', sans-serif; max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
+
+        {{-- Paragraph --}}
+        <p class="text-white" 
+        style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 100%; letter-spacing: 0; text-align: center; width: 1262px; height: 72px; margin: 0 auto 21px auto;">
             Connect with our diverse community of innovative businesses and entrepreneurs driving economic growth and excellence in Valenzuela City.
         </p>
 
-        <div class="w-100 mt-2" style="max-width: 600px;">
-            <div class="input-group shadow-sm bg-white rounded overflow-hidden border-0">
-                <span class="input-group-text bg-white border-0 ps-3">
-                    {{-- Updated: Bootstrap Search Icon --}}
-                    <i class="bi bi-search text-secondary" style="font-size: 1.1rem;"></i>
+        {{-- Search Bar Container --}}
+        <div style="width: 782px; max-width: 90%;">
+            
+            {{-- Input Group (Height 62px) --}}
+            <div class="input-group shadow-sm bg-white rounded overflow-hidden border-0 align-items-center" style="height: 62px;">
+                
+                {{-- Search Icon --}}
+                <span class="input-group-text bg-white border-0 ps-4">
+                    <i class="bi bi-search text-secondary" style="font-size: 1.2rem;"></i>
                 </span>
-                <input type="text" class="form-control border-0 py-3 shadow-none text-secondary" 
-                       style="font-family: 'DM Sans', sans-serif;"
+                
+                {{-- Input Field --}}
+                <input type="text" class="form-control border-0 shadow-none text-secondary h-100" 
+                       style="font-family: 'DM Sans', sans-serif; font-size: 1rem;"
                        placeholder="Search businesses, services..." aria-label="Search">
-                <button class="btn text-white px-4 fw-bold text-uppercase" type="button" 
-                        style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.05em; background-color: #D40032; border-color: #D40032;">
+                
+                {{-- Search Button --}}
+                {{-- 
+                    Calculation: Container 62px - 11px Top - 11px Bottom = 40px Button Height.
+                    Added border-radius since it now has margin and isn't flush to the edge.
+                --}}
+                <button class="btn text-white px-5 fw-bold text-uppercase" type="button" 
+                        style="
+                            font-family: 'DM Sans', sans-serif; 
+                            letter-spacing: 0.05em; 
+                            background-color: #D40032; 
+                            border-color: #D40032;
+                            margin-top: 11px;
+                            margin-bottom: 11px;
+                            margin-right: 13px;
+                            height: 40px;
+                            display: flex;
+                            align-items: center;
+                            border-radius: 6px; 
+                        ">
                     Search
                 </button>
             </div>
@@ -44,6 +78,7 @@
     </div>
 </div>
 
+{{-- Filters & Listing Section (Unchanged) --}}
 <div class="py-5" style="background-color: #e9ecef;">
     <div class="container mb-5">
         
@@ -85,7 +120,6 @@
                             TC
                         </div>
                         <div>
-                            {{-- Business Type Tag (Blue) --}}
                             <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
                                   style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #e7f1ff; color: #0d6efd; letter-spacing: 0.05em;">
                                 Manufacturing
@@ -106,12 +140,10 @@
                         <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
                             <div class="d-flex flex-column gap-2 small text-muted" style="font-family: 'DM Sans', sans-serif;">
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Updated: Bootstrap Envelope Icon --}}
                                     <i class="bi bi-envelope"></i>
                                     contact@techcorp.ph
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Updated: Bootstrap Phone Icon --}}
                                     <i class="bi bi-telephone"></i>
                                     +63 912 345 6789
                                 </div>
@@ -133,7 +165,6 @@
                             GF
                         </div>
                         <div>
-                            {{-- Business Type Tag (Green) --}}
                             <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
                                   style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #d1e7dd; color: #146c43; letter-spacing: 0.05em;">
                                 Distributor
@@ -154,12 +185,10 @@
                         <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
                             <div class="d-flex flex-column gap-2 small text-muted" style="font-family: 'DM Sans', sans-serif;">
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Updated: Bootstrap Envelope Icon --}}
                                     <i class="bi bi-envelope"></i>
                                     sales@greenfields.com
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Updated: Bootstrap Phone Icon --}}
                                     <i class="bi bi-telephone"></i>
                                     (02) 8123 4567
                                 </div>
@@ -181,7 +210,6 @@
                             BL
                         </div>
                         <div>
-                            {{-- Business Type Tag (Yellow/Orange) --}}
                             <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" 
                                   style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #fff3cd; color: #664d03; letter-spacing: 0.05em;">
                                 Services
@@ -202,12 +230,10 @@
                         <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
                             <div class="d-flex flex-column gap-2 small text-muted" style="font-family: 'DM Sans', sans-serif;">
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Updated: Bootstrap Envelope Icon --}}
                                     <i class="bi bi-envelope"></i>
                                     inquire@buildlink.ph
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- Updated: Bootstrap Phone Icon --}}
                                     <i class="bi bi-telephone"></i>
                                     (02) 8987 6543
                                 </div>

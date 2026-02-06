@@ -13,21 +13,31 @@
 
 {{-- HERO SECTION (Matched to Membership Reference) --}}
 {{-- HERO SECTION (Updated to match other pages) --}}
-<div class="w-100 mb-0 d-flex align-items-center" style="
-    min-height: 500px;
+<div class="w-100 mb-0 d-flex flex-column align-items-center" style="
+    height: 623px;
     margin-top: -1px; 
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069');
+    background-color: #252631;
     background-size: cover;
     background-position: center;
+    padding-top: 130px;
 ">
     <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
-            PCCI - Valenzuela
+        
+        {{-- Subtitle --}}
+        <span class="text-white mb-3 d-block" 
+            style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; max-width: 1522px; text-align: center;">
+            PCCI - VALENZUELA
         </span>
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'Poppins', sans-serif; letter-spacing: -0.02em;">
-            Events
+
+        {{-- Main Headline --}}
+        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" 
+            style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
+            <span style="color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">Events</span>
         </h1>
-        <p class="text-white mb-4" style="font-family: 'DM Sans', sans-serif; max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
+
+        {{-- Paragraph --}}
+        <p class="text-white" 
+        style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 100%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1262px; height: auto; margin: 0 auto 21px auto;">
             Join our community events designed to foster networking, learning, and business growth opportunities for all chamber members.
         </p>
     </div>

@@ -150,7 +150,7 @@
 
             <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
                 
-                <a href="{{ route('join') }}" 
+                <a href="{{ url('/membership') }}" 
                    id="join-pcci-btn"
                    class="btn btn-pcci-slide text-nowrap rounded-2 px-4">
                     Join PCCI
