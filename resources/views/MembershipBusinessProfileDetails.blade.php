@@ -126,16 +126,16 @@ $business = $businesses[$id] ?? abort(404);
 {{-- SERVICES --}}
 <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
     <h4 class="fw-bold text-danger mb-4 d-flex align-items-center gap-2">
-        <i class="bi bi-wallet2"></i>
+        <i class="bi bi-briefcase"></i>
         <span>Products & Services</span>
     </h4>
 
     <div class="row g-3">
         @foreach ($business['services'] as $service)
             <div class="col-md-6 col-lg-4">
-                <div class="service-box border rounded-4 p-3 h-100 shadow-sm">
+                <div class="service-box bg-danger bg-opacity-50 border rounded-4 p-3 h-100 shadow-sm">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <i class="bi bi-wallet2 text-danger"></i>
+                        <i class="bi bi-briefcase text-danger"></i>
                         <h6 class="fw-bold mb-0 text-danger">
                             {{ $service }}
                         </h6>
