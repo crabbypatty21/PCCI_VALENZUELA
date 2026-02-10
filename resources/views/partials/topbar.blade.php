@@ -103,8 +103,8 @@
     
     <nav class="navbar navbar-expand-xl w-100 p-0">
         
-        <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset">
-            <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
+        <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none text-reset " style="outline: none; box-shadow: none;">
+            <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px; ">
                 <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo" class="w-100 h-100 object-fit-contain">
             </div>
 
@@ -149,7 +149,7 @@
             </div>
 
             <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
-                
+                <i class="bi bi-sun-fill" style="font-size: 1.5rem; color: #ffffff;"></i>
                 <a href="{{ url('/login') }}" 
                    id="join-pcci-btn"
                    class="btn btn-pcci-slide text-nowrap rounded-2 px-4">

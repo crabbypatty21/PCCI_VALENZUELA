@@ -17,10 +17,11 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
-// Updated route to use the specified filename
-Route::get('/business/tech-corp', function () {
-    return view('MembershipBusinessProfileDetails');
+
+Route::get('/business/{id}', function ($id) {
+    return view('MembershipBusinessProfileDetails', compact('id'));
 })->name('business.show');
+
 
 Route::get('/leadership', function () {
     return view('leadership');

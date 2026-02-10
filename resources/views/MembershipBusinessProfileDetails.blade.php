@@ -2,191 +2,225 @@
 
 @section('content')
 
+@php
+$businesses = [
+    1 => [
+        'name' => 'Tech Corp Inc.',
+        'about' => 'Tech Corp Inc. is a leading provider of innovative software solutions dedicated to helping local businesses in Valenzuela City thrive in the digital age.',
+        'services' => ['Software Development', 'Mobile Apps', 'ERP Systems'],
+        'phone' => '+639624407449',
+        'email' => 'contact@techcorp.ph',
+        'address' => 'No. 04 Fatima Lane, Marikina Heights 1810',
+        'hours' => [
+            'Monday - Friday' => '8:00 AM - 6:00 PM',
+            'Saturday' => '9:00 AM - 5:00 PM',
+            'Sunday' => 'Closed',
+        ],
+        'map' => 'No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810',
+    ],
+
+    2 => [
+        'name' => 'Green Fields',
+        'about' => 'Green Fields is a trusted agricultural distributor supplying organic produce and farming materials to local partners across Metro Manila.',
+        'services' => ['Organic Produce', 'Wholesale Supply', 'Farm Logistics'],
+        'phone' => '+639111111111',
+        'email' => 'sales@greenfields.com',
+        'address' => 'Valenzuela City',
+        'hours' => [
+            'Monday - Friday' => '8:00 AM - 6:00 PM',
+            'Saturday' => '9:00 AM - 5:00 PM',
+            'Sunday' => 'Closed',
+        ],
+        'map' => 'Valenzuela+City',
+    ],
+
+    3 => [
+        'name' => 'Build Links',
+        'about' => 'Build Links is a trusted agricultural distributor supplying organic produce and farming materials to local partners across Metro Manila.',
+        'services' => ['Organic Produce', 'Wholesale Supply', 'Farm Logistics'],
+        'phone' => '+639111111111',
+        'email' => 'sales@buildlinks.com',
+        'address' => 'Valenzuela City',
+        'hours' => [
+            'Monday - Friday' => '8:00 AM - 6:00 PM',
+            'Saturday' => '9:00 AM - 5:00 PM',
+            'Sunday' => 'Closed',
+        ],
+        'map' => 'Valenzuela+City',
+    ],
+];
+
+$business = $businesses[$id] ?? abort(404);
+@endphp
+
+
+{{-- HERO (UPDATED STYLE) --}}
 <div class="w-100" style="
-    height: 500px;
-    padding-top: 180px; 
-    padding-bottom: 3rem; 
-    margin-top: -1px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-position: center top;
+    background:#1f2330;
+    min-height: 420px;
 ">
-    <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-white fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
-            PCCI - Valenzuela
-        </span>
-        
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'Poppins', sans-serif; letter-spacing: -0.02em;">
-            Discover Local Businesses
-        </h1>
-        
-        <p class="text-white mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 600px; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
-            Connect with our diverse community of innovative businesses and entrepreneurs driving economic growth and excellence in Valenzuela City.
-        </p>
+    <div class="container">
+        <div class="row align-items-center g-4"
+             style="padding-top:120px; padding-bottom:80px;">
 
-        <div class="w-100 d-flex justify-content-end gap-3 mt-5">
-            <a href="mailto:pcci@gmail.com" class="btn fw-bold px-4 py-2 rounded-pill shadow" 
-               style="font-family: 'DM Sans', sans-serif; background-color: #ffffff; color: #a40d0f; border: 2px solid white;">
-               Contact Us
-            </a>
-            
-            <a href="tel:+639624407449" class="btn fw-bold px-4 py-2 rounded-pill shadow text-white" 
-               style="font-family: 'DM Sans', sans-serif; background-color: #a40d0f; border: 2px solid white;">
-               <i class="bi bi-telephone-fill me-2"></i>Call Now
-            </a>
+            {{-- LOGO --}}
+            <div class="col-auto">
+                <div class="rounded-4 bg-light d-flex align-items-center justify-content-center"
+                     style="width:120px;height:120px;">
+                    <span class="fw-bold fs-2 text-danger">
+                        {{ strtoupper(substr($business['name'], 0, 3)) }}
+                    </span>
+                </div>
+            </div>
+
+            {{-- CONTENT --}}
+            <div class="col">
+                <span class="badge rounded-pill mb-2"
+                      style="background:#2e5aac;">
+                    Manufacturing
+                </span>
+
+                <h1 class="fw-bold text-white mb-2">
+                    {{ $business['name'] }}
+                </h1>
+
+                <p class="text-light mb-4" style="max-width:720px; opacity:.9;">
+                    {{ $business['about'] }}
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="tel:{{ $business['phone'] }}"
+                       class="btn btn-danger px-4 fw-bold">
+                        CONTACT US
+                    </a>
+
+                    <a href="mailto:{{ $business['email'] }}"
+                       class="btn btn-outline-light px-4 fw-bold">
+                        CALL NOW
+                    </a>
+                </div>
+            </div>
+
         </div>
-
     </div>
 </div>
 
-<div class="container"> 
-    <div class="row g-5 mt-2">
 
-    <div class="col-lg-8">
-        
-        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-4">
-            <h4 class="fw-bold text-dark mb-4" style="font-family: 'Poppins', sans-serif;">About Our Company</h4>
-            <p class="text-secondary mb-4" style="font-family: 'DM Sans', sans-serif; line-height: 1.7;">
-                Tech Corp Inc. is a leading provider of innovative software solutions dedicated to helping local businesses in Valenzuela City thrive in the digital age. Founded in 2015, we specialize in custom web application development, mobile app creation, and enterprise resource planning (ERP) systems tailored to the unique needs of Filipino SMEs.
-            </p>
-        </div>
+<div class="container mt-5">
+<div class="row g-5">
 
-        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-4">
-            <h4 class="fw-bold text-dark mb-4" style="font-family: 'Poppins', sans-serif;">Products & Services</h4>
-            <div class="d-flex gap-3 flex-wrap" style="font-family: 'DM Sans', sans-serif;">
-                <div class="border border-secondary rounded px-4 py-2 text-secondary fw-bold">
-                    Metal Fabrication
-                </div>
-                <div class="border border-secondary rounded px-4 py-2 text-secondary fw-bold">
-                    Industrial Manufacturing
-                </div>
-                <div class="border border-secondary rounded px-4 py-2 text-secondary fw-bold">
-                    Custom Metal Work
-                </div>
-            </div>
-        </div>
+{{-- LEFT CONTENT --}}
+<div class="col-lg-8">
 
-        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-5">
-            <h4 class="fw-bold text-danger mb-4" style="font-family: 'Poppins', sans-serif;">Our Location</h4>
-            
-            <div class="mb-4">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <i class="bi bi-geo-alt-fill text-danger" style="font-size: 1.25rem;"></i>
-                    <h5 class="fw-bold text-dark mb-0" style="font-family: 'Poppins', sans-serif;">Address</h5>
-                </div>
-                <p class="text-secondary ms-4 mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 1.05rem;">
-                    No. 04 fatima lane Milagrosa Village, Marikina heights 1810
-                </p>
-            </div>
-
-            <div class="position-relative rounded-3 overflow-hidden border shadow-sm">
-                
-                <div class="position-absolute top-0 start-0 m-3 z-3">
-                    <div class="bg-white rounded shadow-sm d-flex overflow-hidden">
-                        <button id="btn-map" onclick="setMapType('map')" 
-                                class="btn btn-sm text-dark fw-bold px-3 py-2 border-end rounded-0 hover-bg-light transition-all"
-                                style="font-family: 'DM Sans', sans-serif;">
-                            Map
-                        </button>
-                        <button id="btn-sat" onclick="setMapType('satellite')" 
-                                class="btn btn-sm text-secondary fw-medium px-3 py-2 rounded-0 hover-bg-light transition-all"
-                                style="font-family: 'DM Sans', sans-serif;">
-                            Satellite
-                        </button>
-                    </div>
-                </div>
-
-                <iframe 
-                    id="map-frame"
-                    src="https://maps.google.com/maps?q=No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810&t=m&z=15&output=embed&iwloc=near" 
-                    width="100%" 
-                    height="350" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
-
-        <script>
-            function setMapType(type) {
-                const iframe = document.getElementById('map-frame');
-                const btnMap = document.getElementById('btn-map');
-                const btnSat = document.getElementById('btn-sat');
-                const baseUrl = "https://maps.google.com/maps?q=No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810&z=15&output=embed&iwloc=near";
-
-                if (type === 'map') {
-                    iframe.src = baseUrl + "&t=m";
-                    btnMap.className = "btn btn-sm text-dark fw-bold px-3 py-2 border-end rounded-0 hover-bg-light transition-all";
-                    btnSat.className = "btn btn-sm text-secondary fw-medium px-3 py-2 rounded-0 hover-bg-light transition-all";
-                } else {
-                    iframe.src = baseUrl + "&t=k";
-                    btnMap.className = "btn btn-sm text-secondary fw-medium px-3 py-2 border-end rounded-0 hover-bg-light transition-all";
-                    btnSat.className = "btn btn-sm text-dark fw-bold px-3 py-2 rounded-0 hover-bg-light transition-all";
-                }
-            }
-        </script>
-
+    {{-- ABOUT --}}
+    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+        <h4 class="fw-bold text-danger mb-3">About Our Company</h4>
+        <p class="text-secondary">{{ $business['about'] }}</p>
     </div>
 
-    <div class="col-lg-4">
-        
-        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-4">
-            <h5 class="fw-bold text-dark mb-4" style="font-family: 'Poppins', sans-serif;">Contact Information</h5>
-            <div class="d-flex flex-column gap-3" style="font-family: 'DM Sans', sans-serif;">
-                <div>
-                    <small class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 0.05em;">Phone</small>
-                    <div class="fw-medium text-dark">
-                        <p class="mb-0">+639624407449</p>
-                    </div>
-                </div>
-                <div>
-                    <small class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 0.05em;">Email</small>
-                    <div class="fw-medium text-dark">
-                        <p class="mb-0">pcci@gmail.com</p>
-                    </div>
-                </div>
-                <div>
-                    <small class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 0.05em;">Address</small>
-                    <div class="fw-medium text-dark">No.04 fatima lane La Milagrosa Village, Marikina Heights 1810</div>
-                </div>
-            </div>
-        </div>
+    {{-- SERVICES --}}
+    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+        <h4 class="fw-bold text-danger mb-3">Products & Services</h4>
 
-        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-4">
-            <h5 class="fw-bold text-danger mb-4" style="font-family: 'Poppins', sans-serif;">Business Hours</h5>
-            <div class="d-flex flex-column gap-2" style="font-family: 'DM Sans', sans-serif;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-secondary">Monday - Friday</span>
-                    <span class="fw-bold text-dark">8:00 AM - 6:00 PM</span>
+        <div class="d-flex gap-3 flex-wrap">
+            @foreach ($business['services'] as $service)
+                <div class="border rounded px-4 py-2 fw-bold text-secondary d-flex align-items-center gap-2">
+                    <i class="bi bi-circle-fill text-danger"></i> {{ $service }}
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-secondary">Saturday</span>
-                    <span class="fw-bold text-dark">9:00 AM - 5:00 PM</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-secondary">Sunday</span>
-                    <span class="fw-bold text-dark">Closed</span>
-                </div>
-            </div>
+            @endforeach
         </div>
-
-        <div class="card border border-danger shadow-sm p-4 bg-white rounded-4 mb-4">
-            <h5 class="fw-bold text-danger mb-4" style="font-family: 'Poppins', sans-serif;">Quick Actions</h5>
-            <div class="d-flex flex-column gap-3">
-                <button class="btn border-danger text-danger fw-bold py-2 w-100" style="font-family: 'DM Sans', sans-serif; background-color: #ffecec;">
-                    Request Quote
-                </button>
-                <button class="btn border-danger text-danger fw-bold py-2 w-100" style="font-family: 'DM Sans', sans-serif; background-color: #ffecec;">
-                    Schedule Call
-                </button>
-                <button class="btn border-danger text-danger fw-bold py-2 w-100" style="font-family: 'DM Sans', sans-serif; background-color: #ffecec;">
-                    Browse Other Members
-                </button>
-            </div>
-        </div>
-
     </div>
 
-</div> </div> @endsection
+    {{-- MAP --}}
+    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-5">
+        <h4 class="fw-bold text-danger mb-3">Our Location</h4>
+
+        <p class="text-secondary mb-3">
+            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+            {{ $business['address'] }}
+        </p>
+
+        <iframe
+            src="https://maps.google.com/maps?q={{ $business['map'] }}&t=m&z=15&output=embed"
+            width="100%"
+            height="350"
+            style="border:0;"
+            loading="lazy">
+        </iframe>
+    </div>
+
+</div>
+
+{{-- RIGHT SIDEBAR --}}
+<div class="col-lg-4">
+
+    {{-- CONTACT --}}
+    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+        <h5 class="fw-bold text-danger mb-4">Contact Information</h5>
+
+        <div class="d-flex flex-column gap-4">
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
+                     style="width:42px;height:42px;">
+                    <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div>
+                    <small class="text-muted fw-bold text-uppercase">Phone</small><br>
+                    <span>{{ $business['phone'] }}</span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
+                     style="width:42px;height:42px;">
+                    <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div>
+                    <small class="text-muted fw-bold text-uppercase">Email</small><br>
+                    <span>{{ $business['email'] }}</span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
+                     style="width:42px;height:42px;">
+                    <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div>
+                    <small class="text-muted fw-bold text-uppercase">Address</small><br>
+                    <span>{{ $business['address'] }}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- HOURS --}}
+    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+        <h5 class="fw-bold text-danger mb-3">Business Hours</h5>
+
+        @foreach ($business['hours'] as $day => $time)
+            <div class="d-flex justify-content-between">
+                <span class="text-secondary">{{ $day }}</span>
+                <span class="fw-bold">{{ $time }}</span>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- ACTIONS --}}
+    <div class="card border border-danger shadow-sm p-4 rounded-4">
+        <h5 class="fw-bold text-danger mb-3">Quick Actions</h5>
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-danger fw-bold">Request Quote</button>
+            <button class="btn btn-outline-danger fw-bold">Schedule Call</button>
+            <a href="{{ url('/membership') }}" class="btn btn-outline-danger fw-bold">
+                Browse Other Members
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+@endsection
