@@ -75,14 +75,14 @@ $business = $businesses[$id] ?? abort(404);
 
             {{-- CONTENT --}}
             <div class="col">
-                <span class="badge rounded-pill mb-2"
-                      style="background:#2e5aac;">
-                    Manufacturing
-                </span>
 
                 <h1 class="fw-bold text-white mb-2">
                     {{ $business['name'] }}
                 </h1>
+                <span class="badge rounded-pill mb-2"
+                      style="background:#2e5aac;">
+                    Manufacturing
+                </span>
 
                 <p class="text-light mb-4" style="max-width:720px; opacity:.9;">
                     {{ $business['about'] }}
@@ -112,24 +112,45 @@ $business = $businesses[$id] ?? abort(404);
 {{-- LEFT CONTENT --}}
 <div class="col-lg-8">
 
-    {{-- ABOUT --}}
-    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-        <h4 class="fw-bold text-danger mb-3">About Our Company</h4>
-        <p class="text-secondary">{{ $business['about'] }}</p>
+{{-- ABOUT --}}
+<div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-buildings text-danger fs-3"></i>
+        <h4 class="fw-bold text-danger mb-0">About Our Company</h4>
     </div>
 
-    {{-- SERVICES --}}
-    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-        <h4 class="fw-bold text-danger mb-3">Products & Services</h4>
+    <p class="text-secondary">{{ $business['about'] }}</p>
+</div>
 
-        <div class="d-flex gap-3 flex-wrap">
-            @foreach ($business['services'] as $service)
-                <div class="border rounded px-4 py-2 fw-bold text-secondary d-flex align-items-center gap-2">
-                    <i class="bi bi-circle-fill text-danger"></i> {{ $service }}
+
+{{-- SERVICES --}}
+<div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+    <h4 class="fw-bold text-danger mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-wallet2"></i>
+        <span>Products & Services</span>
+    </h4>
+
+    <div class="row g-3">
+        @foreach ($business['services'] as $service)
+            <div class="col-md-6 col-lg-4">
+                <div class="service-box border rounded-4 p-3 h-100 shadow-sm">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-wallet2 text-danger"></i>
+                        <h6 class="fw-bold mb-0 text-danger">
+                            {{ $service }}
+                        </h6>
+                    </div>
+
+                    <p class="text-muted small mb-0">
+                        This service provides reliable and professional solutions
+                        tailored to meet customer needs and business goals.
+                    </p>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
+</div>
+
 
     {{-- MAP --}}
     <div class="card border border-danger shadow-sm p-4 rounded-4 mb-5">
@@ -196,29 +217,38 @@ $business = $businesses[$id] ?? abort(404);
         </div>
     </div>
 
-    {{-- HOURS --}}
-    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-        <h5 class="fw-bold text-danger mb-3">Business Hours</h5>
-
-        @foreach ($business['hours'] as $day => $time)
-            <div class="d-flex justify-content-between">
-                <span class="text-secondary">{{ $day }}</span>
-                <span class="fw-bold">{{ $time }}</span>
-            </div>
-        @endforeach
+{{-- HOURS --}}
+<div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-building text-danger fs-4"></i>
+        <h5 class="fw-bold text-danger mb-0">Business Hours</h5>
     </div>
 
-    {{-- ACTIONS --}}
-    <div class="card border border-danger shadow-sm p-4 rounded-4">
-        <h5 class="fw-bold text-danger mb-3">Quick Actions</h5>
-        <div class="d-grid gap-2">
-            <button class="btn btn-outline-danger fw-bold">Request Quote</button>
-            <button class="btn btn-outline-danger fw-bold">Schedule Call</button>
-            <a href="{{ url('/membership') }}" class="btn btn-outline-danger fw-bold">
-                Browse Other Members
-            </a>
+    @foreach ($business['hours'] as $day => $time)
+        <div class="d-flex justify-content-between">
+            <span class="text-secondary">{{ $day }}</span>
+            <span class="fw-bold">{{ $time }}</span>
         </div>
+    @endforeach
+</div>
+
+
+{{-- ACTIONS --}}
+<div class="card border border-danger shadow-sm p-4 rounded-4">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-gear text-danger fs-4"></i>
+        <h5 class="fw-bold text-danger mb-0">Quick Actions</h5>
     </div>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-outline-danger fw-bold">Request Quote</button>
+        <button class="btn btn-outline-danger fw-bold">Schedule Call</button>
+        <a href="{{ url('/membership') }}" class="btn btn-outline-danger fw-bold">
+            Browse Other Members
+        </a>
+    </div>
+</div>
+
 </div>
 </div>
 </div>
