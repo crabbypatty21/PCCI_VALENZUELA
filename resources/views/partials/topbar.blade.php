@@ -149,7 +149,11 @@
             </div>
 
             <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
-                <i class="bi bi-sun-fill" style="font-size: 1.5rem; color: #ffffff;"></i>
+                
+               <button id="themeToggle" class="btn border-0">
+                <i id="themeIcon" class="bi bi-sun-fill" style="font-size: 1.5rem; color: #ffffff;"></i>
+               </button>
+
                 <a href="{{ url('/login') }}" 
                    id="join-pcci-btn"
                    class="btn btn-pcci-slide text-nowrap rounded-2 px-4">
@@ -230,4 +234,5 @@
             document.body.style.cursor = 'default';
         });
     });
+
 </script>
