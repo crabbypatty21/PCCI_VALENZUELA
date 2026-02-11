@@ -33,7 +33,7 @@
 
         {{-- Buttons --}}
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#membership" class="btn btn-light px-4 py-2 fw-bold text-uppercase" 
+            <a onclick="window.location.href='{{ route('signup') }}'" class="btn btn-light px-4 py-2 fw-bold text-uppercase" 
                style="font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: 0.05em; border-radius: 6px; color: #EB3223; font-weight: 900;">
                 Become a Member
             </a>
@@ -173,7 +173,7 @@
         </div>
 
         <div class="text-center">
-            <a href="#events" class="btn btn-light fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2" 
+            <a onclick="window.location.href='{{ route('event') }}'" class="btn btn-light fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2" 
                style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; color: #D40032;">
                 Explore our Events
                 <i class="bi bi-arrow-right"></i>
@@ -381,78 +381,6 @@
     }
 </style>
 
-<section class="community-section">
-    <div class="container text-center mb-4">
-        <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: #D40032;">
-            Our Community
-        </span>
-        <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem);">
-            Moments of Collaboration
-        </h2>
-        <p class="text-secondary mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 600px;">
-            A glimpse into the events, workshops, and partnerships that drive Valenzuela's economy forward.
-        </p>
-    </div>
-
-    <div class="carousel-outer-container">
-        <button class="nav-arrow nav-prev"><i class="bi bi-chevron-left"></i></button>
-        <button class="nav-arrow nav-next"><i class="bi bi-chevron-right"></i></button>
-
-        <div class="carousel-content">
-            <div class="swiper communitySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1000" alt="Networking Event">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000" alt="Business Workshop">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1528605248644-14dd04322119?q=80&w=1000" alt="Community Growth">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000" alt="Leadership Meeting">
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- Swiper JS --}}
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const swiper = new Swiper(".communitySwiper", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            loop: true,
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 0,
-                depth: 100,
-                modifier: 2.5,
-                slideShadows: false,
-            },
-            navigation: {
-                nextEl: ".nav-next",
-                prevEl: ".nav-prev",
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-        });
-    });
-</script>
-
 {{-- Community Gallery Section --}}
 <div class="community-section">
     <div class="container-fluid px-0">
@@ -607,7 +535,7 @@
 
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             {{-- Primary Action --}}
-            <a href="#membership" class="btn text-white fw-bold px-5 py-3 text-uppercase d-inline-flex align-items-center gap-3 shadow-sm" 
+            <a onclick="window.location.href='{{ route('signup') }}'" class="btn text-white fw-bold px-5 py-3 text-uppercase d-inline-flex align-items-center gap-3 shadow-sm" 
                style="font-family: 'DM Sans', sans-serif; background-color: #D40032; border: none; border-radius: 6px; font-size: 1rem; letter-spacing: 0.05em;">
                 Become a Member Today
                 <i class="bi bi-arrow-right" style="font-size: 1.2rem;"></i>
