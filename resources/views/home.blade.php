@@ -7,6 +7,10 @@
 {{-- Additional Styles for Homepage --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
+    /* =========================================
+       DARK MODE & THEME ADAPTATIONS
+       ========================================= */
+    
     /* ===== HERO SECTION ===== */
     .hero-section {
         position: relative;
@@ -18,6 +22,7 @@
         color: #fff;
         margin-top: -80px;
         padding-top: 80px;
+        background-color: #252631; /* Fallback */
     }
     
     .hero-slide {
@@ -59,14 +64,17 @@
         letter-spacing: 1px;
         margin-bottom: 1rem;
         opacity: 0.95;
+        color: #fff;
     }
     
+    /* EXPLICITLY WHITE FOR "PCCI - Valenzuela" */
     .hero-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 4rem;
         font-weight: 700;
         margin-bottom: 1.5rem;
         line-height: 1.1;
+        color: #ffffff !important; 
     }
     
     .hero-description {
@@ -76,6 +84,7 @@
         margin: 0 auto 2rem;
         opacity: 0.95;
         line-height: 1.7;
+        color: #fff;
     }
     
     .hero-buttons {
@@ -162,6 +171,11 @@
     .values-section {
         padding: 5rem 0;
         background-color: #faf8f5;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .values-section {
+        background-color: var(--bg-section-gray);
     }
     
     .section-label {
@@ -177,7 +191,7 @@
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
         font-weight: 700;
-        color: #ffff;
+        color: var(--text-main); /* ADAPTIVE TEXT COLOR */
         margin-bottom: 1rem;
     }
     
@@ -186,14 +200,14 @@
     }
     
     .section-description {
-        color: #6c757d;
+        color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
         font-size: 1rem;
         max-width: 600px;
         margin: 0 auto 3rem;
     }
     
     .value-card {
-        background: #fff;
+        background: var(--bg-card); /* ADAPTIVE BG */
         border-radius: 16px;
         padding: 2.5rem 2rem;
         text-align: center;
@@ -218,11 +232,10 @@
         margin: 0 auto 1.5rem;
     }
     
-    .value-icon svg {
-        width: 32px;
-        height: 32px;
-        stroke: #fff;
-        fill: none;
+    /* ICON REPLACEMENT STYLE */
+    .value-icon i {
+        font-size: 2rem;
+        color: #fff;
     }
     
     .value-title {
@@ -230,11 +243,11 @@
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
-        color: #2d2d2d;
+        color: var(--text-main); /* ADAPTIVE TEXT COLOR */
     }
     
     .value-description {
-        color: #6c757d;
+        color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
         font-size: 0.9rem;
         line-height: 1.6;
     }
@@ -242,25 +255,32 @@
     /* ===== AI DISCOVERY SECTION ===== */
     .ai-discovery-section {
         padding: 5rem 0;
-        background-color: #252631;
+        background-color: #252631; /* Always dark base */
+    }
+
+    body.dark-mode .ai-discovery-section {
+        background-color: #1a1a20; /* Slightly darker in dark mode */
     }
     
     .ai-icon-box {
         width: 60px;
         height: 60px;
-        background-color: #ffff;
+        background-color: #ffffff;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 1.5rem;
     }
+
+    body.dark-mode .ai-icon-box {
+        background-color: var(--bg-card);
+    }
     
-    .ai-icon-box svg {
-        width: 28px;
-        height: 28px;
-        stroke: #AC1D32;
-        fill: none;
+    /* ICON REPLACEMENT STYLE */
+    .ai-icon-box i {
+        font-size: 1.75rem;
+        color: #AC1D32;
     }
     
     .ai-title {
@@ -276,7 +296,7 @@
     } 
     
     .ai-description {
-        color: #ffffff;
+        color: #e0e0e0;
         font-size: 1rem;
         line-height: 1.7;
         margin-bottom: 0;
@@ -288,6 +308,11 @@
         padding: 2rem;
         box-shadow: 0 4px 20px rgba(69, 70, 123, 0.58);
     }
+
+    body.dark-mode .search-card {
+        background-color: #1e1e24;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
     
     .search-label {
         display: flex;
@@ -298,14 +323,17 @@
         color: #ffffff;
     }
     
-    .search-label svg {
+    /* ICON REPLACEMENT STYLE */
+    .search-label i {
         width: 35px;
         height: 35px;
         background-color: #ffff;
-        border-radius: 20px;
+        border-radius: 50%;
         display: flex;
-        stroke: #AC1D32;
-        
+        align-items: center;
+        justify-content: center;
+        color: #AC1D32;
+        font-size: 1.25rem;
     }
     
     .search-input-group {
@@ -321,6 +349,12 @@
         border-radius: 8px;
         font-family: 'Poppins', sans-serif;
         font-size: 0.9rem;
+    }
+
+    body.dark-mode .search-input-group input {
+        background-color: #2a2a35;
+        border-color: #444450;
+        color: #fff;
     }
     
     .search-input-group input:focus {
@@ -345,6 +379,10 @@
     
     .btn-search:hover {
         background-color: #8a002b;
+    }
+
+    .btn-search i {
+        font-size: 1rem;
     }
     
     .search-suggestions {
@@ -380,6 +418,11 @@
         padding: 5rem 0;
         background-color: #EDEAE3;
         overflow: hidden;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .visionaries-section {
+        background-color: var(--bg-body);
     }
 
     /* Header Styling */
@@ -399,6 +442,10 @@
         font-weight: 700;
         color: #1a1a2e;
         margin: 0;
+    }
+
+    body.dark-mode .visionaries-title {
+        color: var(--text-main);
     }
 
     .visionaries-title .highlight-red {
@@ -441,6 +488,10 @@
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         background: #fff;
+    }
+
+    body.dark-mode .slide-card {
+        background: var(--bg-card);
     }
 
     .slide-card img {
@@ -490,25 +541,28 @@
         z-index: 50;
         transition: all 0.3s ease;
         padding: 0;
+        color: #A40033; /* Default Color */
     }
 
-    .visionaries-nav svg {
-        width: 44px;
-        height: 44px;
-        stroke: #A40033;
-        stroke-width: 2.5;
+    body.dark-mode .visionaries-nav {
+        color: var(--text-main);
+    }
+
+    /* ICON REPLACEMENT STYLE */
+    .visionaries-nav i {
+        font-size: 2.5rem;
         transition: transform 0.3s ease;
     }
 
-    .visionaries-nav:hover svg {
+    .visionaries-nav:hover i {
         transform: scale(1.15);
     }
 
     .visionaries-nav.prev { left: 0px; }
     .visionaries-nav.next { right: 0px; }
 
-    .visionaries-nav.prev:hover svg { transform: translateX(-3px) scale(1.15); }
-    .visionaries-nav.next:hover svg { transform: translateX(3px) scale(1.15); }
+    .visionaries-nav.prev:hover i { transform: translateX(-3px) scale(1.15); }
+    .visionaries-nav.next:hover i { transform: translateX(3px) scale(1.15); }
 
     /* Pagination Dots */
     .visionaries-swiper .swiper-pagination {
@@ -579,75 +633,15 @@
         color: #fff;
     }
 
-    /* Responsive - Visionaries */
-    @media (max-width: 992px) {
-        .visionaries-swiper .swiper-slide {
-            width: 320px !important;
-            height: 240px !important;
-        }
-        
-        .visionaries-carousel-wrapper {
-            padding: 0 60px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .visionaries-title {
-            font-size: 2rem;
-        }
-        
-        .visionaries-swiper .swiper-slide {
-            width: 280px !important;
-            height: 200px !important;
-        }
-        
-        .visionaries-carousel-wrapper {
-            padding: 0 50px;
-        }
-        
-        .visionaries-nav svg {
-            width: 36px;
-            height: 36px;
-        }
-        
-        .visionaries-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .visionaries-section {
-            padding: 3rem 0;
-        }
-        
-        .visionaries-title {
-            font-size: 1.5rem;
-        }
-        
-        .visionaries-swiper .swiper-slide {
-            width: 240px !important;
-            height: 170px !important;
-        }
-        
-        .visionaries-carousel-wrapper {
-            padding: 0 40px;
-        }
-        
-        .visionaries-nav {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .visionaries-nav.prev { left: 5px; }
-        .visionaries-nav.next { right: 5px; }
-    }
-
     /* ===== MEMBER DIRECTORY SECTION ===== */
     .directory-section {
         padding: 5rem 0;
-        background-color: #252631 ;
+        background-color: #252631; /* Always dark base */
         color: #fff;
+    }
+
+    body.dark-mode .directory-section {
+        background-color: #16161a;
     }
     
     .directory-description {
@@ -669,10 +663,10 @@
         color: rgba(255, 255, 255, 0.9);
     }
     
-    .directory-features li svg {
-        width: 20px;
-        height: 20px;
-        fill: #A40033;
+    /* ICON REPLACEMENT STYLE */
+    .directory-features li i {
+        color: #A40033;
+        font-size: 1.25rem;
     }
     
     .btn-outline-light-custom {
@@ -687,18 +681,19 @@
         gap: 0.5rem;
         transition: all 0.3s ease;
         text-decoration: none;
+        border-radius: 6px;
     }
     
     .btn-outline-light-custom:hover {
-        background-color: #fff;
-        color: #1a1a2e;
+        background-color: #e0e0e0;
+        color: #d00000;
     }
     
     .member-card {
-        background:  rgba(0, 0, 0, 0.26);
-        border: 1px solid #ffff;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
-        width: 300px;
+        width: 100%;
         padding: 1.25rem;
         display: flex;
         gap: 1rem;
@@ -707,6 +702,8 @@
     
     .member-card:hover {
         transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #A40033;
     }
     
     .member-logo {
@@ -721,10 +718,10 @@
         flex-shrink: 0;
     }
     
-    .member-logo svg {
-        width: 28px;
-        height: 28px;
-        fill: #ffffff;
+    /* ICON REPLACEMENT STYLE */
+    .member-logo i {
+        font-size: 1.5rem;
+        color: #ffffff;
     }
     
     .member-info h5 {
@@ -751,40 +748,41 @@
         opacity: 0.9;
         margin: 0;
         line-height: 1.4;
-        color: #fff;
+        color: #e0e0e0;
     }
     
 /* ===== EVENTS SECTION (Static Grid) ===== */
     .events-section {
         padding: 5rem 0;
         background-color: #faf8f5;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .events-section {
+        background-color: var(--bg-section-gray);
     }
     
-    /* Grid Container instead of Carousel */
     .events-grid-wrapper {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
         display: grid;
-        grid-template-columns: 1fr; /* Mobile: 1 column */
+        grid-template-columns: 1fr;
         gap: 2rem;
     }
 
-    /* Tablet: 2 columns */
     @media (min-width: 768px) {
         .events-grid-wrapper {
             grid-template-columns: repeat(2, 1fr); 
         }
     }
 
-    /* Desktop: 3 columns (As requested) */
     @media (min-width: 1024px) {
         .events-grid-wrapper {
             grid-template-columns: repeat(3, 1fr); 
         }
     }
     
-    /* Card Styles (Kept your "White Card" clone design) */
     .event-card {
         background: #ffffff;
         border-radius: 16px;
@@ -796,10 +794,16 @@
         display: flex;
         flex-direction: column;
     }
+
+    body.dark-mode .event-card {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+    }
     
     .event-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: #A40033;
     }
     
     .event-card-image-wrapper {
@@ -875,11 +879,15 @@
         margin-bottom: 0.5rem;
         font-weight: 500;
     }
+
+    body.dark-mode .event-location {
+        color: var(--text-secondary);
+    }
     
-    .event-location svg {
-        width: 16px;
-        height: 16px;
-        fill: #A40033;
+    /* ICON REPLACEMENT STYLE */
+    .event-location i {
+        font-size: 1rem;
+        color: #A40033;
     }
     
     .event-card-title {
@@ -890,6 +898,10 @@
         margin-bottom: 1rem;
         line-height: 1.4;
         min-height: 3.5rem; 
+    }
+
+    body.dark-mode .event-card-title {
+        color: var(--text-main);
     }
     
     .btn-event-details {
@@ -907,6 +919,11 @@
         transition: all 0.3s ease;
         border: 1px solid #A40033;
         margin-top: auto;
+    }
+
+    body.dark-mode .btn-event-details {
+        background: transparent;
+        color: #A40033;
     }
     
     .btn-event-details:hover {
@@ -969,17 +986,17 @@
             width: 40px;
             height: 40px;
         }
-        
-        .events-nav-btn svg {
-            width: 16px;
-            height: 16px;
-        }
     }
     
   /* ===== TESTIMONIALS SECTION ===== */
     .testimonials-section {
         padding: 5rem 0;
-        background-color: #252631; /* White background to contrast with Events section */
+        background-color: #252631; /* Base Dark */
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .testimonials-section {
+        background-color: var(--bg-body);
     }
     
     /* Grid Layout (Matches Events) */
@@ -1020,6 +1037,11 @@
         box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     }
 
+    body.dark-mode .testimonial-card {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+    }
+
     .testimonial-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -1039,10 +1061,10 @@
         box-shadow: 0 4px 10px rgba(164, 0, 51, 0.3);
     }
 
-    .testimonial-quote-icon svg {
-        width: 20px;
-        height: 20px;
-        fill: #fff;
+    /* ICON REPLACEMENT STYLE */
+    .testimonial-quote-icon i {
+        font-size: 1.25rem;
+        color: #fff;
     }
 
     /* Avatar */
@@ -1105,7 +1127,6 @@
     }
 </style>
 
-<!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80');"></div>
     <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1559223607-a43c990c692c?w=1920&q=80');"></div>
@@ -1131,7 +1152,6 @@
     </div>
 </section>
 
-<!-- Values Section -->
 <section class="values-section">
     <div class="container">
         <div class="text-center">
@@ -1144,9 +1164,8 @@
             <div class="col-md-4">
                 <div class="value-card">
                     <div class="value-icon">
-                        <svg viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-                        </svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-shield-check"></i>
                     </div>
                     <h3 class="value-title">Discipline</h3>
                     <p class="value-description">Fostering a community that values quality, aesthetics, and thoughtful experiences.</p>
@@ -1155,9 +1174,8 @@
             <div class="col-md-4">
                 <div class="value-card">
                     <div class="value-icon">
-                        <svg viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-heart-fill"></i>
                     </div>
                     <h3 class="value-title">Good Taste</h3>
                     <p class="value-description">Fostering a community that values quality, aesthetics, and thoughtful experiences.</p>
@@ -1166,9 +1184,8 @@
             <div class="col-md-4">
                 <div class="value-card">
                     <div class="value-icon">
-                        <svg viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                        </svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-trophy-fill"></i>
                     </div>
                     <h3 class="value-title">Excellence</h3>
                     <p class="value-description">Striving for the highest standards in all our endeavors and initiatives.</p>
@@ -1178,15 +1195,13 @@
     </div>
 </section>
 
-<!-- AI Discovery Section -->
 <section class="ai-discovery-section">
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-5">
                 <div class="ai-icon-box">
-                    <svg viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
+                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                    <i class="bi bi-cpu-fill"></i>
                 </div>
                 <h2 class="ai-title">AI-<span>Powered</span><br>Member Discovery</h2>
                 <p class="ai-description">Describe your needs in detail, and our intelligent assistant will carefully assess your requirements to connect you with the most suitable PCCI Valenzuela members who can provide the right products, services, or expertise.</p>
@@ -1194,17 +1209,15 @@
             <div class="col-lg-7">
                 <div class="search-card">
                     <div class="search-label">
-                        <svg viewBox="0 0 24 24" stroke-width="2" fill="none">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-search"></i>
                         <span>What are you looking for?</span>
                     </div>
                     <div class="search-input-group">
                         <input type="text" placeholder="e.g., 'Architect for new office'">
                         <button class="btn-search">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                            </svg>
+                            {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                            <i class="bi bi-search"></i>
                             Search
                         </button>
                     </div>
@@ -1222,7 +1235,6 @@
     </div>
 </section>
 
-<!-- Visionaries Section -->
 <section class="visionaries-section">
     <div class="container-fluid px-0">
         <div class="text-center mb-5">
@@ -1231,14 +1243,11 @@
         </div>
         
         <div class="visionaries-carousel-wrapper">
-            <!-- Navigation Arrow - Left -->
             <button class="visionaries-nav prev" id="visionaries-prev" aria-label="Previous slide">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
+                {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                <i class="bi bi-chevron-left"></i>
             </button>
             
-            <!-- Swiper Carousel -->
             <div class="swiper visionaries-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -1273,15 +1282,12 @@
                     </div>
                 </div>
                 
-                <!-- Pagination Dots -->
                 <div class="swiper-pagination"></div>
             </div>
             
-            <!-- Navigation Arrow - Right -->
             <button class="visionaries-nav next" id="visionaries-next" aria-label="Next slide">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
+                {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                <i class="bi bi-chevron-right"></i>
             </button>
         </div>
         
@@ -1292,7 +1298,6 @@
     </div>
 </section>
 
-<!-- Member Directory Section -->
 <section class="directory-section">
     <div class="container">
         <div class="row align-items-center g-5">
@@ -1302,23 +1307,25 @@
                 <p class="directory-description">Explore our comprehensive directory of member businesses across various industries in Valenzuela City.</p>
                 <ul class="directory-features">
                     <li>
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#EB3223"/><path d="M8 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-check-circle-fill"></i>
                         Connect with local entrepreneurs
                     </li>
                     <li>
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#EB3223"/><path d="M8 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-check-circle-fill"></i>
                         Find business partners and suppliers
                     </li>
                     <li>
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#EB3223"/><path d="M8 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-check-circle-fill"></i>
                         Support local commerce
                     </li>
                 </ul>
                 <a href="{{ url('/membership') }}" class="btn-outline-light-custom">
                     View all members
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
+                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                    <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
             <div class="col-lg-7">
@@ -1326,7 +1333,8 @@
                     <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
-                                <svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
+                                <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
                                 <h5>1234 Company ABC</h5>
@@ -1338,7 +1346,8 @@
                     <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
-                                <svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
+                                <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
                                 <h5>1234 Company ABC</h5>
@@ -1350,7 +1359,8 @@
                     <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
-                                <svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
+                                <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
                                 <h5>1234 Company ABC</h5>
@@ -1362,7 +1372,8 @@
                     <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
-                                <svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
+                                <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
                                 <h5>1234 Company ABC</h5>
@@ -1398,7 +1409,8 @@
                 </div>
                 <div class="event-card-body">
                     <div class="event-location">
-                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-geo-alt-fill"></i>
                         Valenzuela City
                     </div>
                     <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
@@ -1417,7 +1429,8 @@
                 </div>
                 <div class="event-card-body">
                     <div class="event-location">
-                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-geo-alt-fill"></i>
                         PCCI Hall
                     </div>
                     <h3 class="event-card-title">Business Networking Summit 2025</h3>
@@ -1436,7 +1449,8 @@
                 </div>
                 <div class="event-card-body">
                     <div class="event-location">
-                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                        <i class="bi bi-geo-alt-fill"></i>
                         Valenzuela Trade Center
                     </div>
                     <h3 class="event-card-title">Entrepreneurship Workshop Series</h3>
@@ -1449,26 +1463,27 @@
         <div class="text-center">
             <a href="{{ route('event') }}" class="btn-view-all-events">
                 View All Events
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                <i class="bi bi-arrow-right"></i>
             </a>
         </div>
     </div>
 </section>
 
-<!-- Testimonials Section -->
 <section class="testimonials-section">
     <div class="container">
         <div class="text-center mb-5">
             <p class="section-label">MEMBER VOICES</p>
-            <h2 class="section-title">What Our Members <span style="color: #EB3223;">Say</span></h2>
-            <p class="section-description">Real stories from business leaders who have grown with PCCI-Valenzuela.</p>
+            <h2 class="section-title" style="color: #fff;">What Our Members <span style="color: #EB3223;">Say</span></h2>
+            <p class="section-description" style="color: rgba(255,255,255,0.7);">Real stories from business leaders who have grown with PCCI-Valenzuela.</p>
         </div>
 
         <div class="testimonials-grid-wrapper">
             
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
-                    <svg viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/></svg>
+                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                    <i class="bi bi-quote"></i>
                 </div>
                 <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
                 <p class="testimonial-text">"PCCI Valenzuela has been instrumental in connecting us with key partners. The networking events are top-notch and always well-organized."</p>
@@ -1480,7 +1495,8 @@
 
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
-                    <svg viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/></svg>
+                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                    <i class="bi bi-quote"></i>
                 </div>
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
                 <p class="testimonial-text">"The advocacy programs have really helped our industry voice concerns to the local government. Highly recommended for any business owner."</p>
@@ -1492,7 +1508,8 @@
 
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
-                    <svg viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/></svg>
+                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
+                    <i class="bi bi-quote"></i>
                 </div>
                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
                 <p class="testimonial-text">"Joining PCCI was the best decision for my startup. The mentorship and support from fellow members are invaluable."</p>
@@ -1601,13 +1618,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Navigation buttons
-        document.getElementById('visionaries-prev').addEventListener('click', function() {
-            visionariesSwiper.slidePrev(600);
-        });
+        const prevBtn = document.getElementById('visionaries-prev');
+        const nextBtn = document.getElementById('visionaries-next');
         
-        document.getElementById('visionaries-next').addEventListener('click', function() {
-            visionariesSwiper.slideNext(600);
-        });
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function() {
+                visionariesSwiper.slidePrev(600);
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function() {
+                visionariesSwiper.slideNext(600);
+            });
+        }
     }
     
     // Testimonials Swiper
@@ -1628,7 +1652,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
-
 
 @endsection

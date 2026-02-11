@@ -574,21 +574,26 @@
                 const themeCheckbox = document.getElementById('theme-checkbox');
                 const body = document.body;
 
-                // Load saved preference (Optional)
-                // const isDarkMode = localStorage.getItem('theme') === 'dark';
-                // if(isDarkMode && themeCheckbox) {
-                //     themeCheckbox.checked = true;
-                //     body.classList.add('dark-mode');
-                // }
+                // Load saved preference
+                const savedTheme = localStorage.getItem('theme');
+                const isDarkMode = savedTheme === 'dark';
+                
+                // Apply theme if dark mode is saved and checkbox exists
+                if (isDarkMode) {
+                    body.classList.add('dark-mode');
+                    if (themeCheckbox) {
+                        themeCheckbox.checked = true;
+                    }
+                }
 
                 if (themeCheckbox) {
                     themeCheckbox.addEventListener('change', function() {
                         if (this.checked) {
                             body.classList.add('dark-mode');
-                            // localStorage.setItem('theme', 'dark');
+                            localStorage.setItem('theme', 'dark');
                         } else {
                             body.classList.remove('dark-mode');
-                            // localStorage.setItem('theme', 'light');
+                            localStorage.setItem('theme', 'light');
                         }
                     });
                 }
