@@ -5,30 +5,64 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@yield('title', 'PCCI Valenzuela')</title>
         
-        <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         
-        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <style>
             /* ============================================== */
-            /* GLOBAL STYLES */
+            /* GLOBAL STYLES & THEME VARIABLES */
             /* ============================================== */
             
             :root {
+                /* --- LIGHT MODE (Default) --- */
                 --pcci-red: #A40033;
                 --pcci-red-dark: #8a002b;
-                --pcci-dark: #1a1a2e;
-                --pcci-dark-alt: #252631;
-                --pcci-light: #fdf2f4;
-                --pcci-bg: #faf8f5;
+                
+                /* Backgrounds */
+                --bg-body: #ffffff;
+                --bg-card: #ffffff;
+                --bg-section-gray: #e9ecef;
+                --bg-hero: #252631; /* Original Dark Hero */
+                --bg-input: #ffffff;
+                
+                /* Text */
+                --text-main: #212529; /* Dark text for light mode */
+                --text-secondary: #6c757d;
+                --text-hero-headline: #ffffff; 
+                --text-hero-sub: #ffffff;
+                
+                /* Borders */
+                --border-color: #dee2e6;
+                --border-input: #ced4da;
+                
+                /* Font Families */
                 --font-heading: 'DM Sans', sans-serif;
                 --font-body: 'Poppins', sans-serif;
+            }
+
+            /* --- DARK MODE OVERRIDES --- */
+            body.dark-mode {
+                /* Backgrounds */
+                --bg-body: #121212;
+                --bg-card: #1e1e24;
+                --bg-section-gray: #1a1a20; 
+                --bg-hero: #0d0d10; /* Even darker hero */
+                --bg-input: #2a2a35;
+                
+                /* Text */
+                --text-main: #e1e1e1;
+                --text-secondary: #a0a0a0;
+                --text-hero-headline: #f0f0f0;
+                --text-hero-sub: #d0d0d0;
+                
+                /* Borders */
+                --border-color: #2d2d3a;
+                --border-input: #444450;
             }
             
             * {
@@ -44,16 +78,37 @@
                 margin: 0;
                 padding: 0;
                 overflow-x: hidden;
-                background-color: #fff;
+                background-color: var(--bg-body); /* APPLIED VARIABLE */
+                color: var(--text-main);          /* APPLIED VARIABLE */
+                transition: background-color 0.3s ease, color 0.3s ease;
             }
             
             h1, h2, h3, h4, h5, h6 {
                 font-family: var(--font-heading);
+                color: var(--text-main);
             }
             
             img {
                 max-width: 100%;
                 height: auto;
+            }
+
+            /* FORM ELEMENTS IN DARK MODE */
+            body.dark-mode .form-control, 
+            body.dark-mode .form-select {
+                background-color: var(--bg-input);
+                border-color: var(--border-input);
+                color: var(--text-main);
+            }
+            
+            body.dark-mode .form-control::placeholder {
+                color: var(--text-secondary);
+            }
+
+            body.dark-mode .input-group-text {
+                background-color: var(--bg-input) !important;
+                border-color: var(--border-input);
+                color: var(--text-secondary);
             }
             
             /* ============================================== */
@@ -80,7 +135,7 @@
             }
             
             .navbar.scrolled .navbar-brand {
-                color: var(--pcci-dark) !important;
+                color: #1a1a2e !important;
             }
             
             .navbar-nav .nav-link {
@@ -92,7 +147,7 @@
             }
             
             .navbar.scrolled .navbar-nav .nav-link {
-                color: var(--pcci-dark) !important;
+                color: #1a1a2e !important;
             }
             
             .navbar-nav .nav-link:hover {
@@ -127,7 +182,7 @@
                 }
                 
                 .navbar-collapse .navbar-nav .nav-link {
-                    color: var(--pcci-dark) !important;
+                    color: #1a1a2e !important;
                     padding: 0.75rem 1rem !important;
                 }
                 
@@ -146,25 +201,31 @@
             }
             
             /* ============================================== */
-            /* FOOTER STYLES */
+            /* FOOTER STYLES (STATIC - UNAFFECTED BY THEME)   */
             /* ============================================== */
-            
+
             .footer {
-                background-color: var(--pcci-dark);
-                color: #fff;
+                background-color: #1a1a2e !important; 
+                color: #ffffff !important;
                 padding: 4rem 0 2rem;
             }
-            
+
+            /* This forces all headings and text inside the footer to stay white */
+            .footer h1, .footer h2, .footer h3, .footer h4, .footer h5, .footer h6,
+            .footer p, .footer span, .footer div, .footer small {
+                color: #ffffff !important;
+            }
+
             .footer a {
-                color: rgba(255, 255, 255, 0.7);
+                color: rgba(255, 255, 255, 0.7) !important;
                 text-decoration: none;
                 transition: color 0.3s ease;
             }
-            
+
             .footer a:hover {
-                color: var(--pcci-red);
+                color: var(--pcci-red) !important;
             }
-            
+
             .footer-bottom {
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
                 padding-top: 2rem;
@@ -303,6 +364,9 @@
                 border: none;
                 border-radius: 12px;
                 transition: all 0.3s ease;
+                /* VARIABLES APPLIED FOR DARK MODE */
+                background-color: var(--bg-card);
+                color: var(--text-main);
             }
             
             .card:hover {
@@ -328,7 +392,7 @@
                 font-family: var(--font-heading);
                 font-size: 2.5rem;
                 font-weight: 700;
-                color: var(--pcci-dark);
+                color: var(--text-main); /* VARIABLE APPLIED */
                 margin-bottom: 1rem;
             }
             
@@ -338,7 +402,7 @@
             
             .section-description {
                 font-family: var(--font-body);
-                color: #666;
+                color: var(--text-secondary); /* VARIABLE APPLIED */
                 font-size: 1rem;
                 margin-bottom: 2.5rem;
             }
@@ -427,7 +491,7 @@
             }
             
             .bg-pcci-dark {
-                background-color: var(--pcci-dark) !important;
+                background-color: #1a1a2e !important;
             }
             
             /* Smooth transitions for interactive elements */
@@ -494,20 +558,42 @@
 
         @include('partials.footer')
         
-        <!-- Scroll to Top Button -->
         <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="18 15 12 9 6 15"></polyline>
             </svg>
         </button>
         
-        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         
-        <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         
         <script>
+            // --- GLOBAL THEME SWITCH LOGIC ---
+            document.addEventListener("DOMContentLoaded", function () {
+                const themeCheckbox = document.getElementById('theme-checkbox');
+                const body = document.body;
+
+                // Load saved preference (Optional)
+                // const isDarkMode = localStorage.getItem('theme') === 'dark';
+                // if(isDarkMode && themeCheckbox) {
+                //     themeCheckbox.checked = true;
+                //     body.classList.add('dark-mode');
+                // }
+
+                if (themeCheckbox) {
+                    themeCheckbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            body.classList.add('dark-mode');
+                            // localStorage.setItem('theme', 'dark');
+                        } else {
+                            body.classList.remove('dark-mode');
+                            // localStorage.setItem('theme', 'light');
+                        }
+                    });
+                }
+            });
+
             // Navbar scroll behavior
             window.addEventListener('scroll', function() {
                 const navbar = document.getElementById('mainNavbar');

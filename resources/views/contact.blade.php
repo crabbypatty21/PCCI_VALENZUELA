@@ -10,84 +10,85 @@
 <div class="w-100 mb-0 d-flex flex-column align-items-center" style="
     height: 623px;
     margin-top: -1px; 
-    background-color: #252631;
+    background-color: var(--bg-hero);
     background-size: cover;
     background-position: center;
     padding-top: 130px;
+    transition: background-color 0.3s ease;
 ">
     <div class="container d-flex flex-column align-items-center text-center">
         
-        {{-- Subtitle --}}
-        <span class="text-white mb-3 d-block" 
-            style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; max-width: 1522px; text-align: center;">
+        {{-- Subtitle - Remains white for contrast on dark hero --}}
+        <span class="mb-3 d-block" 
+            style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; max-width: 1522px; text-align: center;">
             PCCI - VALENZUELA
         </span>
 
-        {{-- Main Headline --}}
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" 
-            style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
+        {{-- Main Headline - Remains white --}}
+        <h1 class="headline-text fw-bold mb-4 text-uppercase" 
+            style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
             Contact <span style="color: #EB3223; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">Us</span>
         </h1>
 
-        {{-- Paragraph --}}
-        <p class="text-white" 
-        style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 100%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1262px; height: auto; margin: 0 auto 21px auto;">
+        {{-- Paragraph - Remains white --}}
+        <p style="color: #ffffff !important; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 100%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1262px; height: auto; margin: 0 auto 21px auto;">
             Get in touch with PCCI Valenzuela for membership inquiries, business partnerships, or any questions about our services.
         </p>
     </div>
 </div>
 
 {{-- MAIN CONTACT CONTENT --}}
-<div class="py-5" style="background-color: #e9ecef;">
+<div class="py-5" style="background-color: var(--bg-section); transition: background-color 0.3s ease;">
     <div class="container">
         <div class="row g-4">
             
             {{-- Left Column: Contact Info --}}
             <div class="col-lg-5">
                 {{-- Info Card --}}
-                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background: #fff;">
-                    <h3 class="fw-bold mb-4 text-dark" style="font-family: 'Poppins', sans-serif;">Get in Touch</h3>
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: var(--bg-card);">
+                    {{-- Title uses theme variable: White in Dark Mode --}}
+                    <h3 class="fw-bold mb-4" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">Get in Touch</h3>
                     
                     {{-- Address --}}
-                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom">
+                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom" style="border-color: var(--border-color) !important;">
                         <div class="flex-shrink-0">
                             <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: #fff1f3; border-radius: 10px;">
                                 <i class="bi bi-geo-alt-fill" style="font-size: 1.3rem; color: #D40032;"></i>
                             </div>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark" style="font-family: 'Poppins', sans-serif;">Office Address</h6>
-                            <p class="text-secondary mb-0 small" style="font-family: 'DM Sans', sans-serif; line-height: 1.6;">
+                            <h6 class="fw-bold mb-1" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">Office Address</h6>
+                            <p class="mb-0 small" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif; line-height: 1.6;">
                                 Valenzuela City, Metro Manila NCR<br>Philippines
                             </p>
                         </div>
                     </div>
 
                     {{-- Phone --}}
-                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom">
+                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom" style="border-color: var(--border-color) !important;">
                         <div class="flex-shrink-0">
                             <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: #fff1f3; border-radius: 10px;">
                                 <i class="bi bi-telephone-fill" style="font-size: 1.3rem; color: #D40032;"></i>
                             </div>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark" style="font-family: 'Poppins', sans-serif;">Phone Number</h6>
-                            <p class="text-secondary mb-0 small" style="font-family: 'DM Sans', sans-serif;">
+                            <h6 class="fw-bold mb-1" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">Phone Number</h6>
+                            <p class="mb-0 small" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;">
                                 +63 982 265 8382
                             </p>
                         </div>
                     </div>
 
                     {{-- Email --}}
-                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom">
+                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom" style="border-color: var(--border-color) !important;">
                         <div class="flex-shrink-0">
                             <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: #fff1f3; border-radius: 10px;">
                                 <i class="bi bi-envelope-fill" style="font-size: 1.3rem; color: #D40032;"></i>
                             </div>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark" style="font-family: 'Poppins', sans-serif;">Email Address</h6>
-                            <p class="text-secondary mb-0 small" style="font-family: 'DM Sans', sans-serif;">
+                            <h6 class="fw-bold mb-1" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">Email Address</h6>
+                            <p class="mb-0 small" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;">
                                 pccivalenzuelacity@gmail.com
                             </p>
                         </div>
@@ -101,8 +102,8 @@
                             </div>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark" style="font-family: 'Poppins', sans-serif;">Office Hours</h6>
-                            <div class="text-secondary small" style="font-family: 'DM Sans', sans-serif; line-height: 1.6;">
+                            <h6 class="fw-bold mb-1" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">Office Hours</h6>
+                            <div class="small" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif; line-height: 1.6;">
                                 <div class="d-flex justify-content-between gap-3"><span>Mon - Fri:</span> <span>8:00 AM - 5:00 PM</span></div>
                                 <div class="d-flex justify-content-between gap-3"><span>Saturday:</span> <span>8:00 AM - 12:00 PM</span></div>
                                 <div class="d-flex justify-content-between gap-3"><span>Sunday:</span> <span>Closed</span></div>
@@ -112,14 +113,14 @@
                 </div>
 
                 {{-- Board Link Card --}}
-                <div class="card border-0 shadow-sm mt-4 p-4" style="border-radius: 12px; background: #fff;">
+                <div class="card border-0 shadow-sm mt-4 p-4" style="border-radius: 12px; background-color: var(--bg-card);">
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <div class="d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #e9ecef; border-radius: 10px;">
                             <i class="bi bi-people-fill" style="font-size: 1.2rem; color: #212529;"></i>
                         </div>
-                        <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">Board of Trustees</h5>
+                        <h5 class="fw-bold mb-0" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">Board of Trustees</h5>
                     </div>
-                    <p class="text-secondary mb-4 small" style="font-family: 'DM Sans', sans-serif; line-height: 1.6;">
+                    <p class="mb-4 small" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif; line-height: 1.6;">
                         Meet our dedicated board members who guide PCCI Valenzuela's strategic direction and initiatives.
                     </p>
                     <a href="{{ route('leadership') }}" class="btn w-100 fw-bold text-uppercase" 
@@ -154,10 +155,10 @@
             <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; opacity: 0.9;">
                 Common Questions
             </span>
-            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem);">
+            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: white !important;">
                 Frequently Asked Questions
             </h2>
-            <p class="mx-auto" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; opacity: 0.9;">
+            <p class="mx-auto" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; opacity: 0.9; color: white !important;">
                 Everything you need to know about membership and services.
             </p>
         </div>
@@ -170,7 +171,7 @@
                 ['q' => 'What industries do you serve?', 'a' => 'We welcome businesses from all industries including manufacturing, retail, services, technology, and more.'],
             ] as $faq)
             <div class="col-md-6">
-                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: var(--bg-card);">
                     <div class="d-flex align-items-start gap-3">
                         <div class="flex-shrink-0">
                             <div class="d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fff1f3; border-radius: 8px;">
@@ -178,8 +179,8 @@
                             </div>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-2 text-dark" style="font-family: 'Poppins', sans-serif;">{{ $faq['q'] }}</h6>
-                            <p class="text-secondary mb-0 small" style="font-family: 'DM Sans', sans-serif; line-height: 1.6;">{{ $faq['a'] }}</p>
+                            <h6 class="fw-bold mb-2" style="color: var(--text-main); font-family: 'Poppins', sans-serif;">{{ $faq['q'] }}</h6>
+                            <p class="mb-0 small" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif; line-height: 1.6;">{{ $faq['a'] }}</p>
                         </div>
                     </div>
                 </div>
@@ -189,13 +190,13 @@
     </div>
 </div>
 
-{{-- FINAL CTA (White Background Style) --}}
-<div class="py-5 bg-white">
+{{-- FINAL CTA (Dynamic Background Style) --}}
+<div class="py-5" style="background-color: var(--bg-body); transition: background-color 0.3s ease;">
     <div class="container text-center py-4">
-        <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: #212529;">
+        <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--text-main);">
             Ready to Join Our Community?
         </h2>
-        <p class="text-secondary mx-auto mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 700px; font-size: 1.1rem; line-height: 1.7;">
+        <p class="mx-auto mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 700px; font-size: 1.1rem; line-height: 1.7; color: var(--text-muted);">
             Take the first step towards growing your business with PCCI Valenzuela. Join hundreds of successful businesses today.
         </p>
         
@@ -205,7 +206,7 @@
                 Apply for Membership
             </a>
             <a href="{{ url('/about') }}" class="btn btn-outline-dark fw-bold px-5 py-3 text-uppercase" 
-               style="font-family: 'DM Sans', sans-serif; border-radius: 6px; letter-spacing: 0.05em;">
+               style="font-family: 'DM Sans', sans-serif; border-radius: 6px; letter-spacing: 0.05em; color: var(--text-main); border-color: var(--text-main);">
                 Learn More About Us
             </a>
         </div>
