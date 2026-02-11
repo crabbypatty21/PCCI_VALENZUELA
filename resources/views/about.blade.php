@@ -1,12 +1,161 @@
 @extends('layouts.app')
 
 @section('content')
+
+{{-- Page-Specific Styles for Dark Mode --}}
+<style>
+    /* Hero Section Background */
+    .about-hero {
+        background-color: var(--bg-hero);
+        transition: background-color 0.3s ease;
+    }
+
+    /* Standard Icon Box (Light Mode) */
+    .feature-icon-box {
+        width: 60px; 
+        height: 60px; 
+        background-color: #fff1f3; 
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .feature-icon-box i {
+        font-size: 1.75rem; 
+        color: #D40032;
+        transition: color 0.3s ease;
+    }
+
+    /* Dark Mode: Icon Box Adaptation */
+    body.dark-mode .feature-icon-box {
+        background-color: rgba(212, 0, 50, 0.15); /* Darker transparent red */
+    }
+
+    body.dark-mode .feature-icon-box i {
+        color: #ff6b81; /* Lighter red for contrast */
+    }
+
+    /* Quote Box in Purpose Section */
+    .quote-box {
+        background-color: #fff1f3;
+        border-radius: 12px; 
+        border-left: 5px solid #D40032;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .quote-box {
+        background-color: rgba(212, 0, 50, 0.1); /* Dark mode quote background */
+    }
+
+    body.dark-mode .quote-box p {
+        color: #e1e1e1 !important; /* Force light text in quote */
+    }
+
+    /* Swiper Section Background */
+    .community-section {
+        background-color: #fdf2f4;
+        padding: 80px 0;
+        overflow: hidden;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .community-section {
+        background-color: var(--bg-section-gray); /* Match section gray in dark mode */
+    }
+
+    /* Navigation Arrows */
+    .nav-arrow {
+        background: white;
+        color: #333;
+        /* ... existing styles ... */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 50;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-arrow:hover {
+        background-color: #D40032;
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    body.dark-mode .nav-arrow {
+        background-color: var(--bg-card);
+        color: var(--text-main);
+    }
+    
+    .nav-prev { left: 20px; }
+    .nav-next { right: 20px; }
+    
+    /* Swiper Styles (Maintained) */
+    .carousel-outer-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .communitySwiper {
+        width: 100%;
+        padding: 40px 0 60px;
+        overflow: visible;
+    }
+    
+    .communitySwiper .swiper-slide {
+        width: 450px;
+        height: 300px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+    
+    .communitySwiper .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .communitySwiper .swiper-slide-active {
+        opacity: 1;
+        transform: scale(1.05);
+        box-shadow: 0 25px 50px rgba(212, 0, 50, 0.2);
+        z-index: 10;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #D40032 !important;
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        .communitySwiper .swiper-slide { width: 300px; height: 200px; }
+        .nav-arrow { display: none; } 
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
 {{-- Hero Section --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="w-100 mb-0 d-flex flex-column align-items-center" style="
+<div class="w-100 mb-0 d-flex flex-column align-items-center about-hero" style="
     height: 623px;
     margin-top: -1px; 
-    background-color: #252631;
     background-size: cover;
     background-position: center;
     padding-top: 130px;
@@ -46,32 +195,34 @@
 </div>
 
 {{-- Our Purpose Section --}}
-<div class="py-5" style="background-color: #e9ecef;">
+{{-- Applied var(--bg-section-gray) --}}
+<div class="py-5" style="background-color: var(--bg-section-gray); transition: background-color 0.3s ease;">
     <div class="container py-4">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
                 <span class="fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: #D40032;">
                     Our Purpose
                 </span>
-                <h2 class="fw-bold mb-4" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.2; color: #212529;">
+                <h2 class="fw-bold mb-4" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.2; color: var(--text-main);">
                     Guiding Principles for a Thriving Valenzuela.
                 </h2>
                 
                 <div class="mb-4">
                     <h5 class="fw-bold mb-2" style="font-family: 'Poppins', sans-serif; color: #D40032;">Our Mission</h5>
-                    <p style="font-family: 'DM Sans', sans-serif; line-height: 1.7; color: #4b4b4b; font-size: 1.05rem;">
+                    <p style="font-family: 'DM Sans', sans-serif; line-height: 1.7; color: var(--text-secondary); font-size: 1.05rem;">
                         To champion the growth and success of Valenzuela businesses through robust advocacy, impactful networking, comprehensive development programs, and dedicated community engagement.
                     </p>
                 </div>
 
                 <div class="mb-5">
                     <h5 class="fw-bold mb-2" style="font-family: 'Poppins', sans-serif; color: #D40032;">Our Vision</h5>
-                    <p style="font-family: 'DM Sans', sans-serif; line-height: 1.7; color: #4b4b4b; font-size: 1.05rem;">
+                    <p style="font-family: 'DM Sans', sans-serif; line-height: 1.7; color: var(--text-secondary); font-size: 1.05rem;">
                         To be the leading catalyst for a vibrant, innovative, and sustainable business environment in Valenzuela City, recognized for driving economic prosperity and community well-being.
                     </p>
                 </div>
 
-                <div class="p-4 mb-4" style="background-color: #fff1f3; border-radius: 12px; border-left: 5px solid #D40032;">
+                {{-- Quote Box --}}
+                <div class="p-4 mb-4 quote-box">
                     <p class="fst-italic mb-3" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; color: #2c2c2c; font-size: 1.1rem;">
                         "Together, we are forging a resilient and dynamic future for Valenzuela. Our Chamber is committed to empowering every member to reach their full potential and contribute to our city's collective success."
                     </p>
@@ -104,6 +255,7 @@
 </div>
 
 {{-- The PCCI Advantage Section --}}
+{{-- Background stays Red (#D40032), Cards adapt to dark mode --}}
 <div class="py-5" style="background-color: #D40032;">
     <div class="container text-white py-4">
         <div class="text-center mb-5">
@@ -121,12 +273,12 @@
         <div class="row g-4 mb-5">
             {{-- Connect & Collaborate --}}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
-                        <i class="bi bi-people-fill" style="font-size: 1.75rem; color: #D40032;"></i>
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: var(--bg-card); transition: background-color 0.3s ease;">
+                    <div class="mx-auto mb-3 feature-icon-box">
+                        <i class="bi bi-people-fill"></i>
                     </div>
-                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Connect & Collaborate</h5>
-                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Connect & Collaborate</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Unlock unparalleled networking opportunities. We foster a dynamic ecosystem where businesses connect and forge powerful collaborations.
                     </p>
                 </div>
@@ -134,12 +286,12 @@
 
             {{-- Advocate & Represent --}}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
-                        <i class="bi bi-megaphone-fill" style="font-size: 1.75rem; color: #D40032;"></i>
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: var(--bg-card); transition: background-color 0.3s ease;">
+                    <div class="mx-auto mb-3 feature-icon-box">
+                        <i class="bi bi-megaphone-fill"></i>
                     </div>
-                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Advocate & Represent</h5>
-                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Advocate & Represent</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Your voice, amplified. We champion the interests of Valenzuela's businesses, ensuring your concerns are heard at key policy-making levels.
                     </p>
                 </div>
@@ -147,12 +299,12 @@
 
             {{-- Develop & Innovate --}}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
-                        <i class="bi bi-lightbulb-fill" style="font-size: 1.75rem; color: #D40032;"></i>
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: var(--bg-card); transition: background-color 0.3s ease;">
+                    <div class="mx-auto mb-3 feature-icon-box">
+                        <i class="bi bi-lightbulb-fill"></i>
                     </div>
-                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Develop & Innovate</h5>
-                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Develop & Innovate</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Stay ahead of the curve. Gain access to cutting-edge training and resources designed to enhance your operations and embrace innovation.
                     </p>
                 </div>
@@ -160,12 +312,12 @@
 
             {{-- Strengthen Community --}}
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: white;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
-                        <i class="bi bi-building-fill-check" style="font-size: 1.75rem; color: #D40032;"></i>
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 12px; background-color: var(--bg-card); transition: background-color 0.3s ease;">
+                    <div class="mx-auto mb-3 feature-icon-box">
+                        <i class="bi bi-building-fill-check"></i>
                     </div>
-                    <h5 class="fw-bold mb-3 text-dark" style="font-family: 'Poppins', sans-serif;">Build Community</h5>
-                    <p class="text-secondary mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Build Community</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         We invest in Valenzuela's future through community-focused programs that promote social responsibility and shared prosperity.
                     </p>
                 </div>
@@ -183,16 +335,17 @@
 </div>
 
 {{-- Our Values Section --}}
-<div class="py-5" style="background-color: #e9ecef;">
+{{-- Applied var(--bg-section-gray) --}}
+<div class="py-5" style="background-color: var(--bg-section-gray); transition: background-color 0.3s ease;">
     <div class="container py-4">
         <div class="text-center mb-5">
             <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: #D40032;">
                 Our Values
             </span>
-            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: #212529;">
+            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--text-main);">
                 The Foundation of Our Commitment.
             </h2>
-            <p class="text-secondary mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.05rem; line-height: 1.7;">
+            <p class="mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary);">
                 These principles are woven into every action we take and every service we provide to the Valenzuela business community.
             </p>
         </div>
@@ -200,6 +353,7 @@
         <div class="row g-4 justify-content-center">
             {{-- Discipline --}}
             <div class="col-md-6 col-lg-4">
+                {{-- Red Cards: Text stays white --}}
                 <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
                         <i class="bi bi-shield-check" style="font-size: 1.75rem;"></i>
@@ -241,7 +395,8 @@
 </div>
 
 {{-- Our Impact Section (Split Layout Style) --}}
-<section class="w-100 overflow-hidden bg-white" id="impact">
+{{-- Changed bg-white to var(--bg-body) --}}
+<section class="w-100 overflow-hidden" id="impact" style="background-color: var(--bg-body); transition: background-color 0.3s ease;">
     <div class="row g-0">
         {{-- Left: Visual Side (Image) --}}
         <div class="col-lg-6 position-relative" style="min-height: 600px;">
@@ -255,6 +410,7 @@
         </div>
 
         {{-- Right: Content Side (Brand Red Background) --}}
+        {{-- Stays Red (#D40032) --}}
         <div class="col-lg-6 d-flex flex-column justify-content-center p-5" style="background-color: #D40032;">
             <div class="p-lg-4 mx-auto w-100 text-white" style="max-width: 650px;">
                 
@@ -295,93 +451,8 @@
 {{-- Swiper CSS --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-<style>
-    .community-section {
-        background-color: #fdf2f4;
-        padding: 80px 0;
-        overflow: hidden;
-    }
-    
-    .carousel-outer-container {
-        position: relative;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Navigation Arrows */
-    .nav-arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 50px;
-        height: 50px;
-        background: white;
-        border: none;
-        border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 50;
-        transition: all 0.3s ease;
-        color: #333;
-    }
-    
-    .nav-arrow:hover {
-        background-color: #D40032;
-        color: white;
-        transform: translateY(-50%) scale(1.1);
-    }
-    
-    .nav-prev { left: 20px; }
-    .nav-next { right: 20px; }
-    
-    /* Swiper customization */
-    .communitySwiper {
-        width: 100%;
-        padding: 40px 0 60px;
-        overflow: visible;
-    }
-    
-    .communitySwiper .swiper-slide {
-        width: 450px;
-        height: 300px;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        opacity: 0.4;
-        transform: scale(0.8);
-    }
-    
-    .communitySwiper .swiper-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .communitySwiper .swiper-slide-active {
-        opacity: 1;
-        transform: scale(1.05);
-        box-shadow: 0 25px 50px rgba(212, 0, 50, 0.2);
-        z-index: 10;
-    }
-
-    .swiper-pagination-bullet-active {
-        background: #D40032 !important;
-        transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-        .communitySwiper .swiper-slide { width: 300px; height: 200px; }
-        .nav-arrow { display: none; } /* Hide arrows on mobile for better touch experience */
-    }
-</style>
-
 {{-- Community Gallery Section --}}
+{{-- Class community-section handles the background color change via CSS at the top --}}
 <div class="community-section">
     <div class="container-fluid px-0">
         {{-- Section Header --}}
@@ -389,7 +460,7 @@
             <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: #D40032;">
                 Gallery
             </span>
-            <h2 class="fw-bold text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: #212529;">
+            <h2 class="fw-bold text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--text-main);">
                 Glimpses of our <span style="color: #D40032;">Community</span> in Action
             </h2>
         </div>
@@ -519,17 +590,18 @@
 </script>
 
 {{-- Final CTA Section --}}
-<section class="py-5 bg-white border-top">
+{{-- Changed bg-white to var(--bg-body) --}}
+<section class="py-5 border-top" style="background-color: var(--bg-body); border-color: var(--border-color) !important; transition: background-color 0.3s ease;">
     <div class="container text-center py-5">
         {{-- Section Header --}}
         <span class="fw-bold text-uppercase mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: #D40032;">
             Take the Next Step
         </span>
-        <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 5vw, 2.75rem); color: #212529; line-height: 1.2;">
+        <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 5vw, 2.75rem); color: var(--text-main); line-height: 1.2;">
             Be Part of Valenzuela's <br class="d-none d-md-block"> Business Renaissance.
         </h2>
         
-        <p class="text-secondary mx-auto mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.15rem; line-height: 1.8;">
+        <p class="mx-auto mb-5" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary);">
             PCCI Valenzuela is more than a chamber; it's a community dedicated to fostering a vibrant, sustainable, and inclusive business environment. Invest in your growth and the future of our city.
         </p>
 
@@ -542,8 +614,8 @@
             </a>
 
             {{-- Secondary Action --}}
-            <a href="{{ url('/contact') }}" class="btn btn-outline-dark fw-bold px-5 py-3 text-uppercase" 
-               style="font-family: 'DM Sans', sans-serif; border-radius: 6px; font-size: 1rem; letter-spacing: 0.05em;">
+            <a href="{{ url('/contact') }}" class="btn btn-outline-danger fw-bold px-5 py-3 text-uppercase" 
+               style="font-family: 'DM Sans', sans-serif; border-radius: 6px; font-size: 1rem; letter-spacing: 0.05em; border: 2px solid #D40032; color: #D40032;">
                 Contact Us
             </a>
         </div>
