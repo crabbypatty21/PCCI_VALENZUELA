@@ -54,8 +54,6 @@
     .nav-link-custom {
         font-weight: 600 !important;
         border-radius: 5px; 
-        
-        /* UPDATED: Removed background/color transitions so there is no lag */
         transition: opacity 0.2s ease;
     }
     
@@ -73,17 +71,9 @@
 
     /* ACTIVE STATE (WHILE CLICKING) */
     .nav-link-custom:active {
-        /* 1. Remove Background Highlight */
         background-color: transparent !important; 
-        
-        /* 2. Force text to stay WHITE (prevents it turning black) */
         color: #ffffff !important; 
-        
-        /* 3. Instant Reaction (No Animation) */
         transition: none !important; 
-        
-        /* Optional: A tiny opacity dip so you know you clicked it, 
-           without changing colors. Remove this line if you want zero effect. */
         opacity: 0.7 !important; 
     }
 
@@ -95,6 +85,86 @@
         text-underline-offset: 8px !important;    
         opacity: 1 !important;
     }
+
+    /* ============================================== */
+    /* THEME SWITCH TOGGLE (DASH STYLE)               */
+    /* ============================================== */
+    .theme-switch-wrapper {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .theme-switch {
+        display: inline-block;
+        height: 30px;
+        position: relative;
+        width: 60px;
+        margin-bottom: 0;
+    }
+
+    .theme-switch input {
+        display: none;
+    }
+
+    .slider {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 2px solid #fff;
+        bottom: 0;
+        cursor: pointer;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: .4s;
+    }
+
+    .slider:before {
+        background-color: #fff;
+        bottom: 3px;
+        content: "";
+        height: 20px;
+        left: 4px;
+        position: absolute;
+        transition: .4s;
+        width: 20px;
+    }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    /* Checked State (Dark Mode Position) */
+    input:checked + .slider {
+        background-color: #1a1a2e; /* Dark PCCI Color */
+        border-color: #fff;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(28px); /* Moves the circle to the right */
+        background-color: #fff;
+    }
+    
+    /* Icons inside the toggle for visual cue (Optional) */
+    .slider-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        color: #fff;
+        pointer-events: none;
+    }
+    
+    .icon-sun { right: 8px; opacity: 1; transition: opacity 0.3s; }
+    .icon-moon { left: 8px; opacity: 0; transition: opacity 0.3s; }
+    
+    input:checked + .slider .icon-sun { opacity: 0; }
+    input:checked + .slider .icon-moon { opacity: 1; }
+
 </style>
 
 <header id="main-topbar" 
@@ -150,9 +220,15 @@
 
             <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
                 
-               <button id="themeToggle" class="btn border-0">
-                <i id="themeIcon" class="bi bi-sun-fill" style="font-size: 1.5rem; color: #ffffff;"></i>
-               </button>
+               <div class="theme-switch-wrapper">
+                   <label class="theme-switch" for="theme-checkbox">
+                       <input type="checkbox" id="theme-checkbox" />
+                       <div class="slider round">
+                           <i class="bi bi-sun-fill slider-icon icon-sun"></i>
+                           <i class="bi bi-moon-fill slider-icon icon-moon"></i>
+                       </div>
+                   </label>
+               </div>
 
                 <a href="{{ url('/login') }}" 
                    id="join-pcci-btn"
@@ -216,23 +292,19 @@
 
 
         // --- PART 2: CLICK DELAY FEEDBACK (Shows 'Wait' cursor instantly) ---
-        // This makes the user feel the system is reacting, even if the server is slow.
         const links = document.querySelectorAll('a');
         
         links.forEach(link => {
             link.addEventListener('click', function(e) {
-                // If it's a real link (not an anchor # or javascript:)
                 const href = this.getAttribute('href');
                 if (href && href.startsWith('/') || href.startsWith('http')) {
-                    document.body.style.cursor = 'wait'; // Change cursor to spinner
+                    document.body.style.cursor = 'wait'; 
                 }
             });
         });
 
-        // Reset cursor if the user presses "Back" to return to this page
         window.addEventListener('pageshow', () => {
             document.body.style.cursor = 'default';
         });
     });
-
 </script>

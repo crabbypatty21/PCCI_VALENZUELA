@@ -40,19 +40,20 @@
 @endphp
 
 {{-- HERO SECTION --}}
-<div class="w-100 mb-0 d-flex flex-column align-items-center" style="height: 623px; margin-top: -1px; background-color: #252631; padding-top: 130px;">
+<div class="w-100 mb-0 d-flex flex-column align-items-center" style="height: 623px; margin-top: -1px; background-color: var(--bg-hero); padding-top: 130px; transition: background-color 0.3s ease;">
     <div class="container d-flex flex-column align-items-center text-center">
-        <span class="text-white mb-3 d-block" style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; text-transform: uppercase;">JOIN PCCI - VALENZUELA</span>
-        <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" style="font-family: 'DM Sans', sans-serif; font-size: 63px;">
+        {{-- Hero text remains white as per previous consistency requests --}}
+        <span class="mb-3 d-block" style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; text-transform: uppercase;">JOIN PCCI - VALENZUELA</span>
+        <h1 class="headline-text fw-bold mb-4 text-uppercase" style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-size: 63px;">
             Discover Local <span style="color: #EB3223;">Businesses</span>
         </h1>
-        <p class="text-white" style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; max-width: 1262px; margin-bottom: 21px;">
+        <p style="color: #ffffff !important; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; max-width: 1262px; margin-bottom: 21px;">
             Connect with our diverse community of innovative businesses and entrepreneurs driving economic growth and excellence in Valenzuela City.
         </p>
         <div style="width: 782px; max-width: 90%;">
-            <div class="input-group shadow-sm bg-white rounded overflow-hidden border-0 align-items-center" style="height: 62px;">
-                <span class="input-group-text bg-white border-0 ps-4"><i class="bi bi-search text-secondary"></i></span>
-                <input type="text" class="form-control border-0 shadow-none text-secondary" placeholder="Search businesses, services...">
+            <div class="input-group shadow-sm rounded overflow-hidden border-0 align-items-center" style="height: 62px; background-color: var(--bg-input);">
+                <span class="input-group-text border-0 ps-4" style="background-color: transparent;"><i class="bi bi-search text-secondary"></i></span>
+                <input type="text" class="form-control border-0 shadow-none text-secondary" style="background-color: transparent;" placeholder="Search businesses, services...">
                 <button class="btn text-white px-5 fw-bold text-uppercase" style="background-color: #D40032; margin-right: 13px; height: 40px; border-radius: 6px;">Search</button>
             </div>
         </div>
@@ -60,25 +61,25 @@
 </div>
 
         {{-- Filters & Listing Section --}}
-        <div class="py-5" style="background-color: #e9ecef;">
-            <div class="w-100 mb-5" style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
+        <div class="py-5" style="background-color: var(--bg-section); transition: background-color 0.3s ease;">
+            <div class="w-100 mb-5" style="border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
                 <div class="container px-4 px-lg-5">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 py-3">
                         
                         <div class="d-flex flex-wrap gap-2">
                             {{-- Categories --}}
-                            <select class="form-select form-select-sm bg-white border-0 shadow-sm" style="width: auto;">
+                            <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);">
                                 <option selected>All Categories</option>
                             </select>
 
                             {{-- Locations --}}
-                            <select class="form-select form-select-sm bg-white border-0 shadow-sm" style="width: auto;">
+                            <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);">
                                 <option selected>All Locations</option>
                             </select>
 
                             {{-- Sort Order Dropdown --}}
-                            <select class="form-select form-select-sm bg-white border-0 shadow-sm" 
-                                    style="width: auto;" 
+                            <select class="form-select form-select-sm border-0 shadow-sm" 
+                                    style="width: auto; background-color: var(--bg-input); color: var(--text-main);" 
                                     onchange="window.location.href='?sort=' + this.value">
                                 <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>Sort: Ascending</option>
                                 <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>Sort: Descending</option>
@@ -86,7 +87,7 @@
                         </div>
 
                         {{-- DYNAMIC SHOWING TEXT --}}
-                        <div class="text-secondary small fw-medium" style="font-family: 'DM Sans', sans-serif;">
+                        <div class="small fw-medium" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;">
                             Showing {{ $showingStart }}-{{ $showingEnd }} of {{ $totalResults }} results
                         </div>
                     </div>
@@ -99,7 +100,7 @@
         <div class="row g-4">
             @foreach ($pagedData as $business)
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow p-3" style="border-radius: 12px; background: #fff;">
+                    <div class="card h-100 border-0 shadow p-3" style="border-radius: 12px; background-color: var(--bg-card);">
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <div class="rounded-circle {{ $business['color'] }} d-flex align-items-center justify-content-center {{ $business['color'] == 'bg-warning' ? 'text-dark' : 'text-white' }} fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
                                 {{ $business['initials'] }}
@@ -108,20 +109,22 @@
                                 <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" style="font-size: 0.65rem; background-color: #e7f1ff; color: #0d6efd;">
                                     {{ $business['category'] }}
                                 </span>
-                                <h5 class="fw-bold mb-0 text-dark">{{ $business['name'] }}</h5>
-                                <small class="text-muted">{{ $business['industry'] }}</small>
+                                {{-- Company Name follows the theme logic --}}
+                                <h5 class="fw-bold mb-0" style="color: var(--text-main);">{{ $business['name'] }}</h5>
+                                <small style="color: var(--text-muted);">{{ $business['industry'] }}</small>
                             </div>
                         </div>
                         <div class="card-body p-0 d-flex flex-column flex-grow-1">
                             <div class="mb-3">
-                                <div class="d-flex gap-2 small text-secondary">
+                                <div class="d-flex gap-2 small">
                                     @foreach ($business['tags'] as $tag)
-                                        <span class="bg-body-secondary px-2 py-1 rounded">{{ $tag }}</span>
+                                        {{-- PRODUCTS/SERVICES: Color forced to red and remains red in both modes --}}
+                                        <span class="bg-body-secondary px-2 py-1 rounded" style="color: #1a1a2e !important; font-weight: 600;">{{ $tag }}</span>
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
-                                <div class="small text-muted">
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: var(--border-color) !important;">
+                                <div class="small" style="color: var(--text-muted);">
                                     <i class="bi bi-envelope"></i> {{ $business['email'] }}<br>
                                     <i class="bi bi-telephone"></i> {{ $business['phone'] }}
                                 </div>
@@ -138,27 +141,26 @@
             @endforeach
         </div>
 
-        {{-- DYNAMIC PAGINATION SECTION --}}
+        {{-- PAGINATION --}}
         <div class="mt-5 d-flex justify-content-center">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    {{-- Previous Button --}}
                     <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                        <a class="page-link border-0 text-secondary" href="?page={{ $currentPage - 1 }}">Previous</a>
+                        <a class="page-link border-0" style="background-color: transparent; color: var(--text-muted);" href="?page={{ $currentPage - 1 }}">Previous</a>
                     </li>
 
-                    {{-- Page Numbers --}}
                     @for ($p = 1; $p <= $totalPages; $p++)
                         <li class="page-item {{ $currentPage == $p ? 'active' : '' }}">
-                            <a class="page-link border-0 {{ $currentPage == $p ? 'bg-danger text-white shadow-sm' : 'text-secondary' }} rounded mx-1" href="?page={{ $p }}">
+                            <a class="page-link border-0 rounded mx-1 {{ $currentPage == $p ? 'bg-danger text-white shadow-sm' : '' }}" 
+                               style="{{ $currentPage != $p ? 'background-color: transparent; color: var(--text-muted);' : '' }}"
+                               href="?page={{ $p }}">
                                 {{ $p }}
                             </a>
                         </li>
                     @endfor
 
-                    {{-- Next Button --}}
                     <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                        <a class="page-link border-0 text-secondary" href="?page={{ $currentPage + 1 }}">Next</a>
+                        <a class="page-link border-0" style="background-color: transparent; color: var(--text-muted);" href="?page={{ $currentPage + 1 }}">Next</a>
                     </li>
                 </ul>
             </nav>
@@ -166,4 +168,4 @@
     </div>
 </div>
 
-@endsection 
+@endsection
