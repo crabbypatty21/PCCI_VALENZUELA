@@ -4,8 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite",
-        "start": "vite preview --port $PORT --host 0.0.0.0"
+        "dev": "vite"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
@@ -14,8 +13,5 @@
         "laravel-vite-plugin": "^2.0.0",
         "tailwindcss": "^4.0.0",
         "vite": "^7.0.7"
-    },
-    "dependencies": {
-        "serve": "^14.2.5"
     }
 }
