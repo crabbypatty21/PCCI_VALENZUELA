@@ -419,7 +419,6 @@
         background-color: #EDEAE3;
         overflow: hidden;
         transition: background-color 0.3s ease;
-        position: relative; /* Ensure relative positioning for buttons */
     }
 
     body.dark-mode .visionaries-section {
@@ -463,18 +462,15 @@
     /* Carousel Wrapper */
     .visionaries-carousel-wrapper {
         position: relative;
-        width: 100%;
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 0 100px;
-        box-sizing: border-box;
+        padding: 0 80px;
     }
 
     /* Swiper Configuration */
     .visionaries-swiper {
         padding: 40px 0 60px;
         overflow: visible !important;
-        width: 100%;
     }
 
     .visionaries-swiper .swiper-slide {
@@ -534,8 +530,8 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         background: transparent;
         border: none;
         display: flex;
@@ -554,21 +550,19 @@
 
     /* ICON REPLACEMENT STYLE */
     .visionaries-nav i {
-        font-size: 3rem;
+        font-size: 2.5rem;
         transition: transform 0.3s ease;
     }
 
     .visionaries-nav:hover i {
         transform: scale(1.15);
-        color: #8B0A2D;
     }
 
-    /* Position buttons in the padding area */
-    .visionaries-nav.prev { left: 20px; }
-    .visionaries-nav.next { right: 20px; }
+    .visionaries-nav.prev { left: 0px; }
+    .visionaries-nav.next { right: 0px; }
 
-    .visionaries-nav.prev:hover i { transform: translateX(-5px) scale(1.15); }
-    .visionaries-nav.next:hover i { transform: translateX(5px) scale(1.15); }
+    .visionaries-nav.prev:hover i { transform: translateX(-3px) scale(1.15); }
+    .visionaries-nav.next:hover i { transform: translateX(3px) scale(1.15); }
 
     /* Pagination Dots */
     .visionaries-swiper .swiper-pagination {
@@ -1130,23 +1124,6 @@
             flex-direction: column;
             align-items: center;
         }
-        
-        /* Ensure visionaries buttons don't get squashed on mobile */
-        .visionaries-carousel-wrapper {
-            padding: 0 50px;
-        }
-        
-        .visionaries-nav {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .visionaries-nav i {
-            font-size: 2rem;
-        }
-        
-        .visionaries-nav.prev { left: 10px; }
-        .visionaries-nav.next { right: 10px; }
     }
 </style>
 
@@ -1324,11 +1301,9 @@
 <section class="directory-section">
     <div class="container">
         <div class="row align-items-center g-5">
-            {{-- Text Side: 5 Columns --}}
             <div class="col-lg-5">
                 <p class="section-label">MEMBER DIRECTORY</p>
-                {{-- Ensure Title stays on one line on wider screens --}}
-                <h2 class="section-title text-white" style="white-space: nowrap;">Discover Local <span>Businesses</span></h2>
+                <h2 class="section-title" style="color: #fff;">Discover Local <span>Businesses</span></h2>
                 <p class="directory-description">Explore our comprehensive directory of member businesses across various industries in Valenzuela City.</p>
                 <ul class="directory-features">
                     <li>
@@ -1353,13 +1328,12 @@
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
-
-            {{-- Cards Side: 7 Columns (Push to Right) --}}
             <div class="col-lg-7">
-                <div class="row g-3 justify-content-end"> {{-- Justify end pushes content right --}}
-                    <div class="col-md-6">
+                <div class="row g-3">
+                    <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
                                 <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
@@ -1369,9 +1343,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
                                 <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
@@ -1381,9 +1356,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
                                 <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
@@ -1393,9 +1369,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="member-card">
                             <div class="member-logo">
+                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
                                 <i class="bi bi-building"></i>
                             </div>
                             <div class="member-info">
