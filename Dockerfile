@@ -1,20 +1,27 @@
+# Start from PHP 8.2 FPM image
 FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git unzip libzip-dev npm nodejs
+    git unzip libzip-dev curl npm nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql zip
 
+# Install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy project
+# Copy project files
 COPY . .
 
-# Install dependencies
-RUN composer install
+# Install PHP dependencies
+RUN composer install --no-interaction --optimize-autoloader
+
+# Install Node dependencies and build assets
 RUN npm install
 RUN npm run build
 
