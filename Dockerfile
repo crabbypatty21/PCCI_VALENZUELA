@@ -46,6 +46,9 @@ RUN npm run build
 # Create a blank SQLite database file so Laravel doesn't crash on boot
 RUN mkdir -p database && touch database/database.sqlite
 
+# Run the migrations to actually build the tables (LIKE THE SESSIONS TABLE!)
+RUN php artisan migrate --force
+
 # Give the server permission to write to storage and database folders
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
