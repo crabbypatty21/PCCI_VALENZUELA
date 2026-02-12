@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,52 +32,6 @@
             min-height: 100vh;
         }
 
-        /* --- HEADER --- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background-color: transparent;
-            width: 100%;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: white;
-            text-decoration: none;
-        }
-        
-        .nav-brand img { height: 40px; }
-
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a {
-            color: var(--text-white);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: var(--primary-red); }
-
-        .nav-actions { display: flex; align-items: center; gap: 20px; }
-
-        .btn-join {
-            background-color: var(--primary-red);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-        .btn-join:hover { background-color: #900f24; }
 
         /* --- MAIN --- */
         main {
@@ -106,10 +61,6 @@
             box-shadow: 0 4px 20px rgba(69, 70, 123, 0.58);
             z-index: 2;
         }
-
-        .form-header { text-align: left; margin-bottom: 40px; }
-        .form-header h1 { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin: 0 0 10px 0; }
-        .form-header p { color: var(--text-grey); margin: 0; }
 
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
@@ -192,29 +143,28 @@
             .login-image-side { height: 250px; order: -1; }
             .nav-links { display: none; }
         }
+
+        /* ADD THIS: Override Footer Background to Red */
+    .footer {
+        background-color: #A40033 !important; /* PCCI Red */
+    }
+
+    /* Adjust hover colors so they are visible on the red background */
+    .footer a:hover {
+        color: #ffffff !important;
+        text-decoration: underline;
+    }
+    
+    /* Adjust the logo box background so it doesn't blend in */
+    .footer .rounded {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="{{ route('home') }}" class="nav-brand">
-            <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo">
-            <span>PCCI - Valenzuela</span>
-        </a>
-
-        <nav class="nav-links">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Membership</a>
-            <a href="#">Events</a>
-            <a href="#">Contact Us</a>
-        </nav>
-
-        <div class="nav-actions">
-            <i class="bi bi-brightness-high" style="font-size: 1.2rem; cursor: pointer;"></i>
-            <a href="#" class="btn-join">Join PCCI</a>
-        </div>
-    </header>
+   
 
     <main>
         <div class="login-container">
