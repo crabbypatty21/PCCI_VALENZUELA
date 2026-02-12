@@ -15,4 +15,10 @@ export default defineConfig({
             ignored: ['**/storage/framework/views/**'],
         },
     },
+    preview: {
+        host: true, // allow external hosts
+        port: process.env.PORT || 4173, // use Render-assigned port
+        strictPort: false,
+        allowedHosts: ['pcci-valenzuela.onrender.com'], // whitelist your Render domain
+    },
 });
