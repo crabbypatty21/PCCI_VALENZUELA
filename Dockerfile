@@ -18,6 +18,9 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
+# Create dummy SQLite database to prevent Laravel errors
+RUN mkdir -p database && touch database/database.sqlite
+
 # Install PHP dependencies
 RUN composer install --no-interaction --optimize-autoloader
 
