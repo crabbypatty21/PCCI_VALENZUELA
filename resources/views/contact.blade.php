@@ -49,7 +49,7 @@
 {{-- Hero Section --}}
 {{-- Changed bg-color to var(--bg-hero) to adapt to dark mode --}}
 <div class="w-100 mb-0 d-flex flex-column align-items-center" style="
-    height: 500px;
+    height: 623px;
     margin-top: -1px; 
     background-color: var(--bg-hero); 
     padding-top: 130px;
