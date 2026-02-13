@@ -1125,6 +1125,476 @@
             align-items: center;
         }
     }
+
+    .hero-section {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        margin-top: -80px;
+        padding-top: 80px;
+        background-color: #252631;
+    }
+    /* ... (Keep existing Hero, Values, AI, Visionaries styles) ... */
+
+
+    /* =========================================
+       NEW SECTIONS STYLES (ADD THESE)
+       ========================================= */
+     .member-card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        border: 1px solid #D40032 !important;
+    }
+    /* ===== AFFILIATED PARTNERS SECTION ===== */
+    .partners-section {
+        padding: 5rem 0;
+        background-color: #faf8f5; /* Cream background */
+    }
+
+    body.dark-mode .partners-section {
+        background-color: var(--bg-section-gray);
+    }
+
+    .partners-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .partners-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .partner-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    body.dark-mode .partner-card {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+    }
+
+    .partner-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .partner-logo {
+        max-width: 80%;
+        max-height: 60px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Simulate the nVision logo */
+    .partner-logo span { color: #A40033; font-style: italic; }
+
+    .sponsor-card {
+        background-color: #EB3223; /* Bright Red */
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        height: 100px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .sponsor-card:hover {
+        background-color: #c91e10;
+        color: #fff;
+    }
+
+    .sponsor-text {
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+        font-size: 1.1rem;
+    }
+
+    /* ===== MAP & MEMBER DISCOVERY SECTION (MATCHING IMAGE) ===== */
+    .map-section {
+        background-color: #252631; /* Dark background from image footer */
+        color: #fff;
+        padding: 5rem 0;
+    }
+    
+    .map-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    /* MAIN WIDGET CONTAINER */
+    .map-container-box {
+        display: flex;
+        flex-direction: column; /* Mobile: Stack */
+        background: #111111; /* Very dark container background */
+        border: 1px solid #333;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* LEFT SIDEBAR */
+    .map-sidebar {
+        width: 100%;
+        background: #1B1C24; /* Dark sidebar background */
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #333;
+    }
+
+    .map-sidebar-title {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    /* INPUTS */
+    .map-search-wrapper {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    .map-search-input {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.75rem 1rem 0.75rem 2.5rem; /* Space for icon */
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .map-search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+        font-size: 1rem;
+    }
+
+    .filter-label {
+        font-size: 0.75rem;
+        color: #888;
+        margin-bottom: 0.25rem;
+        display: block;
+    }
+
+    .map-filter-select {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem;
+        color: #333;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+    }
+
+    /* MEMBER LIST */
+    .member-list-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 5px;
+        min-height: 300px;
+        max-height: 500px; /* Limit height on mobile */
+    }
+    
+    .member-list-scroll::-webkit-scrollbar { width: 4px; }
+    .member-list-scroll::-webkit-scrollbar-track { background: #1A1A1A; }
+    .member-list-scroll::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+
+    /* MEMBER CARD ITEM */
+    .map-member-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #333;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .map-member-card:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+
+    .map-member-card:last-child {
+        border-bottom: none;
+    }
+
+    .member-logo-box {
+        width: 50px;
+        height: 50px;
+        background-color: #A40033; /* The red box from image */
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        font-family: 'Times New Roman', serif; /* Matching "abc" style */
+    }
+    
+    .member-info-box {
+        flex: 1;
+    }
+
+    .member-badge {
+        display: inline-block;
+        background-color: #FFD6D6; /* Pinkish background */
+        color: #A40033; /* Red text */
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
+        letter-spacing: 0.5px;
+    }
+
+    .member-name {
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+        line-height: 1.2;
+    }
+
+    .member-desc {
+        color: #888; /* Gray text */
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    /* RIGHT SIDE (MAP) */
+    .map-view-area {
+        width: 100%;
+        height: 400px; /* Mobile height */
+        position: relative;
+        background-color: #333;
+        /* Using a satellite/dark map image as placeholder to match image */
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Valenzuela_City_Map.png'); 
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.9);
+    }
+
+    /* DESKTOP LAYOUT (Side by Side) */
+    @media (min-width: 992px) {
+        .map-container-box {
+            flex-direction: row;
+            height: 600px; /* Fixed height for desktop widget */
+            border: 1px solid #A6A6A6;
+        }
+
+        .map-sidebar {
+            width: 380px; /* Fixed width sidebar */
+            border-right: 1px solid #333;
+            border-bottom: none;
+            flex-shrink: 0;
+            padding: 2.5rem;
+        }
+
+        .map-view-area {
+            height: 100%;
+            flex: 1;
+        }
+        
+        .member-list-scroll {
+            max-height: none; /* Let flexbox handle height */
+        }
+    }
+
+    /* --- SHARED STYLES --- */
+    .section-bg-cream {
+        background-color: #faf8f5; /* Light cream background from image */
+        padding: 5rem 0;
+    }
+
+    .section-title-red {
+        color: #EB3223;
+    }
+
+   /* --- HOW TO JOIN SECTION (CLONED UI) --- */
+    .join-steps-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.5rem;
+        max-width: 1000px; /* Constrains width to match the partner grid look */
+        margin: 3rem auto 0;
+    }
+
+    /* Desktop layout: 3 columns x 2 rows = 6 items */
+    @media (min-width: 768px) {
+        .join-steps-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .step-card-ui {
+        background: #f4f4f4; /* Gray-ish background matching the image */
+        border-top: 4px solid #EB3223; /* The distinct red top border */
+        border-radius: 4px;
+        height: 140px; /* Fixed height for uniformity */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Subtle drop shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark-mode .step-card-ui {
+        background: #1e1e24; /* Adapts to dark mode if you have it */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .step-card-ui:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .step-number {
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: #A40033; /* Darker red for the number */
+        margin-bottom: 0.25rem;
+        line-height: 1;
+    }
+
+    .step-title {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: #333;
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    body.dark-mode .step-title {
+        color: #fff;
+    }
+
+   /* --- BACKGROUND VIDEO SECTION --- */
+    .video-section {
+        position: relative;
+        padding: 10rem 0; /* Height of the section */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+    }
+
+    .video-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures video covers the whole area */
+        z-index: 0;
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Darkens video so text is readable */
+        z-index: 1;
+    }
+
+    .video-content {
+        position: relative;
+        z-index: 2; /* Puts text above the video */
+        text-align: center;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+   .btn-video-cta {
+    position: relative;
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #AC1D32;
+    text-decoration: none;
+    overflow: hidden;
+    transition: color 0.4s ease;
+}
+
+.btn-video-cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    transition: left 0.4s ease;
+    z-index: 0;
+}
+
+.btn-video-cta:hover::before {
+    left: 0;
+}
+
+.btn-video-cta span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-video-cta:hover {
+    color: #AC1D32;
+}
+
 </style>
 
 <section class="hero-section">
@@ -1520,6 +1990,264 @@
             </div>
 
         </div>
+    </div>
+</section>
+
+<section class="partners-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Affiliated <span style="color: #EB3223;">Partners</span></h2>
+            <p class="section-description">We appreciate the organizations that support our mission and community.</p>
+        </div>
+
+        <div class="partners-grid">
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <span>n</span>Vision
+                </div>
+            </div>
+            <a href="{{ route('contact') }}" class="sponsor-card">
+                <span class="sponsor-text">Become<br>a Sponsor</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="map-section">
+    <div class="container">
+        <div class="map-header">
+            <p class="section-label" style="color: #fff; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 10px;">OUR NETWORK</p>
+            <h2 class="section-title" style="color: white; font-size: 2.5rem;">Discover <span style="color: #EB3223;">Our Members</span> Around the City</h2>
+            <p class="section-description" style="color: #aaa; margin-top: 10px;">Discover the locations of our diverse member businesses through the interactive map below.</p>
+        </div>
+
+        <div class="map-container-box">
+            
+            <div class="map-sidebar">
+                <div class="map-sidebar-title">OUR MEMBERS</div>
+                
+                <div class="map-search-wrapper">
+                    <i class="bi bi-search map-search-icon"></i>
+                    <input type="text" class="map-search-input" placeholder="Search members...">
+                </div>
+                
+                <div>
+                    <span class="filter-label">Filter by Industry</span>
+                    <select class="map-filter-select">
+                        <option value="">Select Industry</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="services">Services</option>
+                        <option value="retail">Retail</option>
+                    </select>
+                </div>
+
+                <div class="member-list-scroll">
+                    
+                    <div class="map-member-card">
+                        <div class="member-logo-box">
+                            <span style="font-family: serif; font-style: italic;">abc</span>
+                        </div>
+                        <div class="member-info-box">
+                            <span class="member-badge">MANUFACTURING</span>
+                            <div class="member-name">Abcor Industrial Corp.</div>
+                            <p class="member-desc">For you metal fabrication needs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="map-member-card">
+                        <div class="member-logo-box">
+                            <span style="font-family: serif; font-style: italic;">abc</span>
+                        </div>
+                        <div class="member-info-box">
+                            <span class="member-badge">MANUFACTURING</span>
+                            <div class="member-name">Abcor Industrial Corp.</div>
+                            <p class="member-desc">For you metal fabrication needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="map-member-card">
+                        <div class="member-logo-box">
+                            <span style="font-family: serif; font-style: italic;">abc</span>
+                        </div>
+                        <div class="member-info-box">
+                            <span class="member-badge">MANUFACTURING</span>
+                            <div class="member-name">Abcor Industrial Corp.</div>
+                            <p class="member-desc">For you metal fabrication needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="map-member-card">
+                        <div class="member-logo-box">
+                            <span style="font-family: serif; font-style: italic;">abc</span>
+                        </div>
+                        <div class="member-info-box">
+                            <span class="member-badge">MANUFACTURING</span>
+                            <div class="member-name">Abcor Industrial Corp.</div>
+                            <p class="member-desc">For you metal fabrication needs.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="map-view-area">
+                <div style="position: absolute; top: 45%; left: 55%; color: #EB3223; font-size: 2rem; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); cursor: pointer;">
+                    <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                
+                <div style="position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 5px;">
+                    <button style="width: 32px; height: 32px; background: white; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); font-weight: bold; color: #444;">+</button>
+                    <button style="width: 32px; height: 32px; background: white; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); font-weight: bold; color: #444;">-</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+@php
+    // Fetching the first 6 items from your membership array
+    $networkBusinesses = [
+        ['id' => 1, 'name' => 'Tech Corp Inc.', 'category' => 'Manufacturing', 'industry' => 'Technology & Software', 'email' => 'contact@techcorp.ph', 'phone' => '+63 912 345', 'color' => 'bg-primary', 'initials' => 'TC', 'tags' => ['Hardware', 'Software']],
+        ['id' => 2, 'name' => 'Green Fields', 'category' => 'Distributor', 'industry' => 'Agriculture & Supply', 'email' => 'sales@greenfields.com', 'phone' => '(02) 8123', 'color' => 'bg-success', 'initials' => 'GF', 'tags' => ['Organic', 'Wholesale']],
+        ['id' => 3, 'name' => 'BuildLink', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
+        ['id' => 4, 'name' => 'BuildLink 4', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
+        ['id' => 5, 'name' => 'BuildLink 5', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
+        ['id' => 6, 'name' => 'BuildLink 6', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
+    ];
+@endphp
+
+<section class="py-5" style="background-color: var(--bg-section-gray); transition: background-color 0.3s ease;">
+    <div class="container px-4 px-lg-5">
+        
+        <div class="text-center mb-5">
+            <h2 class="section-title" style="color: var(--text-main); font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 2.5rem;">
+                Our <span style="color: #EB3223;">Network</span>
+            </h2>
+            <p class="section-description mx-auto" style="max-width: 600px; color: var(--text-secondary); font-size: 1rem;">
+                Discover the diverse businesses and organizations that make up our community.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            @foreach ($networkBusinesses as $business)
+                <div class="col-12 col-md-6 col-lg-4">
+                    {{-- The entire card is now an <a> tag linking to the business show route --}}
+                    <a href="{{ route('business.show', $business['id']) }}" 
+                       class="card h-100 border-0 shadow p-3 text-decoration-none member-card-hover" 
+                       style="border-radius: 12px; 
+                              background-color: #242530; 
+                              display: block; 
+                              transition: all 0.3s ease;">                        
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle {{ $business['color'] }} d-flex align-items-center justify-content-center {{ $business['color'] == 'bg-warning' ? 'text-dark' : 'text-white' }} fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
+                                {{ $business['initials'] }}
+                            </div>
+                            <div>
+                                {{-- Changed Category to white text and semi-transparent background --}}
+                                <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase text-white" style="font-size: 0.65rem; background-color: rgba(255, 255, 255, 0.15);">
+                                    {{ $business['category'] }}
+                                </span>
+                                {{-- Changed Name to white text --}}
+                                <h5 class="fw-bold mb-0 text-white">{{ $business['name'] }}</h5>
+                                {{-- Changed Industry to white text with slight opacity --}}
+                                <small class="text-white" style="opacity: 0.8;">{{ $business['industry'] }}</small>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body p-0 d-flex flex-column flex-grow-1">
+                            <div class="mb-3">
+                                <div class="d-flex gap-2 small">
+                                    @foreach ($business['tags'] as $tag)
+                                        {{-- Changed Tags to white text and semi-transparent background --}}
+                                        <span class="px-2 py-1 rounded text-white" style="background-color: rgba(255, 255, 255, 0.1); font-weight: 600;">{{ $tag }}</span>
+                                    @endforeach
+                                </div>
+                            </div>
+                            
+                            {{-- Changed border-top color to a subtle white line --}}
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: rgba(255, 255, 255, 0.1) !important;">
+                                {{-- Changed Contact Info to white text --}}
+                                <div class="small text-white" style="opacity: 0.9;">
+                                    <i class="bi bi-envelope"></i> {{ $business['email'] }}<br>
+                                    <i class="bi bi-telephone"></i> {{ $business['phone'] }}
+                                </div>
+                                
+                                <span class="btn py-1 px-3 text-white fw-bold" style="background-color: #D40032; border-radius: 6px; font-size: 0.8rem;">
+                                    View Details
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </a>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ url('/membership') }}" class="btn fw-bold text-white px-4 py-3 text-uppercase" style="background-color: #D40032; border-radius: 6px; font-size: 0.95rem; letter-spacing: 0.05em;">
+                View Full Directory <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="video-section">
+    <video class="video-bg" autoplay muted loop playsinline poster="{{ asset('images/TRY.png') }}">
+        
+        <source src="{{ asset('videos/Vid1.mp4') }}" type="video/mp4">
+        
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="container video-content d-flex flex-column align-items-center justify-content-center text-center">
+        
+        <h2 class="section-title" style="color: #fff; font-size: clamp(1.5rem, 4vw, 3rem); margin-bottom: 1.5rem; white-space: nowrap;">
+         Ready to Join Our <span style="color: #EB3223;">Business</span> Community?
+        </h2>
+        
+        <p class="section-description mx-auto" style="color: rgba(255,255,255,0.9); font-size: 1.25rem; line-height: 1.8; max-width: 800px;">
+            Become a member of PCCI Valenzuela and unlock opportunities for growth, networking, and business development.
+        </p>
+
+        <a href="{{ route('signup') }}" class="btn-video-cta">
+           <span>Join PCCI Today</span>
+        </a>
+        
     </div>
 </section>
 
