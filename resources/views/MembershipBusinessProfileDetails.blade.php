@@ -119,7 +119,8 @@ $business = $businesses[$id] ?? abort(404);
         <h4 class="fw-bold text-danger mb-0">About Our Company</h4>
     </div>
 
-    <p class="text-secondary">{{ $business['about'] }}</p>
+    {{-- Removed 'text-dark' so it inherits theme color (Black in Light, White in Dark) --}}
+    <p>{{ $business['about'] }}</p>
 </div>
 
 
@@ -141,7 +142,8 @@ $business = $businesses[$id] ?? abort(404);
                         </h6>
                     </div>
 
-                    <p class="text-muted small mb-0">
+                    {{-- Removed 'text-dark' so it inherits theme color --}}
+                    <p class="small mb-0">
                         This service provides reliable and professional solutions
                         tailored to meet customer needs and business goals.
                     </p>
@@ -156,7 +158,8 @@ $business = $businesses[$id] ?? abort(404);
     <div class="card border border-danger shadow-sm p-4 rounded-4 mb-5">
         <h4 class="fw-bold text-danger mb-3">Our Location</h4>
 
-        <p class="text-secondary mb-3">
+        {{-- Removed 'text-secondary' so address is Black in Light Mode / White in Dark Mode --}}
+        <p class="mb-3">
             <i class="bi bi-geo-alt-fill text-danger me-2"></i>
             {{ $business['address'] }}
         </p>
@@ -187,7 +190,8 @@ $business = $businesses[$id] ?? abort(404);
                     <i class="bi bi-telephone-fill"></i>
                 </div>
                 <div>
-                    <small class="text-muted fw-bold text-uppercase">Phone</small><br>
+                    {{-- Removed 'text-muted' from label so it's readable in dark mode --}}
+                    <small class="fw-bold text-uppercase">Phone</small><br>
                     <span>{{ $business['phone'] }}</span>
                 </div>
             </div>
@@ -198,7 +202,8 @@ $business = $businesses[$id] ?? abort(404);
                     <i class="bi bi-envelope-fill"></i>
                 </div>
                 <div>
-                    <small class="text-muted fw-bold text-uppercase">Email</small><br>
+                    {{-- Removed 'text-muted' from label --}}
+                    <small class="fw-bold text-uppercase">Email</small><br>
                     <span>{{ $business['email'] }}</span>
                 </div>
             </div>
@@ -209,7 +214,8 @@ $business = $businesses[$id] ?? abort(404);
                     <i class="bi bi-geo-alt-fill"></i>
                 </div>
                 <div>
-                    <small class="text-muted fw-bold text-uppercase">Address</small><br>
+                    {{-- Removed 'text-muted' from label --}}
+                    <small class="fw-bold text-uppercase">Address</small><br>
                     <span>{{ $business['address'] }}</span>
                 </div>
             </div>
@@ -226,7 +232,8 @@ $business = $businesses[$id] ?? abort(404);
 
     @foreach ($business['hours'] as $day => $time)
         <div class="d-flex justify-content-between">
-            <span class="text-secondary">{{ $day }}</span>
+            {{-- Removed 'text-dark' so it inherits theme color --}}
+            <span>{{ $day }}</span>
             <span class="fw-bold">{{ $time }}</span>
         </div>
     @endforeach

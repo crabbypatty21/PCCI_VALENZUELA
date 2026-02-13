@@ -1,16 +1,9 @@
 @extends('layouts.app')
-
 @section('title', 'Home - PCCI Valenzuela')
-
 @section('content')
-
 {{-- Additional Styles for Homepage --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
-    /* =========================================
-       DARK MODE & THEME ADAPTATIONS
-       ========================================= */
-    
     /* ===== HERO SECTION ===== */
     .hero-section {
         position: relative;
@@ -24,7 +17,6 @@
         padding-top: 80px;
         background-color: #252631; /* Fallback */
     }
-    
     .hero-slide {
         position: absolute;
         top: 0;
@@ -36,11 +28,9 @@
         opacity: 0;
         transition: opacity 1s ease-in-out;
     }
-    
     .hero-slide.active {
         opacity: 1;
     }
-    
     .hero-slide::before {
         content: '';
         position: absolute;
@@ -50,14 +40,12 @@
         height: 100%;
         background: linear-gradient(180deg, rgba(164, 0, 51, 0.85) 0%, rgba(26, 26, 46, 0.9) 100%);
     }
-    
     .hero-content {
         position: relative;
         z-index: 10;
         max-width: 800px;
         padding: 2rem;
     }
-    
     .hero-subtitle {
         font-size: 1rem;
         font-weight: 400;
@@ -66,8 +54,6 @@
         opacity: 0.95;
         color: #fff;
     }
-    
-    /* EXPLICITLY WHITE FOR "PCCI - Valenzuela" */
     .hero-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 4rem;
@@ -76,7 +62,6 @@
         line-height: 1.1;
         color: #ffffff !important; 
     }
-    
     .hero-description {
         font-size: 1.1rem;
         font-weight: 300;
@@ -86,7 +71,6 @@
         line-height: 1.7;
         color: #fff;
     }
-    
     .hero-buttons {
         display: flex;
         gap: 1rem;
@@ -94,7 +78,6 @@
         flex-wrap: wrap;
         margin-bottom: 1rem;
     }
-    
     .btn-hero-primary {
         background-color: #A40033;
         border: 2px solid #A40033;
@@ -107,14 +90,12 @@
         transition: all 0.3s ease;
         text-decoration: none;
     }
-    
     .btn-hero-primary:hover {
         background-color: #8a002b;
         border-color: #8a002b;
         color: #fff;
         transform: translateY(-2px);
     }
-    
     .btn-hero-outline {
         background-color: transparent;
         border: 2px solid #fff;
@@ -127,12 +108,10 @@
         transition: all 0.3s ease;
         text-decoration: none;
     }
-    
     .btn-hero-outline:hover {
         background-color: #fff;
         color: #A40033;
     }
-    
     .hero-link {
         color: #fff;
         font-size: 0.9rem;
@@ -140,19 +119,16 @@
         opacity: 0.9;
         transition: opacity 0.3s ease;
     }
-    
     .hero-link:hover {
         opacity: 1;
         color: #fff;
     }
-    
     .hero-dots {
         display: flex;
         gap: 8px;
         justify-content: center;
         margin-top: 2rem;
     }
-    
     .hero-dot {
         width: 30px;
         height: 6px;
@@ -161,23 +137,19 @@
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    
     .hero-dot.active {
         background-color: #fff;
         width: 40px;
     }
-    
     /* ===== VALUES SECTION ===== */
     .values-section {
         padding: 5rem 0;
         background-color: #faf8f5;
         transition: background-color 0.3s ease;
     }
-
     body.dark-mode .values-section {
         background-color: var(--bg-section-gray);
     }
-    
     .section-label {
         color: #EB3223;
         font-size: 0.85rem;
@@ -186,7 +158,6 @@
         text-transform: uppercase;
         margin-bottom: 0.5rem;
     }
-    
     .section-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
@@ -194,18 +165,15 @@
         color: var(--text-main); /* ADAPTIVE TEXT COLOR */
         margin-bottom: 1rem;
     }
-    
     .section-title span {
         color: #EB3223;
     }
-    
     .section-description {
         color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
         font-size: 1rem;
         max-width: 600px;
         margin: 0 auto 3rem;
     }
-    
     .value-card {
         background: var(--bg-card); /* ADAPTIVE BG */
         border-radius: 16px;
@@ -215,12 +183,10 @@
         transition: all 0.3s ease;
         height: 100%;
     }
-    
     .value-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     }
-    
     .value-icon {
         width: 70px;
         height: 70px;
@@ -231,13 +197,11 @@
         justify-content: center;
         margin: 0 auto 1.5rem;
     }
-    
     /* ICON REPLACEMENT STYLE */
     .value-icon i {
         font-size: 2rem;
         color: #fff;
     }
-    
     .value-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 1.25rem;
@@ -245,23 +209,19 @@
         margin-bottom: 0.75rem;
         color: var(--text-main); /* ADAPTIVE TEXT COLOR */
     }
-    
     .value-description {
         color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
         font-size: 0.9rem;
         line-height: 1.6;
     }
-    
     /* ===== AI DISCOVERY SECTION ===== */
     .ai-discovery-section {
         padding: 5rem 0;
         background-color: #252631; /* Always dark base */
     }
-
     body.dark-mode .ai-discovery-section {
         background-color: #1a1a20; /* Slightly darker in dark mode */
     }
-    
     .ai-icon-box {
         width: 60px;
         height: 60px;
@@ -272,17 +232,14 @@
         justify-content: center;
         margin-bottom: 1.5rem;
     }
-
     body.dark-mode .ai-icon-box {
         background-color: var(--bg-card);
     }
-    
     /* ICON REPLACEMENT STYLE */
     .ai-icon-box i {
         font-size: 1.75rem;
         color: #AC1D32;
     }
-    
     .ai-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 2.25rem;
@@ -290,30 +247,25 @@
         margin-bottom: 1rem;
         color: #ffffff;
     }
-    
     .ai-title span {
         color: #EB3223;
     } 
-    
     .ai-description {
         color: #e0e0e0;
         font-size: 1rem;
         line-height: 1.7;
         margin-bottom: 0;
     }
-    
     .search-card {
         background: #252631;
         border-radius: 16px;
         padding: 2rem;
         box-shadow: 0 4px 20px rgba(69, 70, 123, 0.58);
     }
-
     body.dark-mode .search-card {
         background-color: #1e1e24;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
-    
     .search-label {
         display: flex;
         align-items: center;
@@ -322,7 +274,6 @@
         margin-bottom: 1rem;
         color: #ffffff;
     }
-    
     /* ICON REPLACEMENT STYLE */
     .search-label i {
         width: 35px;
@@ -335,13 +286,11 @@
         color: #AC1D32;
         font-size: 1.25rem;
     }
-    
     .search-input-group {
         display: flex;
         gap: 0.5rem;
         margin-bottom: 1rem;
     }
-    
     .search-input-group input {
         flex: 1;
         padding: 0.75rem 1rem;
@@ -350,18 +299,15 @@
         font-family: 'Poppins', sans-serif;
         font-size: 0.9rem;
     }
-
     body.dark-mode .search-input-group input {
         background-color: #2a2a35;
         border-color: #444450;
         color: #fff;
     }
-    
     .search-input-group input:focus {
         outline: none;
         border-color: #A40033;
     }
-    
     .btn-search {
         background-color: #AC1D32;
         color: #fff;
@@ -376,27 +322,22 @@
         transition: all 0.3s ease;
         cursor: pointer;
     }
-    
     .btn-search:hover {
         background-color: #8a002b;
     }
-
     .btn-search i {
         font-size: 1rem;
     }
-    
     .search-suggestions {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
         align-items: center;
     }
-    
     .search-suggestions span:first-child {
         color: #ffffff;
         font-size: 0.85rem;
     }
-    
     .suggestion-tag {
         background-color: #252631;
         border: 1px solid #6A8AFF;
@@ -407,12 +348,10 @@
         transition: all 0.3s ease;
         cursor: pointer;
     }
-    
     .suggestion-tag:hover {
         border-color: #A40033;
         color: #A40033;
     }
-    
     /* ===== VISIONARIES SECTION ===== */
     .visionaries-section {
         padding: 5rem 0;
@@ -420,11 +359,9 @@
         overflow: hidden;
         transition: background-color 0.3s ease;
     }
-
     body.dark-mode .visionaries-section {
         background-color: var(--bg-body);
     }
-
     /* Header Styling */
     .visionaries-label {
         color: #A40033;
@@ -435,7 +372,6 @@
         margin-bottom: 0.75rem;
         text-transform: uppercase;
     }
-
     .visionaries-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 2.75rem;
@@ -443,42 +379,36 @@
         color: #1a1a2e;
         margin: 0;
     }
-
     body.dark-mode .visionaries-title {
         color: var(--text-main);
     }
-
     .visionaries-title .highlight-red {
         color: #A40033;
         font-style: 'DM Sans', sans-serif;
         position: relative;
         display: inline-block;
     }
-    
     .visionaries-title .highlight-blue {
         color: #A40033;
     }
-
     /* Carousel Wrapper */
     .visionaries-carousel-wrapper {
         position: relative;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 80px;
+        /* REMOVED: style="margin-right: 170px;" to fix alignment issue */
     }
-
     /* Swiper Configuration */
     .visionaries-swiper {
         padding: 40px 0 60px;
         overflow: visible !important;
     }
-
     .visionaries-swiper .swiper-slide {
         width: 400px !important;
         height: 280px !important;
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
     /* Slide Card */
     .slide-card {
         width: 100%;
@@ -489,18 +419,15 @@
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         background: #fff;
     }
-
     body.dark-mode .slide-card {
         background: var(--bg-card);
     }
-
     .slide-card img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
     }
-
     /* Inactive Slides */
     .visionaries-swiper .swiper-slide {
         opacity: 0.7;
@@ -513,7 +440,6 @@
         transform: scale(1);
         z-index: 10;
     }
-
     .visionaries-swiper .swiper-slide-active .slide-card {
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
     }
@@ -524,7 +450,6 @@
         opacity: 0.85;
         transform: scale(0.88);
     }
-
     /* Navigation Arrows */
     .visionaries-nav {
         position: absolute;
@@ -543,27 +468,21 @@
         padding: 0;
         color: #A40033; /* Default Color */
     }
-
     body.dark-mode .visionaries-nav {
         color: var(--text-main);
     }
-
     /* ICON REPLACEMENT STYLE */
     .visionaries-nav i {
         font-size: 2.5rem;
         transition: transform 0.3s ease;
     }
-
     .visionaries-nav:hover i {
         transform: scale(1.15);
     }
-
     .visionaries-nav.prev { left: 0px; }
     .visionaries-nav.next { right: 0px; }
-
     .visionaries-nav.prev:hover i { transform: translateX(-3px) scale(1.15); }
     .visionaries-nav.next:hover i { transform: translateX(3px) scale(1.15); }
-
     /* Pagination Dots */
     .visionaries-swiper .swiper-pagination {
         bottom: 10px;
@@ -572,7 +491,6 @@
         align-items: center;
         gap: 10px;
     }
-
     .visionaries-swiper .swiper-pagination-bullet {
         width: 10px;
         height: 10px;
@@ -582,12 +500,10 @@
         margin: 0 !important;
         transition: all 0.3s ease;
     }
-
     .visionaries-swiper .swiper-pagination-bullet-active {
         background: #A40033;
         transform: scale(1.2);
     }
-
     /* CTA Buttons */
     .visionaries-buttons {
         display: flex;
@@ -595,7 +511,6 @@
         gap: 1rem;
         margin-top: 2rem;
     }
-
     .btn-visionaries-primary {
         background-color: #8B0A2D;
         color: #fff;
@@ -608,13 +523,11 @@
         transition: all 0.3s ease;
         border: 2px solid #8B0A2D;
     }
-
     .btn-visionaries-primary:hover {
         background-color: #6d0823;
         border-color: #6d0823;
         color: #fff;
     }
-
     .btn-visionaries-outline {
         background-color: transparent;
         color: #A40033;
@@ -627,34 +540,28 @@
         border: 2px solid #A40033;
         transition: all 0.3s ease;
     }
-
     .btn-visionaries-outline:hover {
         background-color: #A40033;
         color: #fff;
     }
-
     /* ===== MEMBER DIRECTORY SECTION ===== */
     .directory-section {
         padding: 5rem 0;
         background-color: #252631; /* Always dark base */
         color: #fff;
     }
-
     body.dark-mode .directory-section {
         background-color: #16161a;
     }
-    
     .directory-description {
         color: rgba(255, 255, 255, 0.7);
         margin-bottom: 1.5rem;
     }
-    
     .directory-features {
         list-style: none;
         padding: 0;
         margin-bottom: 2rem;
     }
-    
     .directory-features li {
         display: flex;
         align-items: center;
@@ -662,13 +569,11 @@
         margin-bottom: 0.75rem;
         color: rgba(255, 255, 255, 0.9);
     }
-    
     /* ICON REPLACEMENT STYLE */
     .directory-features li i {
         color: #A40033;
         font-size: 1.25rem;
     }
-    
     .btn-outline-light-custom {
         border: 2px solid #f70000;
         background-color: #fff;
@@ -683,12 +588,10 @@
         text-decoration: none;
         border-radius: 6px;
     }
-    
     .btn-outline-light-custom:hover {
         background-color: #e0e0e0;
         color: #d00000;
     }
-    
     .member-card {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -699,13 +602,11 @@
         gap: 1rem;
         transition: all 0.3s ease;
     }
-    
     .member-card:hover {
         transform: translateY(-3px);
         background: rgba(255, 255, 255, 0.1);
         border-color: #A40033;
     }
-    
     .member-logo {
         width: 50px;
         height: 50px;
@@ -717,13 +618,11 @@
         justify-content: center;
         flex-shrink: 0;
     }
-    
     /* ICON REPLACEMENT STYLE */
     .member-logo i {
         font-size: 1.5rem;
         color: #ffffff;
     }
-    
     .member-info h5 {
         font-family: 'DM Sans', sans-serif;
         font-size: 1rem;
@@ -731,7 +630,6 @@
         margin-bottom: 0.25rem;
         color: #fff;
     }
-    
     .member-badge {
         background: #fff;
         color: #A40033;
@@ -742,7 +640,6 @@
         display: inline-block;
         margin-bottom: 0.5rem;
     }
-    
     .member-info p {
         font-size: 0.8rem;
         opacity: 0.9;
@@ -750,18 +647,15 @@
         line-height: 1.4;
         color: #e0e0e0;
     }
-    
 /* ===== EVENTS SECTION (Static Grid) ===== */
     .events-section {
         padding: 5rem 0;
         background-color: #faf8f5;
         transition: background-color 0.3s ease;
     }
-
     body.dark-mode .events-section {
         background-color: var(--bg-section-gray);
     }
-    
     .events-grid-wrapper {
         max-width: 1200px;
         margin: 0 auto;
@@ -770,19 +664,16 @@
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-
     @media (min-width: 768px) {
         .events-grid-wrapper {
             grid-template-columns: repeat(2, 1fr); 
         }
     }
-
     @media (min-width: 1024px) {
         .events-grid-wrapper {
             grid-template-columns: repeat(3, 1fr); 
         }
     }
-    
     .event-card {
         background: #ffffff;
         border-radius: 16px;
@@ -794,35 +685,29 @@
         display: flex;
         flex-direction: column;
     }
-
     body.dark-mode .event-card {
         background: var(--bg-card);
         border-color: var(--border-color);
     }
-    
     .event-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         border-color: #A40033;
     }
-    
     .event-card-image-wrapper {
         position: relative;
         height: 220px;
         overflow: hidden;
     }
-    
     .event-card-image-wrapper img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
     }
-    
     .event-card:hover .event-card-image-wrapper img {
         transform: scale(1.05);
     }
-    
     /* Date Badge */
     .event-date-badge {
         position: absolute;
@@ -837,7 +722,6 @@
         z-index: 10;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    
     .event-date-badge .day-name {
         font-size: 0.65rem;
         font-weight: 500;
@@ -845,14 +729,12 @@
         opacity: 0.9;
         display: block;
     }
-    
     .event-date-badge .day-number {
         font-size: 1.5rem;
         font-weight: 700;
         line-height: 1;
         display: block;
     }
-    
     .event-date-badge .month {
         font-size: 0.65rem;
         font-weight: 500;
@@ -860,7 +742,6 @@
         opacity: 0.9;
         display: block;
     }
-    
     /* Card Body */
     .event-card-body {
         padding: 1.5rem;
@@ -869,7 +750,6 @@
         flex-grow: 1;
         text-align: left;
     }
-    
     .event-location {
         display: flex;
         align-items: center;
@@ -879,17 +759,14 @@
         margin-bottom: 0.5rem;
         font-weight: 500;
     }
-
     body.dark-mode .event-location {
         color: var(--text-secondary);
     }
-    
     /* ICON REPLACEMENT STYLE */
     .event-location i {
         font-size: 1rem;
         color: #A40033;
     }
-    
     .event-card-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 1.15rem;
@@ -899,11 +776,9 @@
         line-height: 1.4;
         min-height: 3.5rem; 
     }
-
     body.dark-mode .event-card-title {
         color: var(--text-main);
     }
-    
     .btn-event-details {
         display: inline-flex;
         align-items: center;
@@ -920,17 +795,14 @@
         border: 1px solid #A40033;
         margin-top: auto;
     }
-
     body.dark-mode .btn-event-details {
         background: transparent;
         color: #A40033;
     }
-    
     .btn-event-details:hover {
         background: #A40033;
         color: #fff;
     }
-
     .btn-view-all-events {
         display: inline-flex;
         align-items: center;
@@ -946,59 +818,48 @@
         margin-top: 3rem; /* More space above button */
         border: 2px solid #A40033;
     }
-    
     .btn-view-all-events:hover {
         background: #A40033;
         color: #fff;
     }
-    
     /* Events Section Responsive */
     @media (max-width: 992px) {
         .event-card {
             height: 360px;
         }
     }
-    
     @media (max-width: 768px) {
         .events-section {
             padding: 3rem 0;
         }
-        
         .event-card {
             height: 340px;
         }
-        
         .event-card-title {
             font-size: 1.1rem;
         }
     }
-    
     @media (max-width: 576px) {
         .events-carousel-wrapper {
             padding: 0 10px;
         }
-        
         .event-card {
             height: 320px;
         }
-        
         .events-nav-btn {
             width: 40px;
             height: 40px;
         }
     }
-    
   /* ===== TESTIMONIALS SECTION ===== */
     .testimonials-section {
         padding: 5rem 0;
         background-color: #252631; /* Base Dark */
         transition: background-color 0.3s ease;
     }
-
     body.dark-mode .testimonials-section {
         background-color: var(--bg-body);
     }
-    
     /* Grid Layout (Matches Events) */
     .testimonials-grid-wrapper {
         max-width: 1200px;
@@ -1008,19 +869,16 @@
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-
     @media (min-width: 768px) {
         .testimonials-grid-wrapper {
             grid-template-columns: repeat(2, 1fr);
         }
     }
-
     @media (min-width: 1024px) {
         .testimonials-grid-wrapper {
             grid-template-columns: repeat(3, 1fr);
         }
     }
-
     /* Testimonial Card Design */
     .testimonial-card {
         background: #252631; /* Light contrasting card bg */
@@ -1036,18 +894,15 @@
         text-align: center;
         box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     }
-
     body.dark-mode .testimonial-card {
         background: var(--bg-card);
         border-color: var(--border-color);
     }
-
     .testimonial-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         border-color: #A40033; /* Red border on hover */
     }
-
     /* Quote Icon */
     .testimonial-quote-icon {
         width: 40px;
@@ -1060,13 +915,11 @@
         margin-bottom: 1.5rem;
         box-shadow: 0 4px 10px rgba(164, 0, 51, 0.3);
     }
-
     /* ICON REPLACEMENT STYLE */
     .testimonial-quote-icon i {
         font-size: 1.25rem;
         color: #fff;
     }
-
     /* Avatar */
     .testimonial-avatar {
         width: 80px;
@@ -1077,7 +930,6 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         margin-bottom: 1.5rem;
     }
-
     /* Text Content */
     .testimonial-text {
         font-family: 'Poppins', sans-serif;
@@ -1088,7 +940,6 @@
         margin-bottom: 1.5rem;
         flex-grow: 1; /* Pushes name to bottom */
     }
-
     /* Author Info */
     .testimonial-author h5 {
         font-family: 'DM Sans', sans-serif;
@@ -1097,7 +948,6 @@
         color: #bcbcbc;
         margin-bottom: 0.2rem;
     }
-
     .testimonial-author span {
         font-size: 0.85rem;
         color: #A40033;
@@ -1105,21 +955,17 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
- 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 767px) {
         .hero-title {
             font-size: 2.25rem;
         }
-        
         .section-title {
             font-size: 1.75rem;
         }
-        
         .ai-title {
             font-size: 1.75rem;
         }
-        
         .hero-buttons {
             flex-direction: column;
             align-items: center;
@@ -1131,7 +977,6 @@
     <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80');"></div>
     <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1559223607-a43c990c692c?w=1920&q=80');"></div>
     <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1920&q=80');"></div>
-    
     <div class="hero-content">
         <p class="hero-subtitle">Philippine Chamber of Commerce and Industry</p>
         <h1 class="hero-title">PCCI – Valenzuela</h1>
@@ -1143,7 +988,6 @@
             <a href="{{ route('about') }}" class="btn-hero-outline">Learn More</a>
         </div>
         <a href="{{ route('login') }}" class="hero-link">Already a Member?</a>
-        
         <div class="hero-dots">
             <div class="hero-dot active" data-slide="0"></div>
             <div class="hero-dot" data-slide="1"></div>
@@ -1151,7 +995,6 @@
         </div>
     </div>
 </section>
-
 <section class="values-section">
     <div class="container">
         <div class="text-center">
@@ -1159,7 +1002,6 @@
             <h2 class="section-title">The Foundation of our Commitment.</h2>
             <p class="section-description">These principles are woven into every action we take and every service we provide.</p>
         </div>
-        
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="value-card">
@@ -1194,7 +1036,6 @@
         </div>
     </div>
 </section>
-
 <section class="ai-discovery-section">
     <div class="container">
         <div class="row align-items-center g-5">
@@ -1234,20 +1075,20 @@
         </div>
     </div>
 </section>
-
 <section class="visionaries-section">
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-0 position-relative">
         <div class="text-center mb-5">
             <p class="visionaries-label">PCCI – VALENZUELA</p>
             <h2 class="visionaries-title">Meet the <span class="highlight-red">Visionaries</span> Behind Our <span class="highlight-blue">Success</span></h2>
         </div>
-        
-        <div class="visionaries-carousel-wrapper">
-            <button class="visionaries-nav prev" id="visionaries-prev" aria-label="Previous slide">
-                {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                <i class="bi bi-chevron-left"></i>
-            </button>
-            
+        <button class="visionaries-nav prev" id="visionaries-prev" aria-label="Previous slide" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="visionaries-nav next" id="visionaries-next" aria-label="Next slide" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10;">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+        {{-- REMOVED inline margin-right style here to fix the "push to right" issue --}}
+        <div class="visionaries-carousel-wrapper"> 
             <div class="swiper visionaries-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -1281,23 +1122,15 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="swiper-pagination"></div>
             </div>
-            
-            <button class="visionaries-nav next" id="visionaries-next" aria-label="Next slide">
-                {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                <i class="bi bi-chevron-right"></i>
-            </button>
         </div>
-        
         <div class="visionaries-buttons">
             <a href="#" class="btn-visionaries-primary">Learn More</a>
             <a href="#" class="btn-visionaries-outline">Browse Members</a>
         </div>
     </div>
 </section>
-
 <section class="directory-section">
     <div class="container">
         <div class="row align-items-center g-5">
@@ -1387,7 +1220,6 @@
         </div>
     </div>
 </section>
-
 <section class="events-section">
     <div class="container">
         <div class="text-center mb-5">
@@ -1395,9 +1227,7 @@
             <h2 class="section-title">Join Our Business <span>Community</span></h2>
             <p class="section-description">Participate in our upcoming events designed to foster networking, learning, and business growth</p>
         </div>
-        
         <div class="events-grid-wrapper">
-            
             <div class="event-card">
                 <div class="event-card-image-wrapper">
                     <div class="event-date-badge">
@@ -1417,7 +1247,6 @@
                     <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
                 </div>
             </div>
-            
             <div class="event-card">
                 <div class="event-card-image-wrapper">
                     <div class="event-date-badge">
@@ -1437,7 +1266,6 @@
                     <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
                 </div>
             </div>
-            
             <div class="event-card">
                 <div class="event-card-image-wrapper">
                     <div class="event-date-badge">
@@ -1457,9 +1285,7 @@
                     <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
                 </div>
             </div>
-
         </div>
-        
         <div class="text-center">
             <a href="{{ route('event') }}" class="btn-view-all-events">
                 View All Events
@@ -1469,7 +1295,6 @@
         </div>
     </div>
 </section>
-
 <section class="testimonials-section">
     <div class="container">
         <div class="text-center mb-5">
@@ -1477,9 +1302,7 @@
             <h2 class="section-title" style="color: #fff;">What Our Members <span style="color: #EB3223;">Say</span></h2>
             <p class="section-description" style="color: rgba(255,255,255,0.7);">Real stories from business leaders who have grown with PCCI-Valenzuela.</p>
         </div>
-
         <div class="testimonials-grid-wrapper">
-            
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
                     {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
@@ -1492,7 +1315,6 @@
                     <span>CEO, Santos Trading</span>
                 </div>
             </div>
-
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
                     {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
@@ -1505,7 +1327,6 @@
                     <span>Founder, TechSolutions</span>
                 </div>
             </div>
-
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
                     {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
@@ -1518,23 +1339,17 @@
                     <span>Director, Reyes Logistics</span>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
 {{-- Swiper JS --}}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 {{-- Carousel and slider scripts --}}
-
 <script>
     if (document.querySelector('.events-swiper')) {
     const eventsSwiper = new Swiper('.events-swiper', {
-
     });
     }  
-
     if (document.querySelector('.testimonials-swiper')) {
     const testimonialsSwiper = new Swiper('.testimonials-swiper', {
         slidesPerView: 1,
@@ -1543,13 +1358,11 @@
     });
     // ...
 }
-
 document.addEventListener('DOMContentLoaded', function() {
     // Hero Slider
     const heroSlides = document.querySelectorAll('.hero-slide');
     const heroDots = document.querySelectorAll('.hero-dot');
     let currentSlide = 0;
-    
     function showSlide(index) {
         heroSlides.forEach((slide, i) => {
             slide.classList.toggle('active', i === index);
@@ -1559,17 +1372,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         currentSlide = index;
     }
-    
     heroDots.forEach((dot, index) => {
         dot.addEventListener('click', () => showSlide(index));
     });
-    
     // Auto-slide
     setInterval(() => {
         const nextSlide = (currentSlide + 1) % heroSlides.length;
         showSlide(nextSlide);
     }, 5000);
-    
     // Visionaries Swiper - Coverflow Effect
     if (document.querySelector('.visionaries-swiper')) {
         const visionariesSwiper = new Swiper('.visionaries-swiper', {
@@ -1579,6 +1389,11 @@ document.addEventListener('DOMContentLoaded', function() {
             slidesPerView: 'auto',
             loop: true,
             speed: 600,
+            // UPDATED: Added native navigation config here
+            navigation: {
+                nextEl: '#visionaries-next',
+                prevEl: '#visionaries-prev',
+            },
             coverflowEffect: {
                 rotate: 0,
                 stretch: 80,
@@ -1616,24 +1431,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        
-        // Navigation buttons
-        const prevBtn = document.getElementById('visionaries-prev');
-        const nextBtn = document.getElementById('visionaries-next');
-        
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function() {
-                visionariesSwiper.slidePrev(600);
-            });
-        }
-        
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function() {
-                visionariesSwiper.slideNext(600);
-            });
-        }
+        // UPDATED: Removed the manual event listeners for prevBtn/nextBtn here
     }
-    
     // Testimonials Swiper
     if (document.querySelector('.testimonials-swiper')) {
         const testimonialsSwiper = new Swiper('.testimonials-swiper', {
@@ -1641,16 +1440,13 @@ document.addEventListener('DOMContentLoaded', function() {
             spaceBetween: 30,
             loop: true
         });
-        
         document.querySelector('.testimonial-prev').addEventListener('click', function() {
             testimonialsSwiper.slidePrev();
         });
-        
         document.querySelector('.testimonial-next').addEventListener('click', function() {
             testimonialsSwiper.slideNext();
         });
     }
 });
 </script>
-
 @endsection
