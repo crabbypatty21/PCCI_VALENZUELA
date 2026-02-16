@@ -545,108 +545,203 @@
         color: #fff;
     }
     /* ===== MEMBER DIRECTORY SECTION ===== */
-    .directory-section {
-        padding: 5rem 0;
-        background-color: #252631; /* Always dark base */
-        color: #fff;
-    }
-    body.dark-mode .directory-section {
-        background-color: #16161a;
-    }
-    .directory-description {
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 1.5rem;
-    }
-    .directory-features {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 2rem;
-    }
-    .directory-features li {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 0.75rem;
-        color: rgba(255, 255, 255, 0.9);
-    }
-    /* ICON REPLACEMENT STYLE */
-    .directory-features li i {
-        color: #A40033;
-        font-size: 1.25rem;
-    }
-    .btn-outline-light-custom {
-        border: 2px solid #f70000;
-        background-color: #fff;
-        color: #f70000;
-        padding: 0.75rem 1.5rem;
-        font-family: 'DM Sans', sans-serif;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        border-radius: 6px;
-    }
-    .btn-outline-light-custom:hover {
-        background-color: #e0e0e0;
-        color: #d00000;
-    }
-    .member-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        width: 100%;
-        padding: 1.25rem;
-        display: flex;
-        gap: 1rem;
-        transition: all 0.3s ease;
-    }
-    .member-card:hover {
-        transform: translateY(-3px);
-        background: rgba(255, 255, 255, 0.1);
-        border-color: #A40033;
-    }
-    .member-logo {
-        width: 50px;
-        height: 50px;
-        border: 2px solid #ffffff;
-        background: #ff0000;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-    /* ICON REPLACEMENT STYLE */
-    .member-logo i {
-        font-size: 1.5rem;
-        color: #ffffff;
-    }
-    .member-info h5 {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        color: #fff;
-    }
-    .member-badge {
-        background: #fff;
-        color: #A40033;
-        padding: 0.15rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        display: inline-block;
-        margin-bottom: 0.5rem;
-    }
-    .member-info p {
-        font-size: 0.8rem;
-        opacity: 0.9;
-        margin: 0;
-        line-height: 1.4;
-        color: #e0e0e0;
-    }
+   :root {
+    --dir-bg: #252631; /* Slightly deeper black for contrast */
+    --dir-card-bg: #212123;
+    --dir-card-hover: #e77070;
+    --dir-red: #E60039; /* Slightly brighter red for pop */
+    --dir-text-main: #FFFFFF;
+    --dir-text-sec: #9CA3AF; /* Much lighter grey for readability */
+}
+
+.directory-section-dark {
+    background-color: var(--dir-bg);
+    color: var(--dir-text-main);
+    padding: 100px 0;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background decorative glow */
+.directory-section-dark::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(230, 0, 57, 0.08) 0%, rgba(0,0,0,0) 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Typography */
+.section-label {
+    color: var(--dir-red);
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+    background: rgba(230, 0, 57, 0.1);
+    padding: 6px 12px;
+    border-radius: 30px;
+}
+
+.section-title-dark {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+}
+
+.section-desc {
+    color: var(--dir-text-sec);
+    font-size: 1.125rem;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    line-height: 1.7;
+}
+
+/* Feature List */
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 3rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.05rem;
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.feature-icon-circle {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--dir-red), #ff4d73);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(230, 0, 57, 0.3);
+}
+
+/* Buttons */
+.btn-cta-glow {
+    background: var(--dir-text-main);
+    color: var(--dir-bg);
+    padding: 14px 32px;
+    border-radius: 50px; /* Pill shape is more modern */
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-cta-glow:hover {
+    transform: translateY(-3px);
+    background: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    color: var(--dir-bg);
+}
+
+/* Card Design */
+.card-link-wrapper {
+    text-decoration: none;
+    display: block;
+    height: 100%;
+}
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    gap: 24px; /* Space between cards */
+    overflow-x: auto; /* Enables scrolling */
+    padding-bottom: 20px; /* Space for scrollbar */
+    padding-right: 20px;
+    padding-left: 5px;
+    
+    /* Hide scrollbar for cleaner look (optional) */
+    scrollbar-width: thin; 
+    scrollbar-color: var(--dir-red) var(--dir-bg);
+}
+
+/* BIGGER CARD SETTINGS */
+.premium-dark-card {
+    background-color: var(--dir-card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px; /* Bigger padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    
+    /* CRITICAL: Force the card to be big and not shrink */
+    min-width: 320px; 
+    min-height: 280px; 
+    
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover Effect */
+.card-link-wrapper:hover .premium-dark-card {
+    background-color: var(--dir-card-hover);
+    border-color: var(--dir-red);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* BIGGER LOGO */
+.logo-circle {
+    width: 65px;
+    height: 65px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #fff;
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: var(--dir-text-main);
+    font-weight: 700;
+    font-size: 1.35rem; /* Bigger Font */
+    margin-bottom: 5px;
+}
+
+.card-industry {
+    color: var(--dir-text-sec); /* CRITICAL FIX: Lighter grey */
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.card-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: inline-block;
+    color: var(--dir-red);
+}
 /* ===== EVENTS SECTION (Static Grid) ===== */
     .events-section {
         padding: 5rem 0;
@@ -1601,95 +1696,110 @@
         </div>
     </div>
 </section>
-<section class="directory-section">
-    <div class="container">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-5">
-                <p class="section-label">MEMBER DIRECTORY</p>
-                <h2 class="section-title" style="color: #fff;">Discover Local <span>Businesses</span></h2>
-                <p class="directory-description">Explore our comprehensive directory of member businesses across various industries in Valenzuela City.</p>
-                <ul class="directory-features">
-                    <li>
-                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                        <i class="bi bi-check-circle-fill"></i>
-                        Connect with local entrepreneurs
-                    </li>
-                    <li>
-                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                        <i class="bi bi-check-circle-fill"></i>
-                        Find business partners and suppliers
-                    </li>
-                    <li>
-                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                        <i class="bi bi-check-circle-fill"></i>
-                        Support local commerce
-                    </li>
-                </ul>
-                <a href="{{ url('/membership') }}" class="btn-outline-light-custom">
-                    View all members
-                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                    <i class="bi bi-arrow-right"></i>
-                </a>
-            </div>
-            <div class="col-lg-7">
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="member-card">
-                            <div class="member-logo">
-                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <div class="member-info">
-                                <h5>1234 Company ABC</h5>
-                                <span class="member-badge">Services</span>
-                                <p>123 company lusemnu kakarochi providing goods to you</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="member-card">
-                            <div class="member-logo">
-                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <div class="member-info">
-                                <h5>1234 Company ABC</h5>
-                                <span class="member-badge">Services</span>
-                                <p>123 company lusemnu kakarochi providing goods to you</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="member-card">
-                            <div class="member-logo">
-                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <div class="member-info">
-                                <h5>1234 Company ABC</h5>
-                                <span class="member-badge">Services</span>
-                                <p>123 company lusemnu kakarochi providing goods to you</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="member-card">
-                            <div class="member-logo">
-                                {{-- REPLACED SVG WITH BOOTSTRAP ICON (Building) --}}
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <div class="member-info">
-                                <h5>1234 Company ABC</h5>
-                                <span class="member-badge">Services</span>
-                                <p>123 company lusemnu kakarochi providing goods to you</p>
-                            </div>
-                        </div>
-                    </div>
+
+@php
+    $networkBusinesses = collect([
+        [
+            'id' => 1,
+            'name' => 'Tech Solutions', 
+            'initials' => 'TS', 
+            'hex' => '#3b82f6', // Blue for Tech
+            'category' => 'Technology', 
+            'industry' => 'SaaS Development'
+        ],
+        [
+            'id' => 2,
+            'name' => 'Green Earth', 
+            'initials' => 'GE', 
+            'hex' => '#10b981', // Green for Eco
+            'category' => 'Eco-Friendly', 
+            'industry' => 'Agriculture & Supply'
+        ],
+        [
+            'id' => 3,
+            'name' => 'Urban Build', 
+            'initials' => 'UB', 
+            'hex' => '#f59e0b', // Orange for Const
+            'category' => 'Construction', 
+            'industry' => 'Real Estate Dev'
+        ],
+        [
+            'id' => 4,
+            'name' => 'MediCare Plus', 
+            'initials' => 'MC', 
+            'hex' => '#ef4444', // Red for Health
+            'category' => 'Healthcare', 
+            'industry' => 'Medical Equipment'
+        ],
+    ]);
+@endphp
+
+<section class="directory-section-dark">
+    {{-- Container Fluid allows more width for the big cards --}}
+    <div class="container-fluid px-lg-5 position-relative" style="z-index: 1;">
+        <div class="row align-items-center">
+            
+            {{-- LEFT COLUMN: Text --}}
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="pe-lg-4"> {{-- Padding right to separate from cards --}}
+                    <span class="section-label">Community Directory</span>
+                    
+                    {{-- 1 Row Title --}}
+                    <h2 class="section-title-dark">
+                        Discover Local <span style="color: var(--dir-red);">Business</span>
+                    </h2>
+                    
+                    <p class="section-desc">
+                        Stop searching and start connecting. Explore our curated network of trusted local businesses.
+                    </p>
+                    
+                    <a href="{{ url('/membership') }}" class="btn-cta-glow">
+                        Access Full Directory <i class="bi bi-arrow-right-short fs-4"></i>
+                    </a>
                 </div>
             </div>
+
+            {{-- RIGHT COLUMN: The Cards (Horizontal Scroll) --}}
+            <div class="col-lg-8">
+                {{-- This wrapper forces the cards into 1 row that scrolls --}}
+                <div class="horizontal-scroll-wrapper">
+                    @foreach ($networkBusinesses->take(4) as $business)
+                        <a href="{{ route('business.show', $business['id']) }}" class="card-link-wrapper">
+                            <div class="premium-dark-card">
+                                
+                                {{-- Top: Logo & Arrow --}}
+                                <div class="d-flex justify-content-between align-items-start w-100">
+                                    <div class="logo-circle">
+                                        {{ $business['initials'] }}
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle text-white fs-4 opacity-50"></i>
+                                </div>
+
+                                {{-- Bottom: Info --}}
+                                <div>
+                                    <span class="card-badge" style="color: {{ $business['hex'] }}; border: 1px solid {{ $business['hex'] }}; padding: 4px 8px; border-radius: 6px;">
+                                        {{ $business['category'] }}
+                                    </span>
+
+                                    <h5 class="card-title text-truncate mt-3">
+                                        {{ $business['name'] }}
+                                    </h5>
+                                    
+                                    <p class="card-industry text-truncate mb-0">
+                                        {{ $business['industry'] }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
+
 <section class="events-section">
     <div class="container">
         <div class="text-center mb-5">
@@ -1967,22 +2077,31 @@
     ];
 @endphp
 
-<section class="py-5" style="background-color: var(--bg-section-gray); transition: background-color 0.3s ease;">
+<section class="py-5" style="background-color: #F7F5F0; transition: background-color 0.3s ease;">
     <div class="container px-4 px-lg-5">
         
+        {{-- Header Section to match the Image --}}
         <div class="text-center mb-5">
-            <h2 class="section-title" style="color: var(--text-main); font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 2.5rem;">
-                Our <span style="color: #EB3223;">Network</span>
+            {{-- Small Red Eyebrow Text --}}
+            <h6 class="fw-bold text-uppercase mb-2" style="color: #D40032; letter-spacing: 0.05em; font-size: 0.85rem;">
+                Our Network
+            </h6>
+
+            {{-- Main Title --}}
+            <h2 class="section-title mb-3" style="color: #1a1a1a; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 2.5rem;">
+                Why Join PCCI <span style="color: #D40032;">Valenzuela</span>
             </h2>
-            <p class="section-description mx-auto" style="max-width: 600px; color: var(--text-secondary); font-size: 1rem;">
-                Discover the diverse businesses and organizations that make up our community.
+
+            {{-- Subtitle Description --}}
+            <p class="section-description mx-auto" style="max-width: 700px; color: #6c757d; font-size: 1.1rem; font-weight: 500;">
+                Discover the locations of our diverse member businesses through the interactive map below.
             </p>
         </div>
 
+        {{-- Business Cards Grid --}}
         <div class="row g-4">
             @foreach ($networkBusinesses as $business)
                 <div class="col-12 col-md-6 col-lg-4">
-                    {{-- The entire card is now an <a> tag linking to the business show route --}}
                     <a href="{{ route('business.show', $business['id']) }}" 
                        class="card h-100 border-0 shadow p-3 text-decoration-none member-card-hover" 
                        style="border-radius: 12px; 
@@ -1994,13 +2113,10 @@
                                 {{ $business['initials'] }}
                             </div>
                             <div>
-                                {{-- Changed Category to white text and semi-transparent background --}}
                                 <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase text-white" style="font-size: 0.65rem; background-color: rgba(255, 255, 255, 0.15);">
                                     {{ $business['category'] }}
                                 </span>
-                                {{-- Changed Name to white text --}}
                                 <h5 class="fw-bold mb-0 text-white">{{ $business['name'] }}</h5>
-                                {{-- Changed Industry to white text with slight opacity --}}
                                 <small class="text-white" style="opacity: 0.8;">{{ $business['industry'] }}</small>
                             </div>
                         </div>
@@ -2009,15 +2125,12 @@
                             <div class="mb-3">
                                 <div class="d-flex gap-2 small">
                                     @foreach ($business['tags'] as $tag)
-                                        {{-- Changed Tags to white text and semi-transparent background --}}
                                         <span class="px-2 py-1 rounded text-white" style="background-color: rgba(255, 255, 255, 0.1); font-weight: 600;">{{ $tag }}</span>
                                     @endforeach
                                 </div>
                             </div>
                             
-                            {{-- Changed border-top color to a subtle white line --}}
                             <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: rgba(255, 255, 255, 0.1) !important;">
-                                {{-- Changed Contact Info to white text --}}
                                 <div class="small text-white" style="opacity: 0.9;">
                                     <i class="bi bi-envelope"></i> {{ $business['email'] }}<br>
                                     <i class="bi bi-telephone"></i> {{ $business['phone'] }}
@@ -2028,12 +2141,12 @@
                                 </span>
                             </div>
                         </div>
-                        
                     </a>
                 </div>
             @endforeach
         </div>
 
+        {{-- Bottom Button --}}
         <div class="text-center mt-5">
             <a href="{{ url('/membership') }}" class="btn fw-bold text-white px-4 py-3 text-uppercase" style="background-color: #D40032; border-radius: 6px; font-size: 0.95rem; letter-spacing: 0.05em;">
                 View Full Directory <i class="bi bi-arrow-right ms-2"></i>
