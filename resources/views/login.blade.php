@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,14 +31,12 @@
             min-height: 100vh;
         }
 
-
         /* --- MAIN --- */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-          
         }
 
         .login-container {
@@ -112,6 +109,11 @@
             transition: 0.3s;
         }
         .btn-submit:hover { background-color: #900f24; }
+        
+        .btn-submit:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
 
         /* RIGHT SIDE (IMAGE) */
         .login-image-side {
@@ -134,8 +136,19 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            /* Removed background, border-radius, and blur */
             z-index: 10;
+        }
+        
+        /* API Error Message Style */
+        #api-error {
+            color: #ff6b6b;
+            background-color: rgba(255, 107, 107, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none; /* Hidden by default */
         }
 
         @media (max-width: 900px) {
@@ -144,27 +157,22 @@
             .nav-links { display: none; }
         }
 
-        /* ADD THIS: Override Footer Background to Red */
-    .footer {
-        background-color: #A40033 !important; /* PCCI Red */
-    }
+        .footer {
+            background-color: #A40033 !important;
+        }
 
-    /* Adjust hover colors so they are visible on the red background */
-    .footer a:hover {
-        color: #ffffff !important;
-        text-decoration: underline;
-    }
-    
-    /* Adjust the logo box background so it doesn't blend in */
-    .footer .rounded {
-        background-color: rgba(255, 255, 255, 0.2) !important;
-    }
+        .footer a:hover {
+            color: #ffffff !important;
+            text-decoration: underline;
+        }
+        
+        .footer .rounded {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
 
     </style>
 </head>
 <body>
-
-   
 
     <main>
         <div class="login-container">
@@ -174,34 +182,30 @@
                     <p>Welcome back! Please enter your details</p>
                 </div>
 
-                <form action="{{ route('login') }}" method="POST">
+                <div id="api-error"></div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
                     @csrf
                     
                     <div class="input-group">
                         <label>Email</label>
                         <div class="input-wrapper">
                             <i class="bi bi-envelope"></i>
-                            <input type="email" name="email" value="{{ old('email') }}" required placeholder="@gmail.com" autofocus>
+                            <input type="email" id="email" name="email" required placeholder="@gmail.com" autofocus>
                         </div>
-                        @error('email')
-                            <span style="color: #ff6b6b; font-size: 0.8rem; margin-top: 5px; display:block;">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <div class="input-group">
                         <label>Password</label>
                         <div class="input-wrapper">
                             <i class="bi bi-lock"></i>
-                            <input type="password" name="password" required placeholder="Enter your password">
+                            <input type="password" id="password" name="password" required placeholder="Enter your password">
                         </div>
-                        @error('password')
-                            <span style="color: #ff6b6b; font-size: 0.8rem; margin-top: 5px; display:block;">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <div class="form-options">
                         <label>
-                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember for 30 Days
+                            <input type="checkbox" name="remember"> Remember for 30 Days
                         </label>
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}">Forgot password</a>
@@ -210,7 +214,7 @@
                         @endif
                     </div>
 
-                    <button type="submit" class="btn-submit">Sign In</button>
+                    <button type="submit" id="submitBtn" class="btn-submit">Sign In</button>
                     
                     <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-grey);">
                         Don't have an account? <a href="{{ route('signup') }}" style="color: white; font-weight: bold;">Sign Up</a>
@@ -228,10 +232,56 @@
                 </div>
                 
                 <img src="{{ asset('images/log in.png') }}" alt="Background" class="bg-img">
-
             </div>
         </div>
     </main>
 
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault(); // Prevent standard form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('api-error');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Reset UI
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing In...';
+
+            try {
+                // Using the API endpoint provided in your sample
+                const response = await fetch('https://pcci-laravel-api.onrender.com/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // 1. Store the token
+                    localStorage.setItem('token', data.token);
+
+                    // 2. Redirect to dashboard/home
+                    // Change '/home' to whatever route you want the user to go to after login
+                    window.location.href = '/dashboard'; 
+                } else {
+                    // Show error message
+                    errorDiv.textContent = data.message || 'Login failed. Check credentials.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                errorDiv.textContent = 'An error occurred. Please check your connection.';
+                errorDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign In';
+            }
+        }
+    </script>
 </body>
 </html>
