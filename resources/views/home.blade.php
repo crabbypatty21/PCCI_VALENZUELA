@@ -142,40 +142,45 @@
         width: 40px;
     }
     /* ===== VALUES SECTION ===== */
-    .values-section {
+  .values-section {
         padding: 5rem 0;
-        background-color: #faf8f5;
+        background-color: #ffffff; /* Updated to pure white to match your request */
         transition: background-color 0.3s ease;
     }
-    body.dark-mode .values-section {
-        background-color: var(--bg-section-gray);
-    }
+
+    /* LABEL (Kept red for accent, but you can change to #000 if needed) */
     .section-label {
-        color: #EB3223;
+        color: #EB3223; 
         font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin-bottom: 0.5rem;
     }
+
     .section-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
         font-weight: 700;
-        color: var(--text-main); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
         margin-bottom: 1rem;
     }
+
     .section-title span {
-        color: #EB3223;
+        color: #EB3223; /* Keeps the accent span red */
     }
+
     .section-description {
-        color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
         font-size: 1rem;
         max-width: 600px;
         margin: 0 auto 3rem;
+        opacity: 0.8; /* Optional: Slight opacity to make it distinct from title */
     }
+
     .value-card {
-        background: var(--bg-card); /* ADAPTIVE BG */
+        background: #ffffff; /* White Card */
+        border: 1px solid #f0f0f0; /* Subtle border for visibility on white bg */
         border-radius: 16px;
         padding: 2.5rem 2rem;
         text-align: center;
@@ -183,10 +188,13 @@
         transition: all 0.3s ease;
         height: 100%;
     }
+
     .value-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        border-color: #EB3223; /* Hover effect */
     }
+
     .value-icon {
         width: 70px;
         height: 70px;
@@ -197,20 +205,22 @@
         justify-content: center;
         margin: 0 auto 1.5rem;
     }
-    /* ICON REPLACEMENT STYLE */
+
     .value-icon i {
         font-size: 2rem;
-        color: #fff;
+        color: #ffffff; /* Icon stays white inside the red box */
     }
+
     .value-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
-        color: var(--text-main); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
     }
+
     .value-description {
-        color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
         font-size: 0.9rem;
         line-height: 1.6;
     }
@@ -546,202 +556,134 @@
     }
     /* ===== MEMBER DIRECTORY SECTION ===== */
    :root {
-    --dir-bg: #252631; /* Slightly deeper black for contrast */
-    --dir-card-bg: #212123;
-    --dir-card-hover: #e77070;
-    --dir-red: #E60039; /* Slightly brighter red for pop */
-    --dir-text-main: #FFFFFF;
-    --dir-text-sec: #9CA3AF; /* Much lighter grey for readability */
+    --dir-bg: #252631; 
+    --dir-card-bg: #000000;
+    --dir-accent: #e63946;
+    --dir-text: #ffffff; /* FORCE WHITE */
 }
 
-.directory-section-dark {
+.directory-section {
     background-color: var(--dir-bg);
-    color: var(--dir-text-main);
+    color: var(--dir-text);
     padding: 100px 0;
     font-family: 'DM Sans', sans-serif;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Background decorative glow */
-.directory-section-dark::before {
-    content: '';
-    position: absolute;
-    top: -10%;
-    left: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(230, 0, 57, 0.08) 0%, rgba(0,0,0,0) 70%);
-    z-index: 0;
-    pointer-events: none;
+/* Force all standard text to white */
+h1, h2, h3, h4, h5, h6, p, span, div, li {
+    color: #ffffff !important;
 }
 
-/* Typography */
-.section-label {
-    color: var(--dir-red);
-    font-weight: 700;
-    letter-spacing: 2px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: inline-block;
-    background: rgba(230, 0, 57, 0.1);
-    padding: 6px 12px;
-    border-radius: 30px;
+/* Override for specific colored elements if needed (like the red span) */
+.text-highlight {
+    color: var(--dir-accent) !important;
 }
 
-.section-title-dark {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-}
-
+/* SECTION TEXT */
 .section-desc {
-    color: var(--dir-text-sec);
-    font-size: 1.125rem;
-    margin-bottom: 2.5rem;
-    max-width: 500px;
-    line-height: 1.7;
+    color: #ffffff !important; /* Pure white, no grey */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0.9; /* Slight opacity for readability, but still white */
 }
 
-/* Feature List */
-.feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 3rem;
-}
-
+/* FEATURE LIST */
 .feature-item {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
+    margin-bottom: 14px;
     font-size: 1.05rem;
-    color: #e0e0e0;
-    font-weight: 500;
+    color: #ffffff !important; /* Pure White */
 }
 
-.feature-icon-circle {
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, var(--dir-red), #ff4d73);
-    color: white;
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--dir-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 10px rgba(230, 0, 57, 0.3);
+    color: white !important;
+    font-size: 0.8rem;
 }
 
-/* Buttons */
-.btn-cta-glow {
-    background: var(--dir-text-main);
-    color: var(--dir-bg);
-    padding: 14px 32px;
-    border-radius: 50px; /* Pill shape is more modern */
+/* NEW BUTTON STYLE (Red BG so text can be White) */
+.btn-accent-cta {
+    background: var(--dir-accent);
+    color: #ffffff !important; /* White Text */
+    padding: 14px 30px;
+    border-radius: 8px;
     font-weight: 700;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     transition: all 0.3s ease;
+    border: 1px solid var(--dir-accent);
 }
 
-.btn-cta-glow:hover {
-    transform: translateY(-3px);
-    background: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-    color: var(--dir-bg);
+.btn-accent-cta:hover {
+    background: transparent;
+    border-color: #ffffff;
+    transform: translateY(-2px);
 }
 
-/* Card Design */
-.card-link-wrapper {
-    text-decoration: none;
-    display: block;
-    height: 100%;
-}
-
-.horizontal-scroll-wrapper {
-    display: flex;
-    gap: 24px; /* Space between cards */
-    overflow-x: auto; /* Enables scrolling */
-    padding-bottom: 20px; /* Space for scrollbar */
-    padding-right: 20px;
-    padding-left: 5px;
-    
-    /* Hide scrollbar for cleaner look (optional) */
-    scrollbar-width: thin; 
-    scrollbar-color: var(--dir-red) var(--dir-bg);
-}
-
-/* BIGGER CARD SETTINGS */
-.premium-dark-card {
+/* RIGHT COLUMN - CARD STYLES */
+.directory-card {
     background-color: var(--dir-card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    padding: 30px; /* Bigger padding */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    border: 1px solid #6B6B6B;
+    border-radius: 8px;
+    padding: 24px;
     height: 100%;
-    
-    /* CRITICAL: Force the card to be big and not shrink */
-    min-width: 320px; 
-    min-height: 280px; 
-    
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s ease;
 }
 
-/* Hover Effect */
-.card-link-wrapper:hover .premium-dark-card {
-    background-color: var(--dir-card-hover);
-    border-color: var(--dir-red);
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.5);
+.directory-card:hover {
+    border-color: var(--dir-accent);
+    transform: translateY(-5px);
 }
 
-/* BIGGER LOGO */
-.logo-circle {
-    width: 65px;
-    height: 65px;
-    border-radius: 16px;
+.card-logo-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #ffffff !important;
     font-weight: 800;
-    font-size: 1.5rem;
-    color: #fff;
-    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 20px;
+    font-size: 1.25rem;
+    flex-shrink: 0;
 }
 
-.card-title {
-    color: var(--dir-text-main);
-    font-weight: 700;
-    font-size: 1.35rem; /* Bigger Font */
-    margin-bottom: 5px;
-}
-
-.card-industry {
-    color: var(--dir-text-sec); /* CRITICAL FIX: Lighter grey */
-    font-size: 0.9rem;
-    font-weight: 400;
-}
-
-.card-badge {
-    font-size: 0.7rem;
+/* NEW BADGE STYLE (Outline so text can be White) */
+.badge-outline-white {
+    background: transparent;
+    border: 1px solid rgba(255,255,255, 0.4);
+    color: #ffffff !important; /* White Text */
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: inline-block;
-    color: var(--dir-red);
+    letter-spacing: 1px;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
+
+.card-desc {
+    color: #ffffff !important; /* Pure White */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+    opacity: 0.8; /* Slight adjustment so it doesn't clash with title */
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 /* ===== EVENTS SECTION (Static Grid) ===== */
     .events-section {
         padding: 5rem 0;
@@ -1734,64 +1676,77 @@
     ]);
 @endphp
 
-<section class="directory-section-dark">
-    {{-- Container Fluid allows more width for the big cards --}}
-    <div class="container-fluid px-lg-5 position-relative" style="z-index: 1;">
+<section class="directory-section">
+    <div class="container">
         <div class="row align-items-center">
             
-            {{-- LEFT COLUMN: Text --}}
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="pe-lg-4"> {{-- Padding right to separate from cards --}}
-                    <span class="section-label">Community Directory</span>
-                    
-                    {{-- 1 Row Title --}}
-                    <h2 class="section-title-dark">
-                        Discover Local <span style="color: var(--dir-red);">Business</span>
-                    </h2>
-                    
-                    <p class="section-desc">
-                        Stop searching and start connecting. Explore our curated network of trusted local businesses.
-                    </p>
-                    
-                    <a href="{{ url('/membership') }}" class="btn-cta-glow">
-                        Access Full Directory <i class="bi bi-arrow-right-short fs-4"></i>
-                    </a>
-                </div>
+            {{-- LEFT COLUMN --}}
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                
+                <span class="section-label" style="color: #ffffff !important;">Member Directory</span>
+                
+                <h2 class="section-title">
+                    Discover Local <span class="text-highlight">Businesses</span>
+                </h2>
+                
+                <p class="section-desc">
+                    Explore our comprehensive directory of member businesses across various industries in Marikina City.
+                </p>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-arrow-right"></i></div>
+                        Connect with local entrepreneurs
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-arrow-right"></i></div>
+                        Find business partners and suppliers
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-arrow-right"></i></div>
+                        Support local commerce
+                    </li>
+                </ul>
+                
+                {{-- UPDATED BUTTON: Red Background, White Text --}}
+                <a href="{{ url('/membership') }}" class="btn-accent-cta">
+                    View all members <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
 
-            {{-- RIGHT COLUMN: The Cards (Horizontal Scroll) --}}
-            <div class="col-lg-8">
-                {{-- This wrapper forces the cards into 1 row that scrolls --}}
-                <div class="horizontal-scroll-wrapper">
+            {{-- RIGHT COLUMN --}}
+            <div class="col-lg-7">
+                <div class="row g-4">
                     @foreach ($networkBusinesses->take(4) as $business)
-                        <a href="{{ route('business.show', $business['id']) }}" class="card-link-wrapper">
-                            <div class="premium-dark-card">
-                                
-                                {{-- Top: Logo & Arrow --}}
-                                <div class="d-flex justify-content-between align-items-start w-100">
-                                    <div class="logo-circle">
-                                        {{ $business['initials'] }}
-                                    </div>
-                                    <i class="bi bi-arrow-right-circle text-white fs-4 opacity-50"></i>
-                                </div>
-
-                                {{-- Bottom: Info --}}
-                                <div>
-                                    <span class="card-badge" style="color: {{ $business['hex'] }}; border: 1px solid {{ $business['hex'] }}; padding: 4px 8px; border-radius: 6px;">
-                                        {{ $business['category'] }}
-                                    </span>
-
-                                    <h5 class="card-title text-truncate mt-3">
-                                        {{ $business['name'] }}
-                                    </h5>
+                        <div class="col-md-6">
+                            <a href="{{ route('business.show', $business['id']) }}" class="text-decoration-none">
+                                <div class="directory-card">
                                     
-                                    <p class="card-industry text-truncate mb-0">
-                                        {{ $business['industry'] }}
+                                    <div class="d-flex align-items-center mb-3">
+                                        {{-- Logo Box --}}
+                                        <div class="card-logo-box" style="background-color: {{ $business['hex'] }};">
+                                            {{ $business['initials'] }}
+                                        </div>
+                                        
+                                        <div class="ms-3 overflow-hidden">
+                                            <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700;">
+                                                {{ $business['name'] }}
+                                            </h5>
+                                            
+                                            {{-- UPDATED BADGE: White Border, White Text --}}
+                                            <span class="badge-outline-white">
+                                                {{ $business['category'] }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="card-desc">
+                                        {{ $business['industry'] }} company providing excellent goods for you and your business needs.
                                     </p>
-                                </div>
 
-                            </div>
-                        </a>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             </div>
