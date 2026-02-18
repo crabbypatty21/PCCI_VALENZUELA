@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-    /* --- FONTS & GLOBAL STYLES --- */
+    /* Reusing your exact styles */
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Poppins:wght@600;700;800&display=swap');
 
     body {
@@ -179,6 +179,11 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 15px rgba(227, 38, 54, 0.3);
     }
+    
+    .btn-next:disabled {
+        background-color: #555;
+        cursor: not-allowed;
+    }
 
     .btn-prev {
         background-color: #ffffff;
@@ -201,17 +206,26 @@
         background-color: #A40033 !important; /* PCCI Red */
     }
 
-    /* Adjust hover colors so they are visible on the red background */
     .footer a:hover {
         color: #ffffff !important;
         text-decoration: underline;
     }
     
-    /* Adjust the logo box background so it doesn't blend in */
     .footer .rounded {
         background-color: rgba(255, 255, 255, 0.2) !important;
     }
 
+    /* New Error Style */
+    #global-error {
+        background-color: rgba(220, 53, 69, 0.2);
+        color: #ff6b6b;
+        border: 1px solid #dc3545;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+        text-align: center;
+    }
 </style>
 
 <div class="registration-container">
@@ -230,9 +244,21 @@
             <div class="col-lg-6">
                 <div class="glass-card">
                     
-                    <form action="#" method="POST" id="registrationForm" enctype="multipart/form-data">
+                    <form id="registrationForm" onsubmit="return false;">
                         @csrf
                         
+                        <input type="hidden" name="form_of_organization" value="Corporation">
+                        <input type="hidden" name="registration_type" value="SEC">
+                        <input type="hidden" name="registration_number" value="N/A">
+                        <input type="hidden" name="date_of_registration" value="2024-01-01">
+                        <input type="hidden" name="type_of_company" value="Single Proprietorship">
+                        <input type="hidden" name="number_of_employees" value="1">
+                        <input type="hidden" name="year_established" value="2024">
+                        <input type="hidden" name="business_line" value="General">
+                        <input type="hidden" name="referred_by" value="Website">
+                        <input type="hidden" name="rep_title" value="Mr./Ms.">
+                        <input type="hidden" name="alt_rep_title" value="Mr./Ms.">
+
                         <div id="form-header">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="d-flex align-items-center">
@@ -247,6 +273,8 @@
                             <div class="step-progress">
                                 <div class="step-progress-fill" id="progress-bar"></div>
                             </div>
+                            
+                            <div id="global-error"></div>
                         </div>
 
                         <div id="step-1">
@@ -255,63 +283,63 @@
                                     <label class="form-label-custom">Business Name <span class="text-danger">*</span></label>
                                     <span class="helper-text-right">Indicated in your DTI/SEC/Mayor's</span>
                                 </div>
-                                <input type="text" class="form-control form-control-dark" placeholder="Enter your business name" required>
+                                <input type="text" name="registered_business_name" class="form-control form-control-dark" placeholder="Enter your business name" required>
                             </div>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label-custom">Business Trade Name <span class="text-danger">*</span></label>
                                     <span class="helper-text-right">Operating Name/DBA/Brand Name</span>
                                 </div>
-                                <input type="text" class="form-control form-control-dark" placeholder="Enter your business trade name" required>
+                                <input type="text" name="trade_name" class="form-control form-control-dark" placeholder="Enter your business trade name" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label-custom">Business Address <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-dark" placeholder="Enter your business address" required>
+                                <input type="text" name="business_address" class="form-control form-control-dark" placeholder="Enter your business address" required>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">City/Municipality <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your municipality" required>
+                                    <input type="text" name="city_municipality" class="form-control form-control-dark" placeholder="Enter your municipality" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Province <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your province" required>
+                                    <input type="text" name="province" class="form-control form-control-dark" placeholder="Enter your province" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Region <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your region" required>
+                                    <input type="text" name="region" class="form-control form-control-dark" placeholder="Enter your region" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Zip Code <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your zip code" required>
+                                    <input type="text" name="zip_code" class="form-control form-control-dark" placeholder="Enter your zip code" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Telephone Number <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Ex. (02) 8352-5000" required>
+                                    <input type="text" name="telephone_no" class="form-control form-control-dark" placeholder="Ex. (02) 8352-5000" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Website/Social Media Link <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Put N/A if none" required>
+                                    <input type="text" name="website" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Member's Date of Birth <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control form-control-dark" required>
+                                    <input type="date" name="member_dob" class="form-control form-control-dark" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control form-control-dark" placeholder="Enter your email" required>
+                                    <input type="email" name="email" class="form-control form-control-dark" placeholder="Enter your email" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">TIN No. <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Put N/A if none" required>
+                                    <input type="text" name="tin_no" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
                             </div>
                             <div class="data-notice mb-4" style="background-color: rgba(63, 81, 181, 0.1); border: 1px solid #5c6bc0; border-radius: 8px; padding: 15px;">
@@ -334,31 +362,31 @@
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Surname <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your surname" required>
+                                    <input type="text" name="rep_surname" class="form-control form-control-dark" placeholder="Enter your surname" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your first name" required>
+                                    <input type="text" name="rep_first_name" class="form-control form-control-dark" placeholder="Enter your first name" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Middle Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Put N/A if none" required>
+                                    <input type="text" name="rep_mi" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Designation <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your designation" required>
+                                    <input type="text" name="rep_designation" class="form-control form-control-dark" placeholder="Enter your designation" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Date of Birth <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control form-control-dark" required>
+                                    <input type="date" name="rep_dob" class="form-control form-control-dark" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Contact Number <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your contact number" required>
+                                    <input type="text" name="rep_contact_no" class="form-control form-control-dark" placeholder="Enter your contact number" required>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-4">
@@ -371,31 +399,31 @@
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Surname <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your surname" required>
+                                    <input type="text" name="alt_surname" class="form-control form-control-dark" placeholder="Enter your surname" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your first name" required>
+                                    <input type="text" name="alt_first_name" class="form-control form-control-dark" placeholder="Enter your first name" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Middle Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Put N/A if none" required>
+                                    <input type="text" name="alt_mi" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Designation <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your designation" required>
+                                    <input type="text" name="alt_designation" class="form-control form-control-dark" placeholder="Enter your designation" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Date of Birth <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control form-control-dark" required>
+                                    <input type="date" name="alt_dob" class="form-control form-control-dark" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label-custom">Contact Number <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-dark" placeholder="Enter your contact number" required>
+                                    <input type="text" name="alt_contact_no" class="form-control form-control-dark" placeholder="Enter your contact number" required>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-4">
@@ -407,7 +435,7 @@
                         <div id="step-4" class="d-none">
                             <div class="mb-4">
                                 <label class="form-label-custom">Are you a member of other organization(s)?</label>
-                                <select class="form-select form-select-dark" required>
+                                <select name="other_organizations" class="form-select form-select-dark" required>
                                     <option selected disabled value="">Choose</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -426,35 +454,28 @@
                                     <div>
                                         <strong style="color: #7986cb; font-size: 0.95rem;">Document Upload Notice</strong><br>
                                         <span style="font-size: 0.8rem; color: #8c9eff; line-height: 1.4; display: block;">
-                                            If you experience any issues uploading documents, you can still proceed with your registration. Documents can be submitted later via email to the administrators.
+                                            (Skipped for API connection - text data only)
                                         </span>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="mb-4">
                                 <label class="form-label-custom">Mayor's Permit</label>
-                                <span class="helper-text-small">Upload 1 supported file: PDF, document or image. Max 100 MB.</span>
                                 <input type="file" class="form-control form-control-dark">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label-custom">DTI/SEC Business Registration Copy</label>
-                                <span class="helper-text-small">Upload 1 supported file: PDF, document or image. Max 100 MB.</span>
                                 <input type="file" class="form-control form-control-dark">
                             </div>
                             <div class="mb-5">
                                 <label class="form-label-custom">Annual Membership Fee</label>
-                                <div class="bank-details">
-                                    <strong>To be deposited to:</strong><br>
-                                    ChinaBank<br>
-                                    Account Name: PCCI Valenzuela<br>
-                                    Account No.: 1054 0000 5989
-                                </div>
-                                <span class="helper-text-small">Upload 1 supported file: PDF, document or image. Max 100 MB.</span>
                                 <input type="file" class="form-control form-control-dark">
                             </div>
+
                             <div class="d-flex justify-content-between mt-4">
                                 <button type="button" class="btn btn-prev" onclick="goToStep(4)">Previous</button>
-                                <button type="button" class="btn btn-next" onclick="validateAndNext(5, 'success')">Submit</button>
+                                <button type="button" id="finalSubmitBtn" class="btn btn-next" onclick="submitData()">Submit</button>
                             </div>
                         </div>
 
@@ -467,7 +488,9 @@
 
                             <div class="info-box">
                                 <strong class="d-block mb-2 text-white">What's next?</strong>
-                                Our administrators will review your application and verify your documents. You'll receive an email notification once your application has been processed.
+                                Our administrators will review your application. You'll receive an email notification once your application has been processed.
+                                <br><br>
+                                <a href="{{ route('login') }}" style="color:#22c55e; text-decoration:underline;">Return to Login</a>
                             </div>
                         </div>
 
@@ -495,7 +518,7 @@
 
         if (allValid) {
             if (nextStepId === 'success') {
-                showSuccessStep();
+                // Do nothing, submitData handles this
             } else {
                 goToStep(nextStepId);
             }
@@ -512,15 +535,13 @@
         const progressBar = document.getElementById('progress-bar');
         const successStep = document.getElementById('step-success');
 
-        // Ensure header and other steps are visible/hidden correctly
         headerContainer.classList.remove('d-none');
         successStep.classList.add('d-none');
         steps.forEach(s => document.getElementById('step-' + s).classList.add('d-none'));
 
-        // Show current step
         document.getElementById('step-' + step).classList.remove('d-none');
 
-        // Logic for Headers and Progress
+        // Logic to update headers/progress
         if (step === 1) {
             headerTitle.innerText = 'Basic Profile';
             headerDesc.innerText = 'Tell us about yourself and your business.';
@@ -528,32 +549,27 @@
             headerIcon.className = 'bi bi-person fs-3 me-3';
             progressBar.style.width = '20%';
             stepCounter.innerText = 'Step 1 of 5';
-        } 
-        else if (step === 2) {
+        } else if (step === 2) {
             headerTitle.innerText = 'Official Representative';
             headerDesc.innerText = 'President or Officer.';
             headerDesc.classList.remove('d-none');
             headerIcon.className = 'bi bi-person fs-3 me-3'; 
             progressBar.style.width = '40%';
             stepCounter.innerText = 'Step 2 of 5';
-        } 
-        else if (step === 3) {
+        } else if (step === 3) {
             headerTitle.innerText = 'Alternative Representative/s';
             headerDesc.innerText = 'Add other business representatives.';
             headerDesc.classList.remove('d-none');
             headerIcon.className = 'bi bi-person fs-3 me-3';
             progressBar.style.width = '60%';
             stepCounter.innerText = 'Step 3 of 5';
-        } 
-        else if (step === 4) {
+        } else if (step === 4) {
             headerTitle.innerText = 'Membership in Other Business Organization';
-            headerDesc.innerText = ''; 
             headerDesc.classList.add('d-none'); 
             headerIcon.className = 'bi bi-person fs-3 me-3';
             progressBar.style.width = '80%';
             stepCounter.innerText = 'Step 4 of 5';
-        } 
-        else if (step === 5) {
+        } else if (step === 5) {
             headerTitle.innerText = 'Document Upload';
             headerDesc.innerText = 'Upload required business documents.';
             headerDesc.classList.remove('d-none');
@@ -563,17 +579,69 @@
         }
     }
 
+    async function submitData() {
+        // Button State
+        const submitBtn = document.getElementById('finalSubmitBtn');
+        const errorDiv = document.getElementById('global-error');
+        
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting...';
+        errorDiv.style.display = 'none';
+
+        // Gather Data
+        const form = document.getElementById('registrationForm');
+        const formData = new FormData(form);
+        
+        // Convert FormData to JSON Object
+        const data = Object.fromEntries(formData.entries());
+
+        // Fix Type Conversions (API expects integers)
+        data.number_of_employees = parseInt(data.number_of_employees || 0);
+        data.year_established = parseInt(data.year_established || 2024);
+
+        try {
+            // Post to the API
+            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/apply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                showSuccessStep();
+            } else {
+                // Error Handling
+                let msg = result.message || 'Submission failed.';
+                if(result.errors) {
+                    msg += ' ' + JSON.stringify(result.errors);
+                }
+                errorDiv.innerText = msg;
+                errorDiv.style.display = 'block';
+                // Scroll to top to see error
+                document.getElementById('form-header').scrollIntoView({ behavior: 'smooth' });
+            }
+        } catch (error) {
+            console.error(error);
+            errorDiv.innerText = 'Network Error. Please try again.';
+            errorDiv.style.display = 'block';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Submit';
+        }
+    }
+
     function showSuccessStep() {
         const steps = [1, 2, 3, 4, 5];
         const headerContainer = document.getElementById('form-header');
         
-        // Hide all steps and the header
         steps.forEach(s => document.getElementById('step-' + s).classList.add('d-none'));
         headerContainer.classList.add('d-none');
-
-        // Show Success Step
-        const successStep = document.getElementById('step-success');
-        successStep.classList.remove('d-none');
+        document.getElementById('step-success').classList.remove('d-none');
     }
 </script>
 @endsection
