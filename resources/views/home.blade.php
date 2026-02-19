@@ -142,40 +142,45 @@
         width: 40px;
     }
     /* ===== VALUES SECTION ===== */
-    .values-section {
+  .values-section {
         padding: 5rem 0;
-        background-color: #faf8f5;
+        background-color: #ffffff; /* Updated to pure white to match your request */
         transition: background-color 0.3s ease;
     }
-    body.dark-mode .values-section {
-        background-color: var(--bg-section-gray);
-    }
+
+    /* LABEL (Kept red for accent, but you can change to #000 if needed) */
     .section-label {
-        color: #EB3223;
+        color: #EB3223; 
         font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin-bottom: 0.5rem;
     }
+
     .section-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
         font-weight: 700;
-        color: var(--text-main); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
         margin-bottom: 1rem;
     }
+
     .section-title span {
-        color: #EB3223;
+        color: #EB3223; /* Keeps the accent span red */
     }
+
     .section-description {
-        color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
         font-size: 1rem;
         max-width: 600px;
         margin: 0 auto 3rem;
+        opacity: 0.8; /* Optional: Slight opacity to make it distinct from title */
     }
+
     .value-card {
-        background: var(--bg-card); /* ADAPTIVE BG */
+        background: #ffffff; /* White Card */
+        border: 1px solid #f0f0f0; /* Subtle border for visibility on white bg */
         border-radius: 16px;
         padding: 2.5rem 2rem;
         text-align: center;
@@ -183,10 +188,13 @@
         transition: all 0.3s ease;
         height: 100%;
     }
+
     .value-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        border-color: #EB3223; /* Hover effect */
     }
+
     .value-icon {
         width: 70px;
         height: 70px;
@@ -197,20 +205,22 @@
         justify-content: center;
         margin: 0 auto 1.5rem;
     }
-    /* ICON REPLACEMENT STYLE */
+
     .value-icon i {
         font-size: 2rem;
-        color: #fff;
+        color: #ffffff; /* Icon stays white inside the red box */
     }
+
     .value-title {
         font-family: 'DM Sans', sans-serif;
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
-        color: var(--text-main); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
     }
+
     .value-description {
-        color: var(--text-secondary); /* ADAPTIVE TEXT COLOR */
+        color: #000000; /* FORCE BLACK */
         font-size: 0.9rem;
         line-height: 1.6;
     }
@@ -559,7 +569,14 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+<<<<<<< HEAD
 
+=======
+/* Force all standard text to white */
+h1, h2, h3, h4, h5, h6, p, span, div, li {
+    color: #ffffff !important;
+}
+>>>>>>> 0a76f6268ee2278bf7386c01ad0d8f01ce8d6856
 
 /* Override for specific colored elements if needed (like the red span) */
 .text-highlight {
@@ -1672,10 +1689,16 @@
                 
                 <span class="section-label" style="color: #ffffff !important;">Member Directory</span>
                 
+<<<<<<< HEAD
             <h2 class="section-title">
                 <span style="color: #ffffff;">Discover Local</span> 
                 <span class="text-highlight">Businesses</span>
             </h2>
+=======
+                <h2 class="section-title">
+                    Discover Local <span class="text-highlight">Businesses</span>
+                </h2>
+>>>>>>> 0a76f6268ee2278bf7386c01ad0d8f01ce8d6856
                 
                 <p class="section-desc">
                     Explore our comprehensive directory of member businesses across various industries in Marikina City.
@@ -1717,7 +1740,11 @@
                                         </div>
                                         
                                         <div class="ms-3 overflow-hidden">
+<<<<<<< HEAD
                                             <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700; color: #ffffff;">
+=======
+                                            <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700;">
+>>>>>>> 0a76f6268ee2278bf7386c01ad0d8f01ce8d6856
                                                 {{ $business['name'] }}
                                             </h5>
                                             
