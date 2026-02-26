@@ -269,11 +269,13 @@
                     const roles = data.user.roles || [];
 
                     if (roles.includes('treasurer')) {
-                        window.location.href = '/treasurer-dashboard'; // Redirect to the new treasurer route
-                    } else if (roles.includes('superadmin')) {
-                        window.location.href = '/dashboard'; // Existing superadmin route
+                        window.location.href = '/treasurer-dashboard';
+                    } else if (roles.includes('superadmin') || roles.includes('admin') || roles.includes('super_admin')) {
+                        // Now it catches both 'admin' and 'superadmin'
+                        window.location.href = '/dashboard'; 
                     } else {
-                        window.location.href = '/home'; // Fallback for normal users
+                        // Fix: Changed from '/home' to '/' to match your web.php routes
+                        window.location.href = '/'; 
                     }
                 } else {
                     // Show error message
