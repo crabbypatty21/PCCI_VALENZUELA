@@ -152,6 +152,55 @@
             color: var(--text-grey);
             font-size: 1.2rem;
         }
+
+        /* --- MODALS --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .modal-content h3 { margin-top: 0; color: var(--primary-red); font-family: 'Poppins', sans-serif; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--text-grey); font-size: 0.9rem;}
+        .form-group input {
+            width: 100%; padding: 10px; border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--dark-bg); color: white;
+        }
+
+        .btn {
+            padding: 10px 15px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-family: 'DM Sans', sans-serif;
+        }
+        .btn-primary { background: var(--primary-red); color: white; width: 100%; transition: 0.3s; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: var(--section-bg); color: white; margin-top: 10px; width: 100%; border: 1px solid var(--border-color); transition: 0.3s; }
+        .btn-secondary:hover { background: var(--border-color); }
+
+        .alert { padding: 10px; border-radius: 6px; margin-bottom: 15px; display: none; }
+        .alert-error { background: rgba(255,0,0,0.1); color: #ff6b6b; border: 1px solid #ff6b6b; }
+        .alert-warning { background: rgba(255, 193, 7, 0.1); color: #ffc107; border: 1px solid #ffc107; margin-top: 15px; font-size: 0.85rem;}
+
+        .password-display {
+            background: var(--dark-bg); padding: 15px; border-radius: 6px;
+            font-family: monospace; font-size: 1.2rem; text-align: center;
+            margin: 15px 0; border: 1px dashed var(--text-grey);
+        }
+
     </style>
 </head>
 <body>
@@ -167,9 +216,48 @@
     </nav>
 
     <div class="container">
-        <h1>Membership Applicants</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+            <h1 style="margin: 0; border: none; padding: 0;">Membership Applicants</h1>
+            <button class="btn btn-primary" style="width: auto;" onclick="openRegisterModal()">+ Register Treasurer</button>
+        </div>
+
         <div id="applicants-list">
             <div class="loading">Loading applicants...</div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Register New Treasurer</h3>
+            <div id="registerError" class="alert alert-error"></div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" required placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="treasurer@example.com">
+                </div>
+                <button type="submit" id="regSubmitBtn" class="btn btn-primary">Register Account</button>
+                <button type="button" class="btn btn-secondary" onclick="closeRegisterModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Treasurer Created!</h3>
+            <p style="color: var(--text-grey); font-size: 0.9rem;">The account for <strong id="successEmail" style="color: white;"></strong> has been successfully registered.</p>
+            
+            <div class="alert-warning" style="display: block;">
+                <strong>⚠️ IMPORTANT:</strong> Copy this password now. For security reasons, it will only be displayed once and cannot be recovered later.
+            </div>
+
+            <div class="password-display" id="generatedPassword"></div>
+            
+            <button class="btn btn-primary" onclick="copyPassword()" id="copyBtn">Copy Password</button>
+            <button class="btn btn-secondary" onclick="closeSuccessModal()">I have copied the password (Close)</button>
         </div>
     </div>
 
@@ -302,6 +390,97 @@
             localStorage.removeItem('token');
             window.location.href = '/login';
         }
+
+        // --- REGISTRATION MODAL LOGIC --- //
+        function openRegisterModal() {
+            document.getElementById('registerModal').style.display = 'flex';
+            document.getElementById('registerError').style.display = 'none';
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').style.display = 'none';
+            document.getElementById('registerForm').reset();
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('regSubmitBtn');
+            const errorDiv = document.getElementById('registerError');
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            
+            // UI Loading state
+            btn.disabled = true;
+            btn.innerText = 'Registering...';
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('https://pcci-laravel-api.onrender.com/api/register', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        // Include the token so the API knows it's an admin doing this
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        role: 'treasurer'
+                    })
+                });
+
+                const data = await response.json();
+
+                // 202 is what your backend returns on success
+                if (response.status === 202 || response.status === 201 || response.ok) {
+                    closeRegisterModal();
+                    showSuccessModal(data.user.email, data.password);
+                } else {
+                    // Handle Validation Errors (e.g. Email already exists)
+                    errorDiv.innerText = data.message || 'Registration failed.';
+                    if(data.errors) {
+                       // Format Laravel validation errors
+                       errorDiv.innerText += ' ' + Object.values(data.errors).flat().join(' ');
+                    }
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                errorDiv.innerText = 'Network error. Please try again.';
+                errorDiv.style.display = 'block';
+            } finally {
+                // Reset button state
+                btn.disabled = false;
+                btn.innerText = 'Register Account';
+            }
+        }
+
+        // --- SUCCESS MODAL LOGIC (SHOW ONCE) --- //
+
+        function showSuccessModal(email, password) {
+            document.getElementById('successEmail').innerText = email;
+            document.getElementById('generatedPassword').innerText = password;
+            document.getElementById('successModal').style.display = 'flex';
+            document.getElementById('copyBtn').innerText = 'Copy Password';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            // SECURITY: Wipe the password from the DOM immediately upon closing
+            document.getElementById('generatedPassword').innerText = ''; 
+        }
+
+        function copyPassword() {
+            const pwd = document.getElementById('generatedPassword').innerText;
+            navigator.clipboard.writeText(pwd).then(() => {
+                document.getElementById('copyBtn').innerText = 'Copied to Clipboard!';
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
     </script>
 
 </body>
