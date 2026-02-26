@@ -42,3 +42,7 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/treasurer-dashboard', function () {
+    return view('treasurer_dashboard');
+})->name('treasurer.dashboard');

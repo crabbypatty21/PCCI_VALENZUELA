@@ -265,9 +265,16 @@
                     // 1. Store the token
                     localStorage.setItem('token', data.token);
 
-                    // 2. Redirect to dashboard/home
-                    // Change '/home' to whatever route you want the user to go to after login
-                    window.location.href = '/dashboard'; 
+                    // 2. Check the user's role and redirect accordingly
+                    const roles = data.user.roles || [];
+
+                    if (roles.includes('treasurer')) {
+                        window.location.href = '/treasurer-dashboard'; // Redirect to the new treasurer route
+                    } else if (roles.includes('superadmin')) {
+                        window.location.href = '/dashboard'; // Existing superadmin route
+                    } else {
+                        window.location.href = '/home'; // Fallback for normal users
+                    }
                 } else {
                     // Show error message
                     errorDiv.textContent = data.message || 'Login failed. Check credentials.';
