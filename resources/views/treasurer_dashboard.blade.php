@@ -165,7 +165,8 @@
             const container = document.getElementById('applicants-list');
 
             try {
-                const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants', {
+                // UPDATED: Using the exact endpoint for approved applicants
+                const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -177,8 +178,8 @@
                 const data = await response.json();
 
                 if (response.ok && data.data) {
-                    const approvedApplicants = data.data.filter(app => app.status && app.status.toLowerCase() === 'approved');
-                    renderApplicants(approvedApplicants);
+                    // No more frontend filtering needed! The API did the work.
+                    renderApplicants(data.data);
                 } else {
                     container.innerHTML = '<div class="error-msg">Failed to load applicants.</div>';
                 }
@@ -200,16 +201,8 @@
             applicants.forEach(app => {
                 const safe = (val) => val || 'N/A'; 
                 
+                // Based on your JSON, we only have basic_profile
                 const profile = app.basic_profile || {};
-                const loc = profile.business_location || {};
-                
-                // Check if the backend actually sent these objects
-                const hasReps = app.official_representative || app.alternate_representative;
-                const hasOrgInfo = app.organization_membership;
-
-                const rep = app.official_representative || {};
-                const alt = app.alternate_representative || {};
-                const org = app.organization_membership || {};
 
                 const html = `
                     <div class="applicant-card">
@@ -223,43 +216,11 @@
 
                         <div class="card-body">
                             <div class="info-section">
-                                <h4>Business Profile</h4>
+                                <h4>Business Contact</h4>
                                 <div class="data-row"><strong>Trade Name:</strong> <span>${safe(profile.trade_name)}</span></div>
                                 <div class="data-row"><strong>Email:</strong> <span>${safe(profile.email)}</span></div>
-                                <div class="data-row"><strong>Telephone:</strong> <span>${safe(profile.telephone_no)}</span></div>
-                                <div class="data-row"><strong>Website:</strong> <span>${safe(profile.website)}</span></div>
                                 <div class="data-row"><strong>Date Approved:</strong> <span>${safe(app.date_approved)}</span></div>
                             </div>
-
-                            <div class="info-section">
-                                <h4>Location</h4>
-                                ${loc.city_municipality ? `
-                                    <div class="data-row"><strong>Address:</strong> <span>${safe(loc.business_address)}</span></div>
-                                    <div class="data-row"><strong>City:</strong> <span>${safe(loc.city_municipality)}</span></div>
-                                    <div class="data-row"><strong>Province:</strong> <span>${safe(loc.province)}</span></div>
-                                ` : `<div class="data-row"><span style="color:var(--text-grey); font-style:italic;">Location data restricted</span></div>`}
-                            </div>
-
-                            ${hasReps ? `
-                            <div class="info-section">
-                                <h4>Representatives</h4>
-                                ${app.official_representative ? `
-                                <div class="data-row">
-                                    <strong>Official Rep:</strong> 
-                                    <span>${safe(rep.first_name)} ${safe(rep.surname)} (${safe(rep.designation)})</span>
-                                    <small>${safe(rep.contact_no)}</small>
-                                </div>
-                                ` : ''}
-                            </div>
-                            ` : ''}
-
-                            ${hasOrgInfo ? `
-                            <div class="info-section">
-                                <h4>Organization Info</h4>
-                                <div class="data-row"><strong>Type:</strong> <span>${safe(org.type_of_company)}</span></div>
-                                <div class="data-row"><strong>Reg No:</strong> <span>${safe(org.registration_number)}</span></div>
-                            </div>
-                            ` : ''}
                         </div>
                         
                         <div style="background:rgba(0,0,0,0.2); padding:15px 25px; display: flex; justify-content: flex-end; border-top:1px solid var(--border-color);">
@@ -273,11 +234,12 @@
                 container.insertAdjacentHTML('beforeend', html);
             });
         }
-        
+
         function logout() {
             localStorage.removeItem('token');
             window.location.href = '/login';
         }
     </script>
+    
 </body>
 </html>
