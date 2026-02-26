@@ -319,14 +319,25 @@
                 const org = app.organization_membership || {};
                 const track = app.internal_tracking || {};
 
+                // Determine if already approved
+                const isApproved = app.status && app.status.toLowerCase() === 'approved';
+                
+                // Create dynamic button HTML
+                const approveBtnHtml = isApproved ? 
+                    `<button class="btn btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed; width: auto; padding: 5px 15px; font-size: 0.8rem;">Approved</button>` : 
+                    `<button class="btn btn-primary" style="width: auto; padding: 5px 15px; font-size: 0.8rem; background-color: #28a745;" onclick="openApproveModal(${app.id}, '${app.membership_type || 'Regular'}')">Approve</button>`;
+
                 const html = `
                     <div class="applicant-card">
                         <div class="card-header">
                             <div>
                                 <h3>${safe(profile.registered_business_name)}</h3>
-                                <small style="color:var(--text-grey)">ID: ${app.id} | Type: ${safe(app.membership_type)}</small>
+                                <small style="color:var(--text-grey)">ID: ${app.id} | Type: <span id="type-${app.id}">${safe(app.membership_type)}</span></small>
                             </div>
-                            <span class="status-badge">${safe(app.status)}</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="status-badge" style="${isApproved ? 'background-color: #28a745;' : ''}">${safe(app.status)}</span>
+                                ${approveBtnHtml}
+                            </div>
                         </div>
 
                         <div class="card-body">
@@ -481,7 +492,103 @@
             });
         }
 
+        let currentApproveId = null; // Track which applicant is being approved
+
+        function openApproveModal(id, currentType) {
+            currentApproveId = id;
+            document.getElementById('approveModal').style.display = 'flex';
+            document.getElementById('approveError').style.display = 'none';
+            
+            // Pre-select the dropdown if they already have a membership_type
+            const select = document.getElementById('approveMembershipType');
+            if (currentType && currentType !== 'N/A') {
+                for(let i = 0; i < select.options.length; i++) {
+                    if(select.options[i].value.toLowerCase() === currentType.toLowerCase()) {
+                        select.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        function closeApproveModal() {
+            document.getElementById('approveModal').style.display = 'none';
+            currentApproveId = null;
+        }
+
+        async function submitApprove(e) {
+            e.preventDefault();
+            if (!currentApproveId) return;
+
+            const btn = document.getElementById('approveSubmitBtn');
+            const errorDiv = document.getElementById('approveError');
+            const membershipType = document.getElementById('approveMembershipType').value;
+
+            // UI Loading state
+            btn.disabled = true;
+            btn.innerText = 'Approving...';
+            errorDiv.style.display = 'none';
+
+            try {
+                // Send PUT request to update status and membership type
+                const response = await fetch(`https://pcci-laravel-api.onrender.com/api/v1/applicants/${currentApproveId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        status: 'approved',
+                        membership_type: membershipType
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    closeApproveModal();
+                    
+                    // Refresh the list to reflect the new approved status
+                    fetchApplicants(); 
+                } else {
+                    errorDiv.innerText = data.message || 'Approval failed.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                errorDiv.innerText = 'Network error. Please try again.';
+                errorDiv.style.display = 'block';
+            } finally {
+                // Reset button state
+                btn.disabled = false;
+                btn.innerText = 'Confirm Approval';
+            }
+        }
+
     </script>
 
+    <div id="approveModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Approve Applicant</h3>
+            <p style="color: var(--text-grey); font-size: 0.9rem;">Assign a membership type to finalize the approval.</p>
+            
+            <div id="approveError" class="alert alert-error"></div>
+            
+            <form id="approveForm" onsubmit="submitApprove(event)">
+                <div class="form-group">
+                    <label>Membership Type</label>
+                    <select id="approveMembershipType" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--dark-bg); color: white;">
+                        <option value="Regular">Regular</option>
+                        <option value="Life">Life</option>
+                        <option value="Associate">Associate</option>
+                        <option value="Chapter">Chapter</option>
+                    </select>
+                </div>
+                <button type="submit" id="approveSubmitBtn" class="btn btn-primary" style="background-color: #28a745;">Confirm Approval</button>
+                <button type="button" class="btn btn-secondary" onclick="closeApproveModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
