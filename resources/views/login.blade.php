@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PCCI Valenzuela</title>
+
+    @include('partials.api-config')
     
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -253,7 +255,7 @@
 
             try {
                 // Using the API endpoint provided in your sample
-                const response = await fetch('https://pcci-laravel-api.onrender.com/api/login', {
+                const response = await fetch(`${window.API_BASE_URL}/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })

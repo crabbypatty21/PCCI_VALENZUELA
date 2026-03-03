@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasurer Dashboard - Approved Applicants</title>
+
+    @include('partials.api-config')
     
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -166,7 +168,7 @@
 
             try {
                 // UPDATED: Using the exact endpoint for approved applicants
-                const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', {
+                const response = await fetch(`${window.API_BASE_URL}/v1/applicants?status=approved`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
