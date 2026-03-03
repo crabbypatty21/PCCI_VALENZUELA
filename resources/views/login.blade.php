@@ -257,9 +257,20 @@
                 // Using the API endpoint provided in your sample
                 const response = await fetch(`${window.API_BASE_URL}/login`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json' // IMPORTANT: Tells Laravel to always return JSON, even for errors
+                    },
                     body: JSON.stringify({ email, password })
                 });
+
+                // SAFETY CHECK: Ensure the response is actually JSON before trying to parse it
+                const contentType = response.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    const textResponse = await response.text();
+                    console.error("API returned HTML instead of JSON. Here is the HTML:", textResponse);
+                    throw new Error("Server error: The API returned an invalid format. Check console for details.");
+                }
 
                 const data = await response.json();
 
@@ -273,20 +284,18 @@
                     if (roles.includes('treasurer')) {
                         window.location.href = '/treasurer-dashboard';
                     } else if (roles.includes('superadmin') || roles.includes('admin') || roles.includes('super_admin')) {
-                        // Now it catches both 'admin' and 'superadmin'
                         window.location.href = '/dashboard'; 
                     } else {
-                        // Fix: Changed from '/home' to '/' to match your web.php routes
                         window.location.href = '/'; 
                     }
                 } else {
-                    // Show error message
+                    // Show error message (Now safely parsed as JSON)
                     errorDiv.textContent = data.message || 'Login failed. Check credentials.';
                     errorDiv.style.display = 'block';
                 }
             } catch (err) {
-                console.error(err);
-                errorDiv.textContent = 'An error occurred. Please check your connection.';
+                console.error("Fetch Error:", err);
+                errorDiv.textContent = err.message || 'An error occurred. Please check your connection.';
                 errorDiv.style.display = 'block';
             } finally {
                 submitBtn.disabled = false;
