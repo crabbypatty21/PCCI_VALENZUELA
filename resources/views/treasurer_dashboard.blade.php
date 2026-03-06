@@ -191,6 +191,44 @@
             }
         }
 
+        async function processPayment(applicantId, membershipTypeId) {
+            // Optional: Add a simple confirmation dialog
+            if (!confirm('Are you sure you want to process the payment for this applicant?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/v1/payments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        applicant_id: applicantId,
+                        membership_type_id: membershipTypeId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.data) {
+                    // Success alert showing the OR Number and Amount from your API response
+                    alert(`Payment processed successfully!\n\nOR Number: ${data.data.or_number}\nAmount: ₱${data.data.amount}\nReceived By: ${data.data.received_by.name}`);
+                    
+                    // Refresh the list to remove the newly paid applicant
+                    fetchApplicants();
+                } else {
+                    // Handle validation errors or server errors
+                    alert(`Failed to process payment: ${data.message || 'Please check your inputs and try again.'}`);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('A network error occurred. Please make sure the API server is running.');
+            }
+        }
+
         function renderApplicants(applicants) {
             const container = document.getElementById('applicants-list');
             container.innerHTML = '';
@@ -202,9 +240,11 @@
 
             applicants.forEach(app => {
                 const safe = (val) => val || 'N/A'; 
-                
-                // Based on your JSON, we only have basic_profile
                 const profile = app.basic_profile || {};
+                
+                // Ensure your API returns 'membership_type_id' in the applicant object. 
+                // If it doesn't, you may need to map it or update your GET /applicants endpoint.
+                const memTypeId = app.membership_type_id || 1; 
 
                 const html = `
                     <div class="applicant-card">
@@ -226,8 +266,8 @@
                         </div>
                         
                         <div style="background:rgba(0,0,0,0.2); padding:15px 25px; display: flex; justify-content: flex-end; border-top:1px solid var(--border-color);">
-                            <button class="btn" style="background: #e2e8f0; color: #1a202c; padding: 8px 15px; border-radius: 6px; border: none; font-weight: bold; cursor: not-allowed; opacity: 0.6;">
-                                Payment Processing (Coming Soon)
+                            <button onclick="processPayment(${app.id}, ${memTypeId})" class="btn" style="background: #28a745; color: white; padding: 8px 15px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                                Process Payment
                             </button>
                         </div>
                     </div>
