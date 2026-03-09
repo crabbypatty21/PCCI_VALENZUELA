@@ -3,6 +3,9 @@
 @section('title', 'Events - PCCI Admin')
 
 @section('content')
+
+@include('partials.api-config')
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -154,7 +157,6 @@
   .ev-card:nth-child(5) { animation-delay: .20s; }
   .ev-card:nth-child(6) { animation-delay: .24s; }
 
-  /* Card image — shows real img if src provided, else gradient placeholder */
   .ev-card-img {
     width: 100%; height: 172px;
     object-fit: cover;
@@ -180,7 +182,6 @@
 
   .ev-card-body { padding: 14px 15px 10px; flex: 1; display: flex; flex-direction: column; }
 
-  /* Tag + Status row */
   .ev-card-meta {
     display: flex; align-items: center;
     justify-content: space-between;
@@ -297,7 +298,6 @@
   .ev-modal::-webkit-scrollbar { width: 4px; }
   .ev-modal::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
-  /* Modal Header — white with icon + title */
   .ev-modal-header {
     background: var(--white);
     padding: 22px 24px 16px;
@@ -336,7 +336,6 @@
 
   .ev-modal-body { padding: 20px 24px 4px; }
 
-  /* Form fields — crimson-bordered style from screenshot */
   .ev-form-group { margin-bottom: 14px; }
   .ev-form-group label {
     display: block; margin-bottom: 5px;
@@ -345,7 +344,6 @@
     text-transform: uppercase; letter-spacing: 1.2px; color: #555;
   }
 
-  /* Input with icon prefix */
   .ev-input-wrap {
     display: flex; align-items: center;
     border: 1.5px solid var(--red);
@@ -379,7 +377,6 @@
   .ev-input-wrap textarea::placeholder { color: #bbb; font-weight: 600; }
   .ev-input-wrap textarea { resize: vertical; min-height: 100px; padding-top: 11px; }
 
-  /* Plain bordered inputs (date/time/location) */
   .ev-form-group input.ev-plain,
   .ev-form-group select.ev-plain,
   .ev-form-group textarea.ev-plain {
@@ -396,7 +393,6 @@
   .ev-form-group input.ev-plain:focus,
   .ev-form-group select.ev-plain:focus { box-shadow: 0 0 0 3px rgba(155,27,42,.1); }
 
-  /* Upload photo field */
   .ev-upload-label-text {
     font-family: 'Poppins', sans-serif;
     font-size: 10px; font-weight: 800;
@@ -519,10 +515,7 @@
     transition: background .2s;
   }
   .ev-btn-confirm:hover { background: var(--red-dark); }
-
-  /* Upload widget — kept for JS compat */
-  .ev-upload-wrap { display: none; }
-  .ev-upload-inner { display: none; }
+  .ev-btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* Empty state */
   .ev-empty {
@@ -561,13 +554,11 @@
   {{-- CARDS --}}
   <div class="ev-body">
     <div class="ev-grid" id="evGrid">
-      {{-- Populated by JS below; swap for Blade @foreach when using real data --}}
+      <div class="ev-empty"><i class="fa-solid fa-circle-notch fa-spin"></i><p>Loading events...</p></div>
     </div>
   </div>
 
-</div><!-- /ev-page -->
-
-{{-- ADD / EDIT MODAL --}}
+</div>{{-- ADD / EDIT MODAL --}}
 <div class="ev-modal-overlay" id="evModal" onclick="evHandleOverlay(event)">
   <div class="ev-modal">
 
@@ -614,17 +605,17 @@
             <i class="fa-solid fa-chevron-down ev-cat-chevron"></i>
           </div>
           <div class="ev-cat-dropdown" id="evCatDropdown">
-            <div class="ev-cat-option" onclick="evSelectCat('General')">General</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Special Holiday')">Special Holiday</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Business')">Business</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Networking')">Networking</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Workshop')">Workshop</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Summit')">Summit</div>
+            <div class="ev-cat-option" onclick="evSelectCat('General', 1)">General</div>
+            <div class="ev-cat-option" onclick="evSelectCat('Special Holiday', 2)">Special Holiday</div>
+            <div class="ev-cat-option" onclick="evSelectCat('Business', 3)">Business</div>
+            <div class="ev-cat-option" onclick="evSelectCat('Networking', 4)">Networking</div>
+            <div class="ev-cat-option" onclick="evSelectCat('Workshop', 5)">Workshop</div>
+            <div class="ev-cat-option" onclick="evSelectCat('Summit', 6)">Summit</div>
             <div class="ev-cat-option add-cat" onclick="evAddCategory()">
               <i class="fa-solid fa-plus"></i> Add Category
             </div>
           </div>
-          <input type="hidden" id="evFCategory" value="">
+          <input type="hidden" id="evFCategoryId" value="">
         </div>
       </div>
 
@@ -664,10 +655,10 @@
         <div class="ev-input-wrap" style="padding:0;">
           <select id="evFStatus" style="width:100%;border:none;padding:11px 36px 11px 13px;background:transparent;font-size:12px;letter-spacing:.8px;text-transform:uppercase;font-family:'Poppins',sans-serif;font-weight:600;color:#bbb;appearance:none;cursor:pointer;outline:none;" onchange="this.style.color=this.value?'var(--text)':'#bbb'">
             <option value="" disabled selected>Status</option>
-            <option value="Upcoming">Upcoming</option>
-            <option value="Ongoing">Ongoing</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </div>
         <i class="fa-solid fa-chevron-down" style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--red);font-size:12px;pointer-events:none;"></i>
@@ -677,7 +668,7 @@
 
     <div class="ev-modal-footer">
       <button class="ev-btn-clear" onclick="evClearForm()">Clear Form</button>
-      <button class="ev-btn-confirm" onclick="evSave()">Confirm</button>
+      <button class="ev-btn-confirm" id="saveBtn" onclick="evSave()">Confirm</button>
     </div>
 
   </div>
@@ -774,27 +765,47 @@
   </div>
 </div>
 
-@php
-$eventsData = isset($events) && count($events)
-    ? $events
-    : [
-        ['id'=>1,'color'=>'c1','icon'=>'','category'=>'General','status'=>'Completed','title'=>'A Purposeful Message to Business Owners','date'=>'Tuesday, December 9, 2025','time'=>'9:00 AM','location'=>'Valenzuela City','image'=>null,'desc'=>'A PURPOSEFUL MESSAGE TO BUSINESS OWNERS, from outgoing president, Jundio Salvador: "The past four years of being entrusted with the privilege to serve......'],
-        ['id'=>2,'color'=>'c2','icon'=>'','category'=>'Networking','status'=>'Upcoming','title'=>'PCCI Annual Business Networking Night','date'=>'Friday, March 7, 2026','time'=>'6:00 PM','location'=>'Makati City','image'=>null,'desc'=>'Join us for an evening of meaningful connections, cocktails, and keynote talks from industry leaders across multiple sectors.'],
-        ['id'=>3,'color'=>'c5','icon'=>'','category'=>'Workshop','status'=>'Upcoming','title'=>'Digital Transformation Workshop for SMEs','date'=>'Wednesday, March 18, 2026','time'=>'8:00 AM','location'=>'BGC, Taguig','image'=>null,'desc'=>'A full-day hands-on workshop covering e-commerce, digital marketing strategies, and business automation tools for small and medium enterprises.'],
-        ['id'=>4,'color'=>'c3','icon'=>'','category'=>'Summit','status'=>'Completed','title'=>'Philippine Business Summit 2025','date'=>'Monday, November 17, 2025','time'=>'8:30 AM','location'=>'Manila Hotel','image'=>null,'desc'=>'The country\'s premier business gathering brought together 500+ delegates to discuss national economic growth, trade policy, and investment opportunities.'],
-        ['id'=>5,'color'=>'c4','icon'=>'','category'=>'General','status'=>'Completed','title'=>'Entrepreneurship Masterclass Series','date'=>'Saturday, October 25, 2025','time'=>'10:00 AM','location'=>'Quezon City','image'=>null,'desc'=>'A series of talks led by successful Filipino entrepreneurs sharing their journeys, challenges, and strategies for sustainable growth.'],
-        ['id'=>6,'color'=>'c6','icon'=>'','category'=>'Business','status'=>'Ongoing','title'=>'Trade Policy Consultation Round Table','date'=>'Thursday, February 26, 2026','time'=>'2:00 PM','location'=>'Pasig City','image'=>null,'desc'=>'An open consultation with government stakeholders and private sector leaders on proposed amendments to trade and tariff regulations.'],
-      ];
-@endphp
-
 <script>
-let evEvents = @json($eventsData);
+// Authentication check
+const token = localStorage.getItem('token');
+if (!token) window.location.href = '/login';
 
-let evNextId = evEvents.length ? Math.max(...evEvents.map(e=>e.id)) + 1 : 1;
+let evEvents = [];
 let evFilterActive = false;
 let evCurrentSearch = '';
 const evColors = ['c1','c2','c3','c4','c5','c6'];
-const evIcons  = ['🏛️','🤝','📊','🌐','🎓','⚖️','🎤','📋'];
+
+document.addEventListener('DOMContentLoaded', fetchEvents);
+
+/* ─── API FETCH EVENTS ─── */
+async function fetchEvents() {
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/events`, {
+            headers: { 
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        const data = await response.json();
+        if (response.ok) {
+            // Check if your Laravel wrapper uses 'data'
+            evEvents = data.data ? data.data : data; 
+            evVisible();
+        } else {
+            document.getElementById('evGrid').innerHTML = `<div class="ev-empty"><p style="color:red;">Failed to load events: ${data.message}</p></div>`;
+        }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('evGrid').innerHTML = `<div class="ev-empty"><p style="color:red;">Network error fetching events.</p></div>`;
+    }
+}
 
 /* ─── RENDER ─── */
 function evRender(list) {
@@ -803,14 +814,17 @@ function evRender(list) {
     grid.innerHTML = `<div class="ev-empty"><i class="fa-regular fa-calendar-xmark"></i><p>No events found.</p></div>`;
     return;
   }
+
+  // NOTE: If your backend returns property names differently (like 'event_title' instead of 'title'), 
+  // you must change ev.title to ev.event_title below.
   grid.innerHTML = list.map((ev, i) => {
-    // Support: full URL, data URL, or Laravel storage relative path
+    // Determine image URL
     const imgSrc = ev.image
       ? (ev.image.startsWith('http') || ev.image.startsWith('data:') ? ev.image : '/storage/' + ev.image)
       : null;
 
     const imgHtml = imgSrc
-      ? `<img class="ev-card-img" src="${imgSrc}" alt="${ev.title}"
+      ? `<img class="ev-card-img" src="${imgSrc}" alt="${ev.title || 'Event'}"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
          <div class="ev-card-img-placeholder ${ev.color||'c1'}" style="display:none">
            <span class="ph-icon">📅</span>
@@ -819,25 +833,34 @@ function evRender(list) {
            <span class="ph-icon">📅</span>
          </div>`;
 
+    // Handle missing data fallbacks
+    const safeTitle = ev.title || 'Untitled Event';
+    const safeCat = ev.category || 'General';
+    const safeStatus = ev.status || 'Upcoming';
+    const safeDate = ev.date || 'TBA';
+    const safeTime = ev.time || 'TBA';
+    const safeLoc = ev.location || 'TBA';
+    const safeDesc = ev.description || ev.desc || 'No description provided.';
+
     return `
     <div class="ev-card" id="evCard-${ev.id}" style="animation-delay:${i*0.05}s">
       ${imgHtml}
       <div class="ev-card-body">
         <div class="ev-card-meta">
-          <span class="ev-tag">${ev.category}</span>
-          <span class="ev-status ${ev.status.toLowerCase()}">${ev.status}</span>
+          <span class="ev-tag">${safeCat}</span>
+          <span class="ev-status ${safeStatus.toLowerCase()}">${safeStatus}</span>
         </div>
-        <div class="ev-card-title">${ev.title}</div>
+        <div class="ev-card-title">${safeTitle}</div>
         <div class="ev-card-details">
-          <div class="ev-detail-row"><i class="fa-regular fa-calendar"></i><span>${ev.date}</span></div>
-          <div class="ev-detail-row"><i class="fa-regular fa-clock"></i><span>${ev.time}</span></div>
-          <div class="ev-detail-row"><i class="fa-solid fa-location-dot"></i><span>${ev.location}</span></div>
+          <div class="ev-detail-row"><i class="fa-regular fa-calendar"></i><span>${safeDate}</span></div>
+          <div class="ev-detail-row"><i class="fa-regular fa-clock"></i><span>${safeTime}</span></div>
+          <div class="ev-detail-row"><i class="fa-solid fa-location-dot"></i><span>${safeLoc}</span></div>
         </div>
-        <div class="ev-card-desc">${ev.desc}</div>
+        <div class="ev-card-desc">${safeDesc}</div>
       </div>
       <div class="ev-card-actions">
         <button class="ev-btn ev-btn-view" onclick="evView(${ev.id})">
-          <i class="fa-regular fa-eye"></i> View Event
+          <i class="fa-regular fa-eye"></i> View
         </button>
         <button class="ev-btn ev-btn-edit" onclick="evEdit(${ev.id})">
           <i class="fa-regular fa-pen-to-square"></i> Edit
@@ -854,16 +877,14 @@ function evVisible() {
   if (evCurrentSearch) {
     const q = evCurrentSearch.toLowerCase();
     list = list.filter(e =>
-      e.title.toLowerCase().includes(q) ||
-      e.category.toLowerCase().includes(q) ||
-      e.location.toLowerCase().includes(q) ||
-      e.status.toLowerCase().includes(q)
+      (e.title || '').toLowerCase().includes(q) ||
+      (e.category || '').toLowerCase().includes(q) ||
+      (e.location || '').toLowerCase().includes(q) ||
+      (e.status || '').toLowerCase().includes(q)
     );
   }
   evRender(list);
 }
-
-evVisible();
 
 /* ─── FILTER / SEARCH ─── */
 function evFilter(val) { evCurrentSearch = val; evVisible(); }
@@ -882,9 +903,9 @@ function evOpenModal(prefill) {
   if (prefill) {
     document.getElementById('evFTitle').value    = prefill.title || '';
     document.getElementById('evFLocation').value = prefill.location || '';
-    document.getElementById('evFDesc').value     = prefill.desc || '';
-    document.getElementById('evFDate').value     = prefill._rawDate || '';
-    document.getElementById('evFTime').value     = prefill._rawTime || '';
+    document.getElementById('evFDesc').value     = prefill.description || prefill.desc || '';
+    document.getElementById('evFDate').value     = prefill.date || ''; // Assuming backend holds YYYY-MM-DD
+    document.getElementById('evFTime').value     = prefill.time || ''; // Assuming backend holds HH:mm:ss
     document.getElementById('evFImgExisting').value = prefill.image || '';
 
     if (prefill.category) evSelectCat(prefill.category);
@@ -903,6 +924,7 @@ function evOpenModal(prefill) {
   }
   document.getElementById('evModal').classList.add('open');
 }
+
 function evPreviewImg(input) {
   const file = input.files[0];
   const thumb = document.getElementById('evImgThumb');
@@ -920,33 +942,26 @@ function evToggleCat() {
   document.getElementById('evCatTrigger').classList.toggle('open');
   document.getElementById('evCatDropdown').classList.toggle('open');
 }
-function evSelectCat(val) {
-  document.getElementById('evFCategory').value = val;
+function evSelectCat(name, id) {
+  document.getElementById('evFCategoryId').value = id; // Store the ID
   const disp = document.getElementById('evCatDisplay');
-  disp.textContent = val;
+  disp.textContent = name;
   disp.classList.add('selected');
   document.getElementById('evCatTrigger').classList.remove('open');
   document.getElementById('evCatDropdown').classList.remove('open');
 }
 function evAddCategory() {
-  // Close the category dropdown first
   document.getElementById('evCatTrigger').classList.remove('open');
   document.getElementById('evCatDropdown').classList.remove('open');
-  // Clear input and open the Add Category modal
   document.getElementById('evNewCatInput').value = '';
   document.getElementById('evCatModal').classList.add('open');
   setTimeout(() => document.getElementById('evNewCatInput').focus(), 100);
 }
-function evCloseCatModal() {
-  document.getElementById('evCatModal').classList.remove('open');
-}
-function evHandleCatOverlay(e) {
-  if (e.target === document.getElementById('evCatModal')) evCloseCatModal();
-}
+function evCloseCatModal() { document.getElementById('evCatModal').classList.remove('open'); }
+function evHandleCatOverlay(e) { if (e.target === document.getElementById('evCatModal')) evCloseCatModal(); }
 function evConfirmCategory() {
   const name = document.getElementById('evNewCatInput').value.trim();
   if (!name) { document.getElementById('evNewCatInput').focus(); return; }
-  // Add to dropdown list
   const dropdown = document.getElementById('evCatDropdown');
   const addBtn = dropdown.querySelector('.add-cat');
   const opt = document.createElement('div');
@@ -954,11 +969,9 @@ function evConfirmCategory() {
   opt.textContent = name;
   opt.onclick = () => evSelectCat(name);
   dropdown.insertBefore(opt, addBtn);
-  // Select the new category and close
   evSelectCat(name);
   evCloseCatModal();
 }
-// Close dropdown on outside click
 document.addEventListener('click', e => {
   if (!document.getElementById('evCatWrap')?.contains(e.target)) {
     document.getElementById('evCatTrigger')?.classList.remove('open');
@@ -968,7 +981,12 @@ document.addEventListener('click', e => {
 
 function evClearForm() {
   document.getElementById('evFTitle').value = '';
-  document.getElementById('evFCategory').value = '';
+  
+  // UPDATE THIS LINE: change 'evFCategory' to 'evFCategoryId'
+  if(document.getElementById('evFCategoryId')) {
+      document.getElementById('evFCategoryId').value = '';
+  }
+  
   document.getElementById('evCatDisplay').textContent = 'Category';
   document.getElementById('evCatDisplay').classList.remove('selected');
   document.getElementById('evFDate').value = '';
@@ -987,66 +1005,93 @@ function evClearForm() {
 function evCloseModal() { document.getElementById('evModal').classList.remove('open'); }
 function evHandleOverlay(e) { if (e.target === document.getElementById('evModal')) evCloseModal(); }
 
-function evSave() {
-  const title    = document.getElementById('evFTitle').value.trim();
-  const category = document.getElementById('evFCategory').value || 'General';
-  const status   = document.getElementById('evFStatus').value;
-  const rawDate  = document.getElementById('evFDate').value;
-  const rawTime  = document.getElementById('evFTime').value;
-  const location = document.getElementById('evFLocation').value.trim();
-  const desc     = document.getElementById('evFDesc').value.trim();
-  const editId   = document.getElementById('evEditId').value;
-  const existing = document.getElementById('evFImgExisting').value || null;
+/* ─── API SAVE EVENT ─── */
+async function evSave() {
+    const title    = document.getElementById('evFTitle').value.trim();
+    //const category = document.getElementById('evFCategory').value || 'General';
+    const categoryId = document.getElementById('evFCategoryId').value;
+    const status   = document.getElementById('evFStatus').value;
+    const date     = document.getElementById('evFDate').value;
+    const time     = document.getElementById('evFTime').value;
+    const location = document.getElementById('evFLocation').value.trim();
+    const desc     = document.getElementById('evFDesc').value.trim();
+    const editId   = document.getElementById('evEditId').value;
+    
+    const fileInput = document.getElementById('evFImg');
 
-  // Use preview thumb src if a new file was selected, else keep existing
-  const thumb = document.getElementById('evImgThumb');
-  const image = (thumb.style.display !== 'none' && thumb.src && !thumb.src.endsWith(window.location.href))
-    ? thumb.src   // data URL for local preview (backend should handle real upload)
-    : existing;
+    if (!title || !location) { alert('Please fill in the title and location.'); return; }
 
-  if (!title || !location) { alert('Please fill in the title and location.'); return; }
+    const saveBtn = document.getElementById('saveBtn');
+    saveBtn.disabled = true;
+    saveBtn.innerText = 'Saving...';
 
-  const fmtDate = rawDate ? new Date(rawDate + 'T00:00').toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : '—';
-  const fmtTime = rawTime ? (() => { const [h,m]=rawTime.split(':'); const d=new Date(); d.setHours(+h,+m); return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); })() : '—';
+    // Since we are uploading images, we must use FormData
+    let formData = new FormData();
+    formData.append('title', title);
+    formData.append('category_id', categoryId);
+    if(status) formData.append('status', status);
+    if(date) formData.append('date', date);
+    if(time) formData.append('time', time);
+    formData.append('location', location);
+    formData.append('description', desc); // Send as 'description' standard to laravel
 
-  if (editId) {
-    const idx = evEvents.findIndex(e => e.id == editId);
-    if (idx !== -1) Object.assign(evEvents[idx], { title, category, status, date: fmtDate, time: fmtTime, location, desc, image, _rawDate: rawDate, _rawTime: rawTime });
-  } else {
-    evEvents.unshift({
-      id: evNextId++,
-      color: evColors[Math.floor(Math.random()*evColors.length)],
-      icon: evIcons[Math.floor(Math.random()*evIcons.length)],
-      title, category, status, date: fmtDate, time: fmtTime, location, desc, image,
-      _rawDate: rawDate, _rawTime: rawTime
-    });
-  }
-  evCloseModal();
-  evVisible();
+    // Append file if selected
+    if (fileInput.files.length > 0) {
+        formData.append('image', fileInput.files[0]);
+    }
+
+    // Identify the endpoint
+    // If editId exists, we append to the single event endpoint
+    const url = editId ? `${window.API_BASE_URL}/v1/events/${editId}` : `${window.API_BASE_URL}/v1/events`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // POST for both create and update when sending multipart/form-data
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+                // NOTE: Do NOT set 'Content-Type': 'multipart/form-data'. 
+                // The browser automatically sets it with the correct boundary when using FormData.
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok || response.status === 201) {
+            evCloseModal();
+            fetchEvents(); // Reload the UI with fresh data from DB
+        } else {
+            alert('Failed to save event: ' + (data.message || 'Validation Error'));
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Network error. Failed to save.');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerText = 'Confirm';
+    }
 }
 
+/* ─── VIEW MODAL ─── */
 function evView(id) {
   const ev = evEvents.find(e => e.id === id);
   if (!ev) return;
 
-  // Populate title & tag
-  document.getElementById('evViewTitle').textContent = ev.title;
-  document.getElementById('evViewTag').textContent   = ev.category;
+  document.getElementById('evViewTitle').textContent = ev.title || 'Untitled';
+  document.getElementById('evViewTag').textContent   = ev.category || 'General';
 
-  // Date / time / location
-  document.getElementById('evViewDate').textContent     = ev.date;
-  document.getElementById('evViewTime').textContent     = ev.time;
-  document.getElementById('evViewLocation').textContent = ev.location;
+  document.getElementById('evViewDate').textContent     = ev.date || 'TBA';
+  document.getElementById('evViewTime').textContent     = ev.time || 'TBA';
+  document.getElementById('evViewLocation').textContent = ev.location || 'TBA';
 
-  // Status
   const statusEl = document.getElementById('evViewStatus');
-  statusEl.textContent  = ev.status;
-  statusEl.className    = 'ev-status ' + ev.status.toLowerCase();
+  const stat = ev.status || 'Upcoming';
+  statusEl.textContent  = stat;
+  statusEl.className    = 'ev-status ' + stat.toLowerCase();
 
-  // Description
-  document.getElementById('evViewDesc').textContent = ev.desc;
+  document.getElementById('evViewDesc').textContent = ev.description || ev.desc || 'No description provided.';
 
-  // Image
   const img  = document.getElementById('evViewImg');
   const ph   = document.getElementById('evViewImgPlaceholder');
   ph.className = 'ev-card-img-placeholder ' + (ev.color || 'c1');
@@ -1061,9 +1106,7 @@ function evView(id) {
     ph.style.display  = 'flex';
   }
 
-  // Wire Edit button
   document.getElementById('evViewEditBtn').onclick = () => { evCloseViewModal(); evEdit(id); };
-
   document.getElementById('evViewModal').classList.add('open');
 }
 function evCloseViewModal() { document.getElementById('evViewModal').classList.remove('open'); }
