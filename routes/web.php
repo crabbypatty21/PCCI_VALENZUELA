@@ -43,9 +43,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+//treasurer dashboard route
 Route::get('/treasurer-dashboard', function () {
     return view('treasurer_dashboard');
 })->name('treasurer.dashboard');
+
+// member dashboard route
+Route::get('/member-dashboard', function () {
+    return view('member_dashboard');
+})->name('member.dashboard');
 
 // --- FRONTEND UI ROUTES FROM TEAM BRANCH ---
 

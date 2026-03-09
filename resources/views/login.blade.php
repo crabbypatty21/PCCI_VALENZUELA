@@ -275,8 +275,9 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // 1. Store the token
+                    // 1. Store the token AND the user's name
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem('userName', data.user.name); // ADDED THIS LINE
 
                     // 2. Check the user's role and redirect accordingly
                     const roles = data.user.roles || [];
@@ -285,6 +286,9 @@
                         window.location.href = '/treasurer-dashboard';
                     } else if (roles.includes('superadmin') || roles.includes('admin') || roles.includes('super_admin')) {
                         window.location.href = '/dashboard'; 
+                    } else if (roles.includes('member')) {
+                        // Redirect member to the new test dashboard
+                        window.location.href = '/member-dashboard'; 
                     } else {
                         window.location.href = '/'; 
                     }
