@@ -1449,7 +1449,7 @@
     <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1920&q=80');"></div>
     <div class="hero-content">
         <p class="hero-subtitle">Philippine Chamber of Commerce and Industry</p>
-        <h1 class="hero-title">PCCI – Valenzuela</h1>
+        <h1 class="hero-title">PCCI – Valenzuela PAUL</h1>
         <p class="hero-description">
             Empowering local businesses and fostering economic growth in Valenzuela City through collaboration, networking, and advocacy. Join our vibrant community of entrepreneurs and business leaders.
         </p>
@@ -1548,7 +1548,7 @@
 <section class="visionaries-section">
     <div class="container-fluid px-0 position-relative">
         <div class="text-center mb-5">
-            <p class="visionaries-label">PCCI – VALENZUELA</p>
+            <p class="visionaries-label">PCCI – VALENZUELA PAUL</p>
             <h2 class="visionaries-title">Meet the <span class="highlight-red">Visionaries</span> Behind Our <span class="highlight-blue">Success</span></h2>
         </div>
         <button class="visionaries-nav prev" id="visionaries-prev" aria-label="Previous slide" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10;">
@@ -1693,7 +1693,7 @@
 <section class="events-section">
     <div class="container">
         <div class="text-center mb-5">
-            <p class="section-label">PCCI – VALENZUELA</p>
+            <p class="section-label">PCCI – VALENZUELA PAUL</p>
             <h2 class="section-title">Join Our Business <span>Community</span></h2>
             <p class="section-description">Participate in our upcoming events designed to foster networking, learning, and business growth</p>
         </div>
