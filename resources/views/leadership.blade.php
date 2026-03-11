@@ -154,46 +154,106 @@
 </div>
 
 {{-- Executive Officers Section --}}
-<div class="py-5 bg-adaptive-alt">
+<div class="py-5 bg-adaptive">
     <div class="container py-4">
         {{-- Section Header --}}
         <div class="text-center mb-5">
             <span class="text-danger fw-bold mb-2 d-block text-uppercase" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.1em; font-size: 0.9rem;">
-                Executive Committee
+                Board of Trustees
             </span>
             <h2 class="fw-bold mb-3 text-adaptive" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem);">
-                Meet Our Officers
+                Meet Our Trustees
             </h2>
-            <p class="text-muted-adaptive mx-auto" style="font-family: 'DM Sans', sans-serif; max-width: 700px; font-size: 1.05rem;">
-                The driving force behind our strategic initiatives and daily operations.
-            </p>
         </div>
 
-      {{-- Officers Grid --}}
-        <div class="row g-4">
-            @foreach([
-                ['name' => 'Maria Santos', 'role' => 'VP for Internal Affairs', 'img' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800'],
-                ['name' => 'Robert Tan', 'role' => 'VP for External Affairs', 'img' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800'],
-                ['name' => 'Elena Cruz', 'role' => 'Corporate Secretary', 'img' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800'],
-                ['name' => 'David Lim', 'role' => 'Treasurer', 'img' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800'],
-            ] as $officer)
-            <div class="col-md-6 col-lg-3">
-                <div class="officer-card">
-                    {{-- Officer Image --}}
-                    <img src="{{ $officer['img'] }}" 
-                         alt="{{ $officer['name'] }}" 
-                         style="height: 400px;">
-                    
-                    {{-- Gradient Overlay --}}
-                    <div class="officer-overlay">
-                        <h5 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif;">{{ $officer['name'] }}</h5>
-                        <p class="mb-0 small text-uppercase" style="opacity: 0.9; letter-spacing: 0.05em; font-size: 0.75rem; font-family: 'DM Sans', sans-serif;">
-                            {{ $officer['role'] }}
-                        </p>
-                    </div>
-                </div>
+        {{-- Empty container where JS will inject the cards --}}
+        <div id="trustees-list" class="row g-4">
+            <div class="col-12 text-center text-muted">
+                <p>Loading trustees...</p>
             </div>
-            @endforeach
+        </div>
+        
+    </div>
+</div>
+
+{{-- JavaScript to fetch and render Trustees dynamically --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Call the function as soon as the page loads
+    fetchTrustees();
+
+    async function fetchTrustees() {
+        const token = localStorage.getItem('token'); 
+        const container = document.getElementById('trustees-list');
+
+        try {
+            // Setup Headers - include token if it exists
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
+            // Fetch from the API endpoint
+            const response = await fetch('http://192.168.55.184:8000/api/v1/trustees', {
+                method: 'GET',
+                headers: headers
+            });
+
+            if (!response.ok) {
+                console.error("Failed to fetch trustees");
+                container.innerHTML = `<div class="col-12 text-center text-danger"><p>Failed to load trustees.</p></div>`;
+                return;
+            }
+
+            const data = await response.json();
+            
+            // Clear the "Loading..." text
+            container.innerHTML = "";
+
+            // Loop through the API data and create the HTML cards
+            data.data.forEach(trustee => {
+                // Safely handle text just in case any fields are empty in the database
+                const firstName = trustee.firstname || '';
+                const middleName = trustee.middlename ? ` ${trustee.middlename} ` : ' ';
+                const lastName = trustee.lastname || '';
+                const position = trustee.position ? trustee.position.position : 'Trustee';
+                const imageUrl = trustee.image_url || 'https://via.placeholder.com/400';
+
+                // Create the column div
+                const card = document.createElement('div');
+                card.className = "col-md-6 col-lg-3";
+
+                // Inject the exact HTML structure for your officer-card
+                card.innerHTML = `
+                    <div class="officer-card">
+                        <img src="${imageUrl}" 
+                             alt="${firstName} ${lastName}" 
+                             style="height: 400px; width: 100%; object-fit: cover;">
+                        
+                        <div class="officer-overlay">
+                            <h5 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; text-transform: capitalize;">
+                                ${firstName}${middleName}${lastName}
+                            </h5>
+                            <p class="mb-0 small text-uppercase" style="opacity: 0.9; letter-spacing: 0.05em; font-size: 0.75rem; font-family: 'DM Sans', sans-serif;">
+                                ${position}
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                // Append the completed card to the grid
+                container.appendChild(card);
+            });
+
+        } catch (err) {
+            console.error("Error loading trustees:", err);
+            container.innerHTML = `<div class="col-12 text-center text-danger"><p>Error connecting to the server.</p></div>`;
+        }
+    }
+});
+</script>
+            
         </div>
     </div>
 </div>
