@@ -3,19 +3,19 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home'); // or whatever your homepage view is
+    return view('landing.home'); // or whatever your homepage view is
 })->name('home');
 
 Route::get('/membership', function () {
-    return view('membership');
+    return view('landing.membership');
 })->name('membership');
 
 Route::get('/about', function () {
-    return view('about');
+    return view('landing.about');
 })->name('about');  // <--- This 'name' part is crucial!
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('landing.contact');
 })->name('contact');
 
 Route::get('/business/{id}', function ($id) {
@@ -24,43 +24,43 @@ Route::get('/business/{id}', function ($id) {
 
 
 Route::get('/leadership', function () {
-    return view('leadership');
+    return view('landing.leadership');
 })->name('leadership');
 
 Route::get('/event', function () {
-    return view('event');
+    return view('landing.event');
 })->name('event');
 
 Route::get('/signup', function () {
-    return view('signup'); 
+    return view('auth.signup'); 
 })->name('signup');
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 })->name('login');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->name('dashboard');
 
 //treasurer dashboard route
 Route::get('/treasurer-dashboard', function () {
-    return view('treasurer_dashboard');
+    return view('treasurer.dashboard');
 })->name('treasurer.dashboard');
 
 // member dashboard route
 Route::get('/member-dashboard', function () {
-    return view('member_dashboard');
+    return view('member.dashboard');
 })->name('member.dashboard');
 
 // --- FRONTEND UI ROUTES FROM TEAM BRANCH ---
 
 Route::get('/members', function () {
-    return view('members');
+    return view('admin.members');
 })->name('members');
 
 Route::get('/applicants', function () {
-    return view('applicants');
+    return view('admin.applicants');
 })->name('applicants');
 
 // The detailed Applicant Profile page
@@ -78,15 +78,15 @@ Route::get('/applicant/{id}', function ($id) {
 })->name('applicant.profile');
 
 Route::get('/content/board-of-trustees', function () {
-    return view('board-of-trustees');
+    return view('landing.board-of-trustees');
 })->name('content.trustees');
 
 Route::get('/content/activities', function () {
-    return view('activities');
+    return view('landing.activities');
 })->name('content.activities');
 
 Route::get('/content/event-admin', function () {
-    return view('event-admin');
+    return view('admin.events');
 })->name('content.event-admin');
 
 Route::post('/logout', function () {
