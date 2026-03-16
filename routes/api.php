@@ -2,26 +2,26 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\Api\LeadershipController; 
+use App\Http\Controllers\Api\MemberController; // <-- ADD THIS FOR MEMBERS!
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group.
-|
 */
 
-// Example of how your Event routes should look in this file:
 Route::prefix('v1')->group(function () {
-    // GET /api/v1/events
+    
+    // Leadership Route
+    Route::get('/leadership', [LeadershipController::class, 'index']); 
+
+    // --> NEW MEMBERS ROUTE <--
+    Route::get('/members', [MemberController::class, 'index']); 
+
+    // Your existing Event routes
     Route::get('/events', [EventController::class, 'index']); 
-    
-    // POST /api/v1/events
     Route::post('/events', [EventController::class, 'store']); 
-    
-    // POST (or PUT) /api/v1/events/{id}
     Route::post('/events/{id}', [EventController::class, 'update']); 
 });

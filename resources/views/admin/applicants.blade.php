@@ -10,85 +10,94 @@
     /* APPLICANTS LISTING PAGE                        */
     /* ============================================== */
 
+    /* --- Standard Header Banner --- */
     .applicant-header-banner {
         background-color: var(--pcci-red, #be1e38);
         color: #fff;
-        padding: 36px 40px;
-        border-radius: 12px;
-        font-size: 2rem;
+        padding: 24px 30px; 
+        border-radius: 8px;
+        font-size: 1.6rem; 
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 30px;
+        margin-bottom: 24px; 
         letter-spacing: 1px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
-    /* --- Card Grid --- */
+    /* --- Grid Layout (Natural Page Scrolling) --- */
     .applicant-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+        gap: 16px; 
+        /* Removed the max-height lock so the whole page scrolls normally */
     }
 
     /* --- Individual Card --- */
     .applicant-card {
-        border: 2px solid #ff0000;
+        border: 1.5px solid #eee;
         border-top: 3px solid var(--pcci-red, #be1e38);
-        border-radius: 10px;
-        padding: 24px 20px;
+        border-radius: 8px;
+        padding: 20px 16px; 
         background: #fff;
         text-align: center;
         text-decoration: none;
         color: inherit;
         transition: all 0.2s ease;
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .applicant-card:hover {
         border-color: var(--pcci-red, #be1e38);
-        box-shadow: 0 6px 20px rgba(190, 30, 56, 0.1);
-        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(190, 30, 56, 0.12);
+        transform: translateY(-3px);
         color: inherit;
-        text-decoration: none;
     }
 
+    /* Text wraps naturally now instead of hiding */
     .applicant-card-name {
-        font-size: 1rem;
-        font-weight: 700;
+        font-size: 1.05rem; 
+        font-weight: 800;
         color: #111;
         text-transform: uppercase;
-        margin-bottom: 4px;
-        letter-spacing: 0.3px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-bottom: 6px;
+        width: 100%;
+        word-wrap: break-word; /* Allows long text to go to the next line */
+        line-height: 1.3;
     }
 
+    /* Text wraps naturally now instead of hiding */
     .applicant-card-industry {
-        font-size: 0.85rem;
+        font-size: 0.85rem; 
         color: #666;
-        margin-bottom: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-bottom: 12px;
+        width: 100%;
+        word-wrap: break-word; /* Allows long text to go to the next line */
+        line-height: 1.4;
     }
 
     .applicant-card-id {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: #888;
         font-family: monospace;
+        background: #f8f9fa;
+        padding: 4px 10px;
+        border-radius: 6px;
         margin-bottom: 12px;
     }
 
     /* --- Status Badge --- */
     .applicant-status {
         display: inline-block;
-        padding: 5px 16px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
+        padding: 5px 14px;
+        border-radius: 50rem;
+        font-size: 0.7rem;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-top: 4px;
+        margin-top: auto; /* Pushes the badge to the bottom of the card */
     }
 
     .status-pending { background-color: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
@@ -99,19 +108,16 @@
     .grid-message {
         grid-column: 1 / -1;
         text-align: center;
-        padding: 50px;
+        padding: 40px;
         color: #666;
         font-size: 1.1rem;
         background: #f9f9f9;
-        border-radius: 10px;
+        border-radius: 8px;
         border: 1px dashed #ccc;
     }
 
-    /* --- Responsive --- */
-    @media (max-width: 992px) { .applicant-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 576px) {
-        .applicant-header-banner { padding: 20px 24px; font-size: 1.5rem; }
-        .applicant-grid { grid-template-columns: 1fr; }
+        .applicant-header-banner { padding: 20px 24px; font-size: 1.4rem; }
     }
 </style>
 
@@ -122,7 +128,7 @@
 
 {{-- ======== APPLICANT CARD GRID ======== --}}
 <div class="applicant-grid" id="applicantGrid">
-    <div class="grid-message">Loading applicants...</div>
+    <div class="grid-message"><i class="fa fa-spinner fa-spin me-2"></i> Loading applicants...</div>
 </div>
 
 {{-- ======== DYNAMIC FETCH LOGIC ======== --}}
@@ -178,7 +184,6 @@
         }
 
         applicants.forEach(app => {
-            // Helpers to safely extract data from your API structure
             const safe = (val) => val || 'N/A';
             const profile = app.basic_profile || {};
             const org = app.organization_membership || {};
@@ -188,7 +193,6 @@
             const statusRaw = safe(app.status).toLowerCase();
             const idString = `ID-${String(app.id).padStart(4, '0')}`;
 
-            // Determine status styling
             let statusClass = 'status-pending';
             let iconClass = 'bi-clock';
             
@@ -200,17 +204,13 @@
                 iconClass = 'bi-x-circle';
             }
 
-            // Capitalize status for display
             const displayStatus = statusRaw.charAt(0).toUpperCase() + statusRaw.slice(1);
-
-            // Construct dynamic URL for the profile page
             const profileUrl = `/applicant/${app.id}`;
 
-            // Create card HTML
             const cardHtml = `
                 <a href="${profileUrl}" class="applicant-card">
-                    <div class="applicant-card-name" title="${companyName}">${companyName}</div>
-                    <div class="applicant-card-industry" title="${industry}">${industry}</div>
+                    <div class="applicant-card-name">${companyName}</div>
+                    <div class="applicant-card-industry">${industry}</div>
                     <div class="applicant-card-id">${idString}</div>
                     <span class="applicant-status ${statusClass}">
                         <i class="bi ${iconClass}"></i> ${displayStatus}
@@ -222,5 +222,4 @@
         });
     }
 </script>
-
 @endsection
