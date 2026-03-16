@@ -74,7 +74,7 @@ Route::get('/applicant/{id}', function ($id) {
         'status' => ($id == 1) ? 'Under Review' : 'New Application',
     ];
 
-    return view('applicant-profile', ['applicant' => $applicantData]);
+    return view('admin.applicant-profile', ['applicant' => $applicantData]);
 })->name('applicant.profile');
 
 Route::get('/content/board-of-trustees', function () {

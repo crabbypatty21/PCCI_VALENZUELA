@@ -17,7 +17,7 @@ html, body {
     padding: 0;
     background: #f3f4f6; 
     font-family: Arial, sans-serif;
-    overflow-x: hidden; /* Prevents only horizontal scroll */
+    overflow-x: hidden;
 }
 
 main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
@@ -57,7 +57,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
-    display: none; /* Hidden by default - Click Bell to open */
+    display: none;
     flex-direction: column;
     z-index: 1100;
     overflow: hidden;
@@ -93,7 +93,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    overflow-y: auto; /* Allows sidebar content to scroll if needed */
+    overflow-y: auto;
 }
 
 .sidebar-profile { padding: 20px 15px 15px; text-align: center; border-bottom: 1px solid #f3f4f6; }
@@ -356,9 +356,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         </div>
     </div>
 
-    {{-- ========================================== --}}
-    {{-- RESTORED: MY BUSINESS TAB                  --}}
-    {{-- ========================================== --}}
+    {{-- MY BUSINESS TAB --}}
     <div id="section-business" class="content-section" style="display: none;">
         <div class="titleBox"><i class="fa fa-briefcase"></i> My Business</div>
         
@@ -422,115 +420,11 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         </div>
     </div>
 
-    {{-- ========================================== --}}
-    {{-- RESTORED: MY PRODUCTS TAB                  --}}
-    {{-- ========================================== --}}
-    <div id="section-products" class="content-section" style="display: none;">
-        <div class="titleBox"><i class="fa fa-box-open"></i> My Products and Services</div>
+    {{-- REFACTORED INCLUDES --}}
+    @include('member.products')
+    @include('member.membership')
+    @include('member.settings')
 
-        <div class="custom-card">
-            <div class="tableTop">
-                <input placeholder="Search Products...">
-                <button class="addBtn" onclick="openAddProductModal()"><i class="fa fa-plus me-1"></i> Add New</button>
-            </div>
-
-            <div class="table-responsive">
-                <table class="custom-table mt-3">
-                    <thead>
-                        <tr>
-                            <th style="border-top-left-radius: 8px;">Product Name</th>
-                            <th>Description</th>
-                            <th>Service URL</th>
-                            <th>Status</th>
-                            <th style="border-top-right-radius: 8px;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody">
-                        <tr><td colspan="5" class="text-center py-4 text-muted">Loading products...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    {{-- ========================================== --}}
-    {{-- RESTORED: MEMBERSHIP TAB                   --}}
-    {{-- ========================================== --}}
-    <div id="section-membership" class="content-section" style="display: none;">
-        <div class="titleBox justify-content-center"><i class="fa fa-id-badge"></i> MEMBERSHIP PLANS</div>
-
-        <div class="pricing-cards">
-            <div class="pricing-card">
-                <h2>Lifetime Sponsorship</h2>
-                <ul>
-                    <li><span class="text-danger">●</span> One-time payment.</li>
-                    <li><span class="text-danger">●</span> Your company logo displayed on the Home Page as an official partner.</li>
-                    <li><span class="text-danger">●</span> Included in the Members.</li>
-                    <li><span class="text-danger">●</span> Dedicated Company Profile page.</li>
-                    <li><span class="text-danger">●</span> Lifetime listing and recognition.</li>
-                </ul>
-                <div class="pricing-price">Php 10,000.00</div>
-            </div>
-
-            <div class="pricing-card">
-                <h2>Yearly Subscription</h2>
-                <ul>
-                    <li><span class="text-danger">●</span> Annual payment</li>
-                    <li><span class="text-danger">●</span> Listed in the Business Directory</li>
-                    <li><span class="text-danger">●</span> Dedicated Company Profile page</li>
-                    <li><span class="text-danger">●</span> Valid for 1 year (renewable)</li>
-                </ul>
-                <div class="pricing-price red">Php 500.00 / year</div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ========================================== --}}
-    {{-- RESTORED: SETTINGS TAB                     --}}
-    {{-- ========================================== --}}
-    <div id="section-settings" class="content-section" style="display: none;">
-        <div class="titleBox"><i class="fa fa-gear"></i> Settings</div>
-        
-        <div class="custom-card">
-            <h5 class="fw-bold mb-1">Account Options</h5>
-            <p class="text-muted mb-4" style="font-size: 14px;">Manage your account, security and preferences</p>
-
-            <div class="setting-box" onclick="alert('Account Settings')">
-                <div class="setting-left"><i class="fa fa-user text-secondary"></i><span>Account</span></div>
-                <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-            <div class="setting-box" onclick="alert('Security Settings')">
-                <div class="setting-left"><i class="fa fa-lock text-secondary"></i><span>Security</span></div>
-                <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-            <div class="setting-box" onclick="switchTab('membership')">
-                <div class="setting-left"><i class="fa fa-credit-card text-secondary"></i><span>Membership and Billing</span></div>
-                <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-            <div class="setting-box" onclick="alert('Preferences')">
-                <div class="setting-left"><i class="fa fa-sliders-h text-secondary"></i><span>Preferences</span></div>
-                <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-
-            <button class="logout-btn" onclick="logout()"><i class="fa fa-sign-out-alt me-2"></i> Log Out</button>
-        </div>
-    </div>
-
-</div>
-
-{{-- Add Product Modal --}}
-<div id="addProductModal" class="modal-overlay">
-    <div class="modal-content-box">
-        <h5 class="fw-bold text-danger mb-4 pb-3 border-bottom"><i class="fa fa-box-open me-2"></i>Add New Product</h5>
-        <label class="text-muted small fw-bold mb-1">Product Name</label>
-        <input type="text" class="form-control mb-3" placeholder="e.g. Welding Services" style="font-size: 14px;">
-        <label class="text-muted small fw-bold mb-1">Description</label>
-        <textarea class="form-control mb-4" rows="3" placeholder="Brief description..." style="font-size: 14px;"></textarea>
-        <div class="d-flex justify-content-end gap-2">
-            <button class="btn btn-light fw-bold px-4 rounded-pill" onclick="document.getElementById('addProductModal').style.display='none'">Cancel</button>
-            <button class="btn btn-danger fw-bold px-4 rounded-pill">Save Product</button>
-        </div>
-    </div>
 </div>
 
 <script>
