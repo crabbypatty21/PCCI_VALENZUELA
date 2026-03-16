@@ -671,66 +671,12 @@
                 <th>Registration date <i class="bi bi-arrow-down sort-icon"></i></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="membersTableBody">
+            {{-- This row shows while Javascript is fetching data --}}
             <tr>
-                <td>test</td>
-                <td>directory</td>
-                <td>Active</td>
-                <td>test</td>
-                <td>testuser@gmail.com</td>
-                <td>09090909090</td>
-                <td>test</td>
-                <td>1/25/30</td>
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>directory</td>
-                <td>Disabled</td>
-                <td>test</td>
-                <td>delacruz@gmail.com</td>
-                <td>09090909090</td>
-                <td>test</td>
-                <td>1/25/30</td>
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>directory</td>
-                <td>Active</td>
-                <td>valenzuela</td>
-                <td>roman@gmail.com</td>
-                <td>09090909090</td>
-                <td>test</td>
-                <td>1/25/30</td>
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>directory</td>
-                <td>Active</td>
-                <td>test</td>
-                <td>castro@gmail.com</td>
-                <td>09090909090</td>
-                <td>test</td>
-                <td>1/25/30</td>
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>directory</td>
-                <td>Active</td>
-                <td>test</td>
-                <td>palermo@gmail.com</td>
-                <td>09090909090</td>
-                <td>test</td>
-                <td>1/25/30</td>
-            </tr>
-            <tr>
-                <td>test company</td>
-                <td>member</td>
-                <td>Active</td>
-                <td>test</td>
-                <td>versula@gmail.com</td>
-                <td>09090909090</td>
-                <td>test</td>
-                <td>1/25/30</td>
+                <td colspan="8" style="text-align: center; padding: 30px; color: #888;">
+                    <i class="bi bi-arrow-repeat" style="display:inline-block; animation: spin 1s linear infinite;"></i> Loading members...
+                </td>
             </tr>
         </tbody>
     </table>
@@ -866,27 +812,131 @@
 </div>
 
 <script>
-    // Open modal
+    // ==============================================
+    // MODAL LOGIC 
+    // ==============================================
     document.querySelector('.btn-add-new').addEventListener('click', function() {
         document.getElementById('addMemberModal').classList.add('active');
     });
 
-    // Close modal (X button)
     document.getElementById('closeModal').addEventListener('click', function() {
         document.getElementById('addMemberModal').classList.remove('active');
     });
 
-    // Close modal (Cancel button)
     document.getElementById('cancelModal').addEventListener('click', function() {
         document.getElementById('addMemberModal').classList.remove('active');
     });
 
-    // Close modal (click outside)
     document.getElementById('addMemberModal').addEventListener('click', function(e) {
         if (e.target === this) {
             this.classList.remove('active');
         }
     });
-</script>
 
+    // ==============================================
+    // REAL API FETCH LOGIC
+    // ==============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchMembers(); // Run fetch function as soon as the page loads
+    });
+
+    async function fetchMembers() {
+        const tbody = document.getElementById('membersTableBody');
+        const token = localStorage.getItem('token'); 
+
+        try {
+            const response = await fetch('http://192.168.55.184:8000/api/v1/members', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch members");
+
+            const data = await response.json();
+            
+            // Clear the "Loading..." placeholder row
+            tbody.innerHTML = '';
+
+            // Check if there are members in the database response
+            if (data.data && data.data.length > 0) {
+                
+                // Loop through your database records and create table rows
+                data.data.forEach(member => {
+                    
+                    // 1. Safely grab nested objects from your backend JSON
+                    const applicant = member.applicant || {};
+                    const addressObj = applicant.address || {};
+                    const repObj = applicant.representative || {};
+
+                    // 2. Map standard fields
+                    const companyName = applicant.registered_business_name || 'N/A';
+                    const email = applicant.email || 'N/A';
+                    const status = member.status || 'Pending';
+                    const contact = applicant.rep_contact_no || 'N/A';
+                    const memberType = member.membership_type_id === 1 ? 'Directory Member' : 'Regular Member';
+                    
+                    // 3. Construct full address (NOW INCLUDES REGION AND ZIP CODE!)
+                    let fullAddress = [];
+                    if (addressObj.business_address) fullAddress.push(addressObj.business_address);
+                    if (addressObj.city_municipality) fullAddress.push(addressObj.city_municipality);
+                    if (addressObj.province) fullAddress.push(addressObj.province);
+                    if (addressObj.region) fullAddress.push(addressObj.region);
+                    if (addressObj.zip_code) fullAddress.push(addressObj.zip_code);
+                    
+                    const address = fullAddress.length > 0 ? fullAddress.join(', ') : 'N/A';
+
+                    // 4. Construct Representative Name
+                    let repName = [];
+                    if (repObj.first_name) repName.push(repObj.first_name);
+                    if (repObj.mid_name) repName.push(repObj.mid_name);
+                    if (repObj.surname) repName.push(repObj.surname);
+                    const registeredBy = repName.length > 0 ? repName.join(' ') : 'N/A';
+                    
+                    // 5. Format the date nicely (e.g., "3/12/2026")
+                    const regDate = member.created_at ? new Date(member.created_at).toLocaleDateString('en-US') : 'N/A';
+
+                    // Make the Status color dynamic (Green for active, Yellow for pending, Red for disabled)
+                    let statusColor = '#be1e38'; // Default Red
+                    let statusBg = '#fdf2f2';
+                    
+                    if (status.toLowerCase() === 'active') {
+                        statusColor = '#15803d'; // Green
+                        statusBg = '#dcfce7';
+                    } else if (status.toLowerCase() === 'pending') {
+                        statusColor = '#b45309'; // Yellow/Orange
+                        statusBg = '#fef3c7';
+                    }
+
+                    // Inject the row into the table
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 700; color: #1a1a1a;">${companyName}</td>
+                            <td style="text-transform: capitalize;">${memberType}</td>
+                            <td>
+                                <span style="background: ${statusBg}; color: ${statusColor}; padding: 4px 10px; border-radius: 50rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">
+                                    ${status}
+                                </span>
+                            </td>
+                            <td>${address}</td>
+                            <td>${email}</td>
+                            <td>${contact}</td>
+                            <td style="text-transform: capitalize;">${registeredBy}</td>
+                            <td>${regDate}</td>
+                        </tr>
+                    `;
+                });
+
+            } else {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No members found.</td></tr>`;
+            }
+
+        } catch (error) {
+            console.error("Error loading members:", error);
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: red; padding: 20px;">Failed to load members from database.</td></tr>`;
+        }
+    }
+</script>
 @endsection

@@ -87,7 +87,7 @@ Route::get('/content/activities', function () {
 
 Route::get('/content/event-admin', function () {
     return view('admin.events');
-})->name('content.event-admin');
+    })->name('content.event-admin');
 
 Route::post('/logout', function () {
     Auth::logout();
