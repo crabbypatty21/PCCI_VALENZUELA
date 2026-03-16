@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PCCI Valenzuela</title>
+
+    @include('partials.api-config')
     
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -253,29 +255,51 @@
 
             try {
                 // Using the API endpoint provided in your sample
-                const response = await fetch('https://pcci-laravel-api.onrender.com/api/login', {
+                const response = await fetch(`${window.API_BASE_URL}/login`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json' // IMPORTANT: Tells Laravel to always return JSON, even for errors
+                    },
                     body: JSON.stringify({ email, password })
                 });
+
+                // SAFETY CHECK: Ensure the response is actually JSON before trying to parse it
+                const contentType = response.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    const textResponse = await response.text();
+                    console.error("API returned HTML instead of JSON. Here is the HTML:", textResponse);
+                    throw new Error("Server error: The API returned an invalid format. Check console for details.");
+                }
 
                 const data = await response.json();
 
                 if (response.ok) {
-                    // 1. Store the token
+                    // 1. Store the token AND the user's name
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem('userName', data.user.name); // ADDED THIS LINE
 
-                    // 2. Redirect to dashboard/home
-                    // Change '/home' to whatever route you want the user to go to after login
-                    window.location.href = '/dashboard'; 
+                    // 2. Check the user's role and redirect accordingly
+                    const roles = data.user.roles || [];
+
+                    if (roles.includes('treasurer')) {
+                        window.location.href = '/treasurer-dashboard';
+                    } else if (roles.includes('superadmin') || roles.includes('admin') || roles.includes('super_admin')) {
+                        window.location.href = '/dashboard'; 
+                    } else if (roles.includes('member')) {
+                        // Redirect member to the new test dashboard
+                        window.location.href = '/member-dashboard'; 
+                    } else {
+                        window.location.href = '/'; 
+                    }
                 } else {
-                    // Show error message
+                    // Show error message (Now safely parsed as JSON)
                     errorDiv.textContent = data.message || 'Login failed. Check credentials.';
                     errorDiv.style.display = 'block';
                 }
             } catch (err) {
-                console.error(err);
-                errorDiv.textContent = 'An error occurred. Please check your connection.';
+                console.error("Fetch Error:", err);
+                errorDiv.textContent = err.message || 'An error occurred. Please check your connection.';
                 errorDiv.style.display = 'block';
             } finally {
                 submitBtn.disabled = false;

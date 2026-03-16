@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('partials.api-config')
 @section('content')
 <style>
     /* Reusing your exact styles */
@@ -601,7 +601,7 @@
 
         try {
             // Post to the API
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/apply', {
+            const response = await fetch(`${window.API_BASE_URL}/v1/apply`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

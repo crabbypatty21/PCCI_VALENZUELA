@@ -569,14 +569,10 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-<<<<<<< HEAD
-
-=======
 /* Force all standard text to white */
 h1, h2, h3, h4, h5, h6, p, span, div, li {
     color: #ffffff !important;
 }
->>>>>>> 0a76f6268ee2278bf7386c01ad0d8f01ce8d6856
 
 /* Override for specific colored elements if needed (like the red span) */
 .text-highlight {
@@ -1689,16 +1685,9 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
                 
                 <span class="section-label" style="color: #ffffff !important;">Member Directory</span>
                 
-<<<<<<< HEAD
-            <h2 class="section-title">
-                <span style="color: #ffffff;">Discover Local</span> 
-                <span class="text-highlight">Businesses</span>
-            </h2>
-=======
                 <h2 class="section-title">
                     Discover Local <span class="text-highlight">Businesses</span>
                 </h2>
->>>>>>> 0a76f6268ee2278bf7386c01ad0d8f01ce8d6856
                 
                 <p class="section-desc">
                     Explore our comprehensive directory of member businesses across various industries in Marikina City.
@@ -1740,11 +1729,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
                                         </div>
                                         
                                         <div class="ms-3 overflow-hidden">
-<<<<<<< HEAD
-                                            <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700; color: #ffffff;">
-=======
                                             <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700;">
->>>>>>> 0a76f6268ee2278bf7386c01ad0d8f01ce8d6856
                                                 {{ $business['name'] }}
                                             </h5>
                                             
