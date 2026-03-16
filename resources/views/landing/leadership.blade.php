@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('partials.api-config')
 
 <style>
     /* =========================================
@@ -169,92 +170,10 @@
         {{-- Empty container where JS will inject the cards --}}
         <div id="trustees-list" class="row g-4">
             <div class="col-12 text-center text-muted">
-                <p>Loading trustees...</p>
+                <p><i class="fa fa-spinner fa-spin text-danger me-2"></i> Loading trustees...</p>
             </div>
         </div>
         
-    </div>
-</div>
-
-{{-- JavaScript to fetch and render Trustees dynamically --}}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Call the function as soon as the page loads
-    fetchTrustees();
-
-    async function fetchTrustees() {
-        const token = localStorage.getItem('token'); 
-        const container = document.getElementById('trustees-list');
-
-        try {
-            // Setup Headers - include token if it exists
-            const headers = { 'Content-Type': 'application/json' };
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
-            }
-
-            // Fetch from the API endpoint
-            const response = await fetch('http://192.168.55.184:8000/api/v1/trustees', {
-                method: 'GET',
-                headers: headers
-            });
-
-            if (!response.ok) {
-                console.error("Failed to fetch trustees");
-                container.innerHTML = `<div class="col-12 text-center text-danger"><p>Failed to load trustees.</p></div>`;
-                return;
-            }
-
-            const data = await response.json();
-            
-            // Clear the "Loading..." text
-            container.innerHTML = "";
-
-            // Loop through the API data and create the HTML cards
-            data.data.forEach(trustee => {
-                // Safely handle text just in case any fields are empty in the database
-                const firstName = trustee.firstname || '';
-                const middleName = trustee.middlename ? ` ${trustee.middlename} ` : ' ';
-                const lastName = trustee.lastname || '';
-                const position = trustee.position ? trustee.position.position : 'Trustee';
-                const imageUrl = trustee.image_url || 'https://via.placeholder.com/400';
-
-                // Create the column div
-                const card = document.createElement('div');
-                card.className = "col-md-6 col-lg-3";
-
-                // Inject the exact HTML structure for your officer-card
-                card.innerHTML = `
-                    <div class="officer-card">
-                        <img src="${imageUrl}" 
-                             alt="${firstName} ${lastName}" 
-                             style="height: 400px; width: 100%; object-fit: cover;">
-                        
-                        <div class="officer-overlay">
-                            <h5 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; text-transform: capitalize;">
-                                ${firstName}${middleName}${lastName}
-                            </h5>
-                            <p class="mb-0 small text-uppercase" style="opacity: 0.9; letter-spacing: 0.05em; font-size: 0.75rem; font-family: 'DM Sans', sans-serif;">
-                                ${position}
-                            </p>
-                        </div>
-                    </div>
-                `;
-
-                // Append the completed card to the grid
-                container.appendChild(card);
-            });
-
-        } catch (err) {
-            console.error("Error loading trustees:", err);
-            container.innerHTML = `<div class="col-12 text-center text-danger"><p>Error connecting to the server.</p></div>`;
-        }
-    }
-});
-</script>
-            
-        </div>
     </div>
 </div>
 
@@ -272,4 +191,81 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </div>
 
+{{-- Dynamic API Fetch Script --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    fetchTrustees();
+
+    async function fetchTrustees() {
+        const container = document.getElementById('trustees-list');
+
+        try {
+            // Updated endpoint to your specific API route
+            const response = await fetch(`http://192.168.55.184:8000/api/v1/trustees`, {
+                method: 'GET',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch trustees");
+
+            const data = await response.json();
+            
+            // Clear the "Loading..." spinner
+            container.innerHTML = "";
+
+            // Check for data.data (standard Laravel resource wrapper)
+            if (data.data && data.data.length > 0) {
+                data.data.forEach(trustee => {
+                    const firstName = trustee.firstname || '';
+                    const middleName = trustee.middlename ? ` ${trustee.middlename} ` : ' ';
+                    const lastName = trustee.lastname || '';
+                    
+                    // Matches your dynamic position logic
+                    const position = trustee.position && trustee.position.position 
+                                     ? trustee.position.position 
+                                     : 'Trustee';
+                    
+                    const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(firstName + ' ' + lastName)}&background=f3f4f6&color=b61b2a&bold=true&size=400`;
+                    const imageUrl = trustee.image_url || fallbackImage;
+
+                    const card = document.createElement('div');
+                    card.className = "col-md-6 col-lg-3";
+
+                    card.innerHTML = `
+                        <div class="officer-card">
+                            <img src="${imageUrl}" 
+                                 alt="${firstName} ${lastName}" 
+                                 style="height: 400px; width: 100%; object-fit: cover;">
+                            
+                            <div class="officer-overlay">
+                                <h5 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; text-transform: capitalize;">
+                                    ${firstName}${middleName}${lastName}
+                                </h5>
+                                <p class="mb-0 small text-uppercase" style="opacity: 0.9; letter-spacing: 0.05em; font-size: 0.75rem; font-family: 'DM Sans', sans-serif;">
+                                    ${position}
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = `<div class="col-12 text-center text-muted"><p>No leadership data available at the moment.</p></div>`;
+            }
+
+        } catch (err) {
+            console.error("Error loading trustees:", err);
+            container.innerHTML = `
+                <div class="col-12 text-center text-danger">
+                    <i class="fa fa-exclamation-circle mb-2" style="font-size: 2rem;"></i>
+                    <p>Error connecting to the server. Please try again later.</p>
+                </div>`;
+        }
+    }
+});
+</script>
 @endsection
