@@ -428,11 +428,13 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 </div>
 
 <script>
+
+const token = localStorage.getItem('token');
+
 // ==========================================
 // INITIALIZATION & AUTHENTICATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', function(){
-    const token = localStorage.getItem('token');
     if(!token) { 
         window.location.href = '/login'; 
         return; 
@@ -499,21 +501,33 @@ function openAddProductModal() { document.getElementById('addProductModal').styl
 function editProfileAlert() { alert("Edit Profile modal will open here!"); }
 function viewDocument(type) { alert("Viewing document: " + type); }
 
-// ==========================================
+// ========================================
 // REAL API FETCH LOGIC
 // ==========================================
 async function fetchRealDashboardData(token) {
     try {
-        const response = await fetch(`${window.API_BASE_URL}/v1/profile`, {
+        // Updated to use the correct /v1/application endpoint
+        const response = await fetch(`${window.API_BASE_URL}/v1/application`, {
             headers: { 
                 'Authorization': `Bearer ${token}`,
                 'Accept': 'application/json' 
             }
         });
+        
+        // Handle expired/invalid tokens just like the admin dashboard
+        if (response.status === 401) { 
+            logout(); 
+            return; 
+        }
+
         const data = await response.json();
 
         if (response.ok && data.data) {
-            const profile = data.data;
+            // Depending on if the API returns an array or single object for the user's application
+            const profile = Array.isArray(data.data) ? data.data[0] : data.data;
+
+            if (!profile) return;
+
             const basic = profile.basic_profile || {};
             const org = profile.organization_membership || {};
             const rep = profile.official_representative || {};
@@ -522,12 +536,12 @@ async function fetchRealDashboardData(token) {
             const companyName = basic.registered_business_name || 'Your Company';
             const repName = `${rep.first_name || ''} ${rep.surname || ''}`.trim();
             const memberID = `PCCI-${new Date().getFullYear()}-${String(profile.id).padStart(4, '0')}`;
-            const memStatus = profile.status || 'Active';
-            const memType = profile.membership_type || 'Regular';
+            const memStatus = profile.status || 'Pending';
+            const memType = profile.membership_type || 'N/A';
 
             // Sidebar Injection
             document.getElementById('sidebarCompany').innerText = companyName;
-            document.getElementById('sidebarName').innerText = repName;
+            document.getElementById('sidebarName').innerText = repName || 'No Rep Assigned';
             document.getElementById('sidebarEmail').innerText = basic.email || 'N/A';
             if(profile.photo_url) {
                 document.getElementById('sidebarImage').src = profile.photo_url;
@@ -554,16 +568,20 @@ async function fetchRealDashboardData(token) {
             document.getElementById('bizIndustryTitle').innerText = org.type_of_company || 'Industry not specified';
             document.getElementById('bizEmailText').innerText = basic.email || 'N/A';
             document.getElementById('bizPhoneText').innerText = basic.contact_number || 'N/A';
-            document.getElementById('bizAddressText').innerText = `${loc.business_address || ''}, ${loc.city_municipality || ''}`.trim().replace(/^,|,$/g, '') || 'Address not provided';
+            
+            const addressString = `${loc.business_address || ''}, ${loc.city_municipality || ''}`.trim().replace(/^,|,$/g, '');
+            document.getElementById('bizAddressText').innerText = addressString || 'Address not provided';
             
             document.getElementById('bizMembershipTypeText').innerText = memType;
             if(profile.date_approved) {
                 let d = new Date(profile.date_approved);
                 d.setFullYear(d.getFullYear() + 1);
                 document.getElementById('bizExpiryText').innerText = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            } else {
+                document.getElementById('bizExpiryText').innerText = 'Pending Approval';
             }
 
-            document.getElementById('repNameText').innerText = repName;
+            document.getElementById('repNameText').innerText = repName || 'N/A';
             document.getElementById('repDesignationText').innerText = rep.designation || 'Representative';
             document.getElementById('repEmailText').innerText = rep.email || basic.email || 'N/A';
             document.getElementById('repPhoneText').innerText = rep.contact_number || basic.contact_number || 'N/A';
@@ -573,29 +591,175 @@ async function fetchRealDashboardData(token) {
     }
 }
 
-// Fake Products fetch for the "My Products" table
-function fetchProducts() {
-    const tbody = document.getElementById('productsTableBody');
-    const mockProducts = [
-        { id: 1, name: 'Welding', description: 'Metal welding services', url: 'www.abccompany.com/welding', status: 'Active' },
-        { id: 2, name: 'Fabrication', description: 'Custom metal fabrication', url: 'www.abccompany.com/fab', status: 'Active' }
-    ];
+// ==========================================
+// REAL PRODUCTS API LOGIC
+// ==========================================
 
-    tbody.innerHTML = ''; 
-    mockProducts.forEach(prod => {
-        tbody.innerHTML += `
-            <tr>
-                <td class="fw-bold text-dark">${prod.name}</td>
-                <td class="text-muted">${prod.description}</td>
-                <td><a href="https://${prod.url}" target="_blank" class="text-primary text-decoration-none">${prod.url}</a></td>
-                <td style="color: green; font-weight: bold;">${prod.status}</td>
-                <td>
-                    <button class="btn btn-sm btn-light text-warning shadow-sm me-1"><i class="fa fa-pen"></i></button>
-                    <button class="btn btn-sm btn-light text-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                </td>
-            </tr>
-        `;
-    });
+// 1. Fetch & Display Products (GET)
+async function fetchProducts() {
+    const tbody = document.getElementById('productsTableBody');
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Loading products...</td></tr>';
+    
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/products`, {
+            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' }
+        });
+        
+        if (response.status === 401) { logout(); return; }
+        
+        const data = await response.json();
+        // Adjust "data.data" if your API wraps the array differently
+        const products = data.data || []; 
+        
+        tbody.innerHTML = '';
+        if(products.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No products found.</td></tr>';
+            return;
+        }
+        
+        products.forEach(prod => {
+            const name = prod.name || 'N/A';
+            const desc = prod.description || '';
+            const url = prod.url || prod.service_url || '#'; // Adjust property name to match your API response
+            const status = prod.status || 'Active';
+            const statusColor = status.toLowerCase() === 'active' ? 'green' : 'gray';
+            
+            // Format URL to be clickable
+            const cleanUrl = url !== '#' && !url.startsWith('http') ? 'https://' + url : url;
+            const urlDisplay = url !== '#' ? `<a href="${cleanUrl}" target="_blank" class="text-primary text-decoration-none">${url}</a>` : '<span class="text-muted">N/A</span>';
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="fw-bold text-dark">${name}</td>
+                    <td class="text-muted">${desc}</td>
+                    <td>${urlDisplay}</td>
+                    <td style="color: ${statusColor}; font-weight: bold;">${status}</td>
+                    <td>
+                        <button class="btn btn-sm btn-light text-warning shadow-sm me-1" onclick="editProduct(${prod.id}, '${name.replace(/'/g, "\\'")}', '${desc.replace(/'/g, "\\'")}', '${url.replace(/'/g, "\\'")}')"><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-sm btn-light text-danger shadow-sm" onclick="deleteProduct(${prod.id})"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-danger">Failed to load products.</td></tr>';
+    }
 }
+
+// 2. Open Add Modal
+function openAddProductModal() {
+    document.getElementById('productModalTitle').innerText = 'Add New Product';
+    document.getElementById('prodId').value = '';
+    document.getElementById('prodName').value = '';
+    document.getElementById('prodUrl').value = '';
+    document.getElementById('prodDesc').value = '';
+    document.getElementById('productAlert').style.display = 'none';
+    document.getElementById('addProductModal').style.display = 'flex';
+}
+
+// 3. Open Edit Modal
+function editProduct(id, name, desc, url) {
+    document.getElementById('productModalTitle').innerText = 'Edit Product';
+    document.getElementById('prodId').value = id;
+    document.getElementById('prodName').value = name;
+    document.getElementById('prodDesc').value = desc === 'null' ? '' : desc;
+    document.getElementById('prodUrl').value = url === 'null' || url === '#' ? '' : url;
+    document.getElementById('productAlert').style.display = 'none';
+    document.getElementById('addProductModal').style.display = 'flex';
+}
+
+// Close Modal
+function closeProductModal() {
+    document.getElementById('addProductModal').style.display = 'none';
+}
+
+// 4. Create (POST) or Update (PUT/POST) Product
+async function saveProduct() {
+    const id = document.getElementById('prodId').value;
+    const name = document.getElementById('prodName').value;
+    const desc = document.getElementById('prodDesc').value;
+    const url = document.getElementById('prodUrl').value;
+    const btn = document.getElementById('btnSaveProduct');
+    const alertBox = document.getElementById('productAlert');
+    
+    if(!name) {
+        alertBox.innerText = 'Product name is required.';
+        alertBox.style.display = 'block';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = 'Saving...';
+    alertBox.style.display = 'none';
+
+    // Ensure property names match your Laravel validation request
+    const payload = {
+        name: name,
+        description: desc,
+        url: url, // change to 'service_url' if that's what your API expects
+        status: 'active' 
+    };
+
+    const isUpdate = id !== '';
+    const endpoint = isUpdate ? `${window.API_BASE_URL}/v1/products/${id}` : `${window.API_BASE_URL}/v1/products`;
+    
+    // Note: If your Postman update route requires POST instead of PUT, change method here to 'POST'
+    let method = isUpdate ? 'PUT' : 'POST';
+
+    try {
+        const response = await fetch(endpoint, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok || response.status === 201 || response.status === 200) {
+            closeProductModal();
+            fetchProducts(); // Refresh the table
+        } else {
+            alertBox.innerText = data.message || 'Failed to save product.';
+            if(data.errors) alertBox.innerText += ' ' + Object.values(data.errors).flat().join(' ');
+            alertBox.style.display = 'block';
+        }
+    } catch (error) {
+        alertBox.innerText = 'Network error occurred.';
+        alertBox.style.display = 'block';
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Save Product';
+    }
+}
+
+// 5. Delete Product (DELETE)
+async function deleteProduct(id) {
+    if(!confirm('Are you sure you want to remove this product?')) return;
+    
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/products/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        if(response.ok) {
+            fetchProducts(); // Refresh the list
+        } else {
+            const data = await response.json();
+            alert(data.message || "Failed to delete product.");
+        }
+    } catch(error) {
+        alert("Network error. Could not delete product.");
+    }
+}
+
 </script>
 @endsection
