@@ -19,9 +19,8 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/business/{id}', function ($id) {
-    return view('MembershipBusinessProfileDetails', compact('id'));
+    return view('landing.MembershipBusinessProfileDetails', compact('id'));
 })->name('business.show');
-
 
 Route::get('/leadership', function () {
     return view('landing.leadership');

@@ -151,6 +151,19 @@
         background-color: #f0f0f0;
     }
 
+    .board-wrapper .card-photo-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #e8e8e8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        font-size: 3.5rem;
+        color: #bbb;
+    }
+
     .board-wrapper .card-name {
         font-size: 0.8rem;
         font-weight: 700;
@@ -169,14 +182,6 @@
         border-radius: 20px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 30px;
-    }
-
-    .board-wrapper .card-position-text {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--text-dark);
-        text-transform: uppercase;
         margin-bottom: 30px;
     }
 
@@ -329,7 +334,7 @@
     .add-board-modal .gender-row label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #555; font-size: 0.75rem; font-weight: 600; }
     .add-board-modal .gender-row input[type="radio"] { accent-color: #A81C31; cursor: pointer; }
 
-    /* ── Shared dropdown styles ── */
+    /* Shared dropdown styles */
     .add-board-modal .position-wrapper,
     .add-board-modal .status-wrapper { position: relative; margin-bottom: 10px; }
 
@@ -709,6 +714,21 @@
 
     .board-no-results i { display: block; font-size: 2.8rem; margin-bottom: 12px; color: #ddd; }
 
+    /* Loading state */
+    .board-loading {
+        display: none;
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #ccc;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .board-loading i { display: block; font-size: 2.8rem; margin-bottom: 12px; color: #ddd; }
 </style>
 
 <div class="board-wrapper">
@@ -725,13 +745,9 @@
             </button>
             <div class="filter-panel" id="filterPanel">
                 <div class="filter-panel-title">Position</div>
+                {{-- Position chips will be populated dynamically from API --}}
                 <div class="filter-chips" id="positionChips">
-                    <button class="filter-chip" data-filter="position" data-value="President">President</button>
-                    <button class="filter-chip" data-filter="position" data-value="Vice President">Vice President</button>
-                    <button class="filter-chip" data-filter="position" data-value="General Manager">General Manager</button>
-                    <button class="filter-chip" data-filter="position" data-value="Treasurer">Treasurer</button>
-                    <button class="filter-chip" data-filter="position" data-value="Secretary">Secretary</button>
-                    <button class="filter-chip" data-filter="position" data-value="Trustee">Trustee</button>
+                    {{-- e.g. <button class="filter-chip" data-filter="position" data-value="President">President</button> --}}
                 </div>
                 <hr class="filter-divider">
                 <div class="filter-panel-title">Status</div>
@@ -748,42 +764,17 @@
         </button>
     </div>
 
+    {{-- ================================================
+         BOARD GRID — populated via fetch() from the API
+         GET http://192.168.55.184:8000/api/v1/trustees
+         Each card is rendered by renderCard() in JS below
+    ================================================= --}}
     <div class="board-grid" id="boardGrid">
 
-        {{-- First card with real data --}}
-        <div class="board-card"
-             data-lastname="Olaguer"
-             data-firstname="Anderson"
-             data-gender="male"
-             data-position="President"
-             data-status="Active"
-             data-photo="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" class="card-photo" alt="Anderson Olaguer">
-            <div class="card-name">Mr. Anderson Olaguer</div>
-            <div class="card-position-pill">President</div>
-            <div class="card-actions">
-                <button class="btn-card btn-view-profile"><i class="bi bi-eye"></i> View Profile</button>
-                <button class="btn-card btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-            </div>
+        <div class="board-loading" id="loadingState" style="display:flex; flex-direction:column; align-items:center;">
+            <i class="bi bi-arrow-repeat"></i>
+            Loading trustees…
         </div>
-
-        @for ($i = 0; $i < 7; $i++)
-        <div class="board-card"
-             data-lastname="[Lastname]"
-             data-firstname="[Firstname]"
-             data-gender=""
-             data-position="[Position]"
-             data-status="Active"
-             data-photo="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" class="card-photo" alt="Placeholder">
-            <div class="card-name">Mr. [Firstname] [Lastname]</div>
-            <div class="card-position-text">[Position]</div>
-            <div class="card-actions">
-                <button class="btn-card btn-view-profile"><i class="bi bi-eye"></i> View Profile</button>
-                <button class="btn-card btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-            </div>
-        </div>
-        @endfor
 
         <div class="board-no-results" id="noResults">
             <i class="bi bi-person-x"></i>
@@ -831,51 +822,46 @@
         <div class="form-row">
             <div class="form-field">
                 <i class="bi bi-person"></i>
-                <input type="text" class="form-input" id="lastName" placeholder="Last Name">
+                <input type="text" id="lastName" class="form-input" placeholder="Last Name" autocomplete="off">
             </div>
             <div class="form-field">
                 <i class="bi bi-person"></i>
-                <input type="text" class="form-input" id="firstName" placeholder="First Name">
+                <input type="text" id="firstName" class="form-input" placeholder="First Name" autocomplete="off">
             </div>
         </div>
 
         <div class="gender-row">
-            <span>Gender</span>
+            <span>Gender:</span>
             <label><input type="radio" name="gender" value="male"> Male</label>
             <label><input type="radio" name="gender" value="female"> Female</label>
         </div>
 
         <div class="position-wrapper">
-            <button class="position-select-btn" id="positionBtn">
+            <button type="button" class="position-select-btn" id="positionBtn">
                 <span id="positionLabel">Position</span>
                 <i class="bi bi-chevron-down"></i>
             </button>
             <div class="position-dropdown" id="positionDropdown">
-                <div class="position-option" data-value="President">President</div>
-                <div class="position-option" data-value="Vice President">Vice President</div>
-                <div class="position-option" data-value="General Manager">General Manager</div>
-                <div class="position-option" data-value="Treasurer">Treasurer</div>
-                <div class="position-option" data-value="Secretary">Secretary</div>
-                <div class="position-option" data-value="Trustee">Trustee</div>
-                <button class="add-position-row" id="addPositionBtn">
-                    <i class="bi bi-plus-circle-fill"></i> Add Position
+                {{-- Options populated dynamically --}}
+                <button type="button" class="add-position-row" id="openAddPosition">
+                    <i class="bi bi-plus-circle"></i> Add Position
                 </button>
             </div>
         </div>
 
         <div class="status-wrapper">
-            <button class="status-select-btn has-value" id="statusBtn">
-                <span id="statusLabel">Active</span>
+            <button type="button" class="status-select-btn" id="statusBtn">
+                <span id="statusLabel">Status</span>
                 <i class="bi bi-chevron-down"></i>
             </button>
             <div class="status-dropdown" id="statusDropdown">
-                <div class="status-option selected" data-value="Active">Active</div>
+                <div class="status-option" data-value="Active">Active</div>
                 <div class="status-option" data-value="Inactive">Inactive</div>
             </div>
         </div>
 
         <div class="modal-footer">
-            <button class="btn-clear" id="clearFormBtn">Clear Form</button>
+            <button class="btn-clear" id="clearFormBtn">Clear</button>
             <button class="btn-confirm" id="confirmBtn">Confirm</button>
         </div>
 
@@ -908,6 +894,170 @@
 <script>
 (function () {
 
+    const API_URL = 'http://192.168.55.184:8000/api/v1/trustees';
+
+    /* ============================================== */
+    /* RENDER HELPERS                                 */
+    /* ============================================== */
+
+    /**
+     * Build a trustee card element from an API record.
+     * Expected fields (adjust to match your actual API response):
+     *   trustee.id, trustee.first_name, trustee.last_name,
+     *   trustee.gender, trustee.position, trustee.status, trustee.photo_url
+     */
+    function renderCard(trustee) {
+        const gender    = (trustee.gender || '').toLowerCase();
+        const prefix    = gender === 'female' ? 'Ms.' : 'Mr.';
+        const fullName  = `${prefix} ${trustee.first_name || ''} ${trustee.last_name || ''}`.trim();
+        const position  = trustee.position  || '';
+        const status    = trustee.status    || 'Active';
+        const photoUrl  = trustee.photo_url || '';
+
+        const card = document.createElement('div');
+        card.className = 'board-card';
+        card.dataset.lastname  = trustee.last_name  || '';
+        card.dataset.firstname = trustee.first_name || '';
+        card.dataset.gender    = gender;
+        card.dataset.position  = position;
+        card.dataset.status    = status;
+        card.dataset.photo     = photoUrl;
+        card.dataset.id        = trustee.id || '';
+
+        card.innerHTML = `
+            ${photoUrl
+                ? `<img src="${photoUrl}" class="card-photo" alt="${fullName}">`
+                : `<div class="card-photo-placeholder"><i class="bi bi-person-fill"></i></div>`
+            }
+            <div class="card-name">${fullName}</div>
+            <div class="card-position-pill">${position}</div>
+            <div class="card-actions">
+                <button class="btn-card btn-view-profile"><i class="bi bi-eye"></i> View Profile</button>
+                <button class="btn-card btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+            </div>
+        `;
+
+        /* Attach edit listener */
+        card.querySelector('.btn-edit').addEventListener('click', function () {
+            openModal('edit', card);
+        });
+
+        /* Attach view-profile listener */
+        card.querySelector('.btn-view-profile').addEventListener('click', function () {
+            const imgEl  = card.querySelector('.card-photo');
+            vpName.textContent     = card.querySelector('.card-name').textContent.trim();
+            vpPosition.textContent = card.querySelector('.card-position-pill').textContent.trim();
+
+            if (imgEl && imgEl.src) {
+                vpPhoto.src = imgEl.src;
+                vpPhoto.style.display = 'block';
+                vpPhotoPlaceholder.style.display = 'none';
+            } else {
+                vpPhoto.style.display = 'none';
+                vpPhotoPlaceholder.style.display = 'flex';
+            }
+            vpOverlay.classList.add('active');
+        });
+
+        return card;
+    }
+
+    /**
+     * Populate the position filter chips from the unique positions in the loaded data.
+     */
+    function populatePositionChips(trustees) {
+        const seen      = new Set();
+        const container = document.getElementById('positionChips');
+        container.innerHTML = '';
+
+        trustees.forEach(t => {
+            if (t.position && !seen.has(t.position)) {
+                seen.add(t.position);
+                const btn = document.createElement('button');
+                btn.className      = 'filter-chip';
+                btn.dataset.filter = 'position';
+                btn.dataset.value  = t.position;
+                btn.textContent    = t.position;
+                btn.addEventListener('click', onChipClick);
+                container.appendChild(btn);
+            }
+        });
+    }
+
+    /**
+     * Populate the position dropdown inside the Add/Edit modal.
+     */
+    function populatePositionDropdown(positions) {
+        const dropdown   = document.getElementById('positionDropdown');
+        const addPosRow  = document.getElementById('openAddPosition');
+
+        /* Remove existing options (keep the "Add Position" row) */
+        dropdown.querySelectorAll('.position-option').forEach(el => el.remove());
+
+        positions.forEach(pos => {
+            const opt = document.createElement('div');
+            opt.className    = 'position-option';
+            opt.dataset.value = pos;
+            opt.textContent  = pos;
+            opt.addEventListener('click', () => pickPosition(pos, opt));
+            dropdown.insertBefore(opt, addPosRow);
+        });
+    }
+
+    /* ============================================== */
+    /* FETCH TRUSTEES FROM API                        */
+    /* ============================================== */
+    function loadTrustees() {
+        const grid        = document.getElementById('boardGrid');
+        const loadingEl   = document.getElementById('loadingState');
+        const noResultsEl = document.getElementById('noResults');
+
+        loadingEl.style.display = 'flex';
+        noResultsEl.style.display = 'none';
+
+        fetch(API_URL)
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                loadingEl.style.display = 'none';
+
+                /*
+                 * Adjust the path below to match your actual API response shape.
+                 * Common patterns:
+                 *   data          — if the API returns an array directly
+                 *   data.data     — if wrapped in { data: [...] }
+                 *   data.trustees — if wrapped in { trustees: [...] }
+                 */
+                const trustees = Array.isArray(data) ? data : (data.data || data.trustees || []);
+
+                /* Clear existing cards (keep the loading / no-results sentinels) */
+                grid.querySelectorAll('.board-card').forEach(c => c.remove());
+
+                if (trustees.length === 0) {
+                    noResultsEl.style.display = 'block';
+                    return;
+                }
+
+                trustees.forEach(t => grid.insertBefore(renderCard(t), noResultsEl));
+
+                /* Populate filter chips and modal dropdown from live data */
+                populatePositionChips(trustees);
+                const uniquePositions = [...new Set(trustees.map(t => t.position).filter(Boolean))];
+                populatePositionDropdown(uniquePositions);
+            })
+            .catch(err => {
+                loadingEl.style.display = 'none';
+                noResultsEl.innerHTML   = '<i class="bi bi-exclamation-circle"></i> Failed to load trustees.';
+                noResultsEl.style.display = 'block';
+                console.error('Trustees API error:', err);
+            });
+    }
+
+    /* Initial load */
+    loadTrustees();
+
     /* ============================================== */
     /* SEARCH & FILTER                                */
     /* ============================================== */
@@ -935,57 +1085,54 @@
     });
 
     /* Chip toggle */
-    document.querySelectorAll('.filter-chip').forEach(chip => {
-        chip.addEventListener('click', e => {
-            e.stopPropagation();
-            const type  = chip.dataset.filter;   // 'position' or 'status'
-            const value = chip.dataset.value;
+    function onChipClick(e) {
+        const chip     = e.currentTarget;
+        const filter   = chip.dataset.filter;
+        const value    = chip.dataset.value;
+        const isActive = chip.classList.contains('chip-active');
 
-            if (activeFilters[type] === value) {
-                // deselect
-                activeFilters[type] = null;
-                chip.classList.remove('chip-active');
-            } else {
-                // deselect previous in same group
-                document.querySelectorAll(`.filter-chip[data-filter="${type}"]`)
-                    .forEach(c => c.classList.remove('chip-active'));
-                activeFilters[type] = value;
-                chip.classList.add('chip-active');
-            }
+        /* Deactivate sibling chips in the same group */
+        filterPanel.querySelectorAll(`.filter-chip[data-filter="${filter}"]`).forEach(c => c.classList.remove('chip-active'));
 
-            applyFilters();
-            updateFilterBtnStyle();
-        });
-    });
+        if (!isActive) {
+            chip.classList.add('chip-active');
+            activeFilters[filter] = value;
+        } else {
+            activeFilters[filter] = null;
+        }
 
-    /* Clear filters */
-    filterClear.addEventListener('click', e => {
-        e.stopPropagation();
-        activeFilters = { position: null, status: null };
+        applyFilters();
+        updateFilterBtnStyle();
+    }
+
+    /* Attach to status chips (static) */
+    document.querySelectorAll('.filter-chip[data-filter="status"]').forEach(c => c.addEventListener('click', onChipClick));
+
+    /* Clear all */
+    filterClear.addEventListener('click', () => {
         document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('chip-active'));
-        searchInput.value = '';
+        activeFilters = { position: null, status: null };
         applyFilters();
         updateFilterBtnStyle();
     });
 
-    /* Search input */
+    /* Search */
     searchInput.addEventListener('input', applyFilters);
 
     function applyFilters() {
-        const query = searchInput.value.trim().toLowerCase();
-        let visibleCount = 0;
+        const query        = searchInput.value.toLowerCase().trim();
+        const posFilter    = activeFilters.position ? activeFilters.position.toLowerCase() : null;
+        const statusFilter = activeFilters.status   ? activeFilters.status.toLowerCase()   : null;
+        let visibleCount   = 0;
 
         allCards().forEach(card => {
-            const name     = (card.querySelector('.card-name')?.textContent || '').toLowerCase();
-            const posEl    = card.querySelector('.card-position-pill') || card.querySelector('.card-position-text');
-            const position = (posEl?.textContent || '').toLowerCase();
-            const status   = (card.dataset.status || '').toLowerCase();
+            const name     = ((card.dataset.firstname || '') + ' ' + (card.dataset.lastname || '')).toLowerCase();
+            const position = (card.dataset.position || '').toLowerCase();
+            const status   = (card.dataset.status   || '').toLowerCase();
 
-            const matchSearch   = !query || name.includes(query) || position.includes(query);
-            const matchPosition = !activeFilters.position ||
-                position.includes(activeFilters.position.toLowerCase());
-            const matchStatus   = !activeFilters.status ||
-                status === activeFilters.status.toLowerCase();
+            const matchSearch   = !query        || name.includes(query) || position.includes(query);
+            const matchPosition = !posFilter    || position === posFilter;
+            const matchStatus   = !statusFilter || status   === statusFilter;
 
             const visible = matchSearch && matchPosition && matchStatus;
             card.style.display = visible ? '' : 'none';
@@ -998,7 +1145,6 @@
     function updateFilterBtnStyle() {
         const hasFilter = activeFilters.position || activeFilters.status;
         filterBtn.classList.toggle('filter-active', !!hasFilter);
-        // update button label
         filterBtn.innerHTML = hasFilter
             ? `<i class="bi bi-sliders"></i> Filtered`
             : `<i class="bi bi-sliders"></i> Filter`;
@@ -1012,32 +1158,6 @@
     const vpPhotoPlaceholder = document.getElementById('vpPhotoPlaceholder');
     const vpName             = document.getElementById('vpName');
     const vpPosition         = document.getElementById('vpPosition');
-
-    document.querySelectorAll('.btn-view-profile').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const card   = this.closest('.board-card');
-            const imgEl  = card.querySelector('.card-photo');
-            const nameEl = card.querySelector('.card-name');
-            const pillEl = card.querySelector('.card-position-pill');
-            const textEl = card.querySelector('.card-position-text');
-
-            if (imgEl && imgEl.src) {
-                vpPhoto.src = imgEl.src;
-                vpPhoto.style.display = 'block';
-                vpPhotoPlaceholder.style.display = 'none';
-            } else {
-                vpPhoto.style.display = 'none';
-                vpPhotoPlaceholder.style.display = 'flex';
-            }
-
-            vpName.textContent     = nameEl ? nameEl.textContent.trim() : '';
-            vpPosition.textContent = pillEl
-                ? pillEl.textContent.trim()
-                : (textEl ? textEl.textContent.trim() : '');
-
-            vpOverlay.classList.add('active');
-        });
-    });
 
     document.getElementById('closeViewProfile').addEventListener('click', () => vpOverlay.classList.remove('active'));
     vpOverlay.addEventListener('click', e => { if (e.target === vpOverlay) vpOverlay.classList.remove('active'); });
@@ -1066,7 +1186,7 @@
     let selectedStatus   = 'Active';
     let isEditMode       = false;
 
-    /* ── reset form to blank state ── */
+    /* Reset form to blank state */
     function resetForm() {
         document.getElementById('lastName').value  = '';
         document.getElementById('firstName').value = '';
@@ -1079,7 +1199,8 @@
         positionDrop.classList.remove('open');
 
         document.querySelectorAll('.status-option').forEach(o => o.classList.remove('selected'));
-        statusDrop.querySelector('[data-value="Active"]').classList.add('selected');
+        const activeOpt = statusDrop.querySelector('[data-value="Active"]');
+        if (activeOpt) activeOpt.classList.add('selected');
         selectedStatus = 'Active';
         statusLbl.textContent = 'Active';
         statusBtn.classList.add('has-value');
@@ -1092,71 +1213,58 @@
         photoInput.value = '';
     }
 
-    /* ── open modal in add or edit mode ── */
+    /* Open modal in add or edit mode */
     function openModal(mode, card) {
         isEditMode = (mode === 'edit');
         modalTitle.textContent = isEditMode ? 'Edit Board' : 'Add Board';
         resetForm();
 
         if (isEditMode && card) {
-            /* Photo */
-            const photo = card.dataset.photo || (card.querySelector('.card-photo') || {}).src;
-            if (photo) {
-                previewImg.src = photo;
+            const fn = card.dataset.firstname || '';
+            const ln = card.dataset.lastname  || '';            
+            const gn = card.dataset.gender    || '';
+            const pos = card.dataset.position || '';
+            const st  = card.dataset.status   || '';
+            const ph  = card.dataset.photo    || '';
+
+            document.getElementById('firstName').value = fn;
+            document.getElementById('lastName').value  = ln;
+
+            const gInput = document.querySelector(`input[name="gender"][value="${gn}"]`);
+            if (gInput) gInput.checked = true;
+
+            if (ph) {
+                previewImg.src = ph;
                 previewImg.style.display = 'block';
                 defaultIcon.style.display = 'none';
             }
 
-            /* Name */
-            document.getElementById('lastName').value  = card.dataset.lastname  || '';
-            document.getElementById('firstName').value = card.dataset.firstname || '';
+            const pOpt = positionDrop.querySelector(`.position-option[data-value="${pos}"]`);
+            if (pOpt) pickPosition(pos, pOpt);
 
-            /* Gender */
-            const gender = card.dataset.gender || '';
-            if (gender) {
-                const radio = document.querySelector(`input[name="gender"][value="${gender}"]`);
-                if (radio) radio.checked = true;
-            }
-
-            /* Position — find existing option or add new one */
-            const pos = card.dataset.position || '';
-            if (pos && pos !== '[Position]') {
-                let opt = [...document.querySelectorAll('.position-option')]
-                    .find(o => o.dataset.value.toLowerCase() === pos.toLowerCase());
-                if (!opt) {
-                    opt = document.createElement('div');
-                    opt.className = 'position-option';
-                    opt.dataset.value = pos;
-                    opt.textContent = pos.toUpperCase();
-                    opt.addEventListener('click', () => pickPosition(opt.dataset.value, opt));
-                    positionDrop.insertBefore(opt, document.getElementById('addPositionBtn'));
-                }
-                pickPosition(opt.dataset.value, opt);
-            }
-
-            /* Status */
-            const status = card.dataset.status || 'Active';
-            const sOpt = [...document.querySelectorAll('.status-option')]
-                .find(o => o.dataset.value.toLowerCase() === status.toLowerCase());
-            if (sOpt) pickStatus(sOpt.dataset.value, sOpt);
+            const sOpt = statusDrop.querySelector(`.status-option[data-value="${st}"]`);
+            if (sOpt) pickStatus(st, sOpt);
         }
 
         overlay.classList.add('active');
     }
 
-    /* ── ADD button ── */
+    /* ADD button */
     openBtn.addEventListener('click', () => openModal('add'));
-
-    /* ── EDIT buttons ── */
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', function () {
-            openModal('edit', this.closest('.board-card'));
-        });
-    });
 
     /* Close */
     closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
+
+    /* Clear form */
+    clearBtn.addEventListener('click', resetForm);
+
+    /* Confirm — wire your POST / PATCH call here */
+    confirmBtn.addEventListener('click', () => {
+        /* TODO: submit form data to your backend */
+        overlay.classList.remove('active');
+        loadTrustees(); /* refresh grid after save */
+    });
 
     /* Photo upload */
     photoAddBtn.addEventListener('click', () => photoInput.click());
@@ -1191,10 +1299,6 @@
         positionDrop.classList.remove('open');
     }
 
-    document.querySelectorAll('.position-option').forEach(opt => {
-        opt.addEventListener('click', () => pickPosition(opt.dataset.value, opt));
-    });
-
     /* Status dropdown */
     statusBtn.addEventListener('click', e => {
         e.stopPropagation();
@@ -1218,75 +1322,66 @@
         opt.addEventListener('click', () => pickStatus(opt.dataset.value, opt));
     });
 
-    /* Add Position modal */
-    const addPosOverlay = document.getElementById('addPosOverlay');
-    const positionInput = document.getElementById('positionInput');
-    const closePosModal = document.getElementById('closePosModal');
-    const clearPosBtn   = document.getElementById('clearPosBtn');
-    const confirmPosBtn = document.getElementById('confirmPosBtn');
+    /* Close dropdowns on outside click */
+    document.addEventListener('click', e => {
+        if (!positionBtn.contains(e.target) && !positionDrop.contains(e.target)) {
+            positionBtn.classList.remove('open');
+            positionDrop.classList.remove('open');
+        }
+        if (!statusBtn.contains(e.target) && !statusDrop.contains(e.target)) {
+            statusBtn.classList.remove('open');
+            statusDrop.classList.remove('open');
+        }
+    });
 
-    function openAddPosition() {
+    /* ============================================== */
+    /* ADD POSITION MODAL                             */
+    /* ============================================== */
+    const addPosOverlay  = document.getElementById('addPosOverlay');
+    const openAddPosBtn  = document.getElementById('openAddPosition');
+    const closePosBtn    = document.getElementById('closePosModal');
+    const positionInput  = document.getElementById('positionInput');
+    const clearPosBtn    = document.getElementById('clearPosBtn');
+    const confirmPosBtn  = document.getElementById('confirmPosBtn');
+
+    openAddPosBtn.addEventListener('click', () => {
+        positionDrop.classList.remove('open');
+        positionBtn.classList.remove('open');
         positionInput.value = '';
         positionInput.classList.remove('error');
         addPosOverlay.classList.add('active');
-        setTimeout(() => positionInput.focus(), 100);
-    }
-
-    function closeAddPosition() { addPosOverlay.classList.remove('active'); }
-
-    document.getElementById('addPositionBtn').addEventListener('click', e => {
-        e.stopPropagation();
-        positionBtn.classList.remove('open');
-        positionDrop.classList.remove('open');
-        openAddPosition();
     });
 
-    closePosModal.addEventListener('click', closeAddPosition);
-    addPosOverlay.addEventListener('click', e => { if (e.target === addPosOverlay) closeAddPosition(); });
-    clearPosBtn.addEventListener('click', () => { positionInput.value = ''; positionInput.focus(); });
+    closePosBtn.addEventListener('click', () => addPosOverlay.classList.remove('active'));
+    addPosOverlay.addEventListener('click', e => { if (e.target === addPosOverlay) addPosOverlay.classList.remove('active'); });
+    clearPosBtn.addEventListener('click', () => { positionInput.value = ''; positionInput.classList.remove('error'); });
 
     confirmPosBtn.addEventListener('click', () => {
-        const newPos = positionInput.value.trim();
-        if (!newPos) { positionInput.classList.add('error'); positionInput.focus(); return; }
+        const val = positionInput.value.trim();
+        if (!val) { positionInput.classList.add('error'); return; }
+        positionInput.classList.remove('error');
+
+        /* TODO: optionally POST new position to your backend */
+
+        /* Add option to the dropdown immediately */
         const opt = document.createElement('div');
-        opt.className = 'position-option';
-        opt.dataset.value = newPos;
-        opt.textContent = newPos.toUpperCase();
-        opt.addEventListener('click', () => pickPosition(opt.dataset.value, opt));
-        positionDrop.insertBefore(opt, document.getElementById('addPositionBtn'));
-        closeAddPosition();
-        pickPosition(newPos, opt);
-    });
+        opt.className    = 'position-option';
+        opt.dataset.value = val;
+        opt.textContent  = val;
+        opt.addEventListener('click', () => pickPosition(val, opt));
+        positionDrop.insertBefore(opt, openAddPosBtn);
 
-    positionInput.addEventListener('input', () => positionInput.classList.remove('error'));
-    positionInput.addEventListener('keydown', e => {
-        if (e.key === 'Enter') confirmPosBtn.click();
-        if (e.key === 'Escape') closeAddPosition();
-    });
+        /* Also add a filter chip */
+        const chip = document.createElement('button');
+        chip.className      = 'filter-chip';
+        chip.dataset.filter = 'position';
+        chip.dataset.value  = val;
+        chip.textContent    = val;
+        chip.addEventListener('click', onChipClick);
+        document.getElementById('positionChips').appendChild(chip);
 
-    /* Close all dropdowns on outside click */
-    document.addEventListener('click', () => {
-        positionBtn.classList.remove('open'); positionDrop.classList.remove('open');
-        statusBtn.classList.remove('open');   statusDrop.classList.remove('open');
-    });
-
-    /* Clear Form */
-    clearBtn.addEventListener('click', resetForm);
-
-    /* Confirm */
-    confirmBtn.addEventListener('click', () => {
-        const lastName  = document.getElementById('lastName').value.trim();
-        const firstName = document.getElementById('firstName').value.trim();
-        const gender    = document.querySelector('input[name="gender"]:checked')?.value || '';
-
-        if (!lastName || !firstName) { alert('Please enter both first and last name.'); return; }
-        if (!selectedPosition)       { alert('Please select a position.'); return; }
-
-        const action = isEditMode ? 'updated' : 'added';
-        // TODO: Replace with AJAX / form POST
-        console.log({ lastName, firstName, gender, position: selectedPosition, status: selectedStatus, isEditMode });
-        alert(`Board member ${firstName} ${lastName} (${selectedPosition}) ${action}!`);
-        overlay.classList.remove('active');
+        addPosOverlay.classList.remove('active');
+        pickPosition(val, opt);
     });
 
 })();
