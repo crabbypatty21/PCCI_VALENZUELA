@@ -19,7 +19,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/business/{id}', function ($id) {
-    return view('MembershipBusinessProfileDetails', compact('id'));
+    return view('business.show'); 
 })->name('business.show');
 
 
@@ -76,10 +76,7 @@ Route::get('/applicant/{id}', function ($id) {
 
     return view('admin.applicant-profile', ['applicant' => $applicantData]);
 })->name('applicant.profile');
-// routes/web.php
-Route::get('/business/{id}', function ($id) {
-    return view('business.show'); // Make sure this matches your blade file name!
-});
+
 
 Route::get('/content/board-of-trustees', function () {
     return view('landing.board-of-trustees');
