@@ -2,47 +2,9 @@
 
 @section('content')
 
-@php
-    // 1. DATA ARRAY (Your full list)
-    $businesses = [
-        ['id' => 1, 'name' => 'Tech Corp Inc.', 'category' => 'Manufacturing', 'industry' => 'Technology & Software', 'email' => 'contact@techcorp.ph', 'phone' => '+63 912 345', 'color' => 'bg-primary', 'initials' => 'TC', 'tags' => ['Hardware', 'Software']],
-        ['id' => 2, 'name' => 'Green Fields', 'category' => 'Distributor', 'industry' => 'Agriculture & Supply', 'email' => 'sales@greenfields.com', 'phone' => '(02) 8123', 'color' => 'bg-success', 'initials' => 'GF', 'tags' => ['Organic', 'Wholesale']],
-        ['id' => 3, 'name' => 'BuildLink', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 4, 'name' => 'BuildLink 4', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 5, 'name' => 'BuildLink 5', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 6, 'name' => 'BuildLink 6', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 7, 'name' => 'BuildLink 7', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 8, 'name' => 'BuildLink 8', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 9, 'name' => 'BuildLink 9', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 10, 'name' => 'BuildLink 10', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 11, 'name' => 'BuildLink 11', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 12, 'name' => 'BuildLink 12', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 13, 'name' => 'BuildLink 13 (Page 2)', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-info', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-    ];
-
-    // 2. PAGINATION LOGIC
-    $perPage = 12;
-    $totalResults = count($businesses);
-    $totalPages = ceil($totalResults / $perPage);
-    $currentPage = (int) request()->get('page', 1);
-    
-    // Ensure current page is within valid range
-    if ($currentPage < 1) $currentPage = 1;
-    if ($currentPage > $totalPages) $currentPage = $totalPages;
-
-    // Slice the array to show only 12 items for the current page
-    $offset = ($currentPage - 1) * $perPage;
-    $pagedData = array_slice($businesses, $offset, $perPage);
-
-    // Calculate "Showing X-Y of Z"
-    $showingStart = $offset + 1;
-    $showingEnd = min($offset + $perPage, $totalResults);
-@endphp
-
 {{-- HERO SECTION --}}
 <div class="w-100 mb-0 d-flex flex-column align-items-center" style="height: 623px; margin-top: -1px; background-color: var(--bg-hero); padding-top: 130px; transition: background-color 0.3s ease;">
     <div class="container d-flex flex-column align-items-center text-center">
-        {{-- Hero text remains white as per previous consistency requests --}}
         <span class="mb-3 d-block" style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; text-transform: uppercase;">JOIN PCCI - VALENZUELA</span>
         <h1 class="headline-text fw-bold mb-4 text-uppercase" style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-size: 63px;">
             Discover Local <span style="color: #EB3223;">Businesses</span>
@@ -53,119 +15,268 @@
         <div style="width: 782px; max-width: 90%;">
             <div class="input-group shadow-sm rounded overflow-hidden border-0 align-items-center" style="height: 62px; background-color: var(--bg-input);">
                 <span class="input-group-text border-0 ps-4" style="background-color: transparent;"><i class="bi bi-search text-secondary"></i></span>
-                <input type="text" class="form-control border-0 shadow-none text-secondary" style="background-color: transparent;" placeholder="Search businesses, services...">
-                <button class="btn text-white px-5 fw-bold text-uppercase" style="background-color: #D40032; margin-right: 13px; height: 40px; border-radius: 6px;">Search</button>
+                <input type="text" class="form-control border-0 shadow-none text-secondary" style="background-color: transparent;" placeholder="Search businesses, services..." id="searchInput">
+                <button class="btn text-white px-5 fw-bold text-uppercase" style="background-color: #D40032; margin-right: 13px; height: 40px; border-radius: 6px;" onclick="handleSearch()">Search</button>
             </div>
         </div>
     </div>
 </div>
 
-        {{-- Filters & Listing Section --}}
-        <div class="py-5" style="background-color: var(--bg-section); transition: background-color 0.3s ease;">
-            <div class="w-100 mb-5" style="border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-                <div class="container px-4 px-lg-5">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 py-3">
-                        
-                        <div class="d-flex flex-wrap gap-2">
-                            {{-- Categories --}}
-                            <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);">
-                                <option selected>All Categories</option>
-                            </select>
+{{-- Filters & Listing Section --}}
+<div class="py-5" style="background-color: var(--bg-section); transition: background-color 0.3s ease;">
+    <div class="w-100 mb-5" style="border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container px-4 px-lg-5">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 py-3">
+                
+                <div class="d-flex flex-wrap gap-2">
+                    <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);">
+                        <option selected>All Categories</option>
+                    </select>
 
-                            {{-- Locations --}}
-                            <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);">
-                                <option selected>All Locations</option>
-                            </select>
+                    <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);">
+                        <option selected>All Locations</option>
+                    </select>
 
-                            {{-- Sort Order Dropdown --}}
-                            <select class="form-select form-select-sm border-0 shadow-sm" 
-                                    style="width: auto; background-color: var(--bg-input); color: var(--text-main);" 
-                                    onchange="window.location.href='?sort=' + this.value">
-                                <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>Sort: Ascending</option>
-                                <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>Sort: Descending</option>
-                            </select>
-                        </div>
+                    <select class="form-select form-select-sm border-0 shadow-sm" style="width: auto; background-color: var(--bg-input); color: var(--text-main);" id="sortSelect" onchange="handleSort()">
+                        <option value="asc">Sort: A-Z</option>
+                        <option value="desc">Sort: Z-A</option>
+                    </select>
+                </div>
 
-                        {{-- DYNAMIC SHOWING TEXT --}}
-                        <div class="small fw-medium" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;">
-                            Showing {{ $showingStart }}-{{ $showingEnd }} of {{ $totalResults }} results
-                        </div>
-                    </div>
+                {{-- DYNAMIC SHOWING TEXT --}}
+                <div class="small fw-medium" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;" id="showingText">
+                    Loading results...
                 </div>
             </div>
         </div>
+    </div>
 
     {{-- CARD GRID --}}
     <div class="container px-4 px-lg-5">
-        <div class="row g-4">
-            @foreach ($pagedData as $business)
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow p-3" style="border-radius: 12px; background-color: var(--bg-card);">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-circle {{ $business['color'] }} d-flex align-items-center justify-content-center {{ $business['color'] == 'bg-warning' ? 'text-dark' : 'text-white' }} fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
-                                {{ $business['initials'] }}
-                            </div>
-                            <div>
-                                <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase" style="font-size: 0.65rem; background-color: #e7f1ff; color: #0d6efd;">
-                                    {{ $business['category'] }}
-                                </span>
-                                {{-- Company Name follows the theme logic --}}
-                                <h5 class="fw-bold mb-0" style="color: var(--text-main);">{{ $business['name'] }}</h5>
-                                <small style="color: var(--text-muted);">{{ $business['industry'] }}</small>
-                            </div>
-                        </div>
-                        <div class="card-body p-0 d-flex flex-column flex-grow-1">
-                            <div class="mb-3">
-                                <div class="d-flex gap-2 small">
-                                    @foreach ($business['tags'] as $tag)
-                                        {{-- PRODUCTS/SERVICES: Color forced to red and remains red in both modes --}}
-                                        <span class="bg-body-secondary px-2 py-1 rounded" style="color: #1a1a2e !important; font-weight: 600;">{{ $tag }}</span>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: var(--border-color) !important;">
-                                <div class="small" style="color: var(--text-muted);">
-                                    <i class="bi bi-envelope"></i> {{ $business['email'] }}<br>
-                                    <i class="bi bi-telephone"></i> {{ $business['phone'] }}
-                                </div>
-                                <a href="{{ route('business.show', $business['id']) }}"
-                                class="btn py-1 px-3 text-white fw-bold"
-                                style="background-color: #D40032; border-radius: 6px; font-size: 0.8rem;">
-                                    View Details
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <div class="row g-4" id="businessGrid">
+            <div class="col-12 text-center py-5 text-muted">
+                <i class="bi bi-arrow-repeat" style="display:inline-block; animation: spin 1s linear infinite; font-size: 2rem;"></i>
+                <p class="mt-2">Fetching local businesses...</p>
+            </div>
         </div>
 
         {{-- PAGINATION --}}
         <div class="mt-5 d-flex justify-content-center">
             <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                        <a class="page-link border-0" style="background-color: transparent; color: var(--text-muted);" href="?page={{ $currentPage - 1 }}">Previous</a>
-                    </li>
-
-                    @for ($p = 1; $p <= $totalPages; $p++)
-                        <li class="page-item {{ $currentPage == $p ? 'active' : '' }}">
-                            <a class="page-link border-0 rounded mx-1 {{ $currentPage == $p ? 'bg-danger text-white shadow-sm' : '' }}" 
-                               style="{{ $currentPage != $p ? 'background-color: transparent; color: var(--text-muted);' : '' }}"
-                               href="?page={{ $p }}">
-                                {{ $p }}
-                            </a>
-                        </li>
-                    @endfor
-
-                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                        <a class="page-link border-0" style="background-color: transparent; color: var(--text-muted);" href="?page={{ $currentPage + 1 }}">Next</a>
-                    </li>
-                </ul>
+                <ul class="pagination" id="paginationContainer">
+                    </ul>
             </nav>
         </div>
     </div>
 </div>
 
-@endsection
+{{-- ======== DYNAMIC FETCH LOGIC ======== --}}
+<script>
+    let allBusinesses = [];
+    let currentPage = 1;
+    const perPage = 12;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchBusinesses();
+    });
+
+    async function fetchBusinesses() {
+        try {
+            const token = localStorage.getItem('token');
+            const headers = { 'Accept': 'application/json' };
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+
+            // Make sure this IP matches your current active server IP
+            const response = await fetch('http://192.168.55.105:8000/api/v1/business', {
+                method: 'GET',
+                headers: headers
+            });
+
+            if (!response.ok) {
+                const errDetails = await response.text();
+                console.error("🚨 LARAVEL ERROR:", errDetails);
+                throw new Error("Failed to fetch");
+            }
+
+            const result = await response.json();
+            
+            // Extract the array of data
+            allBusinesses = result.data || result || []; 
+            
+            sortData('asc');
+            renderPage(1);
+
+        } catch (error) {
+            console.error('Error fetching businesses:', error);
+            document.getElementById('businessGrid').innerHTML = `
+                <div class="col-12 text-center py-5" style="color: #D40032;">
+                    <h5><i class="bi bi-exclamation-triangle"></i> Failed to load businesses.</h5>
+                    <p>Make sure your server is running at the correct IP address!</p>
+                </div>
+            `;
+            document.getElementById('showingText').innerText = "0 results";
+        }
+    }
+
+    function renderPage(page) {
+        currentPage = page;
+        const totalResults = allBusinesses.length;
+        const totalPages = Math.ceil(totalResults / perPage);
+        
+        if (currentPage < 1) currentPage = 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        const offset = (currentPage - 1) * perPage;
+        const pagedData = allBusinesses.slice(offset, offset + perPage);
+
+        const showingStart = totalResults === 0 ? 0 : offset + 1;
+        const showingEnd = Math.min(offset + perPage, totalResults);
+        document.getElementById('showingText').innerText = `Showing ${showingStart}-${showingEnd} of ${totalResults} results`;
+
+        const grid = document.getElementById('businessGrid');
+        grid.innerHTML = '';
+
+        if (totalResults === 0) {
+            grid.innerHTML = '<div class="col-12 text-center text-muted py-5">No businesses found.</div>';
+            renderPagination(0);
+            return;
+        }
+
+        pagedData.forEach(biz => {
+            // Mapping exactly to your JSON snippet
+            const name = biz.registered_business_name || 'Unknown Business';
+            const email = biz.email || 'N/A';
+            const phone = biz.telephone_no || 'N/A';
+            const industry = biz.industry || 'Business';
+            const tagline = biz.business_tagline || '';
+            
+            // Loop through the array of tags dynamically
+            const tags = (Array.isArray(biz.tags) && biz.tags.length > 0) ? biz.tags : [];
+
+            // SMART PHOTO LOGIC
+            let avatarHTML = '';
+            
+            if (biz.photo_url && !biz.photo_url.includes('N/A') && !biz.photo_url.includes('null')) {
+                avatarHTML = `<img src="${biz.photo_url}" alt="${name}" style="width: 56px; height: 56px; object-fit: cover;" class="rounded-circle shadow-sm">`;
+            } else {
+                const words = name.split(' ');
+                let initials = name.substring(0, 2).toUpperCase();
+                if (words.length > 1 && words[1].length > 0) {
+                    initials = (words[0][0] + words[1][0]).toUpperCase();
+                }
+                const colors = ['bg-primary', 'bg-success', 'bg-warning', 'bg-info', 'bg-danger'];
+                const colorClass = colors[(biz.id || Math.floor(Math.random() * 10)) % colors.length];
+                const textClass = colorClass === 'bg-warning' || colorClass === 'bg-info' ? 'text-dark' : 'text-white';
+                
+                avatarHTML = `<div class="rounded-circle ${colorClass} d-flex align-items-center justify-content-center ${textClass} fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.2rem;">${initials}</div>`;
+            }
+
+            const profileUrl = `/business/${biz.id || '#'}`;
+
+            const cardHTML = `
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow p-3" style="border-radius: 12px; background-color: var(--bg-card);">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            
+                            ${avatarHTML}
+                            
+                            <div style="width: calc(100% - 70px);">
+                                <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase text-truncate" style="font-size: 0.65rem; background-color: #fdf2f2; color: #be1e38; max-width: 100%;">
+                                    ${industry}
+                                </span>
+                                
+                                <h5 class="fw-bold mb-1 text-truncate" style="color: var(--text-main);" title="${name}">${name}</h5>
+                                
+                                ${tagline ? `<small class="text-truncate d-block" style="color: #888; font-style: italic; font-size: 0.8rem;">"${tagline}"</small>` : ''}
+                            </div>
+                        </div>
+                        <div class="card-body p-0 d-flex flex-column flex-grow-1">
+                            <div class="mb-3">
+                                <div class="d-flex gap-2 small flex-wrap">
+                                    ${tags.map(tag => `<span class="bg-body-secondary px-2 py-1 rounded text-capitalize" style="color: #1a1a2e !important; font-weight: 600;">${tag}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: var(--border-color) !important;">
+                                <div class="small text-truncate" style="color: var(--text-muted); max-width: 60%;">
+                                    <i class="bi bi-envelope"></i> <span title="${email}">${email}</span><br>
+                                    <i class="bi bi-telephone"></i> ${phone}
+                                </div>
+                                <a href="${profileUrl}" class="btn py-1 px-3 text-white fw-bold flex-shrink-0" style="background-color: #D40032; border-radius: 6px; font-size: 0.8rem;">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+        const pagContainer = document.getElementById('paginationContainer');
+        pagContainer.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        pagContainer.innerHTML += `
+            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link border-0" style="background-color: transparent; color: var(--text-muted); cursor: pointer;" onclick="renderPage(${currentPage - 1})">Previous</a>
+            </li>
+        `;
+
+        for (let p = 1; p <= totalPages; p++) {
+            const isActive = currentPage === p;
+            pagContainer.innerHTML += `
+                <li class="page-item ${isActive ? 'active' : ''}">
+                    <a class="page-link border-0 rounded mx-1 ${isActive ? 'bg-danger text-white shadow-sm' : ''}" 
+                       style="${!isActive ? 'background-color: transparent; color: var(--text-muted); cursor: pointer;' : 'cursor: default;'}"
+                       onclick="renderPage(${p})">
+                        ${p}
+                    </a>
+                </li>
+            `;
+        }
+
+        pagContainer.innerHTML += `
+            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link border-0" style="background-color: transparent; color: var(--text-muted); cursor: pointer;" onclick="renderPage(${currentPage + 1})">Next</a>
+            </li>
+        `;
+    }
+
+    function handleSort() {
+        const order = document.getElementById('sortSelect').value;
+        sortData(order);
+        renderPage(1); 
+    }
+
+    function sortData(order) {
+        allBusinesses.sort((a, b) => {
+            const nameA = (a.registered_business_name || '').toLowerCase();
+            const nameB = (b.registered_business_name || '').toLowerCase();
+            if (order === 'asc') return nameA.localeCompare(nameB);
+            return nameB.localeCompare(nameA);
+        });
+    }
+
+    function handleSearch() {
+        const term = document.getElementById('searchInput').value.toLowerCase();
+        console.log("Searching for:", term);
+    }
+</script>
+
+<style>
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    @keyframes spin { 
+        100% { transform: rotate(360deg); } 
+    }
+</style>
+
+@endsection 

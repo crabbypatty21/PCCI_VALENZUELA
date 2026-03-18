@@ -76,6 +76,7 @@ Route::get('/applicant/{id}', function ($id) {
     return view('admin.applicant-profile', ['applicant' => $applicantData]);
 })->name('applicant.profile');
 
+
 Route::get('/content/board-of-trustees', function () {
     return view('landing.board-of-trustees');
 })->name('content.trustees');

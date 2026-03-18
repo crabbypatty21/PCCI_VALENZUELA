@@ -20,6 +20,8 @@ Route::prefix('v1')->group(function () {
     // --> NEW MEMBERS ROUTE <--
     Route::get('/members', [MemberController::class, 'index']); 
 
+    // routes/api.php
+    Route::get('/v1/business/{id}', [BusinessController::class, 'show']);
     // Your existing Event routes
     Route::get('/events', [EventController::class, 'index']); 
     Route::post('/events', [EventController::class, 'store']); 

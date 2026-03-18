@@ -6,7 +6,7 @@
 
     <div class="custom-card">
         <div class="tableTop">
-            <input placeholder="Search Products...">
+            <input placeholder="Search Products..." oninput="filterProducts(this.value)">
             <button class="addBtn" onclick="openAddProductModal()"><i class="fa fa-plus me-1"></i> Add New</button>
         </div>
 
@@ -29,17 +29,29 @@
     </div>
 </div>
 
-{{-- Add Product Modal --}}
+{{-- Add/Edit Product Modal --}}
 <div id="addProductModal" class="modal-overlay">
     <div class="modal-content-box">
-        <h5 class="fw-bold text-danger mb-4 pb-3 border-bottom"><i class="fa fa-box-open me-2"></i>Add New Product</h5>
-        <label class="text-muted small fw-bold mb-1">Product Name</label>
-        <input type="text" class="form-control mb-3" placeholder="e.g. Welding Services" style="font-size: 14px;">
+        <h5 class="fw-bold text-danger mb-4 pb-3 border-bottom">
+            <i class="fa fa-box-open me-2"></i><span id="productModalTitle">Add New Product</span>
+        </h5>
+        
+        <div id="productAlert" class="alert alert-danger" style="display:none; font-size:13px; padding: 10px;"></div>
+        
+        <input type="hidden" id="prodId">
+        
+        <label class="text-muted small fw-bold mb-1">Product Name <span class="text-danger">*</span></label>
+        <input type="text" id="prodName" class="form-control mb-3" placeholder="e.g. Welding Services" style="font-size: 14px;">
+        
+        <label class="text-muted small fw-bold mb-1">Service URL</label>
+        <input type="text" id="prodUrl" class="form-control mb-3" placeholder="e.g. www.abccompany.com/welding" style="font-size: 14px;">
+        
         <label class="text-muted small fw-bold mb-1">Description</label>
-        <textarea class="form-control mb-4" rows="3" placeholder="Brief description..." style="font-size: 14px;"></textarea>
+        <textarea id="prodDesc" class="form-control mb-4" rows="3" placeholder="Brief description..." style="font-size: 14px;"></textarea>
+        
         <div class="d-flex justify-content-end gap-2">
-            <button class="btn btn-light fw-bold px-4 rounded-pill" onclick="document.getElementById('addProductModal').style.display='none'">Cancel</button>
-            <button class="btn btn-danger fw-bold px-4 rounded-pill">Save Product</button>
+            <button class="btn btn-light fw-bold px-4 rounded-pill" onclick="closeProductModal()">Cancel</button>
+            <button class="btn btn-danger fw-bold px-4 rounded-pill" id="btnSaveProduct" onclick="saveProduct()">Save Product</button>
         </div>
     </div>
 </div>
