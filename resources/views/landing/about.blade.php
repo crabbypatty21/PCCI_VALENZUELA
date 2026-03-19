@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('partials.api-config')
+
 {{-- Page-Specific Styles for Dark Mode --}}
 <style>
     /* Hero Section Background */
@@ -146,7 +148,58 @@
 
     @media (max-width: 768px) {
         .communitySwiper .swiper-slide { width: 300px; height: 200px; }
-        .nav-arrow { display: none; } 
+        .nav-arrow { display: none; }
+    }
+
+    /* =========================================
+       ABOUT PAGE — DARK MODE FIXES
+       ========================================= */
+
+    /* PCCI Advantage section */
+    .about-advantage {
+        background-color: #F5F3EF;
+        transition: background-color 0.3s ease;
+    }
+    body.dark-mode .about-advantage {
+        background-color: var(--bg-section-gray);
+    }
+
+    /* Values cards */
+    .about-value-card {
+        background-color: #F5F3EF;
+        transition: background-color 0.3s ease;
+    }
+    body.dark-mode .about-value-card {
+        background-color: var(--bg-card);
+    }
+    body.dark-mode .about-value-card .d-flex[style*="background-color: #fff1f3"] {
+        background-color: rgba(212, 0, 50, 0.15) !important;
+    }
+
+    /* Impact section right panel */
+    .about-impact-content {
+        background-color: #F5F3EF;
+        transition: background-color 0.3s ease;
+    }
+    body.dark-mode .about-impact-content {
+        background-color: var(--bg-section-gray);
+    }
+
+    /* Quote box text */
+    body.dark-mode .quote-box .quote-text {
+        color: #e1e1e1 !important;
+    }
+
+    /* Impact stats box */
+    body.dark-mode .impact-stat-box {
+        background: rgba(212, 0, 50, 0.1) !important;
+        border-color: rgba(212, 0, 50, 0.25) !important;
+    }
+
+    /* CTA section */
+    body.dark-mode .about-cta-section {
+        background-color: var(--bg-section-gray) !important;
+        border-color: var(--border-color) !important;
     }
 </style>
 
@@ -223,10 +276,10 @@
 
                 {{-- Quote Box --}}
                 <div class="p-4 mb-4 quote-box">
-                    <p class="fst-italic mb-3" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; color: #2c2c2c; font-size: 1.1rem;">
+                    <p class="fst-italic mb-3 quote-text" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; color: var(--text-secondary); font-size: 1.1rem;">
                         "Together, we are forging a resilient and dynamic future for Valenzuela. Our Chamber is committed to empowering every member to reach their full potential and contribute to our city's collective success."
                     </p>
-                    <p class="fw-bold mb-0" style="font-family: 'DM Sans', sans-serif; color: #D40032;">– Mr. Jundio Salvador, President</p>
+                    <p class="fw-bold mb-0" id="quoteAttribution" style="font-family: 'DM Sans', sans-serif; color: #D40032;">– President, PCCI Valenzuela</p>
                 </div>
 
                 <a href="{{ route('leadership') }}" class="btn text-white px-4 py-2 fw-bold text-uppercase d-inline-flex align-items-center gap-2" 
@@ -237,16 +290,106 @@
             </div>
 
             <div class="col-lg-6">
-                <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000" 
-                         alt="President Jundio Salvador" 
-                         class="img-fluid shadow-sm"
-                         style="border-radius: 12px; border: 8px solid white;">
-                    
-                    <div class="position-absolute bottom-0 start-0 p-4 text-white w-100" 
-                         style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); border-radius: 0 0 12px 12px;">
-                        <h5 class="fw-bold mb-0" style="font-family: 'Poppins', sans-serif;">Mr. Jundio Salvador</h5>
-                        <p class="mb-0" style="font-family: 'DM Sans', sans-serif; opacity: 0.9;">President, PCCI Valenzuela</p>
+                <style>
+                    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+                    .pres-card {
+                        position: relative;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+                        background: #1a1a2e;
+                    }
+                    .pres-card .pres-img {
+                        width: 100%;
+                        min-height: 520px;
+                        object-fit: cover;
+                        display: none;
+                    }
+                    .pres-card .pres-skeleton {
+                        width: 100%;
+                        min-height: 520px;
+                        background: linear-gradient(135deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+                        background-size: 200% 100%;
+                        animation: shimmer 1.5s infinite;
+                    }
+                    body.dark-mode .pres-card .pres-skeleton {
+                        background: linear-gradient(135deg, #2a2a35 25%, #3a3a45 50%, #2a2a35 75%);
+                        background-size: 200% 100%;
+                    }
+                    .pres-card .pres-fallback {
+                        display: none;
+                        width: 100%;
+                        min-height: 520px;
+                        background: linear-gradient(135deg, #252631, #3a3a4a);
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .pres-card .pres-info-bar {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        padding: 28px 28px 24px;
+                        background: linear-gradient(to top, rgba(26,26,46,0.95) 0%, rgba(26,26,46,0.75) 60%, transparent 100%);
+                        display: none;
+                    }
+                    .pres-card .pres-info-bar .pres-badge {
+                        display: inline-block;
+                        background: #D40032;
+                        color: #fff;
+                        font-family: 'DM Sans', sans-serif;
+                        font-size: 0.65rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 1.5px;
+                        padding: 4px 14px;
+                        border-radius: 20px;
+                        margin-bottom: 10px;
+                    }
+                    .pres-card .pres-info-bar h5 {
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        color: #fff;
+                        margin: 0 0 4px;
+                        text-transform: capitalize;
+                    }
+                    .pres-card .pres-info-bar p {
+                        font-family: 'DM Sans', sans-serif;
+                        font-size: 0.85rem;
+                        color: rgba(255,255,255,0.7);
+                        margin: 0;
+                    }
+                    @media (max-width: 992px) {
+                        .pres-card .pres-img,
+                        .pres-card .pres-skeleton,
+                        .pres-card .pres-fallback { min-height: 420px; }
+                    }
+                    @media (max-width: 576px) {
+                        .pres-card .pres-img,
+                        .pres-card .pres-skeleton,
+                        .pres-card .pres-fallback { min-height: 350px; }
+                        .pres-card .pres-info-bar { padding: 20px 18px 18px; }
+                        .pres-card .pres-info-bar h5 { font-size: 1rem; }
+                    }
+                </style>
+                <div class="pres-card" id="presidentContainer">
+                    {{-- Skeleton loader --}}
+                    <div class="pres-skeleton" id="presidentSkeleton"></div>
+
+                    {{-- President image --}}
+                    <img src="" alt="President" id="presidentImg" class="pres-img img-fluid shadow-sm">
+
+                    {{-- Fallback --}}
+                    <div class="pres-fallback" id="presidentFallback">
+                        <i class="bi bi-person-fill" style="font-size:5rem; color:rgba(255,255,255,0.15);"></i>
+                    </div>
+
+                    {{-- Info overlay --}}
+                    <div class="pres-info-bar" id="presidentOverlay">
+                        <span class="pres-badge" id="presidentBadge">President</span>
+                        <h5 id="presidentName"></h5>
+                        <p id="presidentTitle"></p>
                     </div>
                 </div>
             </div>
@@ -255,17 +398,16 @@
 </div>
 
 {{-- The PCCI Advantage Section --}}
-{{-- Background stays Red (#D40032), Cards adapt to dark mode --}}
-<div class="py-5" style="background-color: #D40032;">
-    <div class="container text-white py-4">
+<div class="py-5 about-advantage">
+    <div class="container py-4">
         <div class="text-center mb-5">
-            <span class="text-white fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
+            <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: #D40032;">
                 The PCCI Advantage
             </span>
-            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.01em;">
+            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.01em; color: var(--text-main);">
                 Your Partner in Growth & Success
             </h2>
-            <p class="mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; line-height: 1.7; opacity: 0.9;">
+            <p class="mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary);">
                 Joining PCCI Valenzuela unlocks a wealth of opportunities and resources tailored to elevate your business and drive local economic excellence.
             </p>
         </div>
@@ -325,8 +467,8 @@
         </div>
 
         <div class="text-center">
-            <a onclick="window.location.href='{{ route('event') }}'" class="btn btn-light fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2" 
-               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; color: #D40032;">
+            <a onclick="window.location.href='{{ route('event') }}'" class="btn fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2 text-white"
+               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; background-color: #D40032;">
                 Explore our Events
                 <i class="bi bi-arrow-right"></i>
             </a>
@@ -353,13 +495,12 @@
         <div class="row g-4 justify-content-center">
             {{-- Discipline --}}
             <div class="col-md-6 col-lg-4">
-                {{-- Red Cards: Text stays white --}}
-                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
-                        <i class="bi bi-shield-check" style="font-size: 1.75rem;"></i>
+                <div class="card h-100 border-0 shadow-sm text-center p-4 about-value-card" style="border-radius: 12px;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-shield-check" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Discipline</h5>
-                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Discipline</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         We uphold the highest levels of professional integrity and organizational order in every initiative we lead.
                     </p>
                 </div>
@@ -367,12 +508,12 @@
 
             {{-- Good Taste --}}
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
-                        <i class="bi bi-heart-fill" style="font-size: 1.75rem;"></i>
+                <div class="card h-100 border-0 shadow-sm text-center p-4 about-value-card" style="border-radius: 12px;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-heart-fill" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Good Taste</h5>
-                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Good Taste</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Fostering a community that values quality, professional aesthetics, and thoughtful execution in business.
                     </p>
                 </div>
@@ -380,12 +521,12 @@
 
             {{-- Excellence --}}
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
-                        <i class="bi bi-star-fill" style="font-size: 1.75rem;"></i>
+                <div class="card h-100 border-0 shadow-sm text-center p-4 about-value-card" style="border-radius: 12px;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-star-fill" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Excellence</h5>
-                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Excellence</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Striving for the highest standards in all our endeavors to ensure Valenzuela remains a competitive business hub.
                     </p>
                 </div>
@@ -409,19 +550,18 @@
                  style="background: linear-gradient(to right, rgba(212, 0, 50, 0.4), rgba(212, 0, 50, 0));"></div>
         </div>
 
-        {{-- Right: Content Side (Brand Red Background) --}}
-        {{-- Stays Red (#D40032) --}}
-        <div class="col-lg-6 d-flex flex-column justify-content-center p-5" style="background-color: #D40032;">
-            <div class="p-lg-4 mx-auto w-100 text-white" style="max-width: 650px;">
-                
+        {{-- Right: Content Side --}}
+        <div class="col-lg-6 d-flex flex-column justify-content-center p-5 about-impact-content">
+            <div class="p-lg-4 mx-auto w-100" style="max-width: 650px;">
+
                 {{-- Header --}}
-                <span class="text-uppercase fw-bold mb-3 d-block" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.15em; font-size: 0.85rem; opacity: 0.9;">
+                <span class="text-uppercase fw-bold mb-3 d-block" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.15em; font-size: 0.85rem; color: #D40032;">
                     Our Impact
                 </span>
-                <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1;">
+                <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; color: var(--text-main);">
                     Building a Stronger Valenzuela, One Business at a Time.
                 </h2>
-                <p class="mb-5" style="font-family: 'DM Sans', sans-serif; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
+                <p class="mb-5" style="font-family: 'DM Sans', sans-serif; line-height: 1.7; font-size: 1.1rem; color: var(--text-secondary);">
                     We measure our success by the tangible growth and prosperity of our members and the broader Valenzuela community.
                 </p>
 
@@ -434,10 +574,10 @@
                         ['number' => '₱500M+', 'label' => 'Value Created', 'desc' => 'Facilitated growth'],
                     ] as $stat)
                     <div class="col-sm-6">
-                        <div class="p-4 h-100" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px;">
-                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em;">{{ $stat['number'] }}</h3>
-                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; opacity: 0.9;">{{ $stat['label'] }}</div>
-                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; opacity: 0.7;">{{ $stat['desc'] }}</p>
+                        <div class="p-4 h-100 impact-stat-box" style="background: rgba(212, 0, 50, 0.05); border: 1px solid rgba(212, 0, 50, 0.15); border-radius: 12px;">
+                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">{{ $stat['number'] }}</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">{{ $stat['label'] }}</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">{{ $stat['desc'] }}</p>
                         </div>
                     </div>
                     @endforeach
@@ -621,5 +761,69 @@
         </div>
     </div>
 </section>
+
+{{-- Fetch President from API --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const skeleton  = document.getElementById('presidentSkeleton');
+    const img       = document.getElementById('presidentImg');
+    const fallback  = document.getElementById('presidentFallback');
+    const overlay   = document.getElementById('presidentOverlay');
+    const nameEl    = document.getElementById('presidentName');
+    const titleEl   = document.getElementById('presidentTitle');
+    const badgeEl   = document.getElementById('presidentBadge');
+    const quoteEl   = document.getElementById('quoteAttribution');
+
+    fetch(window.API_BASE_URL + '/v1/trustees')
+        .then(res => res.json())
+        .then(data => {
+            const trustees = Array.isArray(data) ? data : (data.data || []);
+
+            const president = trustees.find(t => {
+                let pos = '';
+                if (t.position && typeof t.position === 'object') pos = t.position.position || '';
+                else if (typeof t.position === 'string') pos = t.position;
+                return pos.toLowerCase() === 'president';
+            });
+
+            skeleton.style.display = 'none';
+
+            if (!president) {
+                fallback.style.display = 'flex';
+                return;
+            }
+
+            const gender = (president.gender || '').toLowerCase();
+            const prefix = gender === 'female' ? 'Ms.' : 'Mr.';
+            const fullName = `${prefix} ${president.firstname || ''}${president.middlename ? ' ' + president.middlename : ''} ${president.lastname || ''}`.trim();
+
+            let posName = 'President';
+            if (president.position && typeof president.position === 'object') posName = president.position.position || 'President';
+
+            nameEl.textContent = fullName;
+            titleEl.textContent = 'PCCI Valenzuela';
+            badgeEl.textContent = posName;
+            overlay.style.display = 'block';
+
+            if (president.image_url) {
+                img.src = president.image_url;
+                img.alt = fullName;
+                img.onload = function() { img.style.display = 'block'; };
+                img.onerror = function() { fallback.style.display = 'flex'; };
+            } else {
+                fallback.style.display = 'flex';
+            }
+
+            if (quoteEl) {
+                quoteEl.textContent = '– ' + fullName + ', ' + posName;
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching president:', err);
+            skeleton.style.display = 'none';
+            fallback.style.display = 'flex';
+        });
+});
+</script>
 
 @endsection

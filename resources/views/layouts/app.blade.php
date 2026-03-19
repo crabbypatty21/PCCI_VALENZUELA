@@ -31,8 +31,8 @@
                 --bg-input: #ffffff;
                 
                 /* Text */
-                --text-main: #212529; /* Dark text for light mode */
-                --text-secondary: #6c757d;
+                --text-main: #000000;
+                --text-secondary: #000000;
                 --text-hero-headline: #ffffff; 
                 --text-hero-sub: #ffffff;
                 
@@ -55,10 +55,10 @@
                 --bg-input: #2a2a35;
                 
                 /* Text */
-                --text-main: #e1e1e1;
-                --text-secondary: #a0a0a0;
-                --text-hero-headline: #f0f0f0;
-                --text-hero-sub: #d0d0d0;
+                --text-main: #ffffff;
+                --text-secondary: #ffffff;
+                --text-hero-headline: #ffffff;
+                --text-hero-sub: #ffffff;
                 
                 /* Borders */
                 --border-color: #2d2d3a;
@@ -536,7 +536,7 @@
             .scroll-to-top.visible {
                 display: flex;
             }
-            
+
             @media (max-width: 576px) {
                 .scroll-to-top {
                     width: 40px;
@@ -546,9 +546,95 @@
                 }
             }
 
+            /* ============================================== */
+            /* LOADING SCREEN */
+            /* ============================================== */
+
+            .pcci-loader-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 99999;
+                background: #ffffff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 0.5s ease, visibility 0.5s ease;
+            }
+
+            body.dark-mode .pcci-loader-overlay {
+                background: #121212;
+            }
+
+            .pcci-loader-overlay.hidden {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+
+            .pcci-loader-logo {
+                width: 90px;
+                height: 90px;
+                animation: loaderPulse 1.4s ease-in-out infinite;
+            }
+
+            @keyframes loaderPulse {
+                0%, 100% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.08); opacity: 0.7; }
+            }
+
+            .pcci-loader-bar-track {
+                width: 180px;
+                height: 4px;
+                background: #e9ecef;
+                border-radius: 4px;
+                margin-top: 28px;
+                overflow: hidden;
+            }
+
+            body.dark-mode .pcci-loader-bar-track {
+                background: #2d2d3a;
+            }
+
+            .pcci-loader-bar {
+                width: 40%;
+                height: 100%;
+                background: var(--pcci-red, #A40033);
+                border-radius: 4px;
+                animation: loaderSlide 1.2s ease-in-out infinite;
+            }
+
+            @keyframes loaderSlide {
+                0%   { transform: translateX(-100%); }
+                100% { transform: translateX(350%); }
+            }
+
+            .pcci-loader-text {
+                margin-top: 16px;
+                font-family: var(--font-heading, 'DM Sans', sans-serif);
+                font-size: 0.8rem;
+                font-weight: 600;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: #6c757d;
+            }
+
+            body.dark-mode .pcci-loader-text {
+                color: #9ca3af;
+            }
+
         </style>
     </head>
     <body>
+
+        <!-- LOADING SCREEN -->
+        <div class="pcci-loader-overlay" id="pcciLoader">
+            <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI" class="pcci-loader-logo">
+            <div class="pcci-loader-bar-track">
+                <div class="pcci-loader-bar"></div>
+            </div>
+            <span class="pcci-loader-text">Loading</span>
+        </div>
 
         @include('partials.topbar')
 
@@ -627,6 +713,15 @@
                     top: 0,
                     behavior: 'smooth'
                 });
+            });
+
+            // Loading screen
+            window.addEventListener('load', function() {
+                const loader = document.getElementById('pcciLoader');
+                if (loader) {
+                    loader.classList.add('hidden');
+                    setTimeout(() => loader.remove(), 500);
+                }
             });
         </script>
 

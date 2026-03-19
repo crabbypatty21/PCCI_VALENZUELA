@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Home - PCCI Valenzuela')
 @section('content')
+@include('partials.api-config')
 {{-- Additional Styles for Homepage --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
@@ -144,13 +145,12 @@
     /* ===== VALUES SECTION ===== */
   .values-section {
         padding: 5rem 0;
-        background-color: #ffffff; /* Updated to pure white to match your request */
+        background-color: var(--bg-body);
         transition: background-color 0.3s ease;
     }
 
-    /* LABEL (Kept red for accent, but you can change to #000 if needed) */
     .section-label {
-        color: #EB3223; 
+        color: #EB3223;
         font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 2px;
@@ -162,25 +162,25 @@
         font-family: 'DM Sans', sans-serif;
         font-size: 2.5rem;
         font-weight: 700;
-        color: #000000; /* FORCE BLACK */
+        color: var(--text-main);
         margin-bottom: 1rem;
     }
 
     .section-title span {
-        color: #EB3223; /* Keeps the accent span red */
+        color: #EB3223;
     }
 
     .section-description {
-        color: #000000; /* FORCE BLACK */
+        color: var(--text-secondary);
         font-size: 1rem;
         max-width: 600px;
         margin: 0 auto 3rem;
-        opacity: 0.8; /* Optional: Slight opacity to make it distinct from title */
+        opacity: 0.8;
     }
 
     .value-card {
-        background: #ffffff; /* White Card */
-        border: 1px solid #f0f0f0; /* Subtle border for visibility on white bg */
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
         border-radius: 16px;
         padding: 2.5rem 2rem;
         text-align: center;
@@ -192,7 +192,7 @@
     .value-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        border-color: #EB3223; /* Hover effect */
+        border-color: #EB3223;
     }
 
     .value-icon {
@@ -216,11 +216,11 @@
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
-        color: #000000; /* FORCE BLACK */
+        color: var(--text-main);
     }
 
     .value-description {
-        color: #000000; /* FORCE BLACK */
+        color: var(--text-secondary);
         font-size: 0.9rem;
         line-height: 1.6;
     }
@@ -370,7 +370,7 @@
         transition: background-color 0.3s ease;
     }
     body.dark-mode .visionaries-section {
-        background-color: var(--bg-body);
+        background-color: var(--bg-section-gray);
     }
     /* Header Styling */
     .visionaries-label {
@@ -415,8 +415,8 @@
         overflow: visible !important;
     }
     .visionaries-swiper .swiper-slide {
-        width: 400px !important;
-        height: 280px !important;
+        width: 300px !important;
+        height: 400px !important;
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     /* Slide Card */
@@ -436,7 +436,36 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: top center;
         transition: transform 0.5s ease;
+    }
+    .slide-card .slide-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 16px 18px;
+        background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+        color: #fff;
+        border-radius: 0 0 16px 16px;
+    }
+    .slide-card .slide-overlay h5 {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 0 0 2px;
+        color: #fff !important;
+        text-transform: capitalize;
+    }
+    .slide-card .slide-overlay p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        margin: 0;
+        opacity: 0.85;
+        color: #fff !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     /* Inactive Slides */
     .visionaries-swiper .swiper-slide {
@@ -569,8 +598,11 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-/* Force all standard text to white */
-h1, h2, h3, h4, h5, h6, p, span, div, li {
+/* Force text white ONLY inside directory-section */
+.directory-section h1, .directory-section h2, .directory-section h3,
+.directory-section h4, .directory-section h5, .directory-section h6,
+.directory-section p, .directory-section span, .directory-section div,
+.directory-section li {
     color: #ffffff !important;
 }
 
@@ -581,11 +613,11 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
 
 /* SECTION TEXT */
 .section-desc {
-    color: #ffffff !important; /* Pure white, no grey */
+    color: #ffffff !important;
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
-    opacity: 0.9; /* Slight opacity for readability, but still white */
+    opacity: 0.9;
 }
 
 /* FEATURE LIST */
@@ -692,6 +724,14 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
     }
     body.dark-mode .events-section {
         background-color: var(--bg-section-gray);
+    }
+    body.dark-mode .events-section .section-label,
+    body.dark-mode .events-section .section-title,
+    body.dark-mode .events-section .section-description {
+        color: var(--text-main) !important;
+    }
+    body.dark-mode .events-section .section-title span {
+        color: #EB3223 !important;
     }
     .events-grid-wrapper {
         max-width: 1200px;
@@ -1292,14 +1332,16 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
     /* RIGHT SIDE (MAP) */
     .map-view-area {
         width: 100%;
-        height: 400px; /* Mobile height */
+        min-height: 350px;
+        height: 400px;
         position: relative;
         background-color: #333;
-        /* Using a satellite/dark map image as placeholder to match image */
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Valenzuela_City_Map.png'); 
-        background-size: cover;
-        background-position: center;
-        filter: brightness(0.9);
+    }
+    .map-view-area iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
     }
 
     /* DESKTOP LAYOUT (Side by Side) */
@@ -1320,6 +1362,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
 
         .map-view-area {
             height: 100%;
+            min-height: 0;
             flex: 1;
         }
         
@@ -1595,39 +1638,10 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
             <i class="bi bi-chevron-right"></i>
         </button>
         {{-- REMOVED inline margin-right style here to fix the "push to right" issue --}}
-        <div class="visionaries-carousel-wrapper"> 
+        <div class="visionaries-carousel-wrapper">
             <div class="swiper visionaries-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="slide-card">
-                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=400&fit=crop" alt="Officer 1">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-card">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop" alt="Officer 2">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-card">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop" alt="Officer 3">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-card">
-                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=400&fit=crop" alt="Officer 4">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-card">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop" alt="Officer 5">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-card">
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop" alt="Officer 6">
-                        </div>
-                    </div>
+                <div class="swiper-wrapper" id="visionariesWrapper">
+                    {{-- Dynamically populated from API --}}
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -1639,60 +1653,23 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
     </div>
 </section>
 
-@php
-    $networkBusinesses = collect([
-        [
-            'id' => 1,
-            'name' => 'Tech Solutions', 
-            'initials' => 'TS', 
-            'hex' => '#3b82f6', // Blue for Tech
-            'category' => 'Technology', 
-            'industry' => 'SaaS Development'
-        ],
-        [
-            'id' => 2,
-            'name' => 'Green Earth', 
-            'initials' => 'GE', 
-            'hex' => '#10b981', // Green for Eco
-            'category' => 'Eco-Friendly', 
-            'industry' => 'Agriculture & Supply'
-        ],
-        [
-            'id' => 3,
-            'name' => 'Urban Build', 
-            'initials' => 'UB', 
-            'hex' => '#f59e0b', // Orange for Const
-            'category' => 'Construction', 
-            'industry' => 'Real Estate Dev'
-        ],
-        [
-            'id' => 4,
-            'name' => 'MediCare Plus', 
-            'initials' => 'MC', 
-            'hex' => '#ef4444', // Red for Health
-            'category' => 'Healthcare', 
-            'industry' => 'Medical Equipment'
-        ],
-    ]);
-@endphp
-
 <section class="directory-section">
     <div class="container">
         <div class="row align-items-center">
-            
+
             {{-- LEFT COLUMN --}}
             <div class="col-lg-5 mb-5 mb-lg-0">
-                
+
                 <span class="section-label" style="color: #ffffff !important;">Member Directory</span>
-                
+
                 <h2 class="section-title">
                     Discover Local <span class="text-highlight">Businesses</span>
                 </h2>
-                
+
                 <p class="section-desc">
-                    Explore our comprehensive directory of member businesses across various industries in Marikina City.
+                    Explore our comprehensive directory of member businesses across various industries in Valenzuela City.
                 </p>
-                
+
                 <ul class="feature-list">
                     <li class="feature-item">
                         <div class="feature-icon"><i class="bi bi-arrow-right"></i></div>
@@ -1707,47 +1684,19 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
                         Support local commerce
                     </li>
                 </ul>
-                
-                {{-- UPDATED BUTTON: Red Background, White Text --}}
+
                 <a href="{{ url('/membership') }}" class="btn-accent-cta">
                     View all members <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
 
-            {{-- RIGHT COLUMN --}}
+            {{-- RIGHT COLUMN — dynamically populated --}}
             <div class="col-lg-7">
-                <div class="row g-4">
-                    @foreach ($networkBusinesses->take(4) as $business)
-                        <div class="col-md-6">
-                            <a href="{{ route('business.show', $business['id']) }}" class="text-decoration-none">
-                                <div class="directory-card">
-                                    
-                                    <div class="d-flex align-items-center mb-3">
-                                        {{-- Logo Box --}}
-                                        <div class="card-logo-box" style="background-color: {{ $business['hex'] }};">
-                                            {{ $business['initials'] }}
-                                        </div>
-                                        
-                                        <div class="ms-3 overflow-hidden">
-                                            <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700;">
-                                                {{ $business['name'] }}
-                                            </h5>
-                                            
-                                            {{-- UPDATED BADGE: White Border, White Text --}}
-                                            <span class="badge-outline-white">
-                                                {{ $business['category'] }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="card-desc">
-                                        {{ $business['industry'] }} company providing excellent goods for you and your business needs.
-                                    </p>
-
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                <div class="row g-4" id="directoryCards">
+                    <div class="col-12 text-center" style="padding: 40px 0;">
+                        <i class="bi bi-arrow-repeat" style="font-size: 2rem; color: rgba(255,255,255,0.3);"></i>
+                        <p style="color: rgba(255,255,255,0.5); margin-top: 10px;">Loading members...</p>
+                    </div>
                 </div>
             </div>
 
@@ -2006,102 +1955,46 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
             </div>
 
             <div class="map-view-area">
-                <div style="position: absolute; top: 45%; left: 55%; color: #EB3223; font-size: 2rem; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); cursor: pointer;">
-                    <i class="bi bi-geo-alt-fill"></i>
-                </div>
-                
-                <div style="position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 5px;">
-                    <button style="width: 32px; height: 32px; background: white; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); font-weight: bold; color: #444;">+</button>
-                    <button style="width: 32px; height: 32px; background: white; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); font-weight: bold; color: #444;">-</button>
-                </div>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30880.945786399286!2d120.95583565!3d14.6942407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b3e0c1fc1c4d%3A0x5e3459f1b4e8d7a0!2sValenzuela%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1710700000000!5m2!1sen!2sph"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
             
         </div>
     </div>
 </section>
 
-@php
-    // Fetching the first 6 items from your membership array
-    $networkBusinesses = [
-        ['id' => 1, 'name' => 'Tech Corp Inc.', 'category' => 'Manufacturing', 'industry' => 'Technology & Software', 'email' => 'contact@techcorp.ph', 'phone' => '+63 912 345', 'color' => 'bg-primary', 'initials' => 'TC', 'tags' => ['Hardware', 'Software']],
-        ['id' => 2, 'name' => 'Green Fields', 'category' => 'Distributor', 'industry' => 'Agriculture & Supply', 'email' => 'sales@greenfields.com', 'phone' => '(02) 8123', 'color' => 'bg-success', 'initials' => 'GF', 'tags' => ['Organic', 'Wholesale']],
-        ['id' => 3, 'name' => 'BuildLink', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 4, 'name' => 'BuildLink 4', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 5, 'name' => 'BuildLink 5', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-        ['id' => 6, 'name' => 'BuildLink 6', 'category' => 'Services', 'industry' => 'Construction', 'email' => 'inquire@buildlink.ph', 'phone' => '(02) 8987', 'color' => 'bg-warning', 'initials' => 'BL', 'tags' => ['Civil', 'Materials']],
-    ];
-@endphp
-
-<section class="py-5" style="background-color: #F7F5F0; transition: background-color 0.3s ease;">
+<section class="py-5 network-section" style="background-color: #F7F5F0; transition: background-color 0.3s ease;">
+    <style>
+        body.dark-mode .network-section { background-color: var(--bg-section-gray) !important; }
+        body.dark-mode .network-section .network-title { color: var(--text-main) !important; }
+        body.dark-mode .network-section .network-desc { color: var(--text-secondary) !important; }
+    </style>
     <div class="container px-4 px-lg-5">
-        
-        {{-- Header Section to match the Image --}}
+
         <div class="text-center mb-5">
-            {{-- Small Red Eyebrow Text --}}
             <h6 class="fw-bold text-uppercase mb-2" style="color: #D40032; letter-spacing: 0.05em; font-size: 0.85rem;">
                 Our Network
             </h6>
-
-            {{-- Main Title --}}
-            <h2 class="section-title mb-3" style="color: #1a1a1a; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 2.5rem;">
+            <h2 class="section-title network-title mb-3" style="color: #1a1a1a; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 2.5rem;">
                 Why Join PCCI <span style="color: #D40032;">Valenzuela</span>
             </h2>
-
-            {{-- Subtitle Description --}}
-            <p class="section-description mx-auto" style="max-width: 700px; color: #6c757d; font-size: 1.1rem; font-weight: 500;">
-                Discover the locations of our diverse member businesses through the interactive map below.
+            <p class="section-description network-desc mx-auto" style="max-width: 700px; color: #6c757d; font-size: 1.1rem; font-weight: 500;">
+                Explore our growing network of member businesses across various industries in Valenzuela City.
             </p>
         </div>
 
-        {{-- Business Cards Grid --}}
-        <div class="row g-4">
-            @foreach ($networkBusinesses as $business)
-                <div class="col-12 col-md-6 col-lg-4">
-                    <a href="{{ route('business.show', $business['id']) }}" 
-                       class="card h-100 border-0 shadow p-3 text-decoration-none member-card-hover" 
-                       style="border-radius: 12px; 
-                              background-color: #242530; 
-                              display: block; 
-                              transition: all 0.3s ease;">                        
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-circle {{ $business['color'] }} d-flex align-items-center justify-content-center {{ $business['color'] == 'bg-warning' ? 'text-dark' : 'text-white' }} fw-bold" style="width: 56px; height: 56px; font-size: 1.2rem;">
-                                {{ $business['initials'] }}
-                            </div>
-                            <div>
-                                <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase text-white" style="font-size: 0.65rem; background-color: rgba(255, 255, 255, 0.15);">
-                                    {{ $business['category'] }}
-                                </span>
-                                <h5 class="fw-bold mb-0 text-white">{{ $business['name'] }}</h5>
-                                <small class="text-white" style="opacity: 0.8;">{{ $business['industry'] }}</small>
-                            </div>
-                        </div>
-                        
-                        <div class="card-body p-0 d-flex flex-column flex-grow-1">
-                            <div class="mb-3">
-                                <div class="d-flex gap-2 small">
-                                    @foreach ($business['tags'] as $tag)
-                                        <span class="px-2 py-1 rounded text-white" style="background-color: rgba(255, 255, 255, 0.1); font-weight: 600;">{{ $tag }}</span>
-                                    @endforeach
-                                </div>
-                            </div>
-                            
-                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: rgba(255, 255, 255, 0.1) !important;">
-                                <div class="small text-white" style="opacity: 0.9;">
-                                    <i class="bi bi-envelope"></i> {{ $business['email'] }}<br>
-                                    <i class="bi bi-telephone"></i> {{ $business['phone'] }}
-                                </div>
-                                
-                                <span class="btn py-1 px-3 text-white fw-bold" style="background-color: #D40032; border-radius: 6px; font-size: 0.8rem;">
-                                    View Details
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endforeach
+        {{-- Dynamically populated --}}
+        <div class="row g-4" id="networkCards">
+            <div class="col-12 text-center py-4">
+                <i class="bi bi-arrow-repeat" style="font-size: 2rem; color: #ccc;"></i>
+                <p style="color: #999; margin-top: 10px;">Loading businesses...</p>
+            </div>
         </div>
 
-        {{-- Bottom Button --}}
         <div class="text-center mt-5">
             <a href="{{ url('/membership') }}" class="btn fw-bold text-white px-4 py-3 text-uppercase" style="background-color: #D40032; border-radius: 6px; font-size: 0.95rem; letter-spacing: 0.05em;">
                 View Full Directory <i class="bi bi-arrow-right ms-2"></i>
@@ -2177,59 +2070,259 @@ document.addEventListener('DOMContentLoaded', function() {
         const nextSlide = (currentSlide + 1) % heroSlides.length;
         showSlide(nextSlide);
     }, 5000);
-    // Visionaries Swiper - Coverflow Effect
-    if (document.querySelector('.visionaries-swiper')) {
-        const visionariesSwiper = new Swiper('.visionaries-swiper', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            loop: true,
-            speed: 600,
-            // UPDATED: Added native navigation config here
-            navigation: {
-                nextEl: '#visionaries-next',
-                prevEl: '#visionaries-prev',
-            },
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 80,
-                depth: 200,
-                modifier: 1,
-                slideShadows: false,
-            },
-            pagination: {
-                el: '.visionaries-swiper .swiper-pagination',
-                clickable: true,
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            breakpoints: {
-                320: {
+    // Visionaries: Fetch trustees from API, then init Swiper
+    (function() {
+        const wrapper = document.getElementById('visionariesWrapper');
+
+        fetch(window.API_BASE_URL + '/v1/trustees')
+            .then(res => res.json())
+            .then(data => {
+                const trustees = Array.isArray(data) ? data : (data.data || []);
+
+                // Sort by position ID
+                trustees.sort((a, b) => {
+                    const aId = a.board_position_id || (a.position && a.position.id) || 999;
+                    const bId = b.board_position_id || (b.position && b.position.id) || 999;
+                    return Number(aId) - Number(bId);
+                });
+
+                if (trustees.length === 0) return;
+
+                trustees.forEach(t => {
+                    const firstName = t.firstname || '';
+                    const middleName = t.middlename ? ' ' + t.middlename : '';
+                    const lastName = t.lastname || '';
+                    const gender = (t.gender || '').toLowerCase();
+                    const prefix = gender === 'female' ? 'Ms.' : 'Mr.';
+                    const fullName = `${prefix} ${firstName}${middleName} ${lastName}`.trim();
+
+                    let posName = 'Trustee';
+                    if (t.position && typeof t.position === 'object') posName = t.position.position || 'Trustee';
+
+                    const fallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(firstName + ' ' + lastName)}&background=252631&color=fff&bold=true&size=600`;
+                    const imgUrl = t.image_url || fallback;
+
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.innerHTML = `
+                        <div class="slide-card" style="position:relative;">
+                            <img src="${imgUrl}" alt="${fullName}">
+                            <div class="slide-overlay">
+                                <h5>${fullName}</h5>
+                                <p>${posName}</p>
+                            </div>
+                        </div>
+                    `;
+                    wrapper.appendChild(slide);
+                });
+
+                // Init Swiper after slides are added
+                new Swiper('.visionaries-swiper', {
+                    effect: 'coverflow',
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: 'auto',
+                    loop: trustees.length > 2,
+                    speed: 600,
+                    navigation: {
+                        nextEl: '#visionaries-next',
+                        prevEl: '#visionaries-prev',
+                    },
                     coverflowEffect: {
-                        stretch: 40,
-                        depth: 100,
-                    }
-                },
-                768: {
-                    coverflowEffect: {
-                        stretch: 60,
-                        depth: 150,
-                    }
-                },
-                1024: {
-                    coverflowEffect: {
+                        rotate: 0,
                         stretch: 80,
                         depth: 200,
+                        modifier: 1,
+                        slideShadows: false,
+                    },
+                    pagination: {
+                        el: '.visionaries-swiper .swiper-pagination',
+                        clickable: true,
+                    },
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true,
+                    },
+                    breakpoints: {
+                        320: { coverflowEffect: { stretch: 40, depth: 100 } },
+                        768: { coverflowEffect: { stretch: 60, depth: 150 } },
+                        1024: { coverflowEffect: { stretch: 80, depth: 200 } },
                     }
-                }
+                });
+            })
+            .catch(err => console.error('Error loading visionaries:', err));
+    })();
+    // Directory Section: Fetch first 4 businesses from API
+    (function() {
+        const container = document.getElementById('directoryCards');
+        const hexColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+
+        fetch(window.API_BASE_URL + '/v1/business', {
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            const businesses = Array.isArray(data) ? data : (data.data || []);
+
+            // Sort by most recent first (newest created_at)
+            businesses.sort((a, b) => {
+                const dateA = new Date(a.created_at || 0);
+                const dateB = new Date(b.created_at || 0);
+                return dateB - dateA;
+            });
+
+            const first4 = businesses.slice(0, 4);
+
+            container.innerHTML = '';
+
+            if (first4.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><p style="color:rgba(255,255,255,0.5);">No businesses available.</p></div>';
+                return;
             }
+
+            first4.forEach((biz, i) => {
+                const name = biz.registered_business_name || 'Unknown Business';
+                const industry = biz.industry || 'Business';
+                const tagline = biz.business_tagline || '';
+                const photoUrl = biz.photo_url || '';
+                const bizId = biz.id || '#';
+                const bgColor = hexColors[i % hexColors.length];
+
+                // Generate initials
+                const words = name.split(' ');
+                const initials = words.length > 1 && words[1].length > 0
+                    ? (words[0][0] + words[1][0]).toUpperCase()
+                    : name.substring(0, 2).toUpperCase();
+
+                // Avatar: photo or initials
+                let avatarInner = initials;
+                if (photoUrl && !photoUrl.includes('N/A') && !photoUrl.includes('null')) {
+                    avatarInner = `<img src="${photoUrl}" alt="${name}" class="rounded-circle w-100 h-100" style="object-fit: cover;">`;
+                }
+
+                const col = document.createElement('div');
+                col.className = 'col-md-6';
+                col.innerHTML = `
+                    <a href="/business/${bizId}" class="text-decoration-none">
+                        <div class="directory-card">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="card-logo-box shadow-sm d-flex align-items-center justify-content-center text-white fw-bold"
+                                    style="background-color: ${bgColor}; width: 56px; height: 56px; border-radius: 12px; font-size: 1.2rem; flex-shrink: 0;">
+                                    ${avatarInner}
+                                </div>
+                                <div class="ms-3 overflow-hidden">
+                                    <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700;">${name}</h5>
+                                    <span class="badge-outline-white px-2 py-1 rounded border" style="font-size: 0.7rem; text-transform: uppercase;">
+                                        ${industry}
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="card-desc text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                ${tagline ? '"' + tagline + '"' : industry + ' company providing excellence in Valenzuela City.'}
+                            </p>
+                        </div>
+                    </a>
+                `;
+                container.appendChild(col);
+            });
+        })
+        .catch(err => {
+            console.error('Error loading directory businesses:', err);
+            container.innerHTML = '<div class="col-12 text-center"><p style="color:rgba(255,255,255,0.5);">Failed to load businesses.</p></div>';
         });
-        // UPDATED: Removed the manual event listeners for prevBtn/nextBtn here
-    }
+    })();
+
+    // Network Section: Fetch 6 recent businesses
+    (function() {
+        const grid = document.getElementById('networkCards');
+        const cardColors = ['bg-primary', 'bg-success', 'bg-warning', 'bg-info', 'bg-danger', 'bg-secondary'];
+
+        fetch(window.API_BASE_URL + '/v1/business', {
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            const businesses = Array.isArray(data) ? data : (data.data || []);
+
+            // Sort by most recent
+            businesses.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+            const first6 = businesses.slice(0, 6);
+            grid.innerHTML = '';
+
+            if (first6.length === 0) {
+                grid.innerHTML = '<div class="col-12 text-center py-4"><p style="color:#999;">No businesses available yet.</p></div>';
+                return;
+            }
+
+            first6.forEach((biz, i) => {
+                const name = biz.registered_business_name || 'Unknown Business';
+                const industry = biz.industry || 'Business';
+                const email = biz.email || '';
+                const phone = biz.telephone_no || '';
+                const tagline = biz.business_tagline || '';
+                const photoUrl = biz.photo_url || '';
+                const bizId = biz.id || '#';
+                const colorClass = cardColors[i % cardColors.length];
+                const textClass = (colorClass === 'bg-warning' || colorClass === 'bg-info') ? 'text-dark' : 'text-white';
+
+                // Initials
+                const words = name.split(' ');
+                const initials = words.length > 1 && words[1].length > 0
+                    ? (words[0][0] + words[1][0]).toUpperCase()
+                    : name.substring(0, 2).toUpperCase();
+
+                // Avatar
+                let avatarHTML = '';
+                if (photoUrl && !photoUrl.includes('N/A') && !photoUrl.includes('null')) {
+                    avatarHTML = `<img src="${photoUrl}" alt="${name}" class="rounded-circle" style="width:56px;height:56px;object-fit:cover;">`;
+                } else {
+                    avatarHTML = `<div class="rounded-circle ${colorClass} d-flex align-items-center justify-content-center ${textClass} fw-bold" style="width:56px;height:56px;font-size:1.2rem;">${initials}</div>`;
+                }
+
+                // Tags
+                const tags = Array.isArray(biz.tags) && biz.tags.length > 0 ? biz.tags : [];
+                const tagsHTML = tags.map(t => `<span class="px-2 py-1 rounded text-white" style="background-color:rgba(255,255,255,0.1);font-weight:600;">${t}</span>`).join('');
+
+                const col = document.createElement('div');
+                col.className = 'col-12 col-md-6 col-lg-4';
+                col.innerHTML = `
+                    <a href="/business/${bizId}" class="card h-100 border-0 shadow p-3 text-decoration-none member-card-hover"
+                       style="border-radius:12px;background-color:#242530;display:block;transition:all 0.3s ease;">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            ${avatarHTML}
+                            <div style="overflow:hidden;">
+                                <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase text-white" style="font-size:0.65rem;background-color:rgba(255,255,255,0.15);">
+                                    ${industry}
+                                </span>
+                                <h5 class="fw-bold mb-0 text-white text-truncate">${name}</h5>
+                                ${tagline ? `<small class="text-white" style="opacity:0.8;font-style:italic;">"${tagline}"</small>` : `<small class="text-white" style="opacity:0.8;">${industry}</small>`}
+                            </div>
+                        </div>
+                        <div class="card-body p-0 d-flex flex-column flex-grow-1">
+                            ${tagsHTML ? `<div class="mb-3"><div class="d-flex gap-2 small flex-wrap">${tagsHTML}</div></div>` : ''}
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color:rgba(255,255,255,0.1)!important;">
+                                <div class="small text-white" style="opacity:0.9;">
+                                    ${email ? `<i class="bi bi-envelope"></i> ${email}<br>` : ''}
+                                    ${phone ? `<i class="bi bi-telephone"></i> ${phone}` : ''}
+                                </div>
+                                <span class="btn py-1 px-3 text-white fw-bold" style="background-color:#D40032;border-radius:6px;font-size:0.8rem;">
+                                    View Details
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                grid.appendChild(col);
+            });
+        })
+        .catch(err => {
+            console.error('Error loading network businesses:', err);
+            grid.innerHTML = '<div class="col-12 text-center py-4"><p style="color:#999;">Failed to load businesses.</p></div>';
+        });
+    })();
+
     // Testimonials Swiper
     if (document.querySelector('.testimonials-swiper')) {
         const testimonialsSwiper = new Swiper('.testimonials-swiper', {

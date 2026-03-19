@@ -255,7 +255,7 @@
 
             try {
                 // Using the API endpoint provided in your sample
-                const response = await fetch("http://192.168.55.104:8000/api/login", {
+                const response = await fetch(`${window.API_BASE_URL}/login`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',

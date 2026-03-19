@@ -4,6 +4,8 @@
 
 @section('content')
 
+@include('partials.api-config')
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -714,6 +716,150 @@
 
     .board-no-results i { display: block; font-size: 2.8rem; margin-bottom: 12px; color: #ddd; }
 
+    /* PRESIDENT FEATURED SECTION — About page style */
+    .president-section {
+        display: none;
+        background-color: #252631;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 40px;
+    }
+
+    .president-section.visible { display: flex; }
+
+    .president-section .pres-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 48px 40px;
+    }
+
+    .president-section .pres-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dark-red);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+    }
+
+    .president-section .pres-heading {
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.2;
+        margin-bottom: 24px;
+    }
+
+    .president-section .pres-subtitle {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--dark-red);
+        margin-bottom: 6px;
+    }
+
+    .president-section .pres-text {
+        font-size: 0.88rem;
+        color: rgba(255,255,255,0.75);
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    .president-section .pres-quote-box {
+        background: rgba(255,255,255,0.06);
+        border-left: 4px solid var(--dark-red);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 20px;
+        margin-bottom: 24px;
+    }
+
+    .president-section .pres-quote-box p {
+        font-size: 0.85rem;
+        font-style: italic;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.7;
+        margin: 0 0 10px;
+    }
+
+    .president-section .pres-quote-box .pres-quote-author {
+        font-size: 0.8rem;
+        font-weight: 700;
+        font-style: normal;
+        color: #fff;
+        margin: 0;
+    }
+
+    .president-section .pres-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--dark-red);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 24px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+    .president-section .pres-link:hover { background: #ff0000; }
+
+    .president-section .pres-image-wrap {
+        flex: 1;
+        position: relative;
+        min-height: 480px;
+    }
+
+    .president-section .pres-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .president-section .pres-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px 28px;
+        background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+        color: #fff;
+    }
+
+    .president-section .pres-overlay h5 {
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        margin: 0 0 4px;
+        color: #fff;
+    }
+
+    .president-section .pres-overlay p {
+        font-size: 0.8rem;
+        font-weight: 500;
+        opacity: 0.85;
+        margin: 0;
+        color: #fff;
+    }
+
+    @media (max-width: 900px) {
+        .president-section.visible { flex-direction: column; }
+        .president-section .pres-info { padding: 32px 24px; }
+        .president-section .pres-image-wrap { min-height: 350px; }
+    }
+
+    @media (max-width: 600px) {
+        .president-section .pres-info { padding: 24px 18px; }
+        .president-section .pres-image-wrap { min-height: 280px; }
+    }
+
     /* Loading state */
     .board-loading {
         display: none;
@@ -764,11 +910,41 @@
         </button>
     </div>
 
-    {{-- ================================================
-         BOARD GRID — populated via fetch() from the API
-         GET http://192.168.55.184:8000/api/v1/trustees
-         Each card is rendered by renderCard() in JS below
-    ================================================= --}}
+    {{-- PRESIDENT FEATURED SECTION --}}
+    <div class="president-section" id="presidentSection">
+        <div class="pres-info">
+            <div class="pres-label">Our Purpose</div>
+            <div class="pres-heading">Guiding Principles for a Thriving Valenzuela.</div>
+
+            <div class="pres-subtitle">Our Mission</div>
+            <div class="pres-text">
+                To champion the growth and success of Valenzuela businesses through robust advocacy, impactful networking, comprehensive development programs, and dedicated community engagement.
+            </div>
+
+            <div class="pres-subtitle">Our Vision</div>
+            <div class="pres-text">
+                To be the leading catalyst for a vibrant, innovative, and sustainable business environment in Valenzuela City, recognized for driving economic prosperity and community well-being.
+            </div>
+
+            <div class="pres-quote-box">
+                <p>"Together, we are forging a resilient and dynamic future for Valenzuela. Our Chamber is committed to empowering every member to reach their full potential and contribute to our city's collective success."</p>
+                <p class="pres-quote-author" id="presidentQuoteAuthor">– President, PCCI Valenzuela</p>
+            </div>
+
+            <a href="/leadership" class="pres-link">
+                Meet Our Leadership <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+        <div class="pres-image-wrap">
+            <img src="" alt="" class="img-fluid shadow-sm" id="presidentPhoto" style="display:none;">
+            <div class="pres-overlay" id="presidentOverlay" style="display:none;">
+                <h5 id="presOverlayName"></h5>
+                <p id="presOverlayTitle">President, PCCI Valenzuela</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- BOARD GRID --}}
     <div class="board-grid" id="boardGrid">
 
         <div class="board-loading" id="loadingState" style="display:flex; flex-direction:column; align-items:center;">
@@ -894,7 +1070,7 @@
 <script>
 (function () {
 
-    const API_URL = 'http://192.168.55.184:8000/api/v1/trustees';
+    const API_URL = window.API_BASE_URL + '/v1/trustees';
 
     /* ============================================== */
     /* RENDER HELPERS                                 */
@@ -906,18 +1082,30 @@
      *   trustee.id, trustee.first_name, trustee.last_name,
      *   trustee.gender, trustee.position, trustee.status, trustee.photo_url
      */
+    function getPositionName(trustee) {
+        if (trustee.position && typeof trustee.position === 'object') return trustee.position.position || '';
+        if (typeof trustee.position === 'string') return trustee.position || '';
+        return '';
+    }
+
+    function getPositionId(trustee) {
+        if (trustee.position && typeof trustee.position === 'object') return trustee.position.id || 0;
+        if (trustee.board_position_id) return trustee.board_position_id;
+        return 999;
+    }
+
     function renderCard(trustee) {
         const gender    = (trustee.gender || '').toLowerCase();
         const prefix    = gender === 'female' ? 'Ms.' : 'Mr.';
-        const fullName  = `${prefix} ${trustee.first_name || ''} ${trustee.last_name || ''}`.trim();
-        const position  = trustee.position  || '';
+        const fullName  = `${prefix} ${trustee.firstname || ''} ${trustee.middlename ? ' ' + trustee.middlename + ' ' : ' '}${trustee.lastname || ''}`.trim();
+        const position  = getPositionName(trustee);
         const status    = trustee.status    || 'Active';
-        const photoUrl  = trustee.photo_url || '';
+        const photoUrl  = trustee.image_url || '';
 
         const card = document.createElement('div');
         card.className = 'board-card';
-        card.dataset.lastname  = trustee.last_name  || '';
-        card.dataset.firstname = trustee.first_name || '';
+        card.dataset.lastname  = trustee.lastname  || '';
+        card.dataset.firstname = trustee.firstname || '';
         card.dataset.gender    = gender;
         card.dataset.position  = position;
         card.dataset.status    = status;
@@ -971,13 +1159,14 @@
         container.innerHTML = '';
 
         trustees.forEach(t => {
-            if (t.position && !seen.has(t.position)) {
-                seen.add(t.position);
+            const pos = getPositionName(t);
+            if (pos && !seen.has(pos)) {
+                seen.add(pos);
                 const btn = document.createElement('button');
                 btn.className      = 'filter-chip';
                 btn.dataset.filter = 'position';
-                btn.dataset.value  = t.position;
-                btn.textContent    = t.position;
+                btn.dataset.value  = pos;
+                btn.textContent    = pos;
                 btn.addEventListener('click', onChipClick);
                 container.appendChild(btn);
             }
@@ -1032,6 +1221,11 @@
                  */
                 const trustees = Array.isArray(data) ? data : (data.data || data.trustees || []);
 
+                /* Sort by position ID (President first, etc.) */
+                trustees.sort((a, b) => {
+                    return Number(getPositionId(a)) - Number(getPositionId(b));
+                });
+
                 /* Clear existing cards (keep the loading / no-results sentinels) */
                 grid.querySelectorAll('.board-card').forEach(c => c.remove());
 
@@ -1040,11 +1234,43 @@
                     return;
                 }
 
+                /* Find and display the President */
+                const president = trustees.find(t => {
+                    const pos = getPositionName(t).toLowerCase();
+                    return pos === 'president';
+                });
+
+                const presSection      = document.getElementById('presidentSection');
+                const presPhoto        = document.getElementById('presidentPhoto');
+                const presOverlay      = document.getElementById('presidentOverlay');
+                const presOverlayName  = document.getElementById('presOverlayName');
+                const presOverlayTitle = document.getElementById('presOverlayTitle');
+                const presQuoteAuthor  = document.getElementById('presidentQuoteAuthor');
+
+                if (president) {
+                    const pGender = (president.gender || '').toLowerCase();
+                    const pPrefix = pGender === 'female' ? 'Ms.' : 'Mr.';
+                    const pName   = `${pPrefix} ${president.firstname || ''}${president.middlename ? ' ' + president.middlename : ''} ${president.lastname || ''}`.trim();
+                    const posTitle = getPositionName(president);
+
+                    if (president.image_url) {
+                        presPhoto.src = president.image_url;
+                        presPhoto.alt = pName;
+                        presPhoto.style.display = 'block';
+                        presOverlay.style.display = 'block';
+                        presOverlayName.textContent = pName;
+                        presOverlayTitle.textContent = posTitle + ', PCCI Valenzuela';
+                    }
+
+                    presQuoteAuthor.textContent = '– ' + pName + ', ' + posTitle;
+                    presSection.classList.add('visible');
+                }
+
                 trustees.forEach(t => grid.insertBefore(renderCard(t), noResultsEl));
 
                 /* Populate filter chips and modal dropdown from live data */
                 populatePositionChips(trustees);
-                const uniquePositions = [...new Set(trustees.map(t => t.position).filter(Boolean))];
+                const uniquePositions = [...new Set(trustees.map(t => getPositionName(t)).filter(Boolean))];
                 populatePositionDropdown(uniquePositions);
             })
             .catch(err => {

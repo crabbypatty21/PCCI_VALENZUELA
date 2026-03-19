@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('partials.api-config')
 
 @section('content')
 
@@ -86,8 +87,7 @@
             const headers = { 'Accept': 'application/json' };
             if (token) headers['Authorization'] = `Bearer ${token}`;
 
-            // Make sure this IP matches your current active server IP
-            const response = await fetch('http://192.168.55.105:8000/api/v1/business', {
+            const response = await fetch(`${window.API_BASE_URL}/v1/business`, {
                 method: 'GET',
                 headers: headers
             });

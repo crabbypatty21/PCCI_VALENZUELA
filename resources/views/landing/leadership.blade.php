@@ -123,15 +123,15 @@
             <div class="col-lg-5 order-lg-2">
                 <div class="position-relative">
                     {{-- Image --}}
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000" 
-                         alt="Mr. Jundio Salvador" 
+                    <img id="president-img" src=""
+                         alt=""
                          class="img-fluid shadow-lg"
                          style="border-radius: 12px; border: 8px solid #F53003;">
-                    
+
                     {{-- Name Tag --}}
                     <div class="position-absolute bottom-0 start-0 p-4 shadow-sm card-bg-adaptive" style="border-radius: 0 12px 0 12px; max-width: 80%;">
-                        <h5 class="fw-bold mb-0 text-danger" style="font-family: 'Poppins', sans-serif;">Mr. Jundio Salvador</h5>
-                        <small class="fw-bold text-uppercase text-muted-adaptive" style="letter-spacing: 0.05em; font-family: 'DM Sans', sans-serif;">President</small>
+                        <h5 id="president-name" class="fw-bold mb-0 text-danger" style="font-family: 'Poppins', sans-serif;"></h5>
+                        <small id="president-position" class="fw-bold text-uppercase text-muted-adaptive" style="letter-spacing: 0.05em; font-family: 'DM Sans', sans-serif;"></small>
                     </div>
                 </div>
             </div>
@@ -139,15 +139,14 @@
                 <span class="text-danger fw-bold mb-3 d-block text-uppercase" style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em;">
                     Message from the President
                 </span>
-                <h2 class="fw-bold mb-4 text-adaptive" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.3;">
+                <h2 id="president-headline" class="fw-bold mb-4 text-adaptive" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.3;">
                     Steering Valenzuela Towards a Resilient Future.
                 </h2>
-                <p class="text-muted-adaptive mb-4" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; font-size: 1.05rem;">
-                    "Our leadership team is committed to more than just business growth; we are dedicated to building a legacy of excellence. Every decision we make is guided by our desire to see every enterprise in Valenzuela flourish, creating a ripple effect of prosperity across our entire community."
+                <p id="president-message" class="text-muted-adaptive mb-4" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; font-size: 1.05rem;">
                 </p>
                 <div class="d-flex align-items-center gap-3">
                     <div style="width: 60px; height: 4px; background-color: #F53003;"></div>
-                    <span class="fst-italic fw-bold text-adaptive" style="font-family: 'DM Sans', sans-serif;">Jundio Salvador, PCCI Valenzuela</span>
+                    <span id="president-attribution" class="fst-italic fw-bold text-adaptive" style="font-family: 'DM Sans', sans-serif;"></span>
                 </div>
             </div>
         </div>
@@ -194,17 +193,16 @@
 {{-- Dynamic API Fetch Script --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     fetchTrustees();
 
     async function fetchTrustees() {
         const container = document.getElementById('trustees-list');
 
         try {
-            // Updated endpoint to your specific API route
-            const response = await fetch(`http://192.168.55.184:8000/api/v1/trustees`, {
+            const response = await fetch(`${window.API_BASE_URL}/v1/trustees`, {
                 method: 'GET',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }
@@ -213,22 +211,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) throw new Error("Failed to fetch trustees");
 
             const data = await response.json();
-            
+            const trustees = data.data && data.data.length > 0 ? data.data : [];
+
+            // Sort by position ID (President first, Vice President second, etc.)
+            trustees.sort((a, b) => {
+                const aId = a.board_position_id || (a.position && a.position.id) || 999;
+                const bId = b.board_position_id || (b.position && b.position.id) || 999;
+                return Number(aId) - Number(bId);
+            });
+
+            // Populate President Spotlight from API data
+            populatePresident(trustees);
+
             // Clear the "Loading..." spinner
             container.innerHTML = "";
 
-            // Check for data.data (standard Laravel resource wrapper)
-            if (data.data && data.data.length > 0) {
-                data.data.forEach(trustee => {
+            if (trustees.length > 0) {
+                trustees.forEach(trustee => {
                     const firstName = trustee.firstname || '';
                     const middleName = trustee.middlename ? ` ${trustee.middlename} ` : ' ';
                     const lastName = trustee.lastname || '';
-                    
-                    // Matches your dynamic position logic
-                    const position = trustee.position && trustee.position.position 
-                                     ? trustee.position.position 
+
+                    const position = trustee.position && trustee.position.position
+                                     ? trustee.position.position
                                      : 'Trustee';
-                    
+
                     const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(firstName + ' ' + lastName)}&background=f3f4f6&color=b61b2a&bold=true&size=400`;
                     const imageUrl = trustee.image_url || fallbackImage;
 
@@ -237,10 +244,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     card.innerHTML = `
                         <div class="officer-card">
-                            <img src="${imageUrl}" 
-                                 alt="${firstName} ${lastName}" 
+                            <img src="${imageUrl}"
+                                 alt="${firstName} ${lastName}"
                                  style="height: 400px; width: 100%; object-fit: cover;">
-                            
+
                             <div class="officer-overlay">
                                 <h5 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; text-transform: capitalize;">
                                     ${firstName}${middleName}${lastName}
@@ -265,6 +272,41 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>Error connecting to the server. Please try again later.</p>
                 </div>`;
         }
+    }
+
+    function populatePresident(trustees) {
+        // Find the president (exact match, not "vice president")
+        const president = trustees.find(t => {
+            const pos = t.position && t.position.position ? t.position.position : '';
+            return pos.toLowerCase().trim() === 'president';
+        }) || trustees[0]; // Fallback to first trustee
+
+        if (!president) return;
+
+        const firstName = president.firstname || '';
+        const middleName = president.middlename ? ` ${president.middlename} ` : ' ';
+        const lastName = president.lastname || '';
+        const fullName = (firstName + middleName + lastName).trim();
+
+        const position = president.position && president.position.position
+                         ? president.position.position
+                         : 'President';
+
+        const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(firstName + ' ' + lastName)}&background=f3f4f6&color=b61b2a&bold=true&size=400`;
+        const imageUrl = president.image_url || fallbackImage;
+
+        const message = president.message || president.quote ||
+            '"Our leadership team is committed to more than just business growth; we are dedicated to building a legacy of excellence. Every decision we make is guided by our desire to see every enterprise in Valenzuela flourish, creating a ripple effect of prosperity across our entire community."';
+
+        // Populate the President Spotlight section
+        const imgEl = document.getElementById('president-img');
+        imgEl.src = imageUrl;
+        imgEl.alt = fullName;
+
+        document.getElementById('president-name').textContent = fullName;
+        document.getElementById('president-position').textContent = position;
+        document.getElementById('president-message').textContent = message;
+        document.getElementById('president-attribution').textContent = fullName + ', PCCI Valenzuela';
     }
 });
 </script>
