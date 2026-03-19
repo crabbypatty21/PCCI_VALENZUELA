@@ -4,6 +4,13 @@
 
 @section('content')
 
+@extends('layouts.app')
+
+@section('content')
+
+{{-- Add this line to the top of EVERY file! --}}
+@include('partials.api-config')
+
 {{-- HERO SECTION --}}
 <div class="w-100 mb-0 d-flex flex-column align-items-center" style="
     height: 623px;

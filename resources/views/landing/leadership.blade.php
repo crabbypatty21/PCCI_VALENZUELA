@@ -3,6 +3,13 @@
 @section('content')
 @include('partials.api-config')
 
+@extends('layouts.app')
+
+@section('content')
+
+{{-- Add this line to the top of EVERY file! --}}
+@include('partials.api-config')
+
 <style>
     /* =========================================
        DARK MODE ADAPTATIONS

@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('title', 'Home - PCCI Valenzuela')
 @section('content')
+
+@extends('layouts.app')
+
+@section('content')
+
+{{-- Add this line to the top of EVERY file! --}}
+@include('partials.api-config')
+
 {{-- Additional Styles for Homepage --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>

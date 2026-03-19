@@ -2,6 +2,12 @@
 
 @section('content')
 
+{{-- THIS IS THE MAGIC LINE THAT FIXES "UNDEFINED" --}}
+@include('partials.api-config')
+
+{{-- HERO SECTION --}}
+<div class="w-100 mb-0 d-flex flex-column align-items-center" ... >
+
 {{-- HERO SECTION --}}
 <div class="w-100 mb-0 d-flex flex-column align-items-center" style="height: 623px; margin-top: -1px; background-color: var(--bg-hero); padding-top: 130px; transition: background-color 0.3s ease;">
     <div class="container d-flex flex-column align-items-center text-center">
@@ -78,14 +84,20 @@
         fetchBusinesses();
     });
 
-    async function fetchBusinesses() {
+   async function fetchBusinesses() {
         try {
             const token = localStorage.getItem('token');
             const headers = { 'Accept': 'application/json' };
             if (token) headers['Authorization'] = `Bearer ${token}`;
 
-            // Make sure this IP matches your current active server IP
-            const response = await fetch(`${window.API_BASE_URL}/v1/business`, {
+            // 1. Grab the global URL, with a fallback just in case!
+            const baseUrl = window.API_BASE_URL || 'https://pcci-laravel-api.onrender.com/api';
+            const fetchUrl = `${baseUrl}/v1/business`;
+            
+            console.log("Fetching directory from: ", fetchUrl);
+
+            // 2. Fetch the data
+            const response = await fetch(fetchUrl, {
                 method: 'GET',
                 headers: headers
             });
@@ -105,7 +117,7 @@
             document.getElementById('businessGrid').innerHTML = `
                 <div class="col-12 text-center py-5" style="color: #D40032;">
                     <h5><i class="bi bi-exclamation-triangle"></i> Failed to load businesses.</h5>
-                    <p>Make sure your server is running!</p>
+                    <p>Make sure your server is running and connected to the internet!</p>
                 </div>
             `;
             document.getElementById('showingText').innerText = "0 results";

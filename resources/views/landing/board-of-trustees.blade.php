@@ -4,6 +4,13 @@
 
 @section('content')
 
+@extends('layouts.app')
+
+@section('content')
+
+{{-- Add this line to the top of EVERY file! --}}
+@include('partials.api-config')
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
