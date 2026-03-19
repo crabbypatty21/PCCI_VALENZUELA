@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Updated endpoint to your specific API route
-            const response = await fetch(`http://192.168.55.184:8000/api/v1/trustees`, {
+            const response = await fetch(`${window.API_BASE_URL}/v1/trustees`, {
                 method: 'GET',
                 headers: { 
                     'Content-Type': 'application/json',
