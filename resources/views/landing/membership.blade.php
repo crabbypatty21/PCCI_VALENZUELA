@@ -84,19 +84,17 @@
         fetchBusinesses();
     });
 
-   async function fetchBusinesses() {
+    async function fetchBusinesses() {
         try {
             const token = localStorage.getItem('token');
             const headers = { 'Accept': 'application/json' };
             if (token) headers['Authorization'] = `Bearer ${token}`;
 
-            // 1. Grab the global URL, with a fallback just in case!
             const baseUrl = window.API_BASE_URL || 'https://pcci-laravel-api.onrender.com/api';
             const fetchUrl = `${baseUrl}/v1/business`;
             
             console.log("Fetching directory from: ", fetchUrl);
 
-            // 2. Fetch the data
             const response = await fetch(fetchUrl, {
                 method: 'GET',
                 headers: headers
@@ -106,7 +104,6 @@
 
             const result = await response.json();
             
-            // Extract the array of data correctly
             allBusinesses = result.data || result || []; 
             
             sortData('asc');
@@ -148,7 +145,7 @@
             return;
         }
 
-        pagedData.forEach(biz => {
+        pagedData.forEach((biz, index) => {
             const name = biz.registered_business_name || 'Unknown Business';
             const email = biz.email || 'N/A';
             const phone = biz.telephone_no || 'N/A';
@@ -156,9 +153,9 @@
             const tagline = biz.business_tagline || '';
             const tags = (Array.isArray(biz.tags)) ? biz.tags : [];
             
-            // Build the URL using the JavaScript ID variable
-            // This matches Route::get('/business/{id}', ...) in web.php
-            const profileUrl = `/business/${biz.id}`;
+            // Calculate absolute index for the fake ID
+            const absoluteIndex = (currentPage - 1) * perPage + index;
+            const profileUrl = `/business/${absoluteIndex}`;
 
             let avatarHTML = '';
             if (biz.photo_url && !biz.photo_url.includes('N/A') && !biz.photo_url.includes('null')) {
@@ -168,7 +165,7 @@
                 let initials = name.substring(0, 2).toUpperCase();
                 if (words.length > 1) initials = (words[0][0] + words[1][0]).toUpperCase();
                 const colors = ['bg-primary', 'bg-success', 'bg-warning', 'bg-info', 'bg-danger'];
-                const colorIndex = (biz.id || 0) % colors.length;
+                const colorIndex = absoluteIndex % colors.length;
                 avatarHTML = `<div class="rounded-circle ${colors[colorIndex]} d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.2rem;">${initials}</div>`;
             }
 

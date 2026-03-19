@@ -205,15 +205,17 @@
 
             if (!response.ok) throw new Error("Failed to connect to the business directory API.");
 
+            // ONLY DECLARE THIS ONCE!
             const result = await response.json();
             const allBusinesses = result.data || result || [];
             
-            // Find the specific business
-            const biz = allBusinesses.find(b => b.id == targetId);
+            // 🚨 THE FIX: Treat the targetId as an Array Index!
+            const biz = allBusinesses[targetId];
 
             document.getElementById('loading-spinner').style.display = 'none';
 
             if (!biz) {
+                document.getElementById('error-message').innerText = "The business profile you are looking for does not exist.";
                 document.getElementById('error-state').style.display = 'block';
                 return;
             }
@@ -227,23 +229,26 @@
             const description = biz.description || tagline || 'No detailed description provided.';
             
             // Handle Nested Location Object
+            // Handle Nested Location Object
             let address = 'Valenzuela City';
             let mapQuery = name;
+            
             if (biz.business_location) {
                 const loc = biz.business_location;
-                // Safely join address parts, ignoring empty ones
-                const addressParts = [loc.business_address, loc.city_municipality, loc.province].filter(Boolean);
-                if(addressParts.length > 0) {
-                    address = addressParts.join(', ');
-                }
-                // Use location_link for the map if it exists
-                if (loc.location_link) {
-                    mapQuery = loc.location_link;
+                
+                // If location_link exists, use it for BOTH the visible text AND the Google Map!
+                if (loc.location_link && loc.location_link !== 'N/A') {
+                    address = loc.location_link; 
+                    mapQuery = loc.location_link; // <-- This tells the map to point exactly here!
                 } else {
-                    mapQuery = address;
+                    // Fallback just in case location_link is empty
+                    const addressParts = [loc.business_address, loc.city_municipality, loc.province].filter(p => p && p !== 'N/A');
+                    if (addressParts.length > 0) {
+                        address = addressParts.join(', ');
+                        mapQuery = address;
+                    }
                 }
             }
-
             // Update Basic Text Elements
             document.getElementById('biz-name-main').innerText = name;
             document.getElementById('biz-industry').innerText = industry;
@@ -258,9 +263,9 @@
             document.getElementById('biz-phone-btn').href = phone !== 'N/A' ? `tel:${phone}` : '#';
             document.getElementById('biz-email-btn').href = email !== 'N/A' ? `mailto:${email}` : '#';
 
-            // 3. DYNAMIC PHOTO URL: Automatically uses Render instead of localhost
+            // 3. DYNAMIC PHOTO URL
             if (biz.photo_url && biz.photo_url !== 'N/A' && biz.photo_url !== 'null') {
-                const activeOrigin = new URL(baseUrl).origin; // Gets 'https://pcci-laravel-api.onrender.com'
+                const activeOrigin = new URL(baseUrl).origin; 
                 let finalPhotoUrl = biz.photo_url.replace('http://127.0.0.1:8000', activeOrigin).replace('http://localhost:8000', activeOrigin);
                 
                 document.getElementById('biz-avatar-container').innerHTML = `<img src="${finalPhotoUrl}" alt="${name}" class="w-100 h-100" style="object-fit: cover;">`;
@@ -308,7 +313,7 @@
                 hoursContainer.innerHTML = '<span style="color: var(--text-muted);">Business hours not provided.</span>';
             }
 
-            // 4. FIX GOOGLE MAPS URL: Generates a clean map based on address
+            // 4. FIX GOOGLE MAPS URL (Added the missing $ and fixed the base URL)
             const encodedMapQuery = encodeURIComponent(mapQuery + ', Philippines');
             document.getElementById('biz-map-frame').src = `https://maps.google.com/maps?q=${encodedMapQuery}&t=m&z=15&output=embed`;
 
