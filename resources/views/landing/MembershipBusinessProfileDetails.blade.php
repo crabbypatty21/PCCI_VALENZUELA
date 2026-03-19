@@ -2,262 +2,322 @@
 
 @section('content')
 
-@php
-$businesses = [
-    1 => [
-        'name' => 'Tech Corp Inc.',
-        'about' => 'Tech Corp Inc. is a leading provider of innovative software solutions dedicated to helping local businesses in Valenzuela City thrive in the digital age.',
-        'services' => ['Software Development', 'Mobile Apps', 'ERP Systems'],
-        'phone' => '+639624407449',
-        'email' => 'contact@techcorp.ph',
-        'address' => 'No. 04 Fatima Lane, Marikina Heights 1810',
-        'hours' => [
-            'Monday - Friday' => '8:00 AM - 6:00 PM',
-            'Saturday' => '9:00 AM - 5:00 PM',
-            'Sunday' => 'Closed',
-        ],
-        'map' => 'No.+04+fatima+lane+Milagrosa+Village,+Marikina+heights+1810',
-    ],
-
-    2 => [
-        'name' => 'Green Fields',
-        'about' => 'Green Fields is a trusted agricultural distributor supplying organic produce and farming materials to local partners across Metro Manila.',
-        'services' => ['Organic Produce', 'Wholesale Supply', 'Farm Logistics'],
-        'phone' => '+639111111111',
-        'email' => 'sales@greenfields.com',
-        'address' => 'Valenzuela City',
-        'hours' => [
-            'Monday - Friday' => '8:00 AM - 6:00 PM',
-            'Saturday' => '9:00 AM - 5:00 PM',
-            'Sunday' => 'Closed',
-        ],
-        'map' => 'Valenzuela+City',
-    ],
-
-    3 => [
-        'name' => 'Build Links',
-        'about' => 'Build Links is a trusted agricultural distributor supplying organic produce and farming materials to local partners across Metro Manila.',
-        'services' => ['Organic Produce', 'Wholesale Supply', 'Farm Logistics'],
-        'phone' => '+639111111111',
-        'email' => 'sales@buildlinks.com',
-        'address' => 'Valenzuela City',
-        'hours' => [
-            'Monday - Friday' => '8:00 AM - 6:00 PM',
-            'Saturday' => '9:00 AM - 5:00 PM',
-            'Sunday' => 'Closed',
-        ],
-        'map' => 'Valenzuela+City',
-    ],
-];
-
-$business = $businesses[$id] ?? abort(404);
-@endphp
-
-
-{{-- HERO (UPDATED STYLE) --}}
-<div class="w-100" style="
-    background:#1f2330;
-    min-height: 420px;
-">
-    <div class="container">
-        <div class="row align-items-center g-4"
-             style="padding-top:120px; padding-bottom:80px;">
-
-            {{-- LOGO --}}
-            <div class="col-auto">
-                <div class="rounded-4 bg-light d-flex align-items-center justify-content-center"
-                     style="width:120px;height:120px;">
-                    <span class="fw-bold fs-2 text-danger">
-                        {{ strtoupper(substr($business['name'], 0, 3)) }}
-                    </span>
-                </div>
-            </div>
-
-            {{-- CONTENT --}}
-            <div class="col">
-
-                <h1 class="fw-bold text-white mb-2">
-                    {{ $business['name'] }}
-                </h1>
-                <span class="badge rounded-pill mb-2"
-                      style="background:#2e5aac;">
-                    Manufacturing
-                </span>
-
-                <p class="text-light mb-4" style="max-width:720px; opacity:.9;">
-                    {{ $business['about'] }}
-                </p>
-
-                <div class="d-flex gap-3 flex-wrap">
-                    <a href="tel:{{ $business['phone'] }}"
-                       class="btn btn-danger px-4 fw-bold">
-                        CONTACT US
-                    </a>
-
-                    <a href="mailto:{{ $business['email'] }}"
-                       class="btn btn-outline-light px-4 fw-bold">
-                        CALL NOW
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
+{{-- LOADING SPINNER --}}
+<div id="loading-spinner" class="text-center py-5" style="margin-top: 150px; min-height: 60vh;">
+    <i class="bi bi-arrow-repeat text-danger" style="display:inline-block; animation: spin 1s linear infinite; font-size: 3rem;"></i>
+    <p class="mt-3 fw-bold text-muted" style="font-family: 'Poppins', sans-serif;">Loading Business Profile...</p>
 </div>
 
-
-<div class="container mt-5">
-<div class="row g-5">
-
-{{-- LEFT CONTENT --}}
-<div class="col-lg-8">
-
-{{-- ABOUT --}}
-<div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-    <div class="d-flex align-items-center gap-2 mb-3">
-        <i class="bi bi-buildings text-danger fs-3"></i>
-        <h4 class="fw-bold text-danger mb-0">About Our Company</h4>
-    </div>
-
-    {{-- Removed 'text-dark' so it inherits theme color (Black in Light, White in Dark) --}}
-    <p>{{ $business['about'] }}</p>
+{{-- ERROR STATE --}}
+<div id="error-state" class="container text-center py-5" style="display: none; margin-top: 100px; min-height: 50vh;">
+    <h1 class="text-danger fw-bold" style="font-size: 4rem;"><i class="bi bi-exclamation-circle"></i></h1>
+    <h2 class="fw-bold mt-3">Profile Not Found</h2>
+    <p class="text-muted" id="error-message">The business profile you are looking for does not exist or couldn't be loaded.</p>
+    <a href="{{ route('membership') }}" class="btn btn-danger mt-4 px-4 py-2 fw-bold rounded-pill">Return to Directory</a>
 </div>
 
+{{-- MAIN CONTENT WRAPPER --}}
+<div id="main-content" style="display: none;">
+    
+    {{-- HERO SECTION --}}
+    <div class="w-100" style="background:#1f2330; min-height: 420px; transition: all 0.3s ease;">
+        <div class="container">
+            <div class="row align-items-center g-4" style="padding-top:120px; padding-bottom:80px;">
 
-{{-- SERVICES --}}
-<div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-    <h4 class="fw-bold text-danger mb-4 d-flex align-items-center gap-2">
-        <i class="bi bi-briefcase"></i>
-        <span>Products & Services</span>
-    </h4>
-
-    <div class="row g-3">
-        @foreach ($business['services'] as $service)
-            <div class="col-md-6 col-lg-4">
-                <div class="service-box bg-danger bg-opacity-50 border rounded-4 p-3 h-100 shadow-sm">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <i class="bi bi-briefcase text-danger"></i>
-                        <h6 class="fw-bold mb-0 text-danger">
-                            {{ $service }}
-                        </h6>
+                {{-- LOGO / INITIALS --}}
+                <div class="col-auto">
+                    <div class="rounded-4 bg-light d-flex align-items-center justify-content-center overflow-hidden shadow-lg"
+                         style="width:130px; height:130px; border: 4px solid rgba(255,255,255,0.1);" id="biz-avatar-container">
+                        <span class="fw-bold text-danger" style="font-size: 2.5rem;" id="biz-initials">...</span>
                     </div>
+                </div>
 
-                    {{-- Removed 'text-dark' so it inherits theme color --}}
-                    <p class="small mb-0">
-                        This service provides reliable and professional solutions
-                        tailored to meet customer needs and business goals.
+                {{-- HERO CONTENT --}}
+                <div class="col">
+                    <h1 class="fw-bold text-white mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 2.5rem;" id="biz-name-main">
+                        Loading...
+                    </h1>
+                    
+                    <span class="badge rounded-pill mb-3 px-3 py-2 fw-bold text-uppercase" style="background:#2e5aac; font-size: 0.85rem;" id="biz-industry">
+                        Industry
+                    </span>
+
+                    <p class="text-light mb-4 font-italic" style="max-width:750px; opacity:.9; font-size: 1.1rem; line-height: 1.6;" id="biz-tagline">
+                        Loading tagline...
                     </p>
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#" id="biz-phone-btn" class="btn btn-danger px-4 py-2 fw-bold rounded-pill shadow-sm">
+                            <i class="bi bi-telephone-fill me-2"></i> CONTACT US
+                        </a>
+                        <a href="#" id="biz-email-btn" class="btn btn-outline-light px-4 py-2 fw-bold rounded-pill">
+                            <i class="bi bi-envelope-fill me-2"></i> EMAIL NOW
+                        </a>
+                    </div>
                 </div>
+
             </div>
-        @endforeach
-    </div>
-</div>
-
-
-    {{-- MAP --}}
-    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-5">
-        <h4 class="fw-bold text-danger mb-3">Our Location</h4>
-
-        {{-- Removed 'text-secondary' so address is Black in Light Mode / White in Dark Mode --}}
-        <p class="mb-3">
-            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
-            {{ $business['address'] }}
-        </p>
-
-        <iframe
-            src="https://maps.google.com/maps?q={{ $business['map'] }}&t=m&z=15&output=embed"
-            width="100%"
-            height="350"
-            style="border:0;"
-            loading="lazy">
-        </iframe>
-    </div>
-
-</div>
-
-{{-- RIGHT SIDEBAR --}}
-<div class="col-lg-4">
-
-    {{-- CONTACT --}}
-    <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-        <h5 class="fw-bold text-danger mb-4">Contact Information</h5>
-
-        <div class="d-flex flex-column gap-4">
-
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
-                     style="width:42px;height:42px;">
-                    <i class="bi bi-telephone-fill"></i>
-                </div>
-                <div>
-                    {{-- Removed 'text-muted' from label so it's readable in dark mode --}}
-                    <small class="fw-bold text-uppercase">Phone</small><br>
-                    <span>{{ $business['phone'] }}</span>
-                </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
-                     style="width:42px;height:42px;">
-                    <i class="bi bi-envelope-fill"></i>
-                </div>
-                <div>
-                    {{-- Removed 'text-muted' from label --}}
-                    <small class="fw-bold text-uppercase">Email</small><br>
-                    <span>{{ $business['email'] }}</span>
-                </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
-                     style="width:42px;height:42px;">
-                    <i class="bi bi-geo-alt-fill"></i>
-                </div>
-                <div>
-                    {{-- Removed 'text-muted' from label --}}
-                    <small class="fw-bold text-uppercase">Address</small><br>
-                    <span>{{ $business['address'] }}</span>
-                </div>
-            </div>
-
         </div>
     </div>
 
-{{-- HOURS --}}
-<div class="card border border-danger shadow-sm p-4 rounded-4 mb-4">
-    <div class="d-flex align-items-center gap-2 mb-3">
-        <i class="bi bi-building text-danger fs-4"></i>
-        <h5 class="fw-bold text-danger mb-0">Business Hours</h5>
-    </div>
+    <div class="container mt-5 mb-5" style="font-family: 'DM Sans', sans-serif;">
+        <div class="row g-5">
 
-    @foreach ($business['hours'] as $day => $time)
-        <div class="d-flex justify-content-between">
-            {{-- Removed 'text-dark' so it inherits theme color --}}
-            <span>{{ $day }}</span>
-            <span class="fw-bold">{{ $time }}</span>
+            {{-- LEFT CONTENT --}}
+            <div class="col-lg-8">
+
+                {{-- ABOUT --}}
+                <div class="card border border-danger shadow-sm p-4 p-md-5 rounded-4 mb-4" style="background: var(--bg-card);">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="bg-danger bg-opacity-10 p-3 rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-buildings text-danger fs-4"></i>
+                        </div>
+                        <h4 class="fw-bold text-danger mb-0" style="font-family: 'Poppins', sans-serif;">About Our Company</h4>
+                    </div>
+                    <p id="biz-about-side" style="line-height: 1.8; color: var(--text-main); font-size: 1.05rem;">Loading...</p>
+                </div>
+
+                {{-- PRODUCTS & SERVICES (TAGS) --}}
+                <div class="card border border-danger shadow-sm p-4 p-md-5 rounded-4 mb-4" style="background: var(--bg-card);">
+                    <h4 class="fw-bold text-danger mb-4 d-flex align-items-center gap-2">
+                        <i class="bi bi-briefcase"></i>
+                        <span>Products & Services</span>
+                    </h4>
+                    <div class="row g-3" id="biz-services">
+                        {{-- Services injected here via JS --}}
+                    </div>
+                </div>
+
+                {{-- MAP --}}
+                <div class="card border border-danger shadow-sm p-4 p-md-5 rounded-4 mb-5" style="background: var(--bg-card);">
+                    <h4 class="fw-bold text-danger mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Our Location</span>
+                    </h4>
+                    <p class="mb-4 fw-bold" style="color: var(--text-main); font-size: 1.1rem;">
+                        <span id="biz-address-map">Loading...</span>
+                    </p>
+                    <div class="rounded-4 overflow-hidden shadow-sm border">
+                        <iframe id="biz-map-frame"
+                            src=""
+                            width="100%" height="350" style="border:0;" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            {{-- RIGHT SIDEBAR --}}
+            <div class="col-lg-4">
+
+                {{-- CONTACT INFO --}}
+                <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4" style="background: var(--bg-card);">
+                    <h5 class="fw-bold text-danger mb-4" style="font-family: 'Poppins', sans-serif;">Contact Information</h5>
+                    <div class="d-flex flex-column gap-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width:45px;height:45px;">
+                                <i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <div>
+                                <small class="fw-bold text-uppercase text-danger" style="letter-spacing: 1px; font-size: 0.75rem;">Phone</small><br>
+                                <span id="biz-phone" class="fw-medium" style="color: var(--text-main); font-size: 1.05rem;">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width:45px;height:45px;">
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                            <div style="overflow: hidden; text-overflow: ellipsis;">
+                                <small class="fw-bold text-uppercase text-danger" style="letter-spacing: 1px; font-size: 0.75rem;">Email</small><br>
+                                <span id="biz-email" class="fw-medium" style="color: var(--text-main); font-size: 1.05rem;">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width:45px;height:45px;">
+                                <i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <div>
+                                <small class="fw-bold text-uppercase text-danger" style="letter-spacing: 1px; font-size: 0.75rem;">Address</small><br>
+                                <span id="biz-address" class="fw-medium" style="color: var(--text-main); font-size: 1.05rem;">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- BUSINESS HOURS --}}
+                <div class="card border border-danger shadow-sm p-4 rounded-4 mb-4" style="background: var(--bg-card);">
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <i class="bi bi-clock-history text-danger fs-4"></i>
+                        <h5 class="fw-bold text-danger mb-0" style="font-family: 'Poppins', sans-serif;">Business Hours</h5>
+                    </div>
+                    <div class="d-flex flex-column gap-2" id="biz-hours-container">
+                        {{-- Hours injected here --}}
+                    </div>
+                </div>
+
+                {{-- ACTIONS --}}
+                <div class="card border border-danger shadow-sm p-4 rounded-4 position-sticky" style="top: 100px; background: var(--bg-card);">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-gear text-danger fs-4"></i>
+                        <h5 class="fw-bold text-danger mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-outline-danger fw-bold rounded-pill">Request Quote</button>
+                        <button class="btn btn-outline-danger fw-bold rounded-pill">Schedule Call</button>
+                        <hr class="my-2 text-muted">
+                        <a href="{{ route('membership') }}" class="btn btn-outline-danger fw-bold rounded-pill py-2">
+                            <i class="bi bi-arrow-left me-2"></i> Browse Directory
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    @endforeach
-</div>
-
-
-{{-- ACTIONS --}}
-<div class="card border border-danger shadow-sm p-4 rounded-4">
-    <div class="d-flex align-items-center gap-2 mb-3">
-        <i class="bi bi-gear text-danger fs-4"></i>
-        <h5 class="fw-bold text-danger mb-0">Quick Actions</h5>
-    </div>
-
-    <div class="d-grid gap-2">
-        <button class="btn btn-outline-danger fw-bold">Request Quote</button>
-        <button class="btn btn-outline-danger fw-bold">Schedule Call</button>
-        <a href="{{ url('/membership') }}" class="btn btn-outline-danger fw-bold">
-            Browse Other Members
-        </a>
     </div>
 </div>
 
-</div>
-</div>
-</div>
+<style>
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .service-box:hover { transform: translateY(-3px); transition: all 0.3s ease; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
+</style>
+
+{{-- ========================================= --}}
+{{-- API FETCH LOGIC MAPS TO YOUR EXACT JSON --}}
+{{-- ========================================= --}}
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const targetId = {{ $id }};
+        
+        try {
+            const token = localStorage.getItem('token');
+            const headers = { 'Accept': 'application/json' };
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+
+            // Fetch from your current IP
+            const response = await fetch(`${window.API_BASE_URL}/v1/business`, {
+                method: 'GET',
+                headers: headers
+            });
+
+            if (!response.ok) throw new Error("Failed to connect to the business directory API.");
+
+            const result = await response.json();
+            const allBusinesses = result.data || result || [];
+            
+            // Find the specific business
+            const biz = allBusinesses.find(b => b.id == targetId);
+
+            document.getElementById('loading-spinner').style.display = 'none';
+
+            if (!biz) {
+                document.getElementById('error-state').style.display = 'block';
+                return;
+            }
+
+            // === MAPPING YOUR API DATA ===
+            const name = biz.registered_business_name || 'Business Name';
+            const email = biz.email || 'N/A';
+            const phone = biz.telephone_no || 'N/A';
+            const industry = biz.industry || 'Business';
+            const tagline = biz.business_tagline || 'No tagline available.';
+            const description = biz.description || tagline || 'No detailed description provided.';
+            
+            // Handle Nested Location Object
+            let address = 'Valenzuela City';
+            let mapQuery = name;
+            if (biz.business_location) {
+                const loc = biz.business_location;
+                // Safely join address parts, ignoring empty ones
+                const addressParts = [loc.business_address, loc.city_municipality, loc.province].filter(Boolean);
+                if(addressParts.length > 0) {
+                    address = addressParts.join(', ');
+                }
+                // Use location_link for the map if it exists
+                if (loc.location_link) {
+                    mapQuery = loc.location_link;
+                } else {
+                    mapQuery = address;
+                }
+            }
+
+            // Update Basic Text Elements
+            document.getElementById('biz-name-main').innerText = name;
+            document.getElementById('biz-industry').innerText = industry;
+            document.getElementById('biz-tagline').innerText = `"${tagline}"`;
+            document.getElementById('biz-about-side').innerText = description;
+            document.getElementById('biz-phone').innerText = phone;
+            document.getElementById('biz-email').innerText = email;
+            document.getElementById('biz-address').innerText = address;
+            document.getElementById('biz-address-map').innerText = address;
+
+            // Update Contact Buttons
+            document.getElementById('biz-phone-btn').href = phone !== 'N/A' ? `tel:${phone}` : '#';
+            document.getElementById('biz-email-btn').href = email !== 'N/A' ? `mailto:${email}` : '#';
+
+            // Handle Photo or Initials (accounting for localhost URLs)
+            if (biz.photo_url && biz.photo_url !== 'N/A' && biz.photo_url !== 'null') {
+                // If API returns 127.0.0.1, we might need to replace it with the active IP to view it on other devices
+                let finalPhotoUrl = biz.photo_url.replace('127.0.0.1:8000', '192.168.55.107:8000');
+                document.getElementById('biz-avatar-container').innerHTML = `<img src="${finalPhotoUrl}" alt="${name}" class="w-100 h-100" style="object-fit: cover;">`;
+            } else {
+                let initials = name.substring(0, 2).toUpperCase();
+                const words = name.split(' ');
+                if(words.length > 1 && words[1].length > 0) {
+                    initials = (words[0][0] + words[1][0]).toUpperCase();
+                }
+                document.getElementById('biz-initials').innerText = initials;
+            }
+
+            // Map Tags Array to Services UI
+            const servicesContainer = document.getElementById('biz-services');
+            servicesContainer.innerHTML = '';
+            const tags = Array.isArray(biz.tags) && biz.tags.length > 0 ? biz.tags : ['General Services'];
+            
+            tags.forEach(tag => {
+                servicesContainer.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-box bg-danger bg-opacity-10 border border-danger border-opacity-25 rounded-4 p-3 h-100">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-check-circle-fill text-danger"></i>
+                                <h6 class="fw-bold mb-0 text-danger text-capitalize" style="font-family: 'Poppins', sans-serif;">${tag}</h6>
+                            </div>
+                            <p class="small mb-0" style="color: var(--text-muted);">Core offering provided by ${name}.</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Map Business Hours
+            const hoursContainer = document.getElementById('biz-hours-container');
+            hoursContainer.innerHTML = '';
+            if (biz.business_hours && Object.keys(biz.business_hours).length > 0) {
+                for (const [day, time] of Object.entries(biz.business_hours)) {
+                    hoursContainer.innerHTML += `
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-capitalize" style="color: var(--text-main); font-weight: 500;">${day}</span>
+                            <span class="fw-bold" style="color: var(--text-main);">${time}</span>
+                        </div>
+                    `;
+                }
+            } else {
+                hoursContainer.innerHTML = '<span style="color: var(--text-muted);">Business hours not provided.</span>';
+            }
+
+            // Generate Google Maps Iframe using location_link
+            const encodedMapQuery = encodeURIComponent(mapQuery);
+            document.getElementById('biz-map-frame').src = `https://maps.google.com/maps?q=${encodedMapQuery}&t=m&z=15&output=embed`;
+
+            // Reveal the UI
+            document.getElementById('main-content').style.display = 'block';
+
+        } catch (error) {
+            console.error("Error fetching business details:", error);
+            document.getElementById('loading-spinner').style.display = 'none';
+            document.getElementById('error-message').innerText = "Unable to connect to the server. Please check your connection.";
+            document.getElementById('error-state').style.display = 'block';
+        }
+    });
+</script>
 
 @endsection

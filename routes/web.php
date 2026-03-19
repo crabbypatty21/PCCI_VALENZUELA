@@ -13,7 +13,7 @@ Route::get('/membership', function () {
 Route::get('/about', function () {
     return view('landing.about');
 })->name('about');  // <--- This 'name' part is crucial!
-
+    
 Route::get('/contact', function () {
     return view('landing.contact');
 })->name('contact');

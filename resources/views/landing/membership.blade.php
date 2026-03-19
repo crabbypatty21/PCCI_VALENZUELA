@@ -44,7 +44,6 @@
                     </select>
                 </div>
 
-                {{-- DYNAMIC SHOWING TEXT --}}
                 <div class="small fw-medium" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;" id="showingText">
                     Loading results...
                 </div>
@@ -64,8 +63,7 @@
         {{-- PAGINATION --}}
         <div class="mt-5 d-flex justify-content-center">
             <nav aria-label="Page navigation">
-                <ul class="pagination" id="paginationContainer">
-                    </ul>
+                <ul class="pagination" id="paginationContainer"></ul>
             </nav>
         </div>
     </div>
@@ -92,15 +90,11 @@
                 headers: headers
             });
 
-            if (!response.ok) {
-                const errDetails = await response.text();
-                console.error("🚨 LARAVEL ERROR:", errDetails);
-                throw new Error("Failed to fetch");
-            }
+            if (!response.ok) throw new Error("Failed to fetch");
 
             const result = await response.json();
             
-            // Extract the array of data
+            // Extract the array of data correctly
             allBusinesses = result.data || result || []; 
             
             sortData('asc');
@@ -111,7 +105,7 @@
             document.getElementById('businessGrid').innerHTML = `
                 <div class="col-12 text-center py-5" style="color: #D40032;">
                     <h5><i class="bi bi-exclamation-triangle"></i> Failed to load businesses.</h5>
-                    <p>Make sure your server is running at the correct IP address!</p>
+                    <p>Make sure your server is running!</p>
                 </div>
             `;
             document.getElementById('showingText').innerText = "0 results";
@@ -143,50 +137,39 @@
         }
 
         pagedData.forEach(biz => {
-            // Mapping exactly to your JSON snippet
             const name = biz.registered_business_name || 'Unknown Business';
             const email = biz.email || 'N/A';
             const phone = biz.telephone_no || 'N/A';
             const industry = biz.industry || 'Business';
             const tagline = biz.business_tagline || '';
+            const tags = (Array.isArray(biz.tags)) ? biz.tags : [];
             
-            // Loop through the array of tags dynamically
-            const tags = (Array.isArray(biz.tags) && biz.tags.length > 0) ? biz.tags : [];
+            // Build the URL using the JavaScript ID variable
+            // This matches Route::get('/business/{id}', ...) in web.php
+            const profileUrl = `/business/${biz.id}`;
 
-            // SMART PHOTO LOGIC
             let avatarHTML = '';
-            
             if (biz.photo_url && !biz.photo_url.includes('N/A') && !biz.photo_url.includes('null')) {
                 avatarHTML = `<img src="${biz.photo_url}" alt="${name}" style="width: 56px; height: 56px; object-fit: cover;" class="rounded-circle shadow-sm">`;
             } else {
                 const words = name.split(' ');
                 let initials = name.substring(0, 2).toUpperCase();
-                if (words.length > 1 && words[1].length > 0) {
-                    initials = (words[0][0] + words[1][0]).toUpperCase();
-                }
+                if (words.length > 1) initials = (words[0][0] + words[1][0]).toUpperCase();
                 const colors = ['bg-primary', 'bg-success', 'bg-warning', 'bg-info', 'bg-danger'];
-                const colorClass = colors[(biz.id || Math.floor(Math.random() * 10)) % colors.length];
-                const textClass = colorClass === 'bg-warning' || colorClass === 'bg-info' ? 'text-dark' : 'text-white';
-                
-                avatarHTML = `<div class="rounded-circle ${colorClass} d-flex align-items-center justify-content-center ${textClass} fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.2rem;">${initials}</div>`;
+                const colorIndex = (biz.id || 0) % colors.length;
+                avatarHTML = `<div class="rounded-circle ${colors[colorIndex]} d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.2rem;">${initials}</div>`;
             }
-
-            const profileUrl = `/business/${biz.id || '#'}`;
 
             const cardHTML = `
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 border-0 shadow p-3" style="border-radius: 12px; background-color: var(--bg-card);">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            
                             ${avatarHTML}
-                            
                             <div style="width: calc(100% - 70px);">
                                 <span class="d-inline-block rounded px-2 py-1 mb-1 fw-bold text-uppercase text-truncate" style="font-size: 0.65rem; background-color: #fdf2f2; color: #be1e38; max-width: 100%;">
                                     ${industry}
                                 </span>
-                                
                                 <h5 class="fw-bold mb-1 text-truncate" style="color: var(--text-main);" title="${name}">${name}</h5>
-                                
                                 ${tagline ? `<small class="text-truncate d-block" style="color: #888; font-style: italic; font-size: 0.8rem;">"${tagline}"</small>` : ''}
                             </div>
                         </div>
@@ -201,7 +184,9 @@
                                     <i class="bi bi-envelope"></i> <span title="${email}">${email}</span><br>
                                     <i class="bi bi-telephone"></i> ${phone}
                                 </div>
-                                <a href="${profileUrl}" class="btn py-1 px-3 text-white fw-bold flex-shrink-0" style="background-color: #D40032; border-radius: 6px; font-size: 0.8rem;">
+                                <a href="${profileUrl}"
+                                   class="btn py-1 px-3 text-white fw-bold"
+                                   style="background-color: #D40032; border-radius: 6px; font-size: 0.8rem;">
                                     View Details
                                 </a>
                             </div>
@@ -218,7 +203,6 @@
     function renderPagination(totalPages) {
         const pagContainer = document.getElementById('paginationContainer');
         pagContainer.innerHTML = '';
-
         if (totalPages <= 1) return;
 
         pagContainer.innerHTML += `
@@ -264,7 +248,7 @@
 
     function handleSearch() {
         const term = document.getElementById('searchInput').value.toLowerCase();
-        console.log("Searching for:", term);
+        // Optional: Filter allBusinesses based on search term
     }
 </script>
 
@@ -279,4 +263,4 @@
     }
 </style>
 
-@endsection 
+@endsection

@@ -172,9 +172,20 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 </style>
 
 <div class="topbar">
-    <div class="topbar-brand">
-        <i class="fa fa-building text-danger"></i> PCCI - Valenzuela
-    </div>
+    <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none" style="outline: none; box-shadow: none;">
+        <div class="rounded-circle overflow-hidden" style="width: 40px; height: 40px;">
+            <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo" class="w-100 h-100 object-fit-contain">
+        </div>
+
+        <div class="d-flex flex-column">
+            <span class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.2;">
+                PCCI - Valenzuela
+            </span>
+            <span class="d-none d-sm-block text-muted" style="font-family: 'DM Sans', sans-serif; font-size: 0.7rem;">
+                Philippine Chamber of Commerce and Industry
+            </span>
+        </div>
+    </a>
     
     <div class="topbar-search-wrapper">
         <i class="fa fa-search"></i>
@@ -369,7 +380,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                         <div class="text-muted" style="font-size: 15px;" id="bizIndustryTitle">Loading Industry...</div>
                     </div>
                 </div>
-                <button class="editBtn" onclick="editProfileAlert()"><i class="fa fa-pen me-1"></i> Edit Profile</button>
+                <button class="editBtn" onclick="openEditProfileModal()"><i class="fa fa-pen me-1"></i> Edit Profile</button>
             </div>
 
             <div class="row mt-2">
@@ -425,6 +436,70 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     @include('member.membership')
     @include('member.settings')
 
+</div>
+
+<div class="modal-overlay" id="editProfileModal">
+    <div class="modal-content-box" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0 text-dark"><i class="fa fa-pen text-danger me-2"></i>Edit Business Profile</h5>
+            <button class="btn-close" onclick="closeEditProfileModal()"></button>
+        </div>
+
+        <div id="profileAlert" class="alert alert-danger" style="display: none; font-size: 13px;"></div>
+        
+        <h6 class="fw-bold mb-3 text-danger border-bottom pb-2">Business Details</h6>
+        <div class="mb-3">
+            <label class="form-label fw-bold text-muted" style="font-size: 13px;">Registered Business Name</label>
+            <input type="text" id="ep_companyName" class="form-control" placeholder="Company Name">
+        </div>
+        <div class="row mb-3 g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Email Address</label>
+                <input type="email" id="ep_email" class="form-control" placeholder="example@email.com">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Contact Number</label>
+                <input type="text" id="ep_phone" class="form-control" placeholder="+63 912 345 6789">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label fw-bold text-muted" style="font-size: 13px;">Industry / Type of Company</label>
+            <input type="text" id="ep_industry" class="form-control" placeholder="e.g. Manufacturing">
+        </div>
+
+        <div class="row mb-4 g-3">
+            <div class="col-md-7">
+                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Business Address</label>
+                <input type="text" id="ep_address" class="form-control" placeholder="Street Address">
+            </div>
+            <div class="col-md-5">
+                <label class="form-label fw-bold text-muted" style="font-size: 13px;">City/Municipality</label>
+                <input type="text" id="ep_city" class="form-control" placeholder="City">
+            </div>
+        </div>
+        
+        <h6 class="fw-bold mb-3 text-danger border-bottom pb-2">Official Representative</h6>
+        <div class="row mb-3 g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-muted" style="font-size: 13px;">First Name</label>
+                <input type="text" id="ep_repFirstName" class="form-control" placeholder="First Name">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Surname</label>
+                <input type="text" id="ep_repLastName" class="form-control" placeholder="Last Name">
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label fw-bold text-muted" style="font-size: 13px;">Designation</label>
+            <input type="text" id="ep_repDesignation" class="form-control" placeholder="e.g. CEO, Manager">
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-2">
+            <button class="btn btn-light fw-bold" onclick="closeEditProfileModal()">Cancel</button>
+            <button class="btn btn-danger fw-bold px-4" id="btnSaveProfile" onclick="saveProfile()">Save Changes</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -523,9 +598,10 @@ async function fetchRealDashboardData(token) {
         const data = await response.json();
 
         if (response.ok && data.data) {
+            window.currentProfileData = null;
             // Depending on if the API returns an array or single object for the user's application
             const profile = Array.isArray(data.data) ? data.data[0] : data.data;
-
+            window.currentProfileData = profile;
             if (!profile) return;
 
             const basic = profile.basic_profile || {};
@@ -758,6 +834,118 @@ async function deleteProduct(id) {
         }
     } catch(error) {
         alert("Network error. Could not delete product.");
+    }
+}
+
+// ==========================================
+// EDIT PROFILE LOGIC
+// ==========================================
+
+function openEditProfileModal() {
+    if (!window.currentProfileData) {
+        alert("Still loading profile data. Please wait a moment.");
+        return;
+    }
+    
+    const profile = window.currentProfileData;
+    const basic = profile.basic_profile || {};
+    const org = profile.organization_membership || {};
+    const rep = profile.official_representative || {};
+    const loc = basic.business_location || {};
+
+    // Populate Modal Inputs
+    document.getElementById('ep_companyName').value = basic.registered_business_name || '';
+    document.getElementById('ep_email').value = basic.email || '';
+    document.getElementById('ep_phone').value = basic.contact_number || '';
+    
+    document.getElementById('ep_industry').value = org.type_of_company || '';
+    
+    document.getElementById('ep_address').value = loc.business_address || '';
+    document.getElementById('ep_city').value = loc.city_municipality || '';
+    
+    document.getElementById('ep_repFirstName').value = rep.first_name || '';
+    document.getElementById('ep_repLastName').value = rep.surname || '';
+    document.getElementById('ep_repDesignation').value = rep.designation || '';
+
+    // Show Modal
+    document.getElementById('profileAlert').style.display = 'none';
+    document.getElementById('editProfileModal').style.display = 'flex';
+}
+
+function closeEditProfileModal() {
+    document.getElementById('editProfileModal').style.display = 'none';
+}
+
+async function saveProfile() {
+    const btn = document.getElementById('btnSaveProfile');
+    const alertBox = document.getElementById('profileAlert');
+    
+    if (!window.currentProfileData) {
+        alertBox.innerText = 'Profile data not loaded yet. Please refresh and try again.';
+        alertBox.style.display = 'block';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = 'Saving...';
+    alertBox.style.display = 'none';
+
+    // 1. Create a deep copy of the existing profile data so we send EVERYTHING back
+    let payload = JSON.parse(JSON.stringify(window.currentProfileData));
+
+    // Ensure objects exist to prevent javascript errors
+    payload.basic_profile = payload.basic_profile || {};
+    payload.basic_profile.business_location = payload.basic_profile.business_location || {};
+    payload.organization_membership = payload.organization_membership || {};
+    payload.official_representative = payload.official_representative || {};
+
+    // 2. Override ONLY the fields that are in the Edit Profile modal
+    payload.basic_profile.registered_business_name = document.getElementById('ep_companyName').value;
+    payload.basic_profile.email = document.getElementById('ep_email').value;
+    
+    // Note: The sample JSON uses 'telephone_no', so we use that here
+    payload.basic_profile.telephone_no = document.getElementById('ep_phone').value; 
+    
+    payload.organization_membership.type_of_company = document.getElementById('ep_industry').value;
+    
+    payload.basic_profile.business_location.business_address = document.getElementById('ep_address').value;
+    payload.basic_profile.business_location.city_municipality = document.getElementById('ep_city').value;
+    
+    payload.official_representative.first_name = document.getElementById('ep_repFirstName').value;
+    payload.official_representative.surname = document.getElementById('ep_repLastName').value;
+    payload.official_representative.designation = document.getElementById('ep_repDesignation').value;
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/application`, {
+            method: 'POST', // Use POST as required by your backend
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok || response.status === 200 || response.status === 201) {
+            closeEditProfileModal();
+            fetchRealDashboardData(token); // Refresh the UI with the updated data
+            alert('Profile updated successfully!'); 
+        } else {
+            alertBox.innerText = data.message || 'Failed to update profile.';
+            if(data.errors) {
+                alertBox.innerText += ' ' + Object.values(data.errors).flat().join(' ');
+            }
+            alertBox.style.display = 'block';
+        }
+    } catch (error) {
+        console.error("Error saving profile:", error);
+        alertBox.innerText = 'Network error occurred while saving.';
+        alertBox.style.display = 'block';
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Save Changes';
     }
 }
 
