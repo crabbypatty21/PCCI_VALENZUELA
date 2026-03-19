@@ -13,13 +13,14 @@ Route::get('/membership', function () {
 Route::get('/about', function () {
     return view('landing.about');
 })->name('about');  // <--- This 'name' part is crucial!
-
+    
 Route::get('/contact', function () {
     return view('landing.contact');
 })->name('contact');
 
 Route::get('/business/{id}', function ($id) {
-    return view('business.show'); 
+    // This looks for: resources/views/landing/MembershipBusinessProfileDetails.blade.php
+    return view('landing.MembershipBusinessProfileDetails', compact('id'));
 })->name('business.show');
 
 

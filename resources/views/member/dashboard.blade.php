@@ -172,9 +172,20 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 </style>
 
 <div class="topbar">
-    <div class="topbar-brand">
-        <i class="fa fa-building text-danger"></i> PCCI - Valenzuela
-    </div>
+    <a href="{{ url('/') }}" class="d-flex align-items-center gap-3 text-decoration-none" style="outline: none; box-shadow: none;">
+        <div class="rounded-circle overflow-hidden" style="width: 40px; height: 40px;">
+            <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo" class="w-100 h-100 object-fit-contain">
+        </div>
+
+        <div class="d-flex flex-column">
+            <span class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.2;">
+                PCCI - Valenzuela
+            </span>
+            <span class="d-none d-sm-block text-muted" style="font-family: 'DM Sans', sans-serif; font-size: 0.7rem;">
+                Philippine Chamber of Commerce and Industry
+            </span>
+        </div>
+    </a>
     
     <div class="topbar-search-wrapper">
         <i class="fa fa-search"></i>

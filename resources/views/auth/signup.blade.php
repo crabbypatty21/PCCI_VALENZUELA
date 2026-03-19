@@ -354,6 +354,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
+                                <a href="{{ route('login') }}" class="btn btn-prev">Back to Login</a>
                                 <button type="button" class="btn btn-next" onclick="validateAndNext(1, 2)">Next</button>
                             </div>
                         </div>
