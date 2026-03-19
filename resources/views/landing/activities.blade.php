@@ -2,14 +2,9 @@
 
 @section('title', 'PCCI Activities')
 
-@extends('layouts.app')
-
 @section('content')
 
-{{-- Add this line to the top of EVERY file! --}}
 @include('partials.api-config')
-
-@section('content')
 <div class="activities-page">
 
     {{-- Red Banner Header --}}

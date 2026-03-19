@@ -136,12 +136,13 @@
   .ev-card:nth-child(6) { animation-delay: .24s; }
 
   .ev-card-img {
-    width: 100%; height: 172px;
+    width: 100%; height: 240px;
     object-fit: cover;
+    object-position: top center;
     display: block;
   }
   .ev-card-img-placeholder {
-    width: 100%; height: 172px;
+    width: 100%; height: 240px;
     display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden;
   }
