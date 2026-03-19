@@ -274,7 +274,7 @@
                     <i class="bi bi-chevron-down chevron"></i>
                 </button>
                 <div class="nav-dropdown-menu {{ request()->routeIs('content.*') ? 'open' : '' }}" id="contentDropdownMenu">
-                    <a href="{{ route('content.trustees') }}" class="{{ request()->routeIs('content.trustees') ? 'active' : '' }}">Board of Trustees</a>
+                    <a href="{{ route('content.trustees-admin') }}" class="{{ request()->routeIs('content.trustees-admin') ? 'active' : '' }}">Board of Trustees</a>
                     <a href="{{ route('content.activities') }}" class="{{ request()->routeIs('content.activities') ? 'active' : '' }}"> PCCI Activities</a>
                     <a href="{{ route('content.event-admin') }}" class="{{ request()->routeIs('content.event-admin') ? 'active' : '' }}">Event</a>
                 </div>

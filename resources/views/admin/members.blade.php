@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@include('partials.api-config')
 
 @section('title', 'Members - PCCI')
 
