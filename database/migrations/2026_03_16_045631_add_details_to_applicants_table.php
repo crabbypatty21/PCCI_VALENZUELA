@@ -11,12 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('applicants', function (Blueprint $table) {
-            // This is where you put the code!
-            // It adds these two new columns to your existing 'applicants' table
-            $table->string('business_address')->nullable();
-            $table->string('contact_number')->nullable();
-        });
+        if (!Schema::hasTable('applicants')) {
+            Schema::create('applicants', function (Blueprint $table) {
+                $table->id();
+                $table->string('status')->default('pending');
+                $table->string('membership_type')->nullable();
+                $table->string('business_address')->nullable();
+                $table->string('contact_number')->nullable();
+                $table->timestamps();
+            });
+        } else {
+            Schema::table('applicants', function (Blueprint $table) {
+                if (!Schema::hasColumn('applicants', 'business_address')) {
+                    $table->string('business_address')->nullable();
+                }
+                if (!Schema::hasColumn('applicants', 'contact_number')) {
+                    $table->string('contact_number')->nullable();
+                }
+            });
+        }
     }
 
     /**
@@ -24,9 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('applicants', function (Blueprint $table) {
-            // This safely removes the columns if you ever "rollback" the database
-            $table->dropColumn(['business_address', 'contact_number']);
-        });
+        Schema::dropIfExists('applicants');
     }
 };
