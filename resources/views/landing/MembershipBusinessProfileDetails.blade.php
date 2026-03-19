@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('partials.api-config')
 @section('content')
 
 {{-- LOADING SPINNER --}}
@@ -189,28 +189,33 @@
     document.addEventListener('DOMContentLoaded', async () => {
         const targetId = {{ $id }};
         
+        // 1. Grab your global Render URL
+        const baseUrl = window.API_BASE_URL || 'https://pcci-laravel-api.onrender.com/api';
+        
         try {
             const token = localStorage.getItem('token');
             const headers = { 'Accept': 'application/json' };
             if (token) headers['Authorization'] = `Bearer ${token}`;
 
-            // Fetch from your current IP
-            const response = await fetch(`${window.API_BASE_URL}/v1/business`, {
+            // 2. Fetch from your Render API
+            const response = await fetch(`${baseUrl}/v1/business`, {
                 method: 'GET',
                 headers: headers
             });
 
             if (!response.ok) throw new Error("Failed to connect to the business directory API.");
 
+            // ONLY DECLARE THIS ONCE!
             const result = await response.json();
             const allBusinesses = result.data || result || [];
             
-            // Find the specific business
-            const biz = allBusinesses.find(b => b.id == targetId);
+            // 🚨 THE FIX: Treat the targetId as an Array Index!
+            const biz = allBusinesses[targetId];
 
             document.getElementById('loading-spinner').style.display = 'none';
 
             if (!biz) {
+                document.getElementById('error-message').innerText = "The business profile you are looking for does not exist.";
                 document.getElementById('error-state').style.display = 'block';
                 return;
             }
@@ -220,31 +225,34 @@
             const email = biz.email || 'N/A';
             const phone = biz.telephone_no || 'N/A';
             const industry = biz.industry || 'Business';
-            const tagline = biz.business_tagline || 'No tagline available.';
+            const tagline = biz.business_tagline || '';
             const description = biz.description || tagline || 'No detailed description provided.';
             
             // Handle Nested Location Object
+            // Handle Nested Location Object
             let address = 'Valenzuela City';
             let mapQuery = name;
+            
             if (biz.business_location) {
                 const loc = biz.business_location;
-                // Safely join address parts, ignoring empty ones
-                const addressParts = [loc.business_address, loc.city_municipality, loc.province].filter(Boolean);
-                if(addressParts.length > 0) {
-                    address = addressParts.join(', ');
-                }
-                // Use location_link for the map if it exists
-                if (loc.location_link) {
-                    mapQuery = loc.location_link;
+                
+                // If location_link exists, use it for BOTH the visible text AND the Google Map!
+                if (loc.location_link && loc.location_link !== 'N/A') {
+                    address = loc.location_link; 
+                    mapQuery = loc.location_link; // <-- This tells the map to point exactly here!
                 } else {
-                    mapQuery = address;
+                    // Fallback just in case location_link is empty
+                    const addressParts = [loc.business_address, loc.city_municipality, loc.province].filter(p => p && p !== 'N/A');
+                    if (addressParts.length > 0) {
+                        address = addressParts.join(', ');
+                        mapQuery = address;
+                    }
                 }
             }
-
             // Update Basic Text Elements
             document.getElementById('biz-name-main').innerText = name;
             document.getElementById('biz-industry').innerText = industry;
-            document.getElementById('biz-tagline').innerText = `"${tagline}"`;
+            document.getElementById('biz-tagline').innerText = tagline ? `"${tagline}"` : '';
             document.getElementById('biz-about-side').innerText = description;
             document.getElementById('biz-phone').innerText = phone;
             document.getElementById('biz-email').innerText = email;
@@ -255,10 +263,11 @@
             document.getElementById('biz-phone-btn').href = phone !== 'N/A' ? `tel:${phone}` : '#';
             document.getElementById('biz-email-btn').href = email !== 'N/A' ? `mailto:${email}` : '#';
 
-            // Handle Photo or Initials (accounting for localhost URLs)
+            // 3. DYNAMIC PHOTO URL
             if (biz.photo_url && biz.photo_url !== 'N/A' && biz.photo_url !== 'null') {
-                // If API returns 127.0.0.1, we might need to replace it with the active IP to view it on other devices
-                let finalPhotoUrl = biz.photo_url.replace('127.0.0.1:8000', '192.168.55.107:8000');
+                const activeOrigin = new URL(baseUrl).origin; 
+                let finalPhotoUrl = biz.photo_url.replace('http://127.0.0.1:8000', activeOrigin).replace('http://localhost:8000', activeOrigin);
+                
                 document.getElementById('biz-avatar-container').innerHTML = `<img src="${finalPhotoUrl}" alt="${name}" class="w-100 h-100" style="object-fit: cover;">`;
             } else {
                 let initials = name.substring(0, 2).toUpperCase();
@@ -304,8 +313,8 @@
                 hoursContainer.innerHTML = '<span style="color: var(--text-muted);">Business hours not provided.</span>';
             }
 
-            // Generate Google Maps Iframe using location_link
-            const encodedMapQuery = encodeURIComponent(mapQuery);
+            // 4. FIX GOOGLE MAPS URL (Added the missing $ and fixed the base URL)
+            const encodedMapQuery = encodeURIComponent(mapQuery + ', Philippines');
             document.getElementById('biz-map-frame').src = `https://maps.google.com/maps?q=${encodedMapQuery}&t=m&z=15&output=embed`;
 
             // Reveal the UI
