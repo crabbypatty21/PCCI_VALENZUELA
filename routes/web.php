@@ -82,6 +82,10 @@ Route::get('/content/board-of-trustees', function () {
     return view('landing.board-of-trustees');
 })->name('content.trustees');
 
+Route::get('/content/trustees-admin', function () {
+    return view('admin.board-of-trustees');
+})->name('content.trustees-admin');
+
 Route::get('/content/activities', function () {
     return view('landing.activities');
 })->name('content.activities');

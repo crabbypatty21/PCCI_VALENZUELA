@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@include('partials.api-config')
 
 @section('title', 'Members - PCCI')
 
@@ -845,7 +846,7 @@
         const token = localStorage.getItem('token'); 
 
         try {
-            const response = await fetch('http://192.168.55.104:8000/api/v1/members', {
+            const response = await fetch(`${window.API_BASE_URL}/v1/members`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',

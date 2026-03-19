@@ -1292,14 +1292,16 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
     /* RIGHT SIDE (MAP) */
     .map-view-area {
         width: 100%;
-        height: 400px; /* Mobile height */
+        min-height: 350px;
+        height: 400px;
         position: relative;
         background-color: #333;
-        /* Using a satellite/dark map image as placeholder to match image */
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Valenzuela_City_Map.png'); 
-        background-size: cover;
-        background-position: center;
-        filter: brightness(0.9);
+    }
+    .map-view-area iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
     }
 
     /* DESKTOP LAYOUT (Side by Side) */
@@ -1320,6 +1322,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
 
         .map-view-area {
             height: 100%;
+            min-height: 0;
             flex: 1;
         }
         
@@ -1713,43 +1716,64 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
                     View all members <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
+{{-- RIGHT COLUMN --}}
+                <div class="col-lg-7">
+                    <div class="row g-4">
+                        @foreach ($networkBusinesses->take(4) as $business)
+                            @php
+                                // Handle Name and Initials logic within Blade
+                                $name = $business['registered_business_name'] ?? 'Unknown Business';
+                                $words = explode(' ', $name);
+                                $initials = (count($words) > 1) 
+                                    ? strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1)) 
+                                    : strtoupper(substr($name, 0, 2));
+                                
+                                // Use a default color if 'hex' isn't in the API response
+                                $bgColor = $business['hex'] ?? '#D40032'; 
+                            @endphp
 
-            {{-- RIGHT COLUMN --}}
-            <div class="col-lg-7">
-                <div class="row g-4">
-                    @foreach ($networkBusinesses->take(4) as $business)
-                        <div class="col-md-6">
-                            <a href="{{ route('business.show', $business['id']) }}" class="text-decoration-none">
-                                <div class="directory-card">
-                                    
-                                    <div class="d-flex align-items-center mb-3">
-                                        {{-- Logo Box --}}
-                                        <div class="card-logo-box" style="background-color: {{ $business['hex'] }};">
-                                            {{ $business['initials'] }}
+                            <div class="col-md-6">
+                                <a href="{{ route('business.show', $business['id'] ?? '#') }}" class="text-decoration-none">
+                                    <div class="directory-card">
+                                        
+                                        <div class="d-flex align-items-center mb-3">
+                                            {{-- Logo Box --}}
+                                            <div class="card-logo-box shadow-sm d-flex align-items-center justify-content-center text-white fw-bold" 
+                                                style="background-color: {{ $bgColor }}; width: 56px; height: 56px; border-radius: 12px; font-size: 1.2rem;">
+                                                
+                                                @if(isset($business['photo_url']) && !empty($business['photo_url']) && $business['photo_url'] !== 'N/A')
+                                                    <img src="{{ $business['photo_url'] }}" alt="{{ $name }}" class="rounded-circle w-100 h-100" style="object-fit: cover;">
+                                                @else
+                                                    {{ $initials }}
+                                                @endif
+                                            </div>
+                                            
+                                            <div class="ms-3 overflow-hidden">
+                                                <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">
+                                                    {{ $name }}
+                                                </h5>
+                                                
+                                                {{-- UPDATED BADGE: Using Industry as Category --}}
+                                                <span class="badge-outline-white px-2 py-1 rounded border" style="font-size: 0.7rem; text-transform: uppercase;">
+                                                    {{ $business['industry'] ?? 'Business' }}
+                                                </span>
+                                            </div>
                                         </div>
                                         
-                                        <div class="ms-3 overflow-hidden">
-                                            <h5 class="text-truncate mb-1" style="font-size: 1.1rem; font-weight: 700;">
-                                                {{ $business['name'] }}
-                                            </h5>
-                                            
-                                            {{-- UPDATED BADGE: White Border, White Text --}}
-                                            <span class="badge-outline-white">
-                                                {{ $business['category'] }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="card-desc">
-                                        {{ $business['industry'] }} company providing excellent goods for you and your business needs.
-                                    </p>
+                                        <p class="card-desc text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                            @if(!empty($business['business_tagline']))
+                                                "{{ $business['business_tagline'] }}"
+                                            @else
+                                                {{ $business['industry'] ?? 'Local' }} company providing excellence in Valenzuela City.
+                                            @endif
+                                        </p>
 
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
 
         </div>
     </div>
@@ -2006,14 +2030,12 @@ h1, h2, h3, h4, h5, h6, p, span, div, li {
             </div>
 
             <div class="map-view-area">
-                <div style="position: absolute; top: 45%; left: 55%; color: #EB3223; font-size: 2rem; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); cursor: pointer;">
-                    <i class="bi bi-geo-alt-fill"></i>
-                </div>
-                
-                <div style="position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 5px;">
-                    <button style="width: 32px; height: 32px; background: white; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); font-weight: bold; color: #444;">+</button>
-                    <button style="width: 32px; height: 32px; background: white; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); font-weight: bold; color: #444;">-</button>
-                </div>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30880.945786399286!2d120.95583565!3d14.6942407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b3e0c1fc1c4d%3A0x5e3459f1b4e8d7a0!2sValenzuela%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1710700000000!5m2!1sen!2sph"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
             
         </div>

@@ -31,8 +31,8 @@
                 --bg-input: #ffffff;
                 
                 /* Text */
-                --text-main: #212529; /* Dark text for light mode */
-                --text-secondary: #6c757d;
+                --text-main: #000000;
+                --text-secondary: #000000;
                 --text-hero-headline: #ffffff; 
                 --text-hero-sub: #ffffff;
                 
@@ -55,10 +55,10 @@
                 --bg-input: #2a2a35;
                 
                 /* Text */
-                --text-main: #e1e1e1;
-                --text-secondary: #a0a0a0;
-                --text-hero-headline: #f0f0f0;
-                --text-hero-sub: #d0d0d0;
+                --text-main: #ffffff;
+                --text-secondary: #ffffff;
+                --text-hero-headline: #ffffff;
+                --text-hero-sub: #ffffff;
                 
                 /* Borders */
                 --border-color: #2d2d3a;

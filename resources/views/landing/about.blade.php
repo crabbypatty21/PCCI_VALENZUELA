@@ -255,17 +255,16 @@
 </div>
 
 {{-- The PCCI Advantage Section --}}
-{{-- Background stays Red (#D40032), Cards adapt to dark mode --}}
-<div class="py-5" style="background-color: #D40032;">
-    <div class="container text-white py-4">
+<div class="py-5" style="background-color: #F5F3EF;">
+    <div class="container py-4">
         <div class="text-center mb-5">
-            <span class="text-white fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.9;">
+            <span class="fw-bold text-uppercase mb-2 d-block" style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: #D40032;">
                 The PCCI Advantage
             </span>
-            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.01em;">
+            <h2 class="fw-bold mb-3 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.01em; color: var(--text-main);">
                 Your Partner in Growth & Success
             </h2>
-            <p class="mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; line-height: 1.7; opacity: 0.9;">
+            <p class="mx-auto mb-0" style="font-family: 'DM Sans', sans-serif; max-width: 800px; font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary);">
                 Joining PCCI Valenzuela unlocks a wealth of opportunities and resources tailored to elevate your business and drive local economic excellence.
             </p>
         </div>
@@ -325,8 +324,8 @@
         </div>
 
         <div class="text-center">
-            <a onclick="window.location.href='{{ route('event') }}'" class="btn btn-light fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2" 
-               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; color: #D40032;">
+            <a onclick="window.location.href='{{ route('event') }}'" class="btn fw-bold px-4 py-2 text-uppercase d-inline-flex align-items-center gap-2 text-white"
+               style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; border-radius: 6px; background-color: #D40032;">
                 Explore our Events
                 <i class="bi bi-arrow-right"></i>
             </a>
@@ -353,13 +352,12 @@
         <div class="row g-4 justify-content-center">
             {{-- Discipline --}}
             <div class="col-md-6 col-lg-4">
-                {{-- Red Cards: Text stays white --}}
-                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
-                        <i class="bi bi-shield-check" style="font-size: 1.75rem;"></i>
+                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px; background-color: #F5F3EF;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-shield-check" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Discipline</h5>
-                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Discipline</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         We uphold the highest levels of professional integrity and organizational order in every initiative we lead.
                     </p>
                 </div>
@@ -367,12 +365,12 @@
 
             {{-- Good Taste --}}
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
-                        <i class="bi bi-heart-fill" style="font-size: 1.75rem;"></i>
+                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px; background-color: #F5F3EF;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-heart-fill" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Good Taste</h5>
-                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Good Taste</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Fostering a community that values quality, professional aesthetics, and thoughtful execution in business.
                     </p>
                 </div>
@@ -380,12 +378,12 @@
 
             {{-- Excellence --}}
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm text-center text-white p-4" style="border-radius: 12px; background-color: #D40032;">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.15); border-radius: 12px;">
-                        <i class="bi bi-star-fill" style="font-size: 1.75rem;"></i>
+                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px; background-color: #F5F3EF;">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background-color: #fff1f3; border-radius: 12px;">
+                        <i class="bi bi-star-fill" style="font-size: 1.75rem; color: #D40032;"></i>
                     </div>
-                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">Excellence</h5>
-                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: var(--text-main);">Excellence</h5>
+                    <p class="mb-0" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
                         Striving for the highest standards in all our endeavors to ensure Valenzuela remains a competitive business hub.
                     </p>
                 </div>
@@ -409,19 +407,18 @@
                  style="background: linear-gradient(to right, rgba(212, 0, 50, 0.4), rgba(212, 0, 50, 0));"></div>
         </div>
 
-        {{-- Right: Content Side (Brand Red Background) --}}
-        {{-- Stays Red (#D40032) --}}
-        <div class="col-lg-6 d-flex flex-column justify-content-center p-5" style="background-color: #D40032;">
-            <div class="p-lg-4 mx-auto w-100 text-white" style="max-width: 650px;">
-                
+        {{-- Right: Content Side --}}
+        <div class="col-lg-6 d-flex flex-column justify-content-center p-5" style="background-color: #F5F3EF;">
+            <div class="p-lg-4 mx-auto w-100" style="max-width: 650px;">
+
                 {{-- Header --}}
-                <span class="text-uppercase fw-bold mb-3 d-block" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.15em; font-size: 0.85rem; opacity: 0.9;">
+                <span class="text-uppercase fw-bold mb-3 d-block" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.15em; font-size: 0.85rem; color: #D40032;">
                     Our Impact
                 </span>
-                <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1;">
+                <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; color: var(--text-main);">
                     Building a Stronger Valenzuela, One Business at a Time.
                 </h2>
-                <p class="mb-5" style="font-family: 'DM Sans', sans-serif; line-height: 1.7; font-size: 1.1rem; opacity: 0.9;">
+                <p class="mb-5" style="font-family: 'DM Sans', sans-serif; line-height: 1.7; font-size: 1.1rem; color: var(--text-secondary);">
                     We measure our success by the tangible growth and prosperity of our members and the broader Valenzuela community.
                 </p>
 
@@ -434,10 +431,10 @@
                         ['number' => '₱500M+', 'label' => 'Value Created', 'desc' => 'Facilitated growth'],
                     ] as $stat)
                     <div class="col-sm-6">
-                        <div class="p-4 h-100" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px;">
-                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em;">{{ $stat['number'] }}</h3>
-                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; opacity: 0.9;">{{ $stat['label'] }}</div>
-                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; opacity: 0.7;">{{ $stat['desc'] }}</p>
+                        <div class="p-4 h-100" style="background: rgba(212, 0, 50, 0.05); border: 1px solid rgba(212, 0, 50, 0.15); border-radius: 12px;">
+                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">{{ $stat['number'] }}</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">{{ $stat['label'] }}</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">{{ $stat['desc'] }}</p>
                         </div>
                     </div>
                     @endforeach
