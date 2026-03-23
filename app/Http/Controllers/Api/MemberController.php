@@ -21,4 +21,3 @@ public function index()
 
     return response()->json(['data' => $businesses]);
 }
-}

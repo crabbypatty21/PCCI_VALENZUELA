@@ -11,6 +11,30 @@ use App\Http\Controllers\Api\MemberController; // <-- ADD THIS FOR MEMBERS!
 | API Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/v1/membership-types', function () {
+    return response()->json([
+        'data' => [
+            [
+                "id" => 1,
+                "name" => "Micro",
+                "price" => "500.00",
+                "duration_in_months" => 12,
+                "renewal_price" => null,
+                "notes" => "1-year membership only",
+                "created_at" => "2026-03-17 06:10:18"
+            ],
+            [
+                "id" => 2,
+                "name" => "Small Enterprises",
+                "price" => "5000.00",
+                "duration_in_months" => 12,
+                "renewal_price" => "3000.00",
+                "notes" => "Initial fee P5,000, renewal P3,000",
+                "created_at" => "2026-03-17 06:10:18"
+            ]
+        ]
+    ]);
+});
 
 Route::prefix('v1')->group(function () {
     
