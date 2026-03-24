@@ -12,7 +12,7 @@
 <style>
 /* Reset Layout Constraints */
 header, footer, .navbar, nav { display: none !important; }
-html, body { margin: 0; padding: 0; background: #f3f4f6; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+html, body { margin: 0; padding: 0; background: #f3f4f6; font-family: 'Inter', 'Poppins', sans-serif; overflow-x: hidden; }
 main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
 
 /* =========================================
@@ -25,7 +25,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 }
 .topbar-search-wrapper { width: 300px; position: relative; }
 .topbar-search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 13px; }
-.topbar-search { width: 100%; height: 35px; padding: 6px 15px 6px 35px; border-radius: 50rem; border: 1px solid #e5e7eb; background: #f9fafb; font-size: 13px; outline: none; }
+.topbar-search { width: 100%; height: 36px; padding: 6px 15px 6px 35px; border-radius: 8px; border: 1px solid #eee; background: #eee; font-size: 13px; outline: none; }
 .topbar-actions { display: flex; align-items: center; gap: 15px; }
 .topbar-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #e5e7eb; cursor: pointer; }
 
@@ -51,33 +51,33 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
    3. SIDEBAR (FIXED)
    ========================================= */
 .sidebar {
-    position: fixed; top: 70px; left: 0; width: 240px; height: calc(100vh - 70px);
-    background: #ffffff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; z-index: 1000; overflow-y: auto;
+    position: fixed; top: 70px; left: 0; width: 250px; height: calc(100vh - 70px);
+    background: #f8f9fb; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; z-index: 1000; overflow-y: auto;
 }
-.sidebar-profile { padding: 20px 15px 15px; text-align: center; border-bottom: 1px solid #f3f4f6; }
+.sidebar-profile { padding: 20px 15px 15px; text-align: center; border-bottom: 1px solid #e5e7eb; }
 .sidebar-profile img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 1px solid #e5e7eb; margin-bottom: 10px; }
-.sidebar-profile h5 { font-size: 15px; font-weight: bold; margin-bottom: 0; color: #111827; }
+.sidebar-profile h5 { font-size: 15px; font-weight: bold; margin-bottom: 0; color: #111; }
 .sidebar-profile p { font-size: 13px; font-weight: bold; color: #4b5563; margin-bottom: 0; }
-.sidebar-profile small { font-size: 12px; color: #6b7280; }
+.sidebar-profile small { font-size: 12px; color: #777; }
 
 .sidebar-menu { list-style: none; padding: 15px 10px; margin: 0; flex-grow: 1; }
-.sidebar-menu li { height: 45px; padding: 0 15px; margin-bottom: 4px; cursor: pointer; font-weight: 600; font-size: 14px; color: #4b5563; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
+.sidebar-menu li { height: 45px; padding: 0 15px; margin-bottom: 4px; cursor: pointer; font-weight: 600; font-size: 14px; color: #4b5563; border-radius: 8px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
 .sidebar-menu li i { font-size: 16px; width: 20px; text-align: center; }
-.sidebar-menu li.active { background: #f3f4f6; color: #111827; border-left: 4px solid #b61b2a;}
-.sidebar-menu li:hover:not(.active) { background: #f9fafb; }
+.sidebar-menu li.active { background: #e5e7eb; color: #111; border-left: 4px solid #b61b2a;}
+.sidebar-menu li:hover:not(.active) { background: #eef0f4; }
 .sidebar-divider { border-top: 1px solid #e5e7eb; margin: 10px; }
 
 /* =========================================
    4. MAIN CONTENT AREA & COMPONENTS
    ========================================= */
-.main { margin-top: 70px; margin-left: 240px; padding: 20px; min-height: calc(100vh - 70px); }
+.main { margin-top: 70px; margin-left: 250px; padding: 25px; min-height: calc(100vh - 70px); background: #f4f6f9;}
 .content-section { display: none; padding-bottom: 40px; }
 
 /* Floating Cards Base */
-.floating-card { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px; border: none; }
-.custom-card { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px;}
+.floating-card { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 16px; border: none; }
+.custom-card { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 20px; margin-bottom: 20px;}
 
-/* Specific Summary Cards */
+/* Specific Summary Cards (Dashboard) */
 .summary-card { width: 100%; height: 105px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); padding: 20px; color: white; position: relative; overflow: hidden; display: flex; align-items: center;}
 .summary-card.dash-card { flex-direction: column; align-items: flex-start; justify-content: center; }
 .summary-card .icon-circle { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0;}
@@ -89,100 +89,105 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .bg-green { background: linear-gradient(135deg, #43a047, #2e7d32); }
 .bg-orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
 
-/* Small Info Card */
-.small-info-card { width: 280px; height: 75px; display: flex; align-items: center; gap: 15px; margin-top: 10px; margin-bottom: 25px; }
-.small-info-card .icon-box { width: 40px; height: 40px; border-radius: 8px; background: #e3f2fd; color: #1976d2; display: flex; justify-content: center; align-items: center; font-size: 18px; }
-.small-info-card p { margin: 0; font-size: 12px; color: #555; font-weight: 500; }
-.small-info-card p span { font-weight: bold; color: #222; }
-
-/* Charts Area */
-.chart-container { height: 280px; width: 100%; position: relative; }
-.card-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.card-title-row h5 { font-size: 16px; font-weight: bold; margin: 0; color: #333; }
-
 /* Table Area */
 .table-card { min-height: 350px; padding: 15px 20px; }
 .custom-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.custom-table th { background: #f3f4f6; color: #4b5563; font-weight: 600; padding: 12px 10px; text-align: left; position: sticky; top: 0; z-index: 1;}
-.custom-table td { padding: 12px 10px; border-bottom: 1px solid #f5f5f5; color: #444; vertical-align: middle; height: 45px;}
+.custom-table th { background: #f8f9fb; color: #777; font-weight: 600; padding: 12px 10px; text-align: left; position: sticky; top: 0; z-index: 1;}
+.custom-table td { padding: 12px 10px; border-bottom: 1px solid #eee; color: #444; vertical-align: middle; height: 45px;}
 .custom-table tbody tr:hover { background-color: #f9fafb; }
-
-/* Custom Scrollbars */
-.table-responsive { max-height: 420px; overflow-y: auto; overflow-x: auto;}
-.table-responsive::-webkit-scrollbar { height: 6px; width: 6px; }
-.table-responsive::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-.table-responsive::-webkit-scrollbar-thumb { background: #e53935; border-radius: 4px; } /* Red horizontal scroll */
 
 /* Action Buttons & Badges */
 .action-btn { height: 30px; padding: 0 10px; border-radius: 6px; border: none; font-size: 12px; font-weight: bold; cursor: pointer; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 5px; margin-right: 4px;}
-.btn-gray { background-color: #9ca3af; width: 80px; }
-.btn-green { background-color: #28a745; width: 75px; }
-.btn-red { background-color: #dc3545; width: 75px; }
-.btn-orange { background-color: #fd7e14; }
-.btn-dark-red { background-color: #8b0000; width: 140px; } /* Print Receipt */
+.btn-gray { background-color: #9ca3af; width: 85px; }
+.btn-green { background-color: #22c55e; width: 75px; } /* Updated Green */
+.btn-red { background-color: #ef4444; width: 75px; } /* Updated Red */
+.btn-dark-red { background-color: #8b0000; width: 85px; }
 
-.badge-yellow { background-color: #ffc107; color: #000; font-size: 12px; padding: 4px 10px; border-radius: 50rem; font-weight: bold; margin-left: 10px; }
-.badge-pill-green { background-color: #28a745; color: white; font-size: 12px; padding: 6px 15px; border-radius: 50rem; font-weight: bold; display: inline-block; text-align: center; }
-
-.loading, .error-msg { text-align: center; padding: 50px; color: #6b7280; font-size: 1.1rem; font-weight: bold; }
+/* Status Badges */
+.status-badge { display: inline-block; padding: 4px 0; border-radius: 50rem; font-size: 12px; color: white; text-align: center; width: 100px; font-weight: 500; }
+.status-completed { background-color: #22c55e; }
+.status-pending { background-color: #f59e0b; }
+.status-failed { background-color: #ef4444; }
 
 /* =========================================
-   6. MODAL STYLES (UPDATED)
+   NEW: REPORTS TAB SPECIFIC STYLES
+   ========================================= */
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.report-stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    height: 120px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.report-stat-card .report-label { font-size: 12px; color: #777; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+.report-stat-card .report-value { font-size: 24px; font-weight: 600; color: #111; margin: 0; line-height: 1;}
+.report-stat-card .report-indicator { font-size: 11px; font-weight: 600; }
+.text-green { color: #22c55e !important; }
+.text-red { color: #ef4444 !important; }
+
+.report-chart-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-card-container {
+    display: flex; gap: 16px; align-items: center; justify-content: center; height: 100%;
+}
+
+.mini-stat-card {
+    background: #f8f9fb;
+    border-radius: 12px;
+    width: 150px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+}
+.mini-stat-card .m-val { font-size: 20px; font-weight: 600; color: #111; line-height: 1.2;}
+.mini-stat-card .m-lbl { font-size: 12px; color: #777; }
+
+.report-flat-table { width: 100%; border-collapse: collapse; }
+.report-flat-table td { padding: 12px 0; border-bottom: 1px solid #eee; font-size: 13px; color: #111; font-weight: 500;}
+.report-flat-table tr:last-child td { border-bottom: none; }
+
+/* =========================================
+   MODAL STYLES
    ========================================= */
 .custom-modal-overlay {
-    position: fixed; 
-    top: 0; 
-    left: 240px; 
-    width: calc(100% - 240px); 
-    height: 100%; 
-    background: rgba(0, 0, 0, 0.7); 
-    display: none; 
-    justify-content: center;
-    align-items: center; 
-    z-index: 1060; 
-    backdrop-filter: blur(3px);
+    position: fixed; top: 0; left: 250px; width: calc(100% - 250px); height: 100%; 
+    background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; 
+    z-index: 1060; backdrop-filter: blur(3px);
 }
-
 .custom-modal-card {
-    background: #ffffff; 
-    width: 90%; 
-    max-width: 700px; 
-    border-radius: 16px;
-    padding: 25px; 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
-    position: relative;
-    animation: slideIn 0.3s ease-out;
+    background: #ffffff; width: 90%; max-width: 700px; border-radius: 16px; padding: 25px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; animation: slideIn 0.3s ease-out;
 }
 @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
 .modal-close-x { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #888; cursor: pointer; border: none; background: none; line-height: 1; }
-
-.modal-img-wrapper { 
-    width: 100%; 
-    height: 350px; 
-    border-radius: 8px; 
-    background: #f1f1f1; 
-    border: 1px solid #ddd; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    position: relative;
-    overflow: hidden; 
-}
-.modal-img-wrapper img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-    display: block; 
-}
-#modalSpinner, #simpleModalSpinner {
-    text-align: center;
-}
-
-/* Option Buttons inside Modal */
+.modal-img-wrapper { width: 100%; min-height: 120px; display: flex; justify-content: center; align-items: center; position: relative; }
+.modal-img-wrapper img { max-width: 100%; max-height: 450px; width: auto; height: auto; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: block; }
 .type-toggle-btn { width: 45px; height: 45px; border-radius: 8px; border: 1px solid #ddd; background: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
-.type-toggle-btn.active-1 { background: #dc3545; color: white; border-color: #dc3545; }
-.type-toggle-btn.active-2 { background: #0d6efd; color: white; border-color: #0d6efd; }
+.type-toggle-btn.active-1 { background: #ef4444; color: white; border-color: #ef4444; }
+.type-toggle-btn.active-2 { background: #3b82f6; color: white; border-color: #3b82f6; }
 </style>
 
 {{-- TOP NAVIGATION --}}
@@ -337,12 +342,8 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         <div class="floating-card table-card">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center">
-                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #333;">Recent Payments</h5>
+                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #111;">Recent Payments</h5>
                     <span class="badge-yellow">Expiring Memberships</span>
-                </div>
-                <div style="position: relative; width: 250px; height: 32px;">
-                    <i class="fa fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa; font-size: 12px;"></i>
-                    <input type="text" placeholder="Search..." style="width: 100%; height: 100%; padding-left: 30px; border-radius: 5px; border: 1px solid #ddd; font-size: 12px; outline: none;">
                 </div>
             </div>
 
@@ -350,7 +351,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Member Name</th>
+                            <th>Business Name</th>
                             <th>Membership Type</th>
                             <th>Amount</th>
                             <th>OR Number</th>
@@ -360,9 +361,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                         </tr>
                     </thead>
                     <tbody id="recent-payments-table-body">
-                        <tr>
-                            <td colspan="7" class="text-center py-4">Loading records...</td>
-                        </tr>
+                        <tr><td colspan="7" class="text-center py-4">Loading records...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -372,93 +371,60 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
     {{-- MEMBERS TAB --}}
     <div id="section-members" class="content-section" style="display: none;">
-        
-        {{-- Header Area --}}
         <div class="mb-4">
             <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Members</h3>
             <p class="text-muted mb-0" style="font-size: 14px;">Manage and review all member records.</p>
         </div>
 
-        {{-- Summary Cards Row --}}
         <div class="d-flex gap-4 mb-4 flex-wrap">
             <div class="summary-card bg-red d-flex align-items-center flex-grow-1" style="max-width: 450px;">
                 <div class="icon-circle me-3"><i class="fa fa-user-times"></i></div>
-                <div>
-                    <div class="label">Unpaid Members</div>
-                    <div class="value" id="unpaid-count">0</div>
-                </div>
+                <div><div class="label">Unpaid Members</div><div class="value" id="unpaid-count">0</div></div>
             </div>
-            
             <div class="summary-card bg-green d-flex align-items-center flex-grow-1" style="max-width: 450px;">
                 <div class="icon-circle me-3"><i class="fa fa-user-check"></i></div>
-                <div>
-                    <div class="label">Paid Members</div>
-                    <div class="value" id="paid-count">0</div>
-                </div>
+                <div><div class="label">Paid Members</div><div class="value" id="paid-count">0</div></div>
             </div>
         </div>
 
-        {{-- Main Table Card --}}
         <div class="floating-card table-card">
-            
-            {{-- Top Controls --}}
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center gap-2">
-                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #333;">Members Directory</h5>
+                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #111;">Members Directory</h5>
                     <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded-pill" id="total-members-badge">0 Active</span>
                 </div>
-                
                 <div class="d-flex align-items-center gap-4">
                     <div class="d-flex align-items-center gap-3">
-                        <select class="form-select form-select-sm" id="memberTypeFilter" style="width: 120px; height: 35px; font-size: 13px; cursor: pointer;">
-                            <option value="all">All</option>
-                            <option value="annual">Annual</option>
-                            <option value="life">Life</option>
-                        </select>
-                        <div style="position: relative; width: 250px; height: 35px;">
-                            <i class="fa fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa; font-size: 13px;"></i>
-                            <input type="text" id="memberSearch" placeholder="Search members..." style="width: 100%; height: 100%; padding-left: 30px; border-radius: 6px; border: 1px solid #ddd; font-size: 13px; outline: none;">
-                        </div>
+                        <input type="text" id="memberSearch" placeholder="Search members..." style="height: 35px; padding-left: 15px; border-radius: 6px; border: 1px solid #ddd; font-size: 13px; outline: none;">
                     </div>
-                    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" style="width: 110px; height: 35px; font-weight: bold; border-radius: 6px;">
-                        <i class="fa fa-download me-2"></i> Export
-                    </button>
                 </div>
             </div>
 
-            {{-- Table --}}
             <div class="table-responsive">
                 <table class="custom-table">
                     <thead>
                         <tr>
                             <th>Member Name</th>
-                            <th>Membership Type</th>
+                            <th>Type</th>
                             <th>Amount</th>
                             <th>OR Number</th>
-                            <th>Registered Date</th>
-                            <th>Expired Date</th>
+                            <th>Reg Date</th>
+                            <th>Exp Date</th>
                             <th>Status</th>
-                            <th>Proof of Payment</th>
+                            <th>Proof</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="members-table-body">
-                        <tr>
-                            <td colspan="9" class="text-center py-5 text-muted">
-                                <i class="fa fa-spinner fa-spin fs-3 mb-2 text-primary"></i><br>Loading members...
-                            </td>
-                        </tr>
+                        <tr><td colspan="9" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading members...</td></tr>
                     </tbody>
                 </table>
             </div>
-
-            {{-- Pagination Footer --}}
             <div class="d-flex justify-content-center align-items-center mt-3" style="height: 50px; gap: 15px;">
-                <button class="btn btn-sm btn-light border rounded"><i class="fa fa-chevron-left"></i></button>
-                <span style="font-size: 14px; font-weight: bold; color: #4b5563;" id="pagination-text">1 out 1</span>
-                <button class="btn btn-sm btn-light border rounded"><i class="fa fa-chevron-right"></i></button>
+                <button id="member-prev-btn" class="btn btn-sm btn-light border rounded" onclick="prevMemberPage()"><i class="fa fa-chevron-left"></i></button>
+                <span style="font-size: 14px; font-weight: bold; color: #4b5563;" id="member-pagination-text">Page 1 of 1</span>
+                <button id="member-next-btn" class="btn btn-sm btn-light border rounded" onclick="nextMemberPage()"><i class="fa fa-chevron-right"></i></button>
             </div>
-
         </div>
     </div>
 
@@ -468,7 +434,6 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
             <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Approved Applicants</h3>
             <p class="text-muted mb-0" style="font-size: 14px;">Review and process payments for businesses approved by the Admin.</p>
         </div>
-
         <div id="applicants-list">
             <div class="loading"><i class="fa fa-spinner fa-spin fs-2 text-danger mb-3"></i><br>Loading approved applicants...</div>
         </div>
@@ -476,104 +441,154 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
     {{-- TRANSACTIONS TAB --}}
     <div id="section-transactions" class="content-section" style="display: none;">
-        <div class="mb-4 pb-3 border-bottom">
-            <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Transactions History</h3>
-            <p class="text-muted mb-0" style="font-size: 14px;">View, filter, and export all processed financial transactions.</p>
+        <div class="mb-4">
+            <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Transactions</h3>
+            <p class="text-muted mb-0" style="font-size: 14px;">Manage and track all payment activities.</p>
         </div>
 
-        {{-- Summary Cards Row --}}
-        <div class="row g-3 mb-4">
-            <div class="col-md-6">
-                <div class="summary-card bg-green d-flex align-items-center">
-                    <div class="icon-circle me-3"><i class="fa fa-wallet"></i></div>
-                    <div>
-                        <div class="label">Total Processed Payments</div>
-                        <div class="value" id="trans-total-amount">₱0.00</div>
-                    </div>
-                </div>
+        <div class="reports-grid mb-4">
+            <div class="report-stat-card">
+                <div class="report-label">Total Payments</div>
+                <div class="report-value" id="trans-total-amt">Php. 0</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> + 20.3 % <span class="text-muted fw-normal">from last month</span></div>
             </div>
-            <div class="col-md-6">
-                <div class="summary-card d-flex align-items-center" style="background: linear-gradient(135deg, #0d6efd, #0b5ed7);">
-                    <div class="icon-circle me-3"><i class="fa fa-receipt"></i></div>
-                    <div>
-                        <div class="label">Transactions Recorded</div>
-                        <div class="value" id="trans-total-count">0</div>
-                    </div>
-                </div>
+            <div class="report-stat-card">
+                <div class="report-label">Pending Payments</div>
+                <div class="report-value" id="trans-pending-amt">Php. 0</div>
+            </div>
+            <div class="report-stat-card">
+                <div class="report-label">Complete Payments</div>
+                <div class="report-value" id="trans-complete-amt">Php. 0</div>
+            </div>
+            <div class="report-stat-card">
+                <div class="report-label">Failed Payment</div>
+                <div class="report-value" id="trans-failed-amt">Php. 0</div>
             </div>
         </div>
 
-        {{-- Main Table Card --}}
-        <div class="floating-card table-card">
-            
-            {{-- Top Controls --}}
-            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #333;">Transaction Records</h5>
-                
-                <div class="d-flex align-items-center gap-3 flex-wrap">
-                    <input type="date" class="form-control form-control-sm" style="width: 140px; font-size: 13px; cursor: pointer;">
-                    <span class="text-muted small">to</span>
-                    <input type="date" class="form-control form-control-sm" style="width: 140px; font-size: 13px; cursor: pointer;">
-                    
-                    <select class="form-select form-select-sm" id="transTypeFilter" style="width: 130px; font-size: 13px; cursor: pointer;">
-                        <option value="all">All Types</option>
-                        <option value="new">New</option>
-                        <option value="renewal">Renewal</option>
-                    </select>
-
-                    <div style="position: relative; width: 220px; height: 32px;">
-                        <i class="fa fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa; font-size: 12px;"></i>
-                        <input type="text" id="transSearch" placeholder="Search OR#, Name..." style="width: 100%; height: 100%; padding-left: 30px; border-radius: 5px; border: 1px solid #ddd; font-size: 12px; outline: none;">
-                    </div>
-                    
-                    <button class="btn btn-dark btn-sm d-flex align-items-center justify-content-center gap-2 px-3" style="height: 32px; font-size: 12px; font-weight: bold;">
-                        <i class="fa fa-file-excel"></i> Export
-                    </button>
-                </div>
-            </div>
-
-            {{-- Table --}}
+        <div class="floating-card table-card" style="padding: 0; overflow: hidden; border-bottom: 6px solid #b61b2a;">
             <div class="table-responsive">
-                <table class="custom-table">
-                    <thead>
+                <table class="custom-table mb-0">
+                    <thead style="background-color: #f8f9fb;">
                         <tr>
-                            <th>Date</th>
-                            <th>OR Number</th>
-                            <th>Business Name</th>
-                            <th>Payment Type</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th class="text-dark py-3 ps-4">Member Name</th>
+                            <th class="text-dark py-3">Payment Type</th>
+                            <th class="text-dark py-3">Payment Date</th>
+                            <th class="text-dark py-3">Membership Type</th>
+                            <th class="text-dark py-3">OR Number</th>
+                            <th class="text-dark py-3">Received by</th>
+                            <th class="text-dark py-3 text-center">Status</th>
+                            <th class="text-dark py-3 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="transactions-table-body">
-                        <tr>
-                            <td colspan="7" class="text-center py-5 text-muted">
-                                <i class="fa fa-spinner fa-spin fs-3 mb-2 text-primary"></i><br>Loading transactions...
-                            </td>
-                        </tr>
+                        <tr><td colspan="8" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading transactions...</td></tr>
                     </tbody>
                 </table>
             </div>
-            
-            {{-- Pagination Footer --}}
-            <div class="d-flex justify-content-center align-items-center mt-3" style="height: 50px; gap: 15px;">
-                <button class="btn btn-sm btn-light border rounded"><i class="fa fa-chevron-left"></i></button>
-                <span style="font-size: 14px; font-weight: bold; color: #4b5563;">Page 1 of 1</span>
-                <button class="btn btn-sm btn-light border rounded"><i class="fa fa-chevron-right"></i></button>
-            </div>
-
         </div>
     </div>
     
+    {{-- REPORTS TAB (NEW LAYOUT) --}}
     <div id="section-reports" class="content-section" style="display: none;">
-        <div class="mb-4 pb-3 border-bottom">
-            <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Reports</h3>
-            <p class="text-muted mb-0" style="font-size: 14px;">Generate and review financial reports.</p>
+        
+        {{-- Top Section Header --}}
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+            <div>
+                <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif; font-size: 24px;">Reports</h3>
+                <p class="text-muted mb-0" style="font-size: 14px;">Generate and review comprehensive financial analytics.</p>
+            </div>
+            <div>
+                <button class="btn btn-success fw-bold rounded-pill px-4 py-2 shadow-sm" style="background: #22c55e; border: none; font-size: 14px;">
+                    <i class="fa fa-file-excel me-2"></i> Export to Excel
+                </button>
+            </div>
         </div>
-        <div class="custom-card text-center py-5 text-muted">
-            <i class="fa fa-chart-line fs-1 mb-3 text-secondary"></i>
-            <h5>Generated Reports will go here.</h5>
+
+        {{-- 4 Grid Cards --}}
+        <div class="reports-grid">
+            <div class="report-stat-card">
+                <div class="report-label">Monthly Revenue</div>
+                <div class="report-value">₱24,500</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> 8.2% <span class="text-muted fw-normal">vs last month</span></div>
+            </div>
+            <div class="report-stat-card">
+                <div class="report-label">Total Active Members</div>
+                <div class="report-value" id="report-active-members">0</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> 12 <span class="text-muted fw-normal">new this week</span></div>
+            </div>
+            <div class="report-stat-card">
+                <div class="report-label">Pending Verifications</div>
+                <div class="report-value text-warning" id="report-pending-count">0</div>
+                <div class="report-indicator text-muted fw-normal">Requires Treasurer action</div>
+            </div>
+            <div class="report-stat-card">
+                <div class="report-label">Failed / Cancelled</div>
+                <div class="report-value text-red">0</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-down"></i> 2.1% <span class="text-muted fw-normal">vs last month</span></div>
+            </div>
+        </div>
+
+        {{-- Graph Cards (Middle Section) --}}
+        <div class="row g-4 mb-4">
+            <div class="col-md-8">
+                <div class="report-chart-box">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Membership Revenue</h6>
+                    <div style="flex-grow: 1; position: relative;">
+                        <canvas id="reportBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="report-chart-box">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Payment Breakdown</h6>
+                    <div style="flex-grow: 1; position: relative; display:flex; justify-content:center;">
+                        <canvas id="reportPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Bottom Cards --}}
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="report-chart-box h-100">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Collection Status</h6>
+                    <div class="mini-card-container">
+                        <div class="mini-stat-card">
+                            <div class="m-val text-green">92%</div>
+                            <div class="m-lbl">Collected</div>
+                        </div>
+                        <div class="mini-stat-card">
+                            <div class="m-val text-red">8%</div>
+                            <div class="m-lbl">Overdue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="report-chart-box h-100" style="overflow-y: auto;">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Business Type Distribution</h6>
+                    <table class="report-flat-table">
+                        <tr>
+                            <td>Retail & Merchandising</td>
+                            <td class="text-end fw-bold">45%</td>
+                        </tr>
+                        <tr>
+                            <td>Manufacturing</td>
+                            <td class="text-end fw-bold">25%</td>
+                        </tr>
+                        <tr>
+                            <td>Services & Consulting</td>
+                            <td class="text-end fw-bold">20%</td>
+                        </tr>
+                        <tr>
+                            <td>IT & Technology</td>
+                            <td class="text-end fw-bold">10%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -588,51 +603,13 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
             <div class="col-md-8">
                 <div class="custom-card mb-4">
                     <h5 class="fw-bold mb-4" style="color: #333;">Account Settings</h5>
-                    
-                    <div class="setting-box" onclick="alert('Profile Settings modal will open here')">
-                        <div class="setting-left">
-                            <i class="fa fa-user-circle text-danger fs-4"></i>
-                            <div>
-                                <div style="font-size: 15px; color: #111827;">Profile Information</div>
-                                <div style="font-size: 12px; color: #6b7280; font-weight: normal;">Update your name, email, and contact details</div>
-                            </div>
-                        </div>
-                        <i class="fa fa-chevron-right text-muted"></i>
-                    </div>
-
-                    <div class="setting-box" onclick="alert('Change Password modal will open here')">
-                        <div class="setting-left">
-                            <i class="fa fa-lock text-danger fs-4"></i>
-                            <div>
-                                <div style="font-size: 15px; color: #111827;">Change Password</div>
-                                <div style="font-size: 12px; color: #6b7280; font-weight: normal;">Update your account password securely</div>
-                            </div>
-                        </div>
-                        <i class="fa fa-chevron-right text-muted"></i>
-                    </div>
-                </div>
-
-                <div class="custom-card mb-4">
-                    <h5 class="fw-bold mb-4" style="color: #333;">System Preferences</h5>
-                    
                     <div class="setting-box">
-                        <div class="setting-left">
-                            <i class="fa fa-bell text-danger fs-4"></i>
-                            <div>
-                                <div style="font-size: 15px; color: #111827;">Notifications</div>
-                                <div style="font-size: 12px; color: #6b7280; font-weight: normal;">Manage email and dashboard alerts</div>
-                            </div>
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" checked style="cursor:pointer;">
-                        </div>
+                        <div class="setting-left"><i class="fa fa-user-circle text-danger fs-4"></i><div><div style="font-size: 15px; color: #111;">Profile Information</div><div style="font-size: 12px; color: #777; font-weight: normal;">Update your name, email, and contact details</div></div></div>
+                        <i class="fa fa-chevron-right text-muted"></i>
                     </div>
                 </div>
-                
                 <div class="d-flex justify-content-end">
-                    <button class="logout-btn shadow-sm" onclick="logout()">
-                        <i class="fa fa-sign-out-alt"></i> Log Out of Account
-                    </button>
+                    <button class="logout-btn shadow-sm" onclick="logout()"><i class="fa fa-sign-out-alt"></i> Log Out</button>
                 </div>
             </div>
         </div>
@@ -640,68 +617,48 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
 </div>
 
-{{-- POPUP MODAL ELEMENT (APPLICANTS TAB SPECIFIC) --}}
+{{-- MODALS --}}
 <div class="custom-modal-overlay" id="proofModal" onclick="closeProofModal(event)">
     <div class="custom-modal-card" onclick="event.stopPropagation()">
         <button class="modal-close-x" onclick="hideProofModal()">&times;</button>
         <h5 class="fw-bold mb-3"><i class="fa fa-file-invoice text-danger me-2"></i> Payment Verification</h5>
         
         <div class="modal-img-wrapper" id="modalImgWrapper">
-            <div id="modalSpinner" class="text-muted">
-                <i class="fa fa-spinner fa-spin fs-2"></i><br><small>Loading Image...</small>
-            </div>
+            <div id="modalSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fs-2"></i><br><small>Loading Image...</small></div>
             <img id="modalImage" src="" alt="Proof of Payment" style="display: none;" onload="onImageLoad()">
         </div>
 
-        {{-- Type and Amount Selection --}}
-        <div class="mb-4">
+        <div class="mt-4">
             <label class="small text-muted fw-bold mb-2 d-block">SELECT MEMBERSHIP TYPE:</label>
-            <div class="d-flex gap-2">
-                <button id="toggleBtn1" class="type-toggle-btn" onclick="selectType(1)">1</button>
-                <button id="toggleBtn2" class="type-toggle-btn" onclick="selectType(2)">2</button>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-2">
+                    <button id="toggleBtn1" class="type-toggle-btn" onclick="selectType(1)">1</button>
+                    <button id="toggleBtn2" class="type-toggle-btn" onclick="selectType(2)">2</button>
+                </div>
+                <button class="btn btn-success px-4 fw-bold rounded-pill shadow-sm" onclick="confirmProcessing()" style="height: 45px; background: #22c55e; border: none;">
+                    Confirm Choice
+                </button>
             </div>
-            <div class="mt-2">
-                <span id="typeHint" class="badge bg-light text-dark border">Loading data...</span>
-            </div>
-        </div>
-
-        <div class="mt-4 d-flex justify-content-between">
-            <button class="btn btn-success px-4 fw-bold rounded-pill" onclick="confirmProcessing()">Confirm Choice</button>
         </div>
     </div>
 </div>
 
-{{-- MEMBER DETAILS MODAL --}}
 <div class="custom-modal-overlay" id="memberDetailsModal" onclick="closeMemberModal(event)">
     <div class="custom-modal-card" style="max-width: 600px;" onclick="event.stopPropagation()">
         <button class="modal-close-x" onclick="hideMemberModal()">&times;</button>
         <h5 class="fw-bold mb-4"><i class="fa fa-user-tie text-danger me-2"></i> Member Profile Details</h5>
-        
-        <div id="member-detail-content">
-            {{-- Content will be injected by JS --}}
-        </div>
-
-        <div class="mt-4 text-end">
-            <button class="btn btn-secondary px-4 fw-bold rounded-pill" onclick="hideMemberModal()">Close Details</button>
-        </div>
+        <div id="member-detail-content"></div>
+        <div class="mt-4 text-end"><button class="btn btn-secondary px-4 fw-bold rounded-pill" onclick="hideMemberModal()">Close Details</button></div>
     </div>
 </div>
 
-{{-- SIMPLE POPUP MODAL FOR NON-APPLICANTS TAB --}}
 <div class="custom-modal-overlay" id="simpleProofModal" onclick="closeSimpleProofModal(event)">
     <div class="custom-modal-card" onclick="event.stopPropagation()">
         <button class="modal-close-x" onclick="hideSimpleProofModal()">&times;</button>
         <h5 class="fw-bold mb-3"><i class="fa fa-image text-primary me-2"></i> View Proof</h5>
-        
         <div class="modal-img-wrapper">
-            <div id="simpleModalSpinner" class="text-muted">
-                <i class="fa fa-spinner fa-spin fs-2"></i><br><small>Loading Image...</small>
-            </div>
+            <div id="simpleModalSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fs-2"></i><br><small>Loading</small></div>
             <img id="simpleModalImage" src="" alt="Proof of Payment" style="display: none;" onload="onSimpleImageLoad()">
-        </div>
-
-        <div class="mt-4 text-end">
-            <button class="btn btn-secondary px-4 fw-bold rounded-pill" onclick="hideSimpleProofModal()">Close View</button>
         </div>
     </div>
 </div>
@@ -710,48 +667,38 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 <script>
     const token = localStorage.getItem('token');
     
-    // Global data stores
+    // Global data
     let allMembersData = []; 
+    let filteredMembersData = []; 
+    let currentMemberPage = 1;
+    const membersPerPage = 10; 
     let allApplicantsData = [];
     let currentApplicantId = null;
     let currentSelectedType = 1;
 
-    // Fail-Safe: Pre-loaded with exact JSON data in case local fetch fails
     let membershipTypes = [
-        {
-            "id": 1,
-            "name": "Micro",
-            "price": "500.00",
-            "duration_in_months": 12
-        },
-        {
-            "id": 2,
-            "name": "Small Enterprises",
-            "price": "5000.00",
-            "duration_in_months": 12
-        }
+        { "id": 1, "name": "Micro", "price": "500.00", "duration_in_months": 12 },
+        { "id": 2, "name": "Small Enterprises", "price": "5000.00", "duration_in_months": 12 }
     ];
 
-    // --- NON-APPLICANT MODAL LOGIC (Simple View) ---
+    // Check Token Middleware
+    function checkAuth(res) {
+        if (res.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return false;
+        }
+        return true;
+    }
+
+    // Simple Proof Modal
     function openSimpleProof(imageUrl) {
-        if (!imageUrl || imageUrl === '#' || imageUrl === 'null' || imageUrl === 'undefined') {
-            alert("No proof of payment image was found for this record.");
-            return;
-        }
-        const modal = document.getElementById('simpleProofModal');
+        if (!imageUrl || imageUrl === '#' || imageUrl === 'null') { alert("No proof found."); return; }
         const modalImg = document.getElementById('simpleModalImage');
-        const spinner = document.getElementById('simpleModalSpinner');
-
+        document.getElementById('simpleModalSpinner').style.display = 'block';
         modalImg.style.display = 'none';
-        spinner.style.display = 'block';
-
-        let finalUrl = imageUrl;
-        if (!imageUrl.startsWith('http')) {
-            finalUrl = `https://pcci-laravel-api.onrender.com/${imageUrl.replace(/^\/+/, '')}`;
-        }
-
-        modalImg.src = finalUrl;
-        modal.style.display = 'flex';
+        modalImg.src = imageUrl.startsWith('http') ? imageUrl : `https://pcci-laravel-api.onrender.com/${imageUrl.replace(/^\/+/, '')}`;
+        document.getElementById('simpleProofModal').style.display = 'flex';
     }
     function onSimpleImageLoad() {
         document.getElementById('simpleModalImage').style.display = 'block';
@@ -760,135 +707,17 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     function hideSimpleProofModal() { document.getElementById('simpleProofModal').style.display = 'none'; }
     function closeSimpleProofModal(e) { if (e.target.id === 'simpleProofModal') hideSimpleProofModal(); }
 
-
-    // --- APPLICANT MODAL LOGIC (Interactive) ---
+    // Applicant Proof Modal
     function openProof(imageUrl, applicantId) {
-        if (!imageUrl || imageUrl === '#' || imageUrl === 'null' || imageUrl === 'undefined') {
-            alert("No proof of payment image was found for this record.");
-            return;
-        }
-
-        currentApplicantId = applicantId; // Stores the ID of the specific applicant being clicked
-        const modal = document.getElementById('proofModal');
+        if (!imageUrl || imageUrl === '#' || imageUrl === 'null') { alert("No proof found."); return; }
+        currentApplicantId = applicantId; 
         const modalImg = document.getElementById('modalImage');
-        const spinner = document.getElementById('modalSpinner');
-
+        document.getElementById('modalSpinner').style.display = 'block';
         modalImg.style.display = 'none';
-        spinner.style.display = 'block';
-
-        let finalUrl = imageUrl;
-        if (!imageUrl.startsWith('http')) {
-            finalUrl = `https://pcci-laravel-api.onrender.com/${imageUrl.replace(/^\/+/, '')}`;
-        }
-
-        modalImg.src = finalUrl;
-        selectType(1); // Set default choice to Micro when it opens
-        modal.style.display = 'flex';
+        modalImg.src = imageUrl.startsWith('http') ? imageUrl : `https://pcci-laravel-api.onrender.com/${imageUrl.replace(/^\/+/, '')}`;
+        selectType(1); 
+        document.getElementById('proofModal').style.display = 'flex';
     }
-
-    function selectType(id) {
-        currentSelectedType = id; 
-        const btn1 = document.getElementById('toggleBtn1');
-        const btn2 = document.getElementById('toggleBtn2');
-        const hint = document.getElementById('typeHint');
-
-        // Finds the match in the Fail-Safe array (or the API if it successfully loaded)
-        const data = membershipTypes.find(m => m.id == id);
-
-        if (id == 1) {
-            btn1.className = 'type-toggle-btn active-1';
-            btn2.className = 'type-toggle-btn';
-        } else {
-            btn1.className = 'type-toggle-btn';
-            btn2.className = 'type-toggle-btn active-2';
-        }
-
-        if (data) {
-            hint.innerHTML = `Selected: <strong class="text-success">₱${data.price}</strong> (${data.name.toUpperCase()})`;
-        } else {
-            hint.innerHTML = `Error: Could not load data for Option ${id}`;
-        }
-    }
-
-    function confirmProcessing() {
-        // Target the specific HTML labels for the applicant being reviewed
-        const amountLabel = document.getElementById(`amount-label-${currentApplicantId}`);
-        const typeLabel = document.getElementById(`type-label-${currentApplicantId}`);
-        
-        // Grab the active data (1 or 2)
-        const data = membershipTypes.find(m => m.id == currentSelectedType);
-
-        if (data) {
-            // Instantly push the new text to the screen
-            if(amountLabel) {
-                amountLabel.innerText = `₱${data.price}`;
-                amountLabel.className = "fw-bold fs-5 text-dark"; // Keeps text dark
-            }
-            if(typeLabel) {
-                typeLabel.innerText = data.name.toUpperCase();
-                typeLabel.className = (currentSelectedType == 1) ? "text-danger fw-bold" : "text-primary fw-bold";
-            }
-        } else {
-            alert("Error applying data to the card.");
-        }
-        
-        hideProofModal();
-    }
-
-    function viewMemberDetails(memberId) {
-        // Find the member from our stored data
-        const member = allMembersData.find(m => m.id === memberId);
-        if (!member) return;
-
-        const app = member.applicant || {};
-        const profile = app.basic_profile || {};
-        const tracking = app.internal_tracking || {};
-
-        const content = document.getElementById('member-detail-content');
-        
-        content.innerHTML = `
-            <div class="row g-3 text-start">
-                <div class="col-12 border-bottom pb-2 mb-2">
-                    <label class="text-muted small fw-bold">REGISTERED BUSINESS NAME</label>
-                    <h5 class="fw-bold text-dark">${profile.registered_business_name || 'N/A'}</h5>
-                </div>
-                <div class="col-md-6">
-                    <label class="text-muted small fw-bold">TRADE NAME</label>
-                    <p class="mb-0 fw-bold">${profile.trade_name || 'N/A'}</p>
-                </div>
-                <div class="col-md-6">
-                    <label class="text-muted small fw-bold">EMAIL CONTACT</label>
-                    <p class="mb-0 fw-bold">${profile.email || 'N/A'}</p>
-                </div>
-                <div class="col-md-6">
-                    <label class="text-muted small fw-bold">MEMBERSHIP TYPE</label>
-                    <p class="mb-0"><span class="badge bg-primary">${app.membership_type || 'N/A'}</span></p>
-                </div>
-                <div class="col-md-6">
-                    <label class="text-muted small fw-bold">STATUS</label>
-                    <p class="mb-0"><span class="badge bg-success">${member.status.toUpperCase()}</span></p>
-                </div>
-                <div class="col-md-6">
-                    <label class="text-muted small fw-bold">DATE APPROVED</label>
-                    <p class="mb-0 fw-bold">${app.date_approved || 'N/A'}</p>
-                </div>
-                <div class="col-md-6">
-                    <label class="text-muted small fw-bold">JOIN DATE</label>
-                    <p class="mb-0 fw-bold">${member.created_at ? member.created_at.split('T')[0] : 'N/A'}</p>
-                </div>
-                <div class="col-12 mt-3 p-3 bg-light rounded shadow-sm">
-                    <label class="text-muted small fw-bold">INTERNAL TRACKING</label>
-                    <p class="mb-0 small italic">Recommended by: <strong>${tracking.recommending_approval || 'None'}</strong></p>
-                </div>
-            </div>
-        `;
-
-        document.getElementById('memberDetailsModal').style.display = 'flex';
-    }
-
-    function hideMemberModal() { document.getElementById('memberDetailsModal').style.display = 'none'; }
-    function closeMemberModal(e) { if (e.target.id === 'memberDetailsModal') hideMemberModal(); }
-
     function onImageLoad() {
         document.getElementById('modalImage').style.display = 'block';
         document.getElementById('modalSpinner').style.display = 'none';
@@ -896,381 +725,285 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     function hideProofModal() { document.getElementById('proofModal').style.display = 'none'; }
     function closeProofModal(e) { if (e.target.id === 'proofModal') hideProofModal(); }
 
+    function selectType(id) {
+        currentSelectedType = id; 
+        document.getElementById('toggleBtn1').className = (id == 1) ? 'type-toggle-btn active-1' : 'type-toggle-btn';
+        document.getElementById('toggleBtn2').className = (id == 2) ? 'type-toggle-btn active-2' : 'type-toggle-btn';
+    }
+
+    async function confirmProcessing() {
+        const data = membershipTypes.find(m => m.id == currentSelectedType);
+        if (!data) return;
+
+        try {
+            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=paid', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ applicant_id: currentApplicantId, membership_type_id: currentSelectedType })
+            });
+
+            if (!checkAuth(response)) return;
+
+            if (response.ok || response.status === 200 || response.status === 201) {
+                hideProofModal();
+                await fetchApplicants(); 
+                fetchMembers();        
+                fetchTransactions();   
+                fetchRecentPayments(); 
+                alert("Success: Payment Processed!");
+            } else {
+                const result = await response.json();
+                alert(`Backend Error: ${result.message || 'Forbidden'}`);
+            }
+        } catch (err) { alert("Network error: Could not reach the server."); }
+    }
+
+    // Member Details
+    function viewMemberDetails(memberId) {
+        const member = allMembersData.find(m => m.id === memberId);
+        if (!member) return;
+        const profile = member.applicant?.basic_profile || {};
+        
+        document.getElementById('member-detail-content').innerHTML = `
+            <div class="row g-3 text-start">
+                <div class="col-12 border-bottom pb-2 mb-2"><label class="text-muted small fw-bold">BUSINESS NAME</label><h5 class="fw-bold text-dark">${profile.registered_business_name || 'N/A'}</h5></div>
+                <div class="col-md-6"><label class="text-muted small fw-bold">TRADE NAME</label><p class="fw-bold">${profile.trade_name || 'N/A'}</p></div>
+                <div class="col-md-6"><label class="text-muted small fw-bold">EMAIL</label><p class="fw-bold">${profile.email || 'N/A'}</p></div>
+            </div>
+        `;
+        document.getElementById('memberDetailsModal').style.display = 'flex';
+    }
+    function hideMemberModal() { document.getElementById('memberDetailsModal').style.display = 'none'; }
+    function closeMemberModal(e) { if (e.target.id === 'memberDetailsModal') hideMemberModal(); }
 
     document.addEventListener('DOMContentLoaded', () => {
-        if (!token) {
-            window.location.href = '/login';
-            return;
-        }
-
-        const userName = localStorage.getItem('userName') || 'Jesus Versula';
-        document.getElementById('sidebarName').innerText = userName;
-        document.getElementById('dashWelcomeName').innerText = userName;
-
-        // Fetch data
-        fetchMembershipTypes(); 
+        if (!token) { window.location.href = '/login'; return; }
+        document.getElementById('sidebarName').innerText = localStorage.getItem('userName') || 'Jesus Versula';
+        
         fetchApplicants();
         fetchMembers();
         fetchRecentPayments();
-        initCharts();
         fetchTransactions();
+        initCharts(); // Includes the new Reports charts!
 
         document.getElementById('memberSearch').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filtered = allMembersData.filter(member => {
-                const name = (member.basic_profile?.registered_business_name || '').toLowerCase();
-                return name.includes(searchTerm);
-            });
-            renderMembers(filtered);
+            const term = e.target.value.toLowerCase();
+            filteredMembersData = allMembersData.filter(m => (m.applicant?.basic_profile?.registered_business_name || '').toLowerCase().includes(term));
+            currentMemberPage = 1;
+            displayMembersPage();
         });
     });
 
-    // ==========================================
-    // --- MEMBERSHIP TYPES API LOGIC ---
-    // ==========================================
-    async function fetchMembershipTypes() {
+    // API Fetches
+    async function fetchApplicants() {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/v1/membership-types', {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (!checkAuth(response)) return;
             const data = await response.json();
-            if (response.ok && data) {
-                const fetchedData = data.data ? data.data : data;
-                if(fetchedData.length > 0) membershipTypes = fetchedData;
+            if (response.ok && data.data) {
+                allApplicantsData = data.data;
+                document.getElementById('report-pending-count').innerText = allApplicantsData.length; // Update Reports Tab
+                
+                const container = document.getElementById('applicants-list'); 
+                container.innerHTML = allApplicantsData.length === 0 ? `<div class="custom-card text-center py-5 text-muted"><h5>No pending applicants.</h5></div>` : '';
+                
+                allApplicantsData.forEach(app => {
+                    const profile = app.basic_profile || {};
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="custom-card mb-4" style="border-left: 5px solid #f59e0b;">
+                            <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+                                <div><h5 class="fw-bold mb-0 text-dark">${profile.registered_business_name || 'N/A'}</h5><small class="text-muted">Applicant ID: ${app.id}</small></div>
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold">APPROVED</span>
+                            </div>
+                            <div class="d-flex justify-content-end pt-2">
+                                <button onclick="openProof('${app.proof_of_payment_url}', ${app.id})" class="btn btn-outline-primary fw-bold rounded-pill px-4 shadow-sm" style="font-size: 13px;">
+                                    <i class="fa fa-image me-1"></i> View Proof & Process Payment
+                                </button>
+                            </div>
+                        </div>
+                    `);
+                });
             }
-        } catch (err) { 
-            console.warn("Local API fetch failed, falling back to pre-loaded JSON.", err); 
-        }
+        } catch (err) {}
     }
 
-    // --- CHART.JS INITIALIZATION ---
+    async function fetchMembers() {
+        try {
+            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/members', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (!checkAuth(response)) return;
+            const data = await response.json();
+            if (response.ok && data.data) {
+                allMembersData = data.data; 
+                filteredMembersData = data.data; 
+                document.getElementById('report-active-members').innerText = allMembersData.length; // Update Reports Tab
+                displayMembersPage(); 
+            }
+        } catch (err) {}
+    }
+
+    function displayMembersPage() {
+        const totalPages = Math.ceil(filteredMembersData.length / membersPerPage) || 1;
+        if (currentMemberPage > totalPages) currentMemberPage = totalPages;
+        if (currentMemberPage < 1) currentMemberPage = 1;
+        
+        const pageData = filteredMembersData.slice((currentMemberPage - 1) * membersPerPage, currentMemberPage * membersPerPage);
+        
+        const tbody = document.getElementById('members-table-body');
+        tbody.innerHTML = '';
+        pageData.forEach(member => {
+            const name = member.applicant?.basic_profile?.registered_business_name || 'N/A';
+            const orNumber = `OR-${10000 + member.id}`; 
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr>
+                    <td class="fw-bold text-dark">${name}</td>
+                    <td>Annual</td>
+                    <td class="fw-bold">₱5,000</td>
+                    <td>${orNumber}</td>
+                    <td>${member.created_at ? member.created_at.split('T')[0] : 'N/A'}</td>
+                    <td>2027-01-01</td>
+                    <td><span class="status-badge status-completed">Active</span></td>
+                    <td><button class="btn btn-sm btn-link p-0" onclick="openSimpleProof('${member.proof_of_payment_url}')">View File</button></td>
+                    <td><button class="action-btn btn-gray" onclick="viewMemberDetails(${member.id})">Details</button></td>
+                </tr>
+            `);
+        });
+        document.getElementById('member-pagination-text').innerText = `Page ${currentMemberPage} of ${totalPages}`;
+    }
+
+    function prevMemberPage() { if (currentMemberPage > 1) { currentMemberPage--; displayMembersPage(); } }
+    function nextMemberPage() { if (currentMemberPage < Math.ceil(filteredMembersData.length / membersPerPage)) { currentMemberPage++; displayMembersPage(); } }
+
+    async function fetchRecentPayments() {
+        try {
+            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (!checkAuth(response)) return;
+            const data = await response.json();
+            if (response.ok && data.data) {
+                const tbody = document.getElementById('recent-payments-table-body');
+                tbody.innerHTML = ''; 
+                data.data.forEach(app => {
+                    tbody.insertAdjacentHTML('beforeend', `
+                        <tr>
+                            <td class="fw-bold text-dark">${app.basic_profile?.registered_business_name || 'N/A'}</td>
+                            <td>Annual</td>
+                            <td class="fw-bold">₱5,000</td>
+                            <td>Pending</td>
+                            <td>${app.date_approved || 'N/A'}</td>
+                            <td><button class="btn btn-sm btn-link p-0" onclick="openSimpleProof('${app.proof_of_payment_url}')">View File</button></td>
+                            <td><button class="action-btn btn-green" onclick="openProof('${app.proof_of_payment_url}', ${app.id})">Process</button></td>
+                        </tr>
+                    `);
+                });
+            }
+        } catch (err) {}
+    }
+
+    async function fetchTransactions() {
+        try {
+            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/payments', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (!checkAuth(response)) return;
+            const data = await response.json();
+            if (response.ok && data.data) {
+                const tbody = document.getElementById('transactions-table-body');
+                tbody.innerHTML = '';
+                
+                let total = 0, pending = 0, complete = 0, failed = 0;
+
+                data.data.forEach(txn => {
+                    const amt = parseFloat(txn.amount) || 0;
+                    const status = String(txn.status || 'completed').toLowerCase();
+                    total += amt;
+                    if (status === 'completed' || status === 'paid') complete += amt;
+                    else if (status === 'failed') failed += amt;
+                    else pending += amt;
+
+                    let statClass = status === 'pending' ? 'status-pending' : (status === 'failed' ? 'status-failed' : 'status-completed');
+
+                    tbody.insertAdjacentHTML('beforeend', `
+                        <tr>
+                            <td class="fw-bold text-dark">${txn.applicant?.basic_profile?.registered_business_name || 'Unknown'}</td>
+                            <td>Gcash</td>
+                            <td>${txn.created_at ? txn.created_at.split('T')[0] : 'N/A'}</td>
+                            <td>Annual</td>
+                            <td>${txn.or_number || 'N/A'}</td>
+                            <td>Jesus V.</td>
+                            <td class="text-center"><span class="status-badge ${statClass}">${status.toUpperCase()}</span></td>
+                            <td class="text-center"><button class="action-icon icon-edit"><i class="far fa-edit"></i></button></td>
+                        </tr>
+                    `);
+                });
+                
+                const fmt = val => `₱${val.toLocaleString()}`;
+                document.getElementById('trans-total-amt').innerText = fmt(total);
+                document.getElementById('trans-pending-amt').innerText = fmt(pending);
+                document.getElementById('trans-complete-amt').innerText = fmt(complete);
+                document.getElementById('trans-failed-amt').innerText = fmt(failed);
+            }
+        } catch (err) {}
+    }
+
+    // --- CHARTS (DASHBOARD & REPORTS) ---
     function initCharts() {
+        // Dashboard Charts
         const ctxBar = document.getElementById('barChart');
-        if(ctxBar) {
-            new Chart(ctxBar.getContext('2d'), {
+        if(ctxBar) new Chart(ctxBar, { type: 'bar', data: { labels: ['21', '22', '23', '24'], datasets: [{ data: [120, 150, 180, 205], backgroundColor: '#3b82f6' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+
+        // REPORTS TAB: Grouped Bar Chart (Membership Revenue)
+        const reportBar = document.getElementById('reportBarChart');
+        if(reportBar) {
+            new Chart(reportBar.getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: ['2021', '2022', '2023', '2024'],
-                    datasets: [{
-                        label: 'Revenue',
-                        data: [120000, 150000, 180000, 205500],
-                        backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(220, 53, 69, 0.8)'],
-                        borderRadius: 4
-                    }]
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [
+                        { label: 'Micro', data: [120, 150, 180, 90, 110, 140], backgroundColor: '#3b82f6', barPercentage: 0.6, categoryPercentage: 0.8 },
+                        { label: 'Small', data: [200, 220, 250, 180, 210, 260], backgroundColor: '#ef4444', barPercentage: 0.6, categoryPercentage: 0.8 },
+                        { label: 'Medium', data: [90, 110, 130, 80, 95, 120], backgroundColor: '#eab308', barPercentage: 0.6, categoryPercentage: 0.8 },
+                        { label: 'Large', data: [50, 60, 70, 40, 55, 65], backgroundColor: '#22c55e', barPercentage: 0.6, categoryPercentage: 0.8 }
+                    ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: {size: 11} } } },
                     scales: {
-                        y: { beginAtZero: true, grid: { borderDash: [2, 4], color: '#eee' } },
-                        x: { grid: { display: false } }
+                        y: { grid: { color: '#eee', borderDash: [5, 5] }, ticks: { color: '#aaa', font: {size: 11} }, border: {display: false} },
+                        x: { grid: { display: false }, ticks: { color: '#aaa', font: {size: 11} }, border: {display: false} }
                     }
                 }
             });
         }
 
-        const ctxPie = document.getElementById('pieChart');
-        if(ctxPie) {
-            new Chart(ctxPie.getContext('2d'), {
-                type: 'doughnut', 
+        // REPORTS TAB: Pie Chart (Payment Breakdown)
+        const reportPie = document.getElementById('reportPieChart');
+        if(reportPie) {
+            new Chart(reportPie.getContext('2d'), {
+                type: 'pie',
                 data: {
-                    labels: ['Monthly', 'Annual'],
+                    labels: ['Annual', 'Monthly'],
                     datasets: [{
-                        data: [35, 65],
-                        backgroundColor: ['#6f42c1', '#dc3545'],
-                        borderWidth: 2, borderColor: '#ffffff'
+                        data: [75, 25],
+                        backgroundColor: ['#6366f1', '#f97316'], // Purple/Blue and Red/Orange
+                        borderWidth: 0
                     }]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    cutout: '60%',
-                    plugins: { legend: { position: 'bottom', labels: { padding: 20, font: { size: 13 } } } }
+                    plugins: { legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true, font: {size: 11} } } }
                 }
             });
         }
     }
 
-    // --- UI LOGIC ---
+    // UI Tab Switcher
     function switchTab(tabName) {
         document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
         document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
-        
-        const section = document.getElementById('section-' + tabName);
-        if (section) section.style.display = 'block';
-        
-        const activeNav = document.getElementById('nav-' + tabName);
-        if(activeNav) activeNav.classList.add('active');
+        document.getElementById('section-' + tabName).style.display = 'block';
+        document.getElementById('nav-' + tabName).classList.add('active');
     }
-
-    function toggleNotificationPanel(event) {
-        event.stopPropagation();
-        const panel = document.getElementById('notificationPanel');
-        panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    document.addEventListener('click', function(event) {
-        const panel = document.getElementById('notificationPanel');
-        if (panel.style.display === 'flex' && !panel.contains(event.target)) panel.style.display = 'none';
-    });
-
-    function clearNotifications(event) {
-        event.stopPropagation();
-        document.getElementById('notificationPanel').style.display = 'none';
-    }
-
-    function logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userName');
-        window.location.href = '/login';
-    }
-
-    // ==========================================
-    // --- APPLICANTS API LOGIC ---
-    // ==========================================
-    async function fetchApplicants() {
-        try {
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (response.status === 401) { logout(); return; }
-            const data = await response.json();
-
-            if (response.ok && data.data) {
-                allApplicantsData = data.data;
-                const unpaidBadge = document.getElementById('unpaid-count');
-                if(unpaidBadge) unpaidBadge.innerText = allApplicantsData.length;
-                renderApplicants(data.data);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    function renderApplicants(applicants) {
-        const container = document.getElementById('applicants-list'); 
-        if(!container) return;
-        container.innerHTML = '';
-
-        if (applicants.length === 0) {
-            container.innerHTML = `<div class="custom-card text-center py-5 text-muted"><h5 class="fw-bold">No approved applicants pending payment.</h5></div>`;
-            return;
-        }
-
-        applicants.forEach(app => {
-            const safe = (val) => val || 'N/A'; 
-            const profile = app.basic_profile || {};
-
-            const html = `
-                <div class="custom-card mb-4" style="border-left: 5px solid #28a745;">
-                    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
-                        <div>
-                            <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">${safe(profile.registered_business_name)}</h5>
-                            <small class="text-muted">Applicant ID: ${app.id} | Type: <strong id="type-label-${app.id}" class="text-danger fw-bold">PENDING SELECTION</strong></small>
-                        </div>
-                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold border border-success border-opacity-25">
-                            <i class="fa fa-check-circle me-1"></i> ${String(app.status).toUpperCase()}
-                        </span>
-                    </div>
-
-                    <div class="row mb-3 align-items-center">
-                        <div class="col-md-4">
-                            <p class="mb-1"><small class="text-muted">Trade Name:</small><br><span class="fw-bold text-dark">${safe(profile.trade_name)}</span></p>
-                            <p class="mb-1"><small class="text-muted">Email Contact:</small><br><span class="fw-bold text-dark">${safe(profile.email)}</span></p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="mb-1"><small class="text-muted">Date Submitted:</small><br><span class="fw-bold text-dark">${safe(app.date_submitted)}</span></p>
-                            <p class="mb-1"><small class="text-muted">Payment Amount:</small><br><span id="amount-label-${app.id}" class="fw-bold text-dark fs-5">---</span></p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="mb-1"><small class="text-muted">Payment Status:</small><br><span class="fw-bold text-warning">Pending Review</span></p>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex justify-content-end align-items-center border-top pt-3 mt-2">
-                        <button onclick="openProof('${app.proof_of_payment_url}', ${app.id})" class="btn btn-outline-primary fw-bold rounded-pill px-3 shadow-sm me-3" style="font-size: 13px;">
-                            <i class="fa fa-image me-1"></i> View Proof & Select Type
-                        </button>
-                        <button onclick="processPayment(${app.id})" class="btn btn-success fw-bold rounded-pill px-4 shadow-sm" style="font-size: 14px;">
-                            <i class="fa fa-cash-register me-2"></i> Process Payment
-                        </button>
-                    </div>
-                </div>
-            `;
-            container.insertAdjacentHTML('beforeend', html);
-        });
-    }
-
-    async function processPayment(applicantId) {
-        if (!confirm('Process payment for this applicant?')) return;
-        try {
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/payments', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ applicant_id: applicantId, membership_type_id: currentSelectedType })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                alert(`SUCCESS: Payment Processed! OR: ${data.data.or_number}`);
-                fetchApplicants(); 
-                fetchMembers(); 
-                fetchRecentPayments();
-            } else {
-                alert(`Failed: ${data.message}`);
-            }
-        } catch (err) { console.error(err); }
-    }
-
-    // ==========================================
-    // --- MEMBERSHIP API LOGIC ---
-    // ==========================================
-    async function fetchMembers() {
-        const tbody = document.getElementById('members-table-body');
-        try {
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/members', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (response.status === 401) { logout(); return; }
-            const data = await response.json();
-
-            if (response.ok && data.data) {
-                allMembersData = data.data; 
-                const paidBadge = document.getElementById('paid-count');
-                if(paidBadge) paidBadge.innerText = allMembersData.length;
-                renderMembers(allMembersData);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    function renderMembers(members) {
-        const tbody = document.getElementById('members-table-body');
-        if(!tbody) return;
-        tbody.innerHTML = '';
-        members.forEach(member => {
-            const safe = (val) => val || 'N/A'; 
-            const applicant = member.applicant || {};
-            const profile = applicant.basic_profile || {};
-            const name = profile.registered_business_name || 'N/A';
-            const type = safe(member.membership_type_id == 1 ? 'Micro' : 'Small Enterprises');
-            const regDate = member.induction_date ? member.induction_date.split('T')[0] : 'N/A';
-            const expDate = member.membership_end_date ? member.membership_end_date.split('T')[0] : 'N/A';
-            const amount = member.membership_type_id == 1 ? '₱500.00' : '₱5,000.00';
-            const orNumber = `OR-${10000 + member.id}`; 
-
-            let proofUrl = member.proof_of_payment_url || applicant.proof_of_payment_url || '#';
-            const proofHtml = proofUrl !== '#' 
-                ? `<button class="action-btn btn-gray" onclick="openSimpleProof('${proofUrl}')">View</button>`
-                : `<span class="text-muted" style="font-size: 11px;">No File</span>`;
-
-            tbody.insertAdjacentHTML('beforeend', `
-                <tr>
-                    <td style="font-weight: bold; color: #111827;">${name}</td>
-                    <td>${type}</td>
-                    <td style="font-weight: 600;">${amount}</td>
-                    <td>${orNumber}</td>
-                    <td>${regDate}</td>
-                    <td>${expDate}</td>
-                    <td><span class="badge-pill-green">Active</span></td>
-                    <td>${proofHtml}</td>
-                    <td style="min-width: 320px;">
-                        <button class="action-btn btn-gray" onclick="viewMemberDetails(${member.id})"><i class="fa fa-info-circle"></i> Details</button>
-                        <button class="action-btn btn-green"><i class="fa fa-check"></i> Verify</button>
-                        <button class="action-btn btn-dark-red"><i class="fa fa-print"></i> Print</button>
-                    </td>
-                </tr>
-            `);
-        });
-    }
-
-    // ==========================================
-    // --- RECENT PAYMENTS LOGIC ---
-    // ==========================================
-    async function fetchRecentPayments() {
-        const tbody = document.getElementById('recent-payments-table-body');
-        try {
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            const data = await response.json();
-            
-            if (response.ok && data.data) {
-                tbody.innerHTML = ''; 
-                data.data.forEach(app => {
-                    const profile = app.basic_profile || {};
-                    const orNumber = `OR-${1000 + app.id}`;
-                    let proofUrl = app.proof_of_payment_url || '#';
-                    
-                    tbody.insertAdjacentHTML('beforeend', `
-                        <tr>
-                            <td style="font-weight: bold; color: #222;">${profile.registered_business_name || 'N/A'}</td>
-                            <td>${app.membership_type || 'Annual'}</td>
-                            <td style="font-weight: bold;">5,000</td>
-                            <td>${orNumber}</td>
-                            <td>${app.date_approved || 'N/A'}</td>
-                            <td>
-                                <button class="btn btn-sm btn-link text-primary text-decoration-none" style="font-size: 12px;" onclick="openSimpleProof('${proofUrl}')">
-                                    <i class="fa fa-image"></i> View File
-                                </button>
-                            </td>
-                            <td>
-                                <button class="action-btn btn-gray" onclick="openSimpleProof('${proofUrl}')">View</button>
-                                <button class="action-btn btn-green" onclick="processPayment(${app.id})">Verify</button>
-                                <button class="action-btn btn-red">Reject</button>
-                                <button class="action-btn btn-orange"><i class="fa fa-print"></i> Receipt</button>
-                            </td>
-                        </tr>
-                    `);
-                });
-            }
-        } catch (err) { console.error(err); }
-    }
-
-    // ==========================================
-    // --- TRANSACTIONS API LOGIC ---
-    // ==========================================
-    async function fetchTransactions() {
-        const tbody = document.getElementById('transactions-table-body');
-        try {
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/payments', {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' }
-            });
-            const data = await response.json();
-            if (response.ok && data.data) {
-                renderTransactions(data.data);
-                updateTransactionSummary(data.data);
-            }
-        } catch (err) { console.error(err); }
-    }
-
-    function renderTransactions(transactions) {
-        const tbody = document.getElementById('transactions-table-body');
-        if (!tbody) return;
-        tbody.innerHTML = transactions.length === 0 ? '<tr><td colspan="7">No records.</td></tr>' : '';
-        transactions.forEach(txn => {
-            const date = txn.created_at ? txn.created_at.split('T')[0] : 'N/A';
-            const businessName = txn.applicant?.basic_profile?.registered_business_name || 'N/A';
-            tbody.insertAdjacentHTML('beforeend', `
-                <tr>
-                    <td class="text-muted">${date}</td>
-                    <td class="fw-bold">${txn.or_number || 'N/A'}</td>
-                    <td class="fw-bold">${businessName}</td>
-                    <td>${txn.membership_type?.name || 'N/A'}</td>
-                    <td class="fw-bold text-success">₱${txn.amount || '0'}</td>
-                    <td><span class="badge bg-success bg-opacity-10 text-success">PAID</span></td>
-                    <td><button class="action-btn btn-gray">View</button></td>
-                </tr>`);
-        });
-    }
-
-    function updateTransactionSummary(transactions) {
-        const sum = transactions.reduce((acc, txn) => acc + (parseFloat(txn.amount) || 0), 0);
-        document.getElementById('trans-total-amount').innerText = `₱${sum.toLocaleString()}`;
-        document.getElementById('trans-total-count').innerText = transactions.length;
-    }
+    function toggleNotificationPanel(e) { e.stopPropagation(); const p = document.getElementById('notificationPanel'); p.style.display = p.style.display === 'flex' ? 'none' : 'flex'; }
+    document.addEventListener('click', e => { const p = document.getElementById('notificationPanel'); if (p.style.display === 'flex' && !p.contains(e.target)) p.style.display = 'none'; });
+    function clearNotifications(e) { e.stopPropagation(); document.getElementById('notificationPanel').style.display = 'none'; }
+    function logout() { localStorage.removeItem('token'); window.location.href = '/login'; }
 </script>
-@endsection 
+@endsection
