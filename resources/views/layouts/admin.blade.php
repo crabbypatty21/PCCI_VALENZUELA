@@ -237,10 +237,101 @@
             font-weight: 600;
         }
         .stat-card i { color: var(--pcci-red); }
+
+        /* ============================================== */
+        /* MOBILE HAMBURGER BUTTON                        */
+        /* ============================================== */
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            z-index: 1100;
+            background: var(--pcci-red);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: background 0.2s;
+        }
+
+        .hamburger-btn:hover {
+            background: #a01a30;
+        }
+
+        /* Overlay behind sidebar on mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* ============================================== */
+        /* RESPONSIVE                                     */
+        /* ============================================== */
+
+        @media (max-width: 992px) {
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1050;
+                background: #fff;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                box-shadow: none;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .main {
+                padding: 80px 24px 40px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 260px;
+            }
+
+            .main {
+                padding: 72px 14px 30px;
+            }
+        }
     </style>
 </head>
 <body>
-    <aside class="sidebar">
+    {{-- Mobile hamburger button --}}
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle sidebar">
+        <i class="bi bi-list" id="hamburgerIcon"></i>
+    </button>
+
+    {{-- Overlay for mobile sidebar --}}
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="adminSidebar">
         <div class="admin-profile">
             <img src="https://i.pravatar.cc/150?u=maui" class="avatar" alt="Maui">
             <div class="admin-info">
@@ -301,6 +392,43 @@
         toggle.addEventListener('click', function() {
             this.classList.toggle('open');
             menu.classList.toggle('open');
+        });
+
+        // Mobile sidebar toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const hamburgerIcon = document.getElementById('hamburgerIcon');
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            hamburgerIcon.classList.replace('bi-list', 'bi-x-lg');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            hamburgerIcon.classList.replace('bi-x-lg', 'bi-list');
+        }
+
+        hamburgerBtn.addEventListener('click', function() {
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+
+        overlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar when a nav link is clicked (mobile)
+        sidebar.querySelectorAll('.nav-link, .nav-dropdown-menu a, .btn-logout').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 992) {
+                    closeSidebar();
+                }
+            });
         });
     </script>
 </body>
