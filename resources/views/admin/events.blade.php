@@ -272,6 +272,13 @@
   }
   .ev-btn-edit:hover { border-color: var(--red); color: var(--red); background: #fff5f5; }
 
+  .ev-btn-delete {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+  }
+  .ev-btn-delete:hover { border-color: #dc3545; color: #fff; background: #dc3545; }
+
   /* ── MODAL ── */
   .ev-modal-overlay {
     display: none;
@@ -961,6 +968,9 @@ function evRender(list) {
         <button class="ev-btn ev-btn-edit" onclick="evEdit(${ev.id})">
           <i class="fa-regular fa-pen-to-square"></i> Edit
         </button>
+        <button class="ev-btn ev-btn-delete" onclick="evDelete(${ev.id})">
+          <i class="fa-regular fa-trash-can"></i> Delete
+        </button>
       </div>
     </div>`;
   }).join('');
@@ -1236,7 +1246,11 @@ async function evSave() {
             evCloseModal();
             fetchEvents(); // Reload the UI with fresh data from DB
         } else {
-            alert('Failed to save event: ' + (data.message || 'Validation Error'));
+            let errorMsg = data.message || 'Validation Error';
+            if (data.errors) {
+                errorMsg += '\n' + Object.entries(data.errors).map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`).join('\n');
+            }
+            alert('Failed to save event: ' + errorMsg);
         }
     } catch (err) {
         console.error(err);
@@ -1244,6 +1258,37 @@ async function evSave() {
     } finally {
         saveBtn.disabled = false;
         saveBtn.innerText = 'Confirm';
+    }
+}
+
+/* ─── DELETE EVENT ─── */
+async function evDelete(id) {
+    if (!confirm('Are you sure you want to delete this event?')) return;
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/events/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        if (response.ok || response.status === 204) {
+            fetchEvents();
+        } else {
+            const data = await response.json();
+            alert('Failed to delete event: ' + (data.message || 'Unknown error'));
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Network error. Failed to delete.');
     }
 }
 
