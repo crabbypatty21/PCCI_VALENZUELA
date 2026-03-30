@@ -127,7 +127,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .status-failed { background-color: #ef4444; }
 
 /* =========================================
-   REPORTS TAB SPECIFIC STYLES
+   REPORTS TAB SPECIFIC STYLES & DROPDOWN
    ========================================= */
 .reports-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
 .report-stat-card { background: #ffffff; border-radius: 12px; padding: 16px; height: 120px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; gap: 6px; transition: 0.3s; }
@@ -201,39 +201,63 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .sec-table th { text-align: left; padding: 12px 10px; font-weight: 500; border-bottom: 1px solid #ddd; }
 .sec-table td { padding: 12px 10px; color: #666; font-size: 13px; }
 
-/* OTP Modal */
-.otp-modal-card { background: #1c1c1c; max-width: 480px !important; padding: 30px; border-radius: 12px; border: none; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.otp-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #fff; }
-.otp-subtitle { font-size: 14px; color: #e0e0e0; margin-bottom: 25px; line-height: 1.5; }
-.otp-subtitle span { color: #999; }
-.otp-input-container { display: flex; gap: 10px; justify-content: flex-start; }
-.otp-box { width: 55px; height: 55px; background: #808080; border: none; border-radius: 8px; font-size: 24px; text-align: center; color: #fff; outline: none; transition: 0.2s; }
-.otp-box:focus { background: #999; box-shadow: 0 0 0 2px #fff; }
+/* =========================================
+   ADD PAYMENT MODAL STYLES (NEW)
+   ========================================= */
+.add-payment-modal-card { background: #ffffff; max-width: 450px !important; padding: 25px; border-radius: 12px; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.add-payment-modal-header { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 25px; position: relative; }
+.add-payment-modal-icon-container { position: relative; font-size: 32px; color: #111; margin-right: 15px; }
+.add-payment-modal-check-icon { position: absolute; bottom: -2px; right: -6px; font-size: 12px; color: #fff; background: #111; border: 2px solid #fff; border-radius: 50%; width: 18px; height: 18px; display: flex; justify-content: center; align-items: center; }
+.add-payment-modal-title { font-size: 18px; font-weight: bold; color: #111; margin: 0; }
+.add-payment-modal-body { display: flex; flex-direction: column; gap: 15px; }
+.add-payment-form-group { display: flex; flex-direction: column; gap: 5px; text-align: left; }
+.add-payment-label { font-size: 13px; color: #666; margin: 0; font-weight: normal; }
+.add-payment-input { width: 100%; height: 40px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0 12px; font-size: 14px; color: #111; outline: none; transition: 0.2s; }
+.add-payment-input:focus { border-color: #b61b2a; }
+.add-payment-input[readonly] { background-color: #f3f4f6; color: #888; cursor: not-allowed; }
+.add-payment-modal-footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 30px; }
+.add-payment-btn-clear { flex: 1; height: 42px; background: #e5e7eb; color: #4b5563; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; transition: 0.2s; }
+.add-payment-btn-clear:hover { background: #d1d5db; }
+.add-payment-btn-confirm { flex: 1; height: 42px; background: #b61b2a; color: #fff; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; transition: 0.2s; }
+.add-payment-btn-confirm:hover { background: #9b1724; }
 
-/* Reset Password Modal */
-.reset-pw-modal-card { background: #1c1c1c; max-width: 450px !important; padding: 30px; border-radius: 12px; border: none; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.reset-pw-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: #fff; }
-.reset-pw-subtitle { font-size: 14px; color: #999; margin-bottom: 20px; }
-.reset-pw-label { font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 8px; display: block; }
+/* =========================================
+   OTP & RESET PASSWORD MODAL STYLES
+   ========================================= */
+.otp-modal-card { background: #ffffff; max-width: 450px !important; padding: 30px; border-radius: 12px; border: none; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.otp-title { font-size: 20px; font-weight: bold; margin-bottom: 10px; color: #111; }
+.otp-subtitle { font-size: 14px; color: #666; margin-bottom: 25px; line-height: 1.5; }
+.otp-subtitle span { color: #111; font-weight: bold; }
+.otp-input-container { display: flex; gap: 10px; justify-content: flex-start; }
+.otp-box { width: 55px; height: 55px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 24px; text-align: center; color: #111; outline: none; transition: 0.2s; }
+.otp-box:focus { background: #fff; border-color: #b61b2a; box-shadow: 0 0 0 2px rgba(182, 27, 42, 0.1); }
+
+.reset-pw-modal-card { background: #ffffff; max-width: 450px !important; padding: 30px; border-radius: 12px; border: none; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.reset-pw-title { font-size: 20px; font-weight: bold; margin-bottom: 5px; color: #111; }
+.reset-pw-subtitle { font-size: 14px; color: #666; margin-bottom: 25px; }
+.reset-pw-label { font-size: 14px; font-weight: bold; color: #111; margin-bottom: 8px; display: block; text-align: left;}
 .reset-pw-input-wrap { position: relative; margin-bottom: 15px; }
-.reset-pw-input { width: 100%; height: 42px; background: #e0e0e0; border: none; border-radius: 8px; padding: 0 40px; font-size: 14px; color: #111; outline: none; }
-.reset-pw-icon-left { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #555; font-size: 14px; }
-.reset-pw-icon-right { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #555; font-size: 14px; cursor: pointer; }
-.reset-pw-checklist { list-style: none; padding: 0; margin: -5px 0 15px 10px; font-size: 12px; color: #999; }
-.reset-pw-checklist li { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; transition: color 0.3s; }
-.reset-pw-checklist li.valid { color: #4ade80; } 
+.reset-pw-input { width: 100%; height: 42px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0 40px; font-size: 14px; color: #111; outline: none; transition: 0.2s; }
+.reset-pw-input:focus { border-color: #b61b2a; }
+.reset-pw-icon-left { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #888; font-size: 14px; }
+.reset-pw-icon-right { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #888; font-size: 14px; cursor: pointer; transition: 0.2s; }
+.reset-pw-icon-right:hover { color: #111; }
+.reset-pw-checklist { list-style: none; padding: 0; margin: -5px 0 20px 10px; font-size: 12px; color: #aaa; text-align: left; }
+.reset-pw-checklist li { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; transition: color 0.3s; }
+.reset-pw-checklist li.valid { color: #22c55e; } 
 .reset-pw-checklist li i { font-size: 14px; }
 .reset-pw-actions { display: flex; justify-content: space-between; gap: 15px; margin-top: 25px; }
-.reset-pw-btn-cancel { flex: 1; background: #fff; color: #111; border: none; border-radius: 8px; height: 42px; font-weight: bold; font-size: 14px; cursor: pointer; }
-.reset-pw-btn-submit { flex: 1; background: #444; color: #fff; border: none; border-radius: 8px; height: 42px; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s;}
-.reset-pw-btn-submit.active { background: #555; }
-
+.reset-pw-btn-cancel { flex: 1; background: #fff; border: 1px solid #e5e7eb; color: #111; border-radius: 8px; height: 42px; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s; }
+.reset-pw-btn-cancel:hover { background: #f9fafb; }
+.reset-pw-btn-submit { flex: 1; background: #d1d5db; color: #fff; border: none; border-radius: 8px; height: 42px; font-weight: bold; font-size: 14px; cursor: not-allowed; transition: 0.2s;}
+.reset-pw-btn-submit.active { background: #b61b2a; cursor: pointer; }
+.reset-pw-btn-submit.active:hover { background: #9b1724; }
 
 /* =========================================
    DARK MODE CSS OVERRIDES
    ========================================= */
 body.dark-mode, body.dark-mode .main { background-color: #121212 !important; color: #e0e0e0 !important; }
-body.dark-mode .topbar, body.dark-mode .sidebar, body.dark-mode .floating-card, body.dark-mode .custom-card, body.dark-mode .report-stat-card, body.dark-mode .report-chart-box, body.dark-mode .custom-modal-card:not(.otp-modal-card):not(.reset-pw-modal-card), body.dark-mode .notification-panel, body.dark-mode .setting-box, body.dark-mode .mini-stat-card, body.dark-mode .new-acc-card { background-color: #1e1e1e !important; border-color: #333 !important; box-shadow: none !important; }
+body.dark-mode .topbar, body.dark-mode .sidebar, body.dark-mode .floating-card, body.dark-mode .custom-card, body.dark-mode .report-stat-card, body.dark-mode .report-chart-box, body.dark-mode .custom-modal-card:not(.otp-modal-card):not(.reset-pw-modal-card):not(.add-payment-modal-card), body.dark-mode .notification-panel, body.dark-mode .setting-box, body.dark-mode .mini-stat-card, body.dark-mode .new-acc-card { background-color: #1e1e1e !important; border-color: #333 !important; box-shadow: none !important; }
 body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6, body.dark-mode p, body.dark-mode .label, body.dark-mode .value, body.dark-mode td, body.dark-mode th, body.dark-mode .report-value, body.dark-mode .text-dark, body.dark-mode .sidebar-profile h5, body.dark-mode .m-val, body.dark-mode .acc-header-icon { color: #f8f9fa !important; }
 body.dark-mode .text-muted, body.dark-mode .report-label, body.dark-mode small, body.dark-mode .sidebar-profile small, body.dark-mode .m-lbl { color: #9ca3af !important; }
 body.dark-mode .custom-table th, body.dark-mode .sidebar-menu li.active { background-color: #2d2d2d !important; color: #f8f9fa !important; }
@@ -280,6 +304,138 @@ body.dark-mode .sec-login-title { color: #fff !important; }
 body.dark-mode .sec-divider { background: #444; }
 body.dark-mode .sec-table th { color: #e0e0e0 !important; border-bottom-color: #444; }
 body.dark-mode .sec-table td { color: #aaa; }
+
+/* Dark Mode Overrides for Modals */
+body.dark-mode .add-payment-modal-card { background: #1e1e1e; color: #fff; border-color: #333; }
+body.dark-mode .add-payment-modal-icon-container { color: #fff; }
+body.dark-mode .add-payment-modal-check-icon { background: #4ade80; border-color: #1e1e1e; color: #1e1e1e; }
+body.dark-mode .add-payment-modal-title { color: #fff; }
+body.dark-mode .add-payment-label { color: #aaa; }
+body.dark-mode .add-payment-input { background: #2d2d2d; border-color: #444; color: #fff; }
+body.dark-mode .add-payment-input[readonly] { background: #1a1a1a; border-color: #333; color: #777; }
+body.dark-mode .add-payment-btn-clear { background: #333; color: #ccc; border: none; }
+body.dark-mode .add-payment-btn-clear:hover { background: #444; }
+
+body.dark-mode .otp-modal-card { background: #1c1c1c; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+body.dark-mode .otp-title { color: #fff; }
+body.dark-mode .otp-subtitle { color: #aaa; }
+body.dark-mode .otp-subtitle span { color: #fff; }
+body.dark-mode .otp-box { background: #2d2d2d; border-color: #444; color: #fff; }
+body.dark-mode .otp-box:focus { background: #333; border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); }
+
+body.dark-mode .reset-pw-modal-card { background: #1c1c1c; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+body.dark-mode .reset-pw-title { color: #fff; }
+body.dark-mode .reset-pw-subtitle { color: #aaa; }
+body.dark-mode .reset-pw-label { color: #fff; }
+body.dark-mode .reset-pw-input { background: #2d2d2d; border-color: #444; color: #fff; }
+body.dark-mode .reset-pw-input:focus { border-color: #ef4444; }
+body.dark-mode .reset-pw-btn-cancel { background: #2d2d2d; border-color: #444; color: #fff; }
+body.dark-mode .reset-pw-btn-submit { background: #444; color: #888; }
+body.dark-mode .reset-pw-btn-submit.active { background: #ef4444; color: #fff; }
+body.dark-mode .reset-pw-checklist { color: #666; }
+
+/* =========================================
+   CROP PROFILE PICTURE MODAL
+   ========================================= */
+.crop-modal-card {
+    background: #1a1a1a !important; 
+    border: 1px solid #b61b2a !important; 
+    max-width: 420px !important;
+    padding: 0 !important; 
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+.crop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #333;
+}
+.crop-title {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+}
+.crop-close-btn {
+    background: #2d2d2d;
+    border: 1px solid #b61b2a;
+    color: #555;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.crop-close-btn:hover {
+    background: #b61b2a;
+    color: #fff;
+}
+.crop-body {
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.crop-image-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.crop-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+}
+.crop-overlay-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    height: 260px;
+    border: 3px dotted #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4); /* Dims the outside of the circle */
+    pointer-events: none; 
+}
+.crop-footer {
+    padding: 0 25px 25px 25px;
+}
+.crop-btn-submit {
+    width: 100%;
+    background: #b61b2a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    height: 42px;
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.crop-btn-submit:hover {
+    background: #9b1724;
+}
+
 </style>
 
 {{-- TOP NAVIGATION --}}
@@ -341,7 +497,7 @@ body.dark-mode .sec-table td { color: #aaa; }
             <i class="fa fa-chart-pie"></i> Dashboard
         </li>
         <li id="nav-members" onclick="switchTab('members')">
-            <i class="fa fa-users"></i> Directory
+            <i class="fa fa-users"></i> Members
         </li>
         <li id="nav-applicants" onclick="switchTab('applicants')">
             <i class="fa fa-user-plus"></i> Applicants
@@ -460,43 +616,42 @@ body.dark-mode .sec-table td { color: #aaa; }
     </div>
 
 
-    {{-- UNIFIED MEMBERS DIRECTORY TAB --}}
+    {{-- MEMBERS TAB --}}
     <div id="section-members" class="content-section" style="display: none;">
         <div class="mb-4">
-            <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Unified Directory</h3>
-            <p class="text-muted mb-0" style="font-size: 14px;">Manage all active members and process pending applicants in one place.</p>
+            <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Members</h3>
+            <p class="text-muted mb-0" style="font-size: 14px;">Manage and review all member records.</p>
         </div>
 
         <div class="d-flex gap-4 mb-4 flex-wrap">
-            <div class="summary-card bg-orange d-flex align-items-center flex-grow-1" style="max-width: 450px;">
-                <div class="icon-circle me-3"><i class="fa fa-user-clock"></i></div>
-                <div><div class="label">Pending Payments (Applicants)</div><div class="value" id="unpaid-count">0</div></div>
+            <div class="summary-card bg-red d-flex align-items-center flex-grow-1" style="max-width: 450px;">
+                <div class="icon-circle me-3"><i class="fa fa-user-times"></i></div>
+                <div><div class="label">Unpaid Members</div><div class="value" id="unpaid-count">0</div></div>
             </div>
             <div class="summary-card bg-green d-flex align-items-center flex-grow-1" style="max-width: 450px;">
                 <div class="icon-circle me-3"><i class="fa fa-user-check"></i></div>
-                <div><div class="label">Active Paid Members</div><div class="value" id="paid-count">0</div></div>
+                <div><div class="label">Paid Members</div><div class="value" id="paid-count">0</div></div>
             </div>
         </div>
 
         <div class="floating-card table-card">
             <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
                 <div class="d-flex align-items-center gap-2">
-                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #111;">Central Database</h5>
-                    <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded-pill" id="total-members-badge">0 Total</span>
+                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #111;">Members Directory</h5>
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded-pill" id="total-members-badge">0 Active</span>
                 </div>
                 
                 <div class="d-flex align-items-center gap-3">
-                    <select id="directorySort" class="form-select form-select-sm text-muted fw-bold" style="height: 36px; border-radius: 6px; border-color: #eee; font-size: 13px; box-shadow: none; cursor:pointer; width: 140px; background-color: #f8f9fb;">
+                    <select id="memberSort" class="form-select form-select-sm text-muted fw-bold" style="height: 36px; border-radius: 6px; border-color: #eee; font-size: 13px; box-shadow: none; cursor:pointer; width: 140px; background-color: #f8f9fb;">
                         <option value="newest">Newest First</option>
                         <option value="oldest">Oldest First</option>
                         <option value="name_asc">Name (A-Z)</option>
                         <option value="name_desc">Name (Z-A)</option>
-                        <option value="pending_first">Pending First</option>
                     </select>
                     
                     <div style="position: relative; width: 250px;">
                         <i class="fa fa-search text-muted" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px;"></i>
-                        <input type="text" id="directorySearch" placeholder="Search anyone..." style="width: 100%; height: 36px; padding-left: 35px; border-radius: 6px; border: 1px solid #eee; font-size: 13px; outline: none; background: #f8f9fb;">
+                        <input type="text" id="memberSearch" placeholder="Search members..." style="width: 100%; height: 36px; padding-left: 35px; border-radius: 6px; border: 1px solid #eee; font-size: 13px; outline: none; background: #f8f9fb;">
                     </div>
                 </div>
             </div>
@@ -505,24 +660,82 @@ body.dark-mode .sec-table td { color: #aaa; }
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Business / Name</th>
-                            <th>Email Address</th>
-                            <th>Date (Sub/Reg)</th>
+                            <th>Member Name</th>
+                            <th>Type</th>
+                            <th>Amount</th>
                             <th>OR Number</th>
+                            <th>Reg Date</th>
+                            <th>Exp Date</th>
                             <th>Status</th>
                             <th>Proof</th>
-                            <th class="text-end pe-4">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="directory-table-body">
-                        <tr><td colspan="7" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading directory...</td></tr>
+                    <tbody id="members-table-body">
+                        <tr><td colspan="9" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading members...</td></tr>
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-3" style="height: 50px; gap: 15px;">
-                <button class="btn btn-sm btn-light border rounded" onclick="prevDirectoryPage()"><i class="fa fa-chevron-left"></i></button>
-                <span style="font-size: 14px; font-weight: bold; color: #4b5563;" id="directory-pagination-text">Page 1 of 1</span>
-                <button class="btn btn-sm btn-light border rounded" onclick="nextDirectoryPage()"><i class="fa fa-chevron-right"></i></button>
+                <button id="member-prev-btn" class="btn btn-sm btn-light border rounded" onclick="prevMemberPage()"><i class="fa fa-chevron-left"></i></button>
+                <span style="font-size: 14px; font-weight: bold; color: #4b5563;" id="member-pagination-text">Page 1 of 1</span>
+                <button id="member-next-btn" class="btn btn-sm btn-light border rounded" onclick="nextMemberPage()"><i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    {{-- APPLICANTS TAB --}}
+    <div id="section-applicants" class="content-section" style="display: none;">
+        <div class="mb-4">
+            <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif;">Applicants Queue</h3>
+            <p class="text-muted mb-0" style="font-size: 14px;">Review and process payments for newly approved businesses.</p>
+        </div>
+
+        <div class="floating-card table-card">
+            <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #111;">Applicants Directory</h5>
+                    <span class="badge bg-warning bg-opacity-10 text-warning px-2 py-1 rounded-pill" id="report-pending-count-badge">0 Pending</span>
+                </div>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <select id="applicantSort" class="form-select form-select-sm text-muted fw-bold" style="height: 36px; border-radius: 6px; border-color: #eee; font-size: 13px; box-shadow: none; cursor:pointer; width: 140px; background-color: #f8f9fb;">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="name_asc">Name (A-Z)</option>
+                        <option value="name_desc">Name (Z-A)</option>
+                    </select>
+                    
+                    <div style="position: relative; width: 250px;">
+                        <i class="fa fa-search text-muted" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px;"></i>
+                        <input type="text" id="applicantSearch" placeholder="Search applicants..." style="width: 100%; height: 36px; padding-left: 35px; border-radius: 6px; border: 1px solid #eee; font-size: 13px; outline: none; background: #f8f9fb;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Business Name</th>
+                            <th>Trade Name</th>
+                            <th>Email</th>
+                            <th>Date Submitted</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicants-table-body">
+                        <tr><td colspan="8" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading applicants...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-3" style="height: 50px; gap: 15px;">
+                <button class="btn btn-sm btn-light border rounded" onclick="prevApplicantPage()"><i class="fa fa-chevron-left"></i></button>
+                <span style="font-size: 14px; font-weight: bold; color: #4b5563;" id="applicant-pagination-text">Page 1 of 1</span>
+                <button class="btn btn-sm btn-light border rounded" onclick="nextApplicantPage()"><i class="fa fa-chevron-right"></i></button>
             </div>
         </div>
     </div>
@@ -538,6 +751,7 @@ body.dark-mode .sec-table td { color: #aaa; }
             <div class="report-stat-card">
                 <div class="report-label">Total Payments</div>
                 <div class="report-value" id="trans-total-amt">Php. 0</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> + 20.3 % <span class="text-muted fw-normal">from last month</span></div>
             </div>
             <div class="report-stat-card">
                 <div class="report-label">Pending Payments</div>
@@ -554,20 +768,63 @@ body.dark-mode .sec-table td { color: #aaa; }
         </div>
 
         <div class="floating-card table-card" style="padding: 0; overflow: hidden; border-bottom: 6px solid #b61b2a;">
+            
+            <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                <div>
+                    <h5 style="font-size: 18px; font-weight: bold; margin: 0; color: #111;">Transaction Records</h5>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    
+                    <div class="position-relative" id="transFilterContainer" style="width: 280px;">
+                        <i class="fa fa-search text-muted" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px;"></i>
+                        
+                        <input type="text" id="transactionSearch" placeholder="Search transactions..." style="width: 100%; height: 38px; padding-left: 35px; padding-right: 40px; border-radius: 8px; border: 1px solid #eee; font-size: 13px; outline: none; background: #f8f9fb;">
+                        
+                        <button class="btn btn-sm p-0 d-flex justify-content-center align-items-center text-muted" onclick="toggleTransFilter(event)" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 6px;">
+                            <i class="fa fa-sliders-h"></i>
+                        </button>
+
+                        <div class="report-dropdown-menu" id="transFilterMenu" style="width: 180px; right: 0; top: 100%; margin-top: 5px;">
+                            <div class="report-dropdown-item text-dark" onclick="filterTransactions('all')">All Transactions</div>
+                            <hr class="trans-filter-divider">
+                            <div class="report-dropdown-item text-success" onclick="filterTransactions('completed')"><i class="fa fa-check-circle w-20px"></i> Completed</div>
+                            <div class="report-dropdown-item text-warning" onclick="filterTransactions('pending')"><i class="fa fa-clock w-20px"></i> Pending</div>
+                            <div class="report-dropdown-item text-danger" onclick="filterTransactions('failed')"><i class="fa fa-times-circle w-20px"></i> Failed</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-danger fw-bold shadow-sm d-flex align-items-center gap-2" style="height: 38px; border-radius: 8px; background: #dc2626; border: none; font-size: 13px; padding: 0 16px;" onclick="openAddPaymentModal()">
+                        <i class="fa fa-plus"></i> Add Payment
+                    </button>
+                    
+                    <div class="position-relative" id="transMenuContainer">
+                        <button class="btn btn-light border shadow-sm d-flex justify-content-center align-items-center" onclick="toggleTransDropdown(event)" style="height: 38px; width: 38px; border-radius: 8px;">
+                            <i class="fa fa-ellipsis-v text-muted"></i>
+                        </button>
+                        <div class="report-dropdown-menu" id="transDropdownMenu" style="width: 160px;">
+                            <div class="report-dropdown-item" onclick="exportTransactions()">
+                                <i class="fa fa-file-export text-success w-20px"></i> Export
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="custom-table mb-0">
-                    <thead style="background-color: #f8f9fb;">
+                    <thead>
                         <tr>
-                            <th class="text-dark py-3 ps-4">Member Name</th>
-                            <th class="text-dark py-3">Payment Type</th>
-                            <th class="text-dark py-3">Date</th>
-                            <th class="text-dark py-3">Membership Type</th>
-                            <th class="text-dark py-3">OR Number</th>
-                            <th class="text-dark py-3 text-center">Status</th>
+                            <th class="ps-4">Member Name</th>
+                            <th>Payment Type</th>
+                            <th>Date</th>
+                            <th>Membership Type</th>
+                            <th>OR Number</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center" style="width: 100px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="transactions-table-body">
-                        <tr><td colspan="6" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading...</td></tr>
+                        <tr><td colspan="7" class="text-center py-5 text-muted"><i class="fa fa-spinner fa-spin fs-3 mb-2"></i><br>Loading transactions...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -581,29 +838,43 @@ body.dark-mode .sec-table td { color: #aaa; }
                 <h3 class="fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif; font-size: 24px;">Reports</h3>
                 <p class="text-muted mb-0" style="font-size: 14px;">Generate and review comprehensive financial analytics.</p>
             </div>
-            <div>
-                <button class="btn btn-success fw-bold rounded-pill px-4 py-2 shadow-sm" style="background: #22c55e; border: none; font-size: 14px;">
-                    <i class="fa fa-file-excel me-2"></i> Export to Excel
+            
+            <div class="position-relative d-inline-block" id="reportDropdownContainer">
+                <button class="btn btn-success fw-bold rounded-pill px-4 py-2 shadow-sm d-flex align-items-center gap-2" onclick="toggleReportDropdown(event)" style="background: #22c55e; border: none; font-size: 14px;">
+                    <i class="fa fa-download"></i> Download Reports <i class="fa fa-ellipsis-v ms-1"></i>
                 </button>
+                <div class="report-dropdown-menu" id="reportDropdownMenu">
+                    <div class="report-dropdown-item" onclick="downloadReport('pdf')">
+                        <i class="fa fa-file-pdf text-danger w-20px"></i> Download as PDF
+                    </div>
+                    <div class="report-dropdown-item" onclick="downloadReport('docx')">
+                        <i class="fa fa-file-word text-primary w-20px"></i> Download as .DOCX
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <div class="reports-grid">
             <div class="report-stat-card">
                 <div class="report-label">Monthly Revenue</div>
                 <div class="report-value">₱24,500</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> 8.2% <span class="text-muted fw-normal">vs last month</span></div>
             </div>
             <div class="report-stat-card">
                 <div class="report-label">Total Active Members</div>
                 <div class="report-value" id="report-active-members">0</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> 12 <span class="text-muted fw-normal">new this week</span></div>
             </div>
             <div class="report-stat-card">
                 <div class="report-label">Pending Verifications</div>
                 <div class="report-value text-warning" id="report-pending-count">0</div>
+                <div class="report-indicator text-muted fw-normal">Requires Treasurer action</div>
             </div>
             <div class="report-stat-card">
                 <div class="report-label">Failed / Cancelled</div>
                 <div class="report-value text-red">0</div>
+                <div class="report-indicator text-green"><i class="fa fa-arrow-down"></i> 2.1% <span class="text-muted fw-normal">vs last month</span></div>
             </div>
         </div>
 
@@ -625,9 +896,38 @@ body.dark-mode .sec-table td { color: #aaa; }
                 </div>
             </div>
         </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="report-chart-box h-100">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Collection Status</h6>
+                    <div class="mini-card-container">
+                        <div class="mini-stat-card">
+                            <div class="m-val text-green">92%</div>
+                            <div class="m-lbl">Collected</div>
+                        </div>
+                        <div class="mini-stat-card">
+                            <div class="m-val text-red">8%</div>
+                            <div class="m-lbl">Overdue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="report-chart-box h-100" style="overflow-y: auto;">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Business Type Distribution</h6>
+                    <table class="report-flat-table">
+                        <tr><td>Retail & Merchandising</td><td class="text-end fw-bold">45%</td></tr>
+                        <tr><td>Manufacturing</td><td class="text-end fw-bold">25%</td></tr>
+                        <tr><td>Services & Consulting</td><td class="text-end fw-bold">20%</td></tr>
+                        <tr><td>IT & Technology</td><td class="text-end fw-bold">10%</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-    {{-- SETTINGS TAB (DRILL-DOWN MENU) --}}
+    {{-- SETTINGS TAB --}}
     <div id="section-settings" class="content-section" style="display: none;">
         
         {{-- VIEW 1: Main Settings Menu --}}
@@ -675,7 +975,7 @@ body.dark-mode .sec-table td { color: #aaa; }
             </div>
         </div>
 
-        {{-- VIEW 2: NEW ACCOUNT SETTINGS (LIGHT UI SPEC) --}}
+        {{-- VIEW 2: ACCOUNT SETTINGS --}}
         <div id="settings-account" class="fade-in" style="display: none;">
             
             <div class="acc-header-out">
@@ -699,7 +999,7 @@ body.dark-mode .sec-table td { color: #aaa; }
                         </div>
                     </div>
                     <div class="d-flex gap-2">
-                        <button class="new-acc-btn-upload shadow-sm">Upload new photo</button>
+                        <button class="new-acc-btn-upload shadow-sm" onclick="openCropModal()">Upload new photo</button>
                         <button class="new-acc-btn-delete shadow-sm">Delete</button>
                     </div>
                 </div>
@@ -749,7 +1049,7 @@ body.dark-mode .sec-table td { color: #aaa; }
             </div>
         </div>
 
-        {{-- VIEW 3: NEW SECURITY SETTINGS (DARK UI SPEC) --}}
+        {{-- VIEW 3: NEW SECURITY SETTINGS --}}
         <div id="settings-security" class="fade-in" style="display: none;">
             
             <div class="acc-header-out">
@@ -848,7 +1148,6 @@ body.dark-mode .sec-table td { color: #aaa; }
                             </div>
                         </div>
 
-                        {{-- Membership Expiry Reminder Toggle --}}
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>
                                 <h6 class="fw-bold mb-1 text-dark">Membership Expiry Reminder</h6>
@@ -920,6 +1219,71 @@ body.dark-mode .sec-table td { color: #aaa; }
     </div>
 </div>
 
+{{-- ADD PAYMENT MODAL (NEW) --}}
+<div class="custom-modal-overlay" id="addPaymentModal" onclick="closeAddPaymentOverlay(event)">
+    <div class="custom-modal-card add-payment-modal-card" onclick="event.stopPropagation()">
+        <button class="modal-close-x" onclick="hideAddPaymentModal()">&times;</button>
+        <div class="add-payment-modal-header">
+            <div class="add-payment-modal-icon-container">
+                <i class="fa fa-user fs-1 text-dark"></i>
+                <div class="add-payment-modal-check-icon"><i class="fa fa-check"></i></div>
+            </div>
+            <h5 class="add-payment-modal-title">Add Payment</h5>
+        </div>
+        
+        <div class="add-payment-modal-body">
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">Members</label>
+                <select class="add-payment-input form-select" style="font-size: 13px;">
+                    <option selected>Juan Dela Cruz</option>
+                    <option>Other Member A</option>
+                    <option>Other Member B</option>
+                </select>
+            </div>
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">OR Number</label>
+                <input type="text" class="add-payment-input" value="9403-4783" readonly>
+            </div>
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">Payment Date</label>
+                <input type="text" class="add-payment-input" value="02-11-2027" readonly>
+            </div>
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">Membership Type</label>
+                <select class="add-payment-input form-select" style="font-size: 13px;">
+                    <option selected>Annual</option>
+                    <option>Semi-Annual</option>
+                    <option>Quarterly</option>
+                </select>
+            </div>
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">Payment Type</label>
+                <select class="add-payment-input form-select" style="font-size: 13px;">
+                    <option selected>GCash</option>
+                    <option>Cash</option>
+                    <option>Bank Transfer</option>
+                </select>
+            </div>
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">Proof of Payment</label>
+                <input type="text" class="add-payment-input" value="Upload image (png, jpg)" readonly style="color: #999;">
+            </div>
+            <div class="add-payment-form-group">
+                <label class="add-payment-label">Receiver</label>
+                <select class="add-payment-input form-select" style="font-size: 13px;">
+                    <option selected>Jesus Versula</option>
+                    <option>Admin Person B</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="add-payment-modal-footer">
+            <button class="add-payment-btn-clear" onclick="clearPaymentForm()">Clear Form</button>
+            <button class="add-payment-btn-confirm" onclick="confirmPaymentAdd()">Confirm</button>
+        </div>
+    </div>
+</div>
+
 {{-- RESET PASSWORD OTP MODAL (NEW) --}}
 <div class="custom-modal-overlay" id="otpModal" onclick="closeOtpOverlay(event)">
     <div class="custom-modal-card otp-modal-card" onclick="event.stopPropagation()">
@@ -971,6 +1335,26 @@ body.dark-mode .sec-table td { color: #aaa; }
     </div>
 </div>
 
+{{-- CROP PROFILE PICTURE MODAL --}}
+<div class="custom-modal-overlay" id="cropModal" onclick="closeCropOverlay(event)">
+    <div class="custom-modal-card crop-modal-card" onclick="event.stopPropagation()">
+        <div class="crop-header">
+            <h5 class="crop-title">Crop your new profile picture</h5>
+            <button class="crop-close-btn" onclick="hideCropModal()"><i class="fa fa-times"></i></button>
+        </div>
+        
+        <div class="crop-body">
+            <div class="crop-image-container">
+                <img src="https://i.pravatar.cc/400?img=11" alt="To Crop">
+                <div class="crop-overlay-circle"></div>
+            </div>
+        </div>
+
+        <div class="crop-footer">
+            <button class="crop-btn-submit" onclick="setNewProfilePicture()">Set New Profile Picture</button>
+        </div>
+    </div>
+</div>
 
 {{-- JAVASCRIPT LOGIC --}}
 <script>
@@ -1015,6 +1399,7 @@ body.dark-mode .sec-table td { color: #aaa; }
             if (next && next.tagName.toLowerCase() === 'input') {
                 next.focus();
             } else if (!next) {
+                // It's the last box! Auto-transition to new password screen
                 setTimeout(() => {
                     hideOtpModal();
                     openResetPasswordModal();
@@ -1066,6 +1451,7 @@ body.dark-mode .sec-table td { color: #aaa; }
         if(/[A-Z]/.test(pw)) { reqUpper.classList.add('valid'); validCount++; } else { reqUpper.classList.remove('valid'); }
         if(/[0-9]/.test(pw)) { reqNum.classList.add('valid'); validCount++; } else { reqNum.classList.remove('valid'); }
 
+        // Light up button if all 4 conditions met
         if(validCount === 4) {
             submitBtn.classList.add('active');
         } else {
@@ -1090,6 +1476,20 @@ body.dark-mode .sec-table td { color: #aaa; }
         hideResetPasswordModal();
     }
 
+    // --- CROP PROFILE PICTURE MODAL LOGIC ---
+    function openCropModal() {
+        document.getElementById('cropModal').style.display = 'flex';
+    }
+    function hideCropModal() {
+        document.getElementById('cropModal').style.display = 'none';
+    }
+    function closeCropOverlay(e) {
+        if (e.target.id === 'cropModal') hideCropModal();
+    }
+    function setNewProfilePicture() {
+        alert("Profile picture successfully updated!");
+        hideCropModal();
+    }
 
     // --- DROPDOWN MENUS LOGIC ---
     function toggleReportDropdown(e) {
@@ -1389,6 +1789,13 @@ body.dark-mode .sec-table td { color: #aaa; }
     function hideMemberModal() { document.getElementById('memberDetailsModal').style.display = 'none'; }
     function closeMemberModal(e) { if (e.target.id === 'memberDetailsModal') hideMemberModal(); }
 
+    // --- ADD PAYMENT MODAL LOGIC ---
+    function openAddPaymentModal() { document.getElementById('addPaymentModal').style.display = 'flex'; }
+    function hideAddPaymentModal() { document.getElementById('addPaymentModal').style.display = 'none'; }
+    function closeAddPaymentOverlay(e) { if (e.target.id === 'addPaymentModal') hideAddPaymentModal(); }
+    function clearPaymentForm() { alert("Form cleared!"); }
+    function confirmPaymentAdd() { alert("Payment details confirmed!"); hideAddPaymentModal(); }
+
     document.addEventListener('DOMContentLoaded', () => {
         if (!token) { window.location.href = '/login'; return; }
         
@@ -1415,6 +1822,10 @@ body.dark-mode .sec-table td { color: #aaa; }
         
         document.getElementById('applicantSearch').addEventListener('input', applyApplicantFilters);
         document.getElementById('applicantSort').addEventListener('change', applyApplicantFilters);
+
+        // 🌟 THIS IS WHERE IT BELONGS: Check memory and switch tab immediately on load
+        const savedTab = localStorage.getItem('activeTab') || 'dashboard';
+        switchTab(savedTab);
     });
 
     // --- MEMBER FILTER/SORT ---
@@ -1547,6 +1958,7 @@ body.dark-mode .sec-table td { color: #aaa; }
     function nextApplicantPage() { if (currentApplicantPage < Math.ceil(filteredApplicantsData.length / applicantsPerPage)) { currentApplicantPage++; displayApplicantsPage(); } }
 
 
+    // 🌟 HERE IS THE MEMBER FETCH YOU ASKED FOR
     async function fetchMembers() {
         try {
             const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/members', { headers: { 'Authorization': `Bearer ${token}` } });
@@ -1555,13 +1967,20 @@ body.dark-mode .sec-table td { color: #aaa; }
             if (response.ok && data.data) {
                 allMembersData = data.data; 
                 
-                document.getElementById('total-members-badge').innerText = `${allMembersData.length} Active`;
-                document.getElementById('report-active-members').innerText = allMembersData.length;
+                const totalMembersBadge = document.getElementById('total-members-badge');
+                if (totalMembersBadge) totalMembersBadge.innerText = `${allMembersData.length} Active`;
+                
+                const reportActive = document.getElementById('report-active-members');
+                if (reportActive) reportActive.innerText = allMembersData.length;
                 
                 applyMemberFilters(); 
                 updateExpiringNotifications();
             }
-        } catch (err) {}
+        } catch (err) {
+            console.error("Failed to fetch members:", err);
+            const tbody = document.getElementById('members-table-body');
+            if(tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center py-5 text-danger fw-bold">Network error. Failed to load data.</td></tr>`;
+        }
     }
 
     function displayMembersPage() {
@@ -1745,6 +2164,8 @@ body.dark-mode .sec-table td { color: #aaa; }
 
     // UI Tab Switcher
     function switchTab(tabName) {
+        localStorage.setItem('activeTab', tabName); // 🌟 NEW: Saves the current tab
+        
         document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
         document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
         document.getElementById('section-' + tabName).style.display = 'block';
