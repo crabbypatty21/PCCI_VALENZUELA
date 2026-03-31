@@ -272,6 +272,13 @@
   }
   .ev-btn-edit:hover { border-color: var(--red); color: var(--red); background: #fff5f5; }
 
+  .ev-btn-delete {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+  }
+  .ev-btn-delete:hover { border-color: #dc3545; color: #fff; background: #dc3545; }
+
   /* ── MODAL ── */
   .ev-modal-overlay {
     display: none;
@@ -472,8 +479,17 @@
     color: var(--muted); letter-spacing: .5px;
     text-transform: uppercase; cursor: pointer;
     transition: background .15s, color .15s;
+    display: flex; align-items: center; justify-content: space-between;
   }
   .ev-cat-option:hover { background: #fdf0f1; color: var(--red); }
+  .ev-cat-option .ev-cat-edit-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: 11px; padding: 2px 6px;
+    border-radius: 4px; transition: color .15s, background .15s;
+    flex-shrink: 0;
+  }
+  .ev-cat-option:hover .ev-cat-edit-btn { color: var(--red); }
+  .ev-cat-option .ev-cat-edit-btn:hover { background: rgba(190,30,56,.1); }
   .ev-cat-option.add-cat {
     display: flex; align-items: center; gap: 8px;
     color: var(--text); border-top: 1px solid var(--border);
@@ -605,12 +621,9 @@
             <i class="fa-solid fa-chevron-down ev-cat-chevron"></i>
           </div>
           <div class="ev-cat-dropdown" id="evCatDropdown">
-            <div class="ev-cat-option" onclick="evSelectCat('General', 1)">General</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Special Holiday', 2)">Special Holiday</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Business', 3)">Business</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Networking', 4)">Networking</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Workshop', 5)">Workshop</div>
-            <div class="ev-cat-option" onclick="evSelectCat('Summit', 6)">Summit</div>
+            <div id="evCatOptions">
+              <div class="ev-cat-option" style="color:#999;pointer-events:none;">Loading categories...</div>
+            </div>
             <div class="ev-cat-option add-cat" onclick="evAddCategory()">
               <i class="fa-solid fa-plus"></i> Add Category
             </div>
@@ -701,6 +714,33 @@
   </div>
 </div>
 
+{{-- EDIT CATEGORY MODAL --}}
+<div class="ev-modal-overlay" id="evEditCatModal" onclick="evHandleEditCatOverlay(event)">
+  <div class="ev-modal" style="width:420px;max-width:95vw;">
+    <div class="ev-modal-header">
+      <div class="ev-modal-header-left">
+        <div class="ev-modal-icon" style="background:var(--red);">
+          <i class="fa-solid fa-pen" style="font-size:18px;"></i>
+        </div>
+        <h2>Edit Category</h2>
+      </div>
+      <button class="ev-modal-close" onclick="evCloseEditCatModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ev-modal-body" style="padding:24px 24px 8px;">
+      <input type="hidden" id="evEditCatId">
+      <div class="ev-form-group">
+        <div class="ev-input-wrap">
+          <input type="text" id="evEditCatInput" placeholder="Category Name"
+            onkeydown="if(event.key==='Enter') evUpdateCategory()">
+        </div>
+      </div>
+    </div>
+    <div class="ev-modal-footer">
+      <button class="ev-btn-clear" onclick="evCloseEditCatModal()">Cancel</button>
+      <button class="ev-btn-confirm" onclick="evUpdateCategory()">Update</button>
+    </div>
+  </div>
+</div>
 
 {{-- VIEW EVENT DETAILS MODAL --}}
 <div class="ev-modal-overlay" id="evViewModal" onclick="evHandleViewOverlay(event)">
@@ -771,17 +811,21 @@ const token = localStorage.getItem('token');
 if (!token) window.location.href = '/login';
 
 let evEvents = [];
+let evCategories = [];
 let evFilterActive = false;
 let evCurrentSearch = '';
 const evColors = ['c1','c2','c3','c4','c5','c6'];
 
-document.addEventListener('DOMContentLoaded', fetchEvents);
+document.addEventListener('DOMContentLoaded', function() {
+    fetchCategories();
+    fetchEvents();
+});
 
 /* ─── API FETCH EVENTS ─── */
 async function fetchEvents() {
     try {
         const response = await fetch(`${window.API_BASE_URL}/v1/events`, {
-            headers: { 
+            headers: {
                 'Authorization': `Bearer ${token}`,
                 'Accept': 'application/json'
             }
@@ -807,6 +851,58 @@ async function fetchEvents() {
     }
 }
 
+/* ─── API FETCH CATEGORIES ─── */
+async function fetchCategories() {
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/categories`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        const data = await response.json();
+
+        if (response.ok) {
+            evCategories = data.data ? data.data : (Array.isArray(data) ? data : []);
+            renderCategoryOptions();
+        } else {
+            console.error('Categories error:', data);
+            document.getElementById('evCatOptions').innerHTML =
+                '<div class="ev-cat-option" style="color:#b91c1c;pointer-events:none;">Failed to load categories</div>';
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        document.getElementById('evCatOptions').innerHTML =
+            '<div class="ev-cat-option" style="color:#b91c1c;pointer-events:none;">Error loading categories</div>';
+    }
+}
+
+function renderCategoryOptions() {
+    const container = document.getElementById('evCatOptions');
+    if (!evCategories.length) {
+        container.innerHTML = '<div class="ev-cat-option" style="color:#999;pointer-events:none;">No categories found</div>';
+        return;
+    }
+    container.innerHTML = evCategories.map(cat => {
+        const catName = cat.name || cat.category_name || cat.title || 'Unknown';
+        const catId = cat.id;
+        const escapedName = catName.replace(/'/g, "\\'");
+        return `<div class="ev-cat-option">
+            <span onclick="evSelectCat('${escapedName}', ${catId})" style="flex:1;">${catName}</span>
+            <button class="ev-cat-edit-btn" onclick="event.stopPropagation(); evEditCategory(${catId}, '${escapedName}')" title="Edit category">
+                <i class="fa-solid fa-pen"></i>
+            </button>
+        </div>`;
+    }).join('');
+}
+
 /* ─── RENDER ─── */
 function evRender(list) {
   const grid = document.getElementById('evGrid');
@@ -818,9 +914,10 @@ function evRender(list) {
   // NOTE: If your backend returns property names differently (like 'event_title' instead of 'title'), 
   // you must change ev.title to ev.event_title below.
   grid.innerHTML = list.map((ev, i) => {
-    // Determine image URL
-    const imgSrc = ev.image
-      ? (ev.image.startsWith('http') || ev.image.startsWith('data:') ? ev.image : '/storage/' + ev.image)
+    // Determine image URL (API returns "imagel")
+    const rawImg = ev.imagel || ev.image || null;
+    const imgSrc = rawImg
+      ? (rawImg.startsWith('http') || rawImg.startsWith('data:') ? rawImg : '/storage/' + rawImg)
       : null;
 
     const imgHtml = imgSrc
@@ -835,7 +932,13 @@ function evRender(list) {
 
     // Handle missing data fallbacks
     const safeTitle = ev.title || 'Untitled Event';
-    const safeCat = ev.category || 'General';
+    // category is a nested object: { id, name, ... }
+    let safeCat = 'General';
+    if (ev.category && typeof ev.category === 'object') {
+        safeCat = ev.category.name || 'General';
+    } else if (typeof ev.category === 'string') {
+        safeCat = ev.category;
+    }
     const safeStatus = ev.status || 'Upcoming';
     const safeDate = ev.date || 'TBA';
     const safeTime = ev.time || 'TBA';
@@ -865,6 +968,9 @@ function evRender(list) {
         <button class="ev-btn ev-btn-edit" onclick="evEdit(${ev.id})">
           <i class="fa-regular fa-pen-to-square"></i> Edit
         </button>
+        <button class="ev-btn ev-btn-delete" onclick="evDelete(${ev.id})">
+          <i class="fa-regular fa-trash-can"></i> Delete
+        </button>
       </div>
     </div>`;
   }).join('');
@@ -878,7 +984,7 @@ function evVisible() {
     const q = evCurrentSearch.toLowerCase();
     list = list.filter(e =>
       (e.title || '').toLowerCase().includes(q) ||
-      (e.category || '').toLowerCase().includes(q) ||
+      ((e.category && typeof e.category === 'object' ? e.category.name : e.category) || '').toLowerCase().includes(q) ||
       (e.location || '').toLowerCase().includes(q) ||
       (e.status || '').toLowerCase().includes(q)
     );
@@ -906,18 +1012,27 @@ function evOpenModal(prefill) {
     document.getElementById('evFDesc').value     = prefill.description || prefill.desc || '';
     document.getElementById('evFDate').value     = prefill.date || ''; // Assuming backend holds YYYY-MM-DD
     document.getElementById('evFTime').value     = prefill.time || ''; // Assuming backend holds HH:mm:ss
-    document.getElementById('evFImgExisting').value = prefill.image || '';
+    document.getElementById('evFImgExisting').value = prefill.imagel || prefill.image || '';
 
-    if (prefill.category) evSelectCat(prefill.category);
+    if (prefill.category && typeof prefill.category === 'object') {
+        evSelectCat(prefill.category.name, prefill.category.id);
+    } else if (prefill.category_id) {
+        const found = evCategories.find(c => c.id === prefill.category_id);
+        const catName = found ? found.name : 'Unknown';
+        evSelectCat(catName, prefill.category_id);
+    } else if (typeof prefill.category === 'string') {
+        evSelectCat(prefill.category);
+    }
 
     const statusEl = document.getElementById('evFStatus');
     statusEl.value = prefill.status || '';
     statusEl.style.color = prefill.status ? 'var(--text)' : '#bbb';
 
-    if (prefill.image) {
+    const prefillImg = prefill.imagel || prefill.image || null;
+    if (prefillImg) {
       const thumb = document.getElementById('evImgThumb');
-      const src = prefill.image.startsWith('http') || prefill.image.startsWith('data:')
-        ? prefill.image : '/storage/' + prefill.image;
+      const src = prefillImg.startsWith('http') || prefillImg.startsWith('data:')
+        ? prefillImg : '/storage/' + prefillImg;
       thumb.src = src; thumb.style.display = 'block';
       document.getElementById('evFileName').textContent = 'Current image';
     }
@@ -959,19 +1074,85 @@ function evAddCategory() {
 }
 function evCloseCatModal() { document.getElementById('evCatModal').classList.remove('open'); }
 function evHandleCatOverlay(e) { if (e.target === document.getElementById('evCatModal')) evCloseCatModal(); }
-function evConfirmCategory() {
+async function evConfirmCategory() {
   const name = document.getElementById('evNewCatInput').value.trim();
   if (!name) { document.getElementById('evNewCatInput').focus(); return; }
-  const dropdown = document.getElementById('evCatDropdown');
-  const addBtn = dropdown.querySelector('.add-cat');
-  const opt = document.createElement('div');
-  opt.className = 'ev-cat-option';
-  opt.textContent = name;
-  opt.onclick = () => evSelectCat(name);
-  dropdown.insertBefore(opt, addBtn);
-  evSelectCat(name);
-  evCloseCatModal();
+
+  try {
+      const response = await fetch(`${window.API_BASE_URL}/v1/categories`, {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: name })
+      });
+
+      const data = await response.json();
+
+      if (response.ok || response.status === 201) {
+          const newCat = data.data ? data.data : data;
+          evCategories.push(newCat);
+          renderCategoryOptions();
+          evSelectCat(newCat.name || newCat.category_name || newCat.title || name, newCat.id);
+          evCloseCatModal();
+      } else {
+          alert('Failed to add category: ' + (data.message || 'Unknown error'));
+      }
+  } catch (err) {
+      console.error('Error adding category:', err);
+      alert('Network error. Failed to add category.');
+  }
 }
+/* ─── EDIT / UPDATE CATEGORY ─── */
+function evEditCategory(id, name) {
+    document.getElementById('evEditCatId').value = id;
+    document.getElementById('evEditCatInput').value = name;
+    document.getElementById('evCatTrigger').classList.remove('open');
+    document.getElementById('evCatDropdown').classList.remove('open');
+    document.getElementById('evEditCatModal').classList.add('open');
+    setTimeout(() => document.getElementById('evEditCatInput').focus(), 100);
+}
+function evCloseEditCatModal() { document.getElementById('evEditCatModal').classList.remove('open'); }
+function evHandleEditCatOverlay(e) { if (e.target === document.getElementById('evEditCatModal')) evCloseEditCatModal(); }
+
+async function evUpdateCategory() {
+    const id = document.getElementById('evEditCatId').value;
+    const name = document.getElementById('evEditCatInput').value.trim();
+    if (!name) { document.getElementById('evEditCatInput').focus(); return; }
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/categories/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            const idx = evCategories.findIndex(c => c.id == id);
+            if (idx !== -1) {
+                evCategories[idx] = data.data ? data.data : { ...evCategories[idx], name: name };
+            }
+            renderCategoryOptions();
+            evCloseEditCatModal();
+            // Refresh events to show updated category name
+            evVisible();
+        } else {
+            alert('Failed to update category: ' + (data.message || 'Unknown error'));
+        }
+    } catch (err) {
+        console.error('Error updating category:', err);
+        alert('Network error. Failed to update category.');
+    }
+}
+
 document.addEventListener('click', e => {
   if (!document.getElementById('evCatWrap')?.contains(e.target)) {
     document.getElementById('evCatTrigger')?.classList.remove('open');
@@ -1033,15 +1214,18 @@ async function evSave() {
     if(date) formData.append('date', date);
     if(time) formData.append('time', time);
     formData.append('location', location);
-    formData.append('description', desc); // Send as 'description' standard to laravel
+    formData.append('description', desc);
 
     // Append file if selected
     if (fileInput.files.length > 0) {
         formData.append('image', fileInput.files[0]);
     }
 
-    // Identify the endpoint
-    // If editId exists, we append to the single event endpoint
+    // For update, use _method PUT (Laravel method spoofing)
+    if (editId) {
+        formData.append('_method', 'PUT');
+    }
+
     const url = editId ? `${window.API_BASE_URL}/v1/events/${editId}` : `${window.API_BASE_URL}/v1/events`;
 
     try {
@@ -1062,7 +1246,11 @@ async function evSave() {
             evCloseModal();
             fetchEvents(); // Reload the UI with fresh data from DB
         } else {
-            alert('Failed to save event: ' + (data.message || 'Validation Error'));
+            let errorMsg = data.message || 'Validation Error';
+            if (data.errors) {
+                errorMsg += '\n' + Object.entries(data.errors).map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`).join('\n');
+            }
+            alert('Failed to save event: ' + errorMsg);
         }
     } catch (err) {
         console.error(err);
@@ -1073,13 +1261,50 @@ async function evSave() {
     }
 }
 
+/* ─── DELETE EVENT ─── */
+async function evDelete(id) {
+    if (!confirm('Are you sure you want to delete this event?')) return;
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/events/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        if (response.ok || response.status === 204) {
+            fetchEvents();
+        } else {
+            const data = await response.json();
+            alert('Failed to delete event: ' + (data.message || 'Unknown error'));
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Network error. Failed to delete.');
+    }
+}
+
 /* ─── VIEW MODAL ─── */
 function evView(id) {
   const ev = evEvents.find(e => e.id === id);
   if (!ev) return;
 
   document.getElementById('evViewTitle').textContent = ev.title || 'Untitled';
-  document.getElementById('evViewTag').textContent   = ev.category || 'General';
+  let viewCat = 'General';
+  if (ev.category && typeof ev.category === 'object') {
+      viewCat = ev.category.name || 'General';
+  } else if (typeof ev.category === 'string') {
+      viewCat = ev.category;
+  }
+  document.getElementById('evViewTag').textContent = viewCat;
 
   document.getElementById('evViewDate').textContent     = ev.date || 'TBA';
   document.getElementById('evViewTime').textContent     = ev.time || 'TBA';
@@ -1095,9 +1320,10 @@ function evView(id) {
   const img  = document.getElementById('evViewImg');
   const ph   = document.getElementById('evViewImgPlaceholder');
   ph.className = 'ev-card-img-placeholder ' + (ev.color || 'c1');
-  if (ev.image) {
-    const src = ev.image.startsWith('http') || ev.image.startsWith('data:')
-      ? ev.image : '/storage/' + ev.image;
+  const viewImg = ev.imagel || ev.image || null;
+  if (viewImg) {
+    const src = viewImg.startsWith('http') || viewImg.startsWith('data:')
+      ? viewImg : '/storage/' + viewImg;
     img.src = src;
     img.style.display = 'block';
     ph.style.display  = 'none';

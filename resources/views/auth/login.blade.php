@@ -261,26 +261,55 @@
         const errorDiv = document.getElementById('api-error');
         const submitBtn = document.getElementById('submitBtn');
 
+        // Reset UI
         errorDiv.style.display = 'none';
         errorDiv.textContent = '';
         submitBtn.disabled = true;
         submitBtn.textContent = 'Signing In...';
 
-        try {
-            const response = await fetch(`${window.API_BASE_URL}/login`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json' 
-                },
-                body: JSON.stringify({ email, password })
-            });
+        let response;
+        const maxRetries = 3;
+        const retryDelayMs = 2000; // 2 seconds
 
+        try {
+            // RETRY LOGIC LOOP
+            for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                try {
+                    response = await fetch(`${window.API_BASE_URL}/login`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json' 
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+                    
+                    // If fetch succeeds (even if it's a 401 unauthorized), break out of the retry loop.
+                    // A response means the network is working.
+                    break; 
+
+                } catch (networkError) {
+                    // This catches ERR_NAME_NOT_RESOLVED and ERR_NETWORK_CHANGED
+                    console.warn(`Network error on attempt ${attempt}:`, networkError);
+                    
+                    if (attempt === maxRetries) {
+                        throw new Error('Network unavailable. Please check your internet connection and try again.'); // Pass to the outer catch
+                    }
+                    
+                    // Update UI to inform user
+                    submitBtn.textContent = `Reconnecting (${attempt}/${maxRetries - 1})...`;
+                    
+                    // Wait before the next attempt
+                    await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+                }
+            }
+
+            // --- PROCEED WITH EXISTING RESPONSE HANDLING ---
             const contentType = response.headers.get("content-type");
             if (!contentType || !contentType.includes("application/json")) {
                 const textResponse = await response.text();
                 console.error("API returned HTML instead of JSON. Here is the HTML:", textResponse);
-                throw new Error("Server error: The API returned an invalid format. Check console for details.");
+                throw new Error("Server error: The API returned an invalid format (likely a 502 Bad Gateway or 404). Check console.");
             }
 
             const data = await response.json();
@@ -304,11 +333,13 @@
                 errorDiv.textContent = data.message || 'Login failed. Check credentials.';
                 errorDiv.style.display = 'block';
             }
+
         } catch (err) {
-            console.error("Fetch Error:", err);
+            console.error("Fetch/Logic Error:", err);
             errorDiv.textContent = err.message || 'An error occurred. Please check your connection.';
             errorDiv.style.display = 'block';
         } finally {
+            // Restore button state
             submitBtn.disabled = false;
             submitBtn.textContent = 'Sign In';
         }
