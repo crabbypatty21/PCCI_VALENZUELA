@@ -332,13 +332,27 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <aside class="sidebar" id="adminSidebar">
-        <div class="admin-profile">
-            <img src="https://i.pravatar.cc/150?u=maui" class="avatar" alt="Maui">
+        <a href="{{ route('admin.profile') }}" class="admin-profile" style="text-decoration: none; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#fff1f3'" onmouseout="this.style.backgroundColor=''">
+            <img src="https://i.pravatar.cc/150?u=default" class="avatar" id="sidebarAvatar" alt="Admin">
             <div class="admin-info">
                 <span class="role">Admin</span>
-                <span class="name">MAUI G.</span>
+                <span class="name" id="sidebarAdminName">ADMIN</span>
             </div>
-        </div>
+        </a>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const name = localStorage.getItem('userName');
+                if (name) {
+                    const el = document.getElementById('sidebarAdminName');
+                    if (el) el.textContent = name.toUpperCase();
+                }
+                const avatar = localStorage.getItem('adminAvatar');
+                if (avatar) {
+                    const img = document.getElementById('sidebarAvatar');
+                    if (img) img.src = avatar;
+                }
+            });
+        </script>
 
         <div class="menu-label">Admin Panel</div>
         <nav>
@@ -354,7 +368,7 @@
                 <i class="bi bi-person-fill"></i> APPLICANT
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
                 <i class="bi bi-person-gear"></i> ADMIN USERS
             </a>
 

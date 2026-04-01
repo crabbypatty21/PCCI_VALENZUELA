@@ -567,21 +567,108 @@
 
                 {{-- Stats Grid --}}
                 <div class="row g-4">
-                    @foreach([
-                        ['number' => '100+', 'label' => 'Active Members', 'desc' => 'Growing network'],
-                        ['number' => '32+', 'label' => 'Years of Service', 'desc' => 'Dedicated progress'],
-                        ['number' => '200+', 'label' => 'Events Hosted', 'desc' => 'Fostering connections'],
-                        ['number' => '₱500M+', 'label' => 'Value Created', 'desc' => 'Facilitated growth'],
-                    ] as $stat)
                     <div class="col-sm-6">
                         <div class="p-4 h-100 impact-stat-box" style="background: rgba(212, 0, 50, 0.05); border: 1px solid rgba(212, 0, 50, 0.15); border-radius: 12px;">
-                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">{{ $stat['number'] }}</h3>
-                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">{{ $stat['label'] }}</div>
-                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">{{ $stat['desc'] }}</p>
+                            <h3 class="fw-bold mb-1" id="stat-members" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">...</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">Active Members</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">Growing network</p>
                         </div>
                     </div>
-                    @endforeach
+                    <div class="col-sm-6">
+                        <div class="p-4 h-100 impact-stat-box" style="background: rgba(212, 0, 50, 0.05); border: 1px solid rgba(212, 0, 50, 0.15); border-radius: 12px;">
+                            <h3 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">32+</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">Years of Service</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">Dedicated progress</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-4 h-100 impact-stat-box" style="background: rgba(212, 0, 50, 0.05); border: 1px solid rgba(212, 0, 50, 0.15); border-radius: 12px;">
+                            <h3 class="fw-bold mb-1" id="stat-events" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">...</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">Events Hosted</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">Fostering connections</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-4 h-100 impact-stat-box" style="background: rgba(212, 0, 50, 0.05); border: 1px solid rgba(212, 0, 50, 0.15); border-radius: 12px;">
+                            <h3 class="fw-bold mb-1" id="stat-applicants" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; color: #D40032;">...</h3>
+                            <div class="fw-bold text-uppercase mb-2" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-main);">Applicants</div>
+                            <p class="mb-0 small" style="font-family: 'DM Sans', sans-serif; color: var(--text-secondary);">Business applications</p>
+                        </div>
+                    </div>
                 </div>
+
+                <script>
+                (function() {
+                    function animateCount(el, target) {
+                        let current = 0;
+                        const duration = 600;
+                        const steps = 30;
+                        const increment = target / steps;
+                        const interval = duration / steps;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                clearInterval(timer);
+                                el.textContent = target;
+                            } else {
+                                el.textContent = Math.floor(current);
+                            }
+                        }, interval);
+                    }
+
+                    async function fetchAboutStats() {
+                        const token = localStorage.getItem('token');
+                        const headers = { 'Accept': 'application/json' };
+                        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                        // Fetch members (business directory - public)
+                        try {
+                            const res = await fetch(`${window.API_BASE_URL}/v1/business`, { headers });
+                            const data = await res.json();
+                            if (res.ok) {
+                                const count = data.data ? data.data.length : (Array.isArray(data) ? data.length : 0);
+                                animateCount(document.getElementById('stat-members'), count);
+                            } else {
+                                document.getElementById('stat-members').textContent = '—';
+                            }
+                        } catch (e) { document.getElementById('stat-members').textContent = '—'; }
+
+                        // Fetch events (public)
+                        try {
+                            const res = await fetch(`${window.API_BASE_URL}/v1/events`, { headers: { 'Accept': 'application/json' } });
+                            const data = await res.json();
+                            if (res.ok) {
+                                const count = data.data ? data.data.length : (Array.isArray(data) ? data.length : 0);
+                                animateCount(document.getElementById('stat-events'), count);
+                            } else {
+                                document.getElementById('stat-events').textContent = '—';
+                            }
+                        } catch (e) { document.getElementById('stat-events').textContent = '—'; }
+
+                        // Fetch applicants (needs auth)
+                        if (token) {
+                            try {
+                                const res = await fetch(`${window.API_BASE_URL}/v1/applicants`, { headers });
+                                const data = await res.json();
+                                if (res.ok) {
+                                    const count = data.data ? data.data.length : (Array.isArray(data) ? data.length : 0);
+                                    animateCount(document.getElementById('stat-applicants'), count);
+                                } else {
+                                    document.getElementById('stat-applicants').textContent = '—';
+                                }
+                            } catch (e) { document.getElementById('stat-applicants').textContent = '—'; }
+                        } else {
+                            document.getElementById('stat-applicants').textContent = '—';
+                        }
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', fetchAboutStats);
+                    } else {
+                        fetchAboutStats();
+                    }
+                })();
+                </script>
 
             </div>
         </div>
