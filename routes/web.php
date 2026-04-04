@@ -42,10 +42,22 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
+Route::get('/admin/profile', function () {
+    return view('admin.profile');
+})->name('admin.profile');
+
+Route::get('/admin/users', function () {
+    return view('admin.admin-users');
+})->name('admin.users');
+
 //treasurer dashboard route
 Route::get('/treasurer-dashboard', function () {
     return view('treasurer.dashboard');
 })->name('treasurer.dashboard');
+
+// Treasurer proxy — process payment using admin token server-side
+Route::post('/treasurer/process-payment/{id}', [\App\Http\Controllers\Api\TreasurerProxyController::class, 'processPayment'])
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
 
 // member dashboard route
 Route::get('/member-dashboard', function () {

@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
-public function index() 
 {
+    public function index()
+    {
     // If you are manually formatting the data, make sure 'id' is there!
     $businesses = Business::all()->map(function ($business) {
         return [
@@ -19,5 +20,6 @@ public function index()
         ];
     });
 
-    return response()->json(['data' => $businesses]);
+        return response()->json(['data' => $businesses]);
+    }
 }

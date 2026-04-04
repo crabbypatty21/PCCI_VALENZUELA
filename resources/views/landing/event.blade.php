@@ -75,6 +75,14 @@
             </div>
         </div>
 
+        {{-- Pagination --}}
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4 gap-3">
+            <div id="eventsShowingText" class="small fw-medium" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;"></div>
+            <nav>
+                <ul class="pagination mb-0" id="eventsPagination"></ul>
+            </nav>
+        </div>
+
     </div>
 </div>
 
@@ -137,6 +145,9 @@
 <script>
 let allEvents = [];
 let allCategories = [];
+let filteredEvents = [];
+let eventsCurrentPage = 1;
+const eventsPerPage = 9; // 3 rows x 3 columns
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchLandingEvents();
@@ -219,7 +230,7 @@ function filterEvents() {
     const catFilter = document.getElementById('eventCategoryFilter').value;
     const statusFilter = document.getElementById('eventStatusFilter').value;
 
-    let filtered = allEvents.filter(ev => {
+    filteredEvents = allEvents.filter(ev => {
         const title = (ev.title || '').toLowerCase();
         const desc = (ev.description || '').toLowerCase();
         const loc = (ev.location || '').toLowerCase();
@@ -233,7 +244,70 @@ function filterEvents() {
         return matchSearch && matchCat && matchStatus;
     });
 
-    renderEvents(filtered);
+    eventsCurrentPage = 1;
+    renderEventsPage();
+}
+
+function renderEventsPage() {
+    const total = filteredEvents.length;
+    const totalPages = Math.ceil(total / eventsPerPage);
+
+    if (eventsCurrentPage < 1) eventsCurrentPage = 1;
+    if (eventsCurrentPage > totalPages) eventsCurrentPage = totalPages || 1;
+
+    const start = (eventsCurrentPage - 1) * eventsPerPage;
+    const pageEvents = filteredEvents.slice(start, start + eventsPerPage);
+
+    renderEvents(pageEvents);
+
+    // Update showing text
+    const showingEl = document.getElementById('eventsShowingText');
+    if (total === 0) {
+        showingEl.textContent = '0 results';
+    } else {
+        showingEl.textContent = `Showing ${start + 1}-${Math.min(start + eventsPerPage, total)} of ${total} events`;
+    }
+
+    // Render pagination
+    renderEventsPagination(totalPages);
+}
+
+function renderEventsPagination(totalPages) {
+    const container = document.getElementById('eventsPagination');
+    container.innerHTML = '';
+
+    if (totalPages <= 1) return;
+
+    // Previous
+    container.innerHTML += `
+        <li class="page-item ${eventsCurrentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link border-0 shadow-sm" style="cursor:pointer;color:var(--text-muted);background:var(--bg-input,#fff);" onclick="goToEventsPage(${eventsCurrentPage - 1})">Previous</a>
+        </li>`;
+
+    for (let p = 1; p <= totalPages; p++) {
+        const isActive = eventsCurrentPage === p;
+        container.innerHTML += `
+            <li class="page-item ${isActive ? 'active' : ''}">
+                <a class="page-link border-0 rounded mx-1 ${isActive ? 'text-white shadow-sm' : ''}"
+                   style="${isActive ? 'background-color:#D40032;cursor:default;' : 'background:var(--bg-input,#fff);color:var(--text-muted);cursor:pointer;'}"
+                   onclick="goToEventsPage(${p})">${p}</a>
+            </li>`;
+    }
+
+    // Next
+    container.innerHTML += `
+        <li class="page-item ${eventsCurrentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link border-0 shadow-sm" style="cursor:pointer;color:var(--text-muted);background:var(--bg-input,#fff);" onclick="goToEventsPage(${eventsCurrentPage + 1})">Next</a>
+        </li>`;
+}
+
+function goToEventsPage(page) {
+    const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+    if (page < 1 || page > totalPages) return;
+    eventsCurrentPage = page;
+    renderEventsPage();
+    // Scroll to grid
+    document.getElementById('eventsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function renderEvents(events) {
