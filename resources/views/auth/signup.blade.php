@@ -247,6 +247,7 @@
                     <form id="registrationForm" onsubmit="return false;">
                         @csrf
                         
+                        <input type="hidden" name="membership_type" value="Regular">
                         <input type="hidden" name="form_of_organization" value="Corporation">
                         <input type="hidden" name="registration_type" value="SEC">
                         <input type="hidden" name="registration_number" value="N/A">
@@ -463,15 +464,15 @@
                             
                             <div class="mb-4">
                                 <label class="form-label-custom">Mayor's Permit</label>
-                                <input type="file" class="form-control form-control-dark">
+                                <input type="file" name="mayors_permit" class="form-control form-control-dark" accept="image/*,.pdf">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label-custom">DTI/SEC Business Registration Copy</label>
-                                <input type="file" class="form-control form-control-dark">
+                                <input type="file" name="dti_sec_registration" class="form-control form-control-dark" accept="image/*,.pdf">
                             </div>
                             <div class="mb-5">
-                                <label class="form-label-custom">Annual Membership Fee</label>
-                                <input type="file" class="form-control form-control-dark">
+                                <label class="form-label-custom">Proof of Payment <span class="text-danger">*</span></label>
+                                <input type="file" name="proof_of_payment" class="form-control form-control-dark" accept="image/*,.pdf" required>
                             </div>
 
                             <div class="d-flex justify-content-between mt-4">
@@ -589,26 +590,25 @@
         submitBtn.innerText = 'Submitting...';
         errorDiv.style.display = 'none';
 
-        // Gather Data
+        // Gather Data as FormData (supports file uploads)
         const form = document.getElementById('registrationForm');
         const formData = new FormData(form);
-        
-        // Convert FormData to JSON Object
-        const data = Object.fromEntries(formData.entries());
+
+        // Remove Laravel CSRF token — not needed for external API
+        formData.delete('_token');
 
         // Fix Type Conversions (API expects integers)
-        data.number_of_employees = parseInt(data.number_of_employees || 0);
-        data.year_established = parseInt(data.year_established || 2024);
+        formData.set('number_of_employees', parseInt(formData.get('number_of_employees') || 0));
+        formData.set('year_established', parseInt(formData.get('year_established') || 2024));
 
         try {
-            // Post to the API
+            // Post to the API as multipart/form-data (for file uploads)
             const response = await fetch(`${window.API_BASE_URL}/v1/apply`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: formData
             });
 
             const result = await response.json();
@@ -616,14 +616,18 @@
             if (response.ok) {
                 showSuccessStep();
             } else {
-                // Error Handling
+                // Error Handling — show specific validation errors
+                console.error('API validation errors:', result);
                 let msg = result.message || 'Submission failed.';
-                if(result.errors) {
-                    msg += ' ' + JSON.stringify(result.errors);
+                if (result.errors) {
+                    const errorList = Object.entries(result.errors)
+                        .map(([field, messages]) => `- ${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
+                        .join('\n');
+                    msg += '\n' + errorList;
                 }
+                errorDiv.style.whiteSpace = 'pre-line';
                 errorDiv.innerText = msg;
                 errorDiv.style.display = 'block';
-                // Scroll to top to see error
                 document.getElementById('form-header').scrollIntoView({ behavior: 'smooth' });
             }
         } catch (error) {

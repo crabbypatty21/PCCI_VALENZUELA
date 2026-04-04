@@ -223,7 +223,9 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
 /* =========================================
    OTP & RESET PASSWORD MODAL STYLES
-   ========================================= */
+   ======================================
+   
+   === */
 .otp-modal-card { background: #ffffff; max-width: 450px !important; padding: 30px; border-radius: 12px; border: none; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 .otp-title { font-size: 20px; font-weight: bold; margin-bottom: 10px; color: #111; }
 .otp-subtitle { font-size: 14px; color: #666; margin-bottom: 25px; line-height: 1.5; }
@@ -1729,44 +1731,45 @@ body.dark-mode .reset-pw-checklist { color: #666; }
 
     async function confirmProcessing() {
         const data = membershipTypes.find(m => m.id == currentSelectedType);
-        if (!data) return;
+        if (!data || !currentApplicantId) return;
 
         try {
-            const response = await fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=paid', {
+            // Use local proxy route which forwards to remote API with admin token
+            const response = await fetch(`/treasurer/process-payment/${currentApplicantId}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ applicant_id: currentApplicantId, membership_type_id: currentSelectedType })
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ membership_type_id: currentSelectedType })
             });
-
-            if (!checkAuth(response)) return;
 
             if (response.ok || response.status === 200 || response.status === 201) {
                 hideProofModal();
-                
+
                 const amtLbl = document.getElementById(`amount-label-${currentApplicantId}`);
                 const typeLbl = document.getElementById(`type-label-${currentApplicantId}`);
                 const bge = document.getElementById(`status-badge-${currentApplicantId}`);
                 const actionBox = document.getElementById(`action-container-${currentApplicantId}`);
-                
+
                 if(amtLbl) { amtLbl.innerText = `₱ Processed`; amtLbl.className = "fw-bold text-dark"; }
                 if(typeLbl) { typeLbl.innerText = "PAID"; typeLbl.className = "text-success fw-bold"; }
                 if(bge) { bge.innerHTML = `<i class="fa fa-check-double me-1"></i> PAID`; bge.className = "badge bg-success text-white px-2 py-1 rounded-pill fw-bold shadow-sm"; }
                 if(actionBox) { actionBox.innerHTML = `<button class="action-btn btn-gray" disabled style="width: 130px;"><i class="fa fa-check"></i> Processed</button>`; }
 
-                fetchMembers();        
-                fetchTransactions();   
-                fetchRecentPayments(); 
+                fetchMembers();
+                fetchTransactions();
+                fetchRecentPayments();
                 alert("Success: Payment Processed!");
             } else {
-                const result = await response.json();
-                if (response.status === 422 && result.errors) {
-                    let errorMessages = "Laravel Validation Failed! It needs these fields:\n\n";
+                const result = await response.json().catch(() => ({}));
+                if (response.status === 401 || response.status === 403) {
+                    alert("Access denied. Your account may not have permission to process payments. Please contact the administrator to grant treasurer access to the applicants endpoint.");
+                } else if (response.status === 422 && result.errors) {
+                    let errorMessages = "Validation Failed:\n\n";
                     for (let field in result.errors) {
-                        errorMessages += `❌ ${field}: ${result.errors[field].join(', ')}\n`;
+                        errorMessages += `- ${field}: ${result.errors[field].join(', ')}\n`;
                     }
                     alert(errorMessages);
                 } else {
-                    alert(`Backend Error: ${result.message || 'Something went wrong'}`);
+                    alert(`Error: ${result.message || 'Something went wrong. Please try again.'}`);
                 }
             }
         } catch (err) { alert("Network error: Could not reach the server."); }
@@ -1885,14 +1888,12 @@ body.dark-mode .reset-pw-checklist { color: #666; }
     async function fetchApplicants() {
         try {
             const [res1, res2] = await Promise.all([
-                fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=approved', { headers: { 'Authorization': `Bearer ${token}` } }),
-                fetch('https://pcci-laravel-api.onrender.com/api/v1/applicants?status=paid', { headers: { 'Authorization': `Bearer ${token}` } })
+                fetch(`${window.API_BASE_URL}/v1/applicants?status=approved`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                fetch(`${window.API_BASE_URL}/v1/applicants?status=paid`, { headers: { 'Authorization': `Bearer ${token}` } })
             ]);
 
-            if (!checkAuth(res1)) return;
-
             let combinedData = [];
-            
+
             if (res1.ok) {
                 const data1 = await res1.json();
                 if (data1.data) combinedData = combinedData.concat(data1.data);
@@ -1905,11 +1906,13 @@ body.dark-mode .reset-pw-checklist { color: #666; }
             allApplicantsData = combinedData;
 
             const pendingCount = allApplicantsData.filter(a => String(a.status).toLowerCase() !== 'paid').length;
-            document.getElementById('report-pending-count').innerText = pendingCount; 
-            document.getElementById('report-pending-count-badge').innerText = `${pendingCount} Pending`; 
-            
-            applyApplicantFilters(); 
-        } catch (err) {}
+            document.getElementById('report-pending-count').innerText = pendingCount;
+            document.getElementById('report-pending-count-badge').innerText = `${pendingCount} Pending`;
+
+            applyApplicantFilters();
+        } catch (err) {
+            console.error('Error fetching applicants:', err);
+        }
     }
 
     function displayApplicantsPage() {

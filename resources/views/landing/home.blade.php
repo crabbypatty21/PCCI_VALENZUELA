@@ -1711,65 +1711,104 @@
             <h2 class="section-title">Join Our Business <span>Community</span></h2>
             <p class="section-description">Participate in our upcoming events designed to foster networking, learning, and business growth</p>
         </div>
-        <div class="events-grid-wrapper">
+        <div class="events-grid-wrapper" id="homeEventsGrid">
+            {{-- Loading placeholder --}}
+            @for ($i = 0; $i < 3; $i++)
             <div class="event-card">
-                <div class="event-card-image-wrapper">
-                    <div class="event-date-badge">
-                        <span class="day-name">Tue</span>
-                        <span class="day-number">21</span>
-                        <span class="month">Jan</span>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop" alt="Event Image">
+                <div class="event-card-image-wrapper d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg,#c0392b,#7d1a1a);">
+                    <div class="spinner-border text-white" role="status"><span class="visually-hidden">Loading...</span></div>
                 </div>
                 <div class="event-card-body">
-                    <div class="event-location">
-                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                        <i class="bi bi-geo-alt-fill"></i>
-                        Valenzuela City
-                    </div>
-                    <h3 class="event-card-title">Most Outstanding Advocacy Award National Tourism</h3>
-                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                    <div class="event-location"><i class="bi bi-geo-alt-fill"></i> Loading...</div>
+                    <h3 class="event-card-title placeholder-glow"><span class="placeholder col-8"></span></h3>
                 </div>
             </div>
-            <div class="event-card">
-                <div class="event-card-image-wrapper">
-                    <div class="event-date-badge">
-                        <span class="day-name">Wed</span>
-                        <span class="day-number">05</span>
-                        <span class="month">Feb</span>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop" alt="Event Image">
-                </div>
-                <div class="event-card-body">
-                    <div class="event-location">
-                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                        <i class="bi bi-geo-alt-fill"></i>
-                        PCCI Hall
-                    </div>
-                    <h3 class="event-card-title">Business Networking Summit 2025</h3>
-                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                </div>
-            </div>
-            <div class="event-card">
-                <div class="event-card-image-wrapper">
-                    <div class="event-date-badge">
-                        <span class="day-name">Fri</span>
-                        <span class="day-number">15</span>
-                        <span class="month">Mar</span>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="Event Image">
-                </div>
-                <div class="event-card-body">
-                    <div class="event-location">
-                        {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
-                        <i class="bi bi-geo-alt-fill"></i>
-                        Valenzuela Trade Center
-                    </div>
-                    <h3 class="event-card-title">Entrepreneurship Workshop Series</h3>
-                    <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
-                </div>
-            </div>
+            @endfor
         </div>
+
+        <script>
+        (function() {
+            async function loadHomeEvents() {
+                const grid = document.getElementById('homeEventsGrid');
+                try {
+                    const response = await fetch(`${window.API_BASE_URL}/v1/events`, {
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error('API error');
+
+                    const events = (data.data ? data.data : (Array.isArray(data) ? data : [])).slice(0, 3);
+
+                    if (!events.length) {
+                        grid.innerHTML = '<p class="text-center w-100" style="color: var(--text-muted);">No events available.</p>';
+                        return;
+                    }
+
+                    const apiOrigin = window.API_BASE_URL.replace(/\/api\/?$/, '');
+                    const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+                    grid.innerHTML = events.map(ev => {
+                        const title = ev.title || 'Untitled Event';
+                        const location = ev.location || 'TBA';
+
+                        let dayName = '', dayNum = '', month = '';
+                        if (ev.date) {
+                            const d = new Date(ev.date + 'T00:00:00');
+                            dayName = dayNames[d.getDay()];
+                            dayNum = String(d.getDate()).padStart(2, '0');
+                            month = monthNames[d.getMonth()];
+                        }
+
+                        return `
+                        <div class="event-card" data-event-home-id="${ev.id}">
+                            <div class="event-card-image-wrapper" style="background: linear-gradient(135deg,#c0392b,#7d1a1a);">
+                                ${ev.date ? `<div class="event-date-badge">
+                                    <span class="day-name">${dayName}</span>
+                                    <span class="day-number">${dayNum}</span>
+                                    <span class="month">${month}</span>
+                                </div>` : ''}
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-location">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    ${location}
+                                </div>
+                                <h3 class="event-card-title">${title}</h3>
+                                <a href="{{ route('event') }}" class="btn-event-details">View Details</a>
+                            </div>
+                        </div>`;
+                    }).join('');
+
+                    // Inject images via DOM to avoid URL encoding issues
+                    events.forEach(ev => {
+                        const rawImg = ev.imagel || ev.image || null;
+                        if (!rawImg) return;
+                        const imgSrc = (rawImg.startsWith('http') || rawImg.startsWith('data:'))
+                            ? rawImg
+                            : apiOrigin + '/storage/' + rawImg;
+                        const wrapper = grid.querySelector(`.event-card[data-event-home-id="${ev.id}"] .event-card-image-wrapper`);
+                        if (!wrapper) return;
+                        const img = document.createElement('img');
+                        img.alt = ev.title || 'Event';
+                        img.onerror = function() { this.style.display = 'none'; };
+                        img.src = imgSrc;
+                        wrapper.appendChild(img);
+                    });
+
+                } catch (err) {
+                    console.error('Error loading home events:', err);
+                    grid.innerHTML = '<p class="text-center w-100 text-danger">Failed to load events.</p>';
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadHomeEvents);
+            } else {
+                loadHomeEvents();
+            }
+        })();
+        </script>
         <div class="text-center">
             <a href="{{ route('event') }}" class="btn-view-all-events">
                 View All Events
@@ -1789,7 +1828,6 @@
         <div class="testimonials-grid-wrapper">
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
-                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
                     <i class="bi bi-quote"></i>
                 </div>
                 <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
@@ -1801,7 +1839,6 @@
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
-                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
                     <i class="bi bi-quote"></i>
                 </div>
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
@@ -1813,7 +1850,6 @@
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-quote-icon">
-                    {{-- REPLACED SVG WITH BOOTSTRAP ICON --}}
                     <i class="bi bi-quote"></i>
                 </div>
                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Member" class="testimonial-avatar">
@@ -1889,73 +1925,174 @@
             
             <div class="map-sidebar">
                 <div class="map-sidebar-title">OUR MEMBERS</div>
-                
+
                 <div class="map-search-wrapper">
                     <i class="bi bi-search map-search-icon"></i>
-                    <input type="text" class="map-search-input" placeholder="Search members...">
+                    <input type="text" class="map-search-input" id="mapSearchInput" placeholder="Search members...">
                 </div>
-                
+
                 <div>
                     <span class="filter-label">Filter by Industry</span>
-                    <select class="map-filter-select">
+                    <select class="map-filter-select" id="mapIndustryFilter">
                         <option value="">Select Industry</option>
-                        <option value="manufacturing">Manufacturing</option>
-                        <option value="services">Services</option>
-                        <option value="retail">Retail</option>
                     </select>
                 </div>
 
-                <div class="member-list-scroll">
-                    
-                    <div class="map-member-card">
-                        <div class="member-logo-box">
-                            <span style="font-family: serif; font-style: italic;">abc</span>
-                        </div>
-                        <div class="member-info-box">
-                            <span class="member-badge">MANUFACTURING</span>
-                            <div class="member-name">Abcor Industrial Corp.</div>
-                            <p class="member-desc">For you metal fabrication needs.</p>
-                        </div>
+                <div class="member-list-scroll" id="mapMemberList">
+                    <div class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-light" role="status"></div>
+                        <p class="member-desc mt-2">Loading members...</p>
                     </div>
-                    
-                    <div class="map-member-card">
-                        <div class="member-logo-box">
-                            <span style="font-family: serif; font-style: italic;">abc</span>
-                        </div>
-                        <div class="member-info-box">
-                            <span class="member-badge">MANUFACTURING</span>
-                            <div class="member-name">Abcor Industrial Corp.</div>
-                            <p class="member-desc">For you metal fabrication needs.</p>
-                        </div>
-                    </div>
-
-                    <div class="map-member-card">
-                        <div class="member-logo-box">
-                            <span style="font-family: serif; font-style: italic;">abc</span>
-                        </div>
-                        <div class="member-info-box">
-                            <span class="member-badge">MANUFACTURING</span>
-                            <div class="member-name">Abcor Industrial Corp.</div>
-                            <p class="member-desc">For you metal fabrication needs.</p>
-                        </div>
-                    </div>
-
-                    <div class="map-member-card">
-                        <div class="member-logo-box">
-                            <span style="font-family: serif; font-style: italic;">abc</span>
-                        </div>
-                        <div class="member-info-box">
-                            <span class="member-badge">MANUFACTURING</span>
-                            <div class="member-name">Abcor Industrial Corp.</div>
-                            <p class="member-desc">For you metal fabrication needs.</p>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
 
+            <script>
+            (function() {
+                let allMapMembers = [];
+
+                async function loadMapMembers() {
+                    const list = document.getElementById('mapMemberList');
+                    const filterSelect = document.getElementById('mapIndustryFilter');
+                    const searchInput = document.getElementById('mapSearchInput');
+
+                    try {
+                        const token = localStorage.getItem('token');
+                        const headers = { 'Accept': 'application/json' };
+                        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                        const response = await fetch(`${window.API_BASE_URL}/v1/business`, {
+                            method: 'GET',
+                            headers: headers
+                        });
+                        const data = await response.json();
+                        if (!response.ok) throw new Error('API error');
+
+                        allMapMembers = data.data ? data.data : (Array.isArray(data) ? data : []);
+
+                        // Populate industry filter from actual data
+                        const industries = [...new Set(allMapMembers.map(b => b.industry).filter(Boolean))].sort();
+                        industries.forEach(ind => {
+                            const opt = document.createElement('option');
+                            opt.value = ind;
+                            opt.textContent = ind;
+                            filterSelect.appendChild(opt);
+                        });
+
+                        renderMapMembers();
+
+                        // Wire up search and filter
+                        searchInput.addEventListener('input', renderMapMembers);
+                        filterSelect.addEventListener('change', renderMapMembers);
+
+                    } catch (err) {
+                        console.error('Error loading map members:', err);
+                        list.innerHTML = '<p class="member-desc text-center py-3">Failed to load members.</p>';
+                    }
+                }
+
+                function renderMapMembers() {
+                    const list = document.getElementById('mapMemberList');
+                    const search = (document.getElementById('mapSearchInput').value || '').toLowerCase();
+                    const industry = document.getElementById('mapIndustryFilter').value;
+
+                    let filtered = allMapMembers.filter(biz => {
+                        const name = (biz.registered_business_name || '').toLowerCase();
+                        const tagline = (biz.business_tagline || '').toLowerCase();
+                        const bizIndustry = biz.industry || '';
+                        const matchSearch = !search || name.includes(search) || tagline.includes(search) || bizIndustry.toLowerCase().includes(search);
+                        const matchIndustry = !industry || bizIndustry === industry;
+                        return matchSearch && matchIndustry;
+                    });
+
+                    if (!filtered.length) {
+                        list.innerHTML = '<p class="member-desc text-center py-3">No members found.</p>';
+                        return;
+                    }
+
+                    const apiOrigin = window.API_BASE_URL.replace(/\/api\/?$/, '');
+
+                    list.innerHTML = filtered.map((biz, index) => {
+                        const name = biz.registered_business_name || 'Unknown Business';
+                        const bizIndustry = biz.industry || 'Business';
+                        const tagline = biz.business_tagline || '';
+                        const words = name.split(' ');
+                        let initials = name.substring(0, 2).toUpperCase();
+                        if (words.length > 1) initials = (words[0][0] + words[1][0]).toUpperCase();
+
+                        // Build map query from business_location
+                        let mapQuery = name + ', Valenzuela City';
+                        if (biz.business_location) {
+                            const loc = biz.business_location;
+                            if (loc.location_link && loc.location_link !== 'N/A') {
+                                mapQuery = loc.location_link;
+                            } else {
+                                const parts = [loc.business_address, loc.city_municipality, loc.province].filter(p => p && p !== 'N/A');
+                                if (parts.length > 0) mapQuery = parts.join(', ');
+                            }
+                        }
+
+                        return `
+                        <div class="map-member-card" data-map-member-idx="${index}" data-map-query="${mapQuery.replace(/"/g, '&quot;')}" onclick="navigateMap(this)">
+                            <div class="member-logo-box">
+                                <span>${initials}</span>
+                            </div>
+                            <div class="member-info-box">
+                                <span class="member-badge">${bizIndustry.toUpperCase()}</span>
+                                <div class="member-name">${name}</div>
+                                ${tagline ? `<p class="member-desc">${tagline}</p>` : ''}
+                            </div>
+                        </div>`;
+                    }).join('');
+
+                    // Inject logo images
+                    filtered.forEach((biz, index) => {
+                        const rawPhoto = biz.photo_url || null;
+                        if (!rawPhoto || rawPhoto.includes('null') || rawPhoto.includes('N/A') || rawPhoto === '') return;
+
+                        const imgSrc = (rawPhoto.startsWith('http') || rawPhoto.startsWith('data:'))
+                            ? rawPhoto
+                            : apiOrigin + '/storage/' + rawPhoto;
+
+                        const logoEl = list.querySelector(`.map-member-card[data-map-member-idx="${index}"] .member-logo-box`);
+                        if (!logoEl) return;
+
+                        const img = document.createElement('img');
+                        img.alt = biz.registered_business_name || 'Member';
+                        img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:4px;';
+                        img.onload = function() {
+                            logoEl.textContent = '';
+                            logoEl.appendChild(img);
+                        };
+                        img.onerror = function() { /* keep initials fallback */ };
+                        img.src = imgSrc;
+                    });
+                }
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', loadMapMembers);
+                } else {
+                    loadMapMembers();
+                }
+            })();
+
+            function navigateMap(card) {
+                const query = card.getAttribute('data-map-query');
+                if (!query) return;
+
+                // Highlight active card
+                document.querySelectorAll('.map-member-card').forEach(c => c.style.backgroundColor = '');
+                card.style.backgroundColor = 'rgba(164, 0, 51, 0.15)';
+
+                // Update iframe to show the location
+                const iframe = document.getElementById('mapIframe');
+                const encoded = encodeURIComponent(query);
+                iframe.src = `https://maps.google.com/maps?q=${encoded}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+            }
+            </script>
+
             <div class="map-view-area">
                 <iframe
+                    id="mapIframe"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30880.945786399286!2d120.95583565!3d14.6942407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b3e0c1fc1c4d%3A0x5e3459f1b4e8d7a0!2sValenzuela%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1710700000000!5m2!1sen!2sph"
                     allowfullscreen=""
                     loading="lazy"
@@ -2245,6 +2382,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             const businesses = Array.isArray(data) ? data : (data.data || []);
 
+            // Tag each business with its original index before sorting
+            // (the profile page uses this index to look up the business)
+            businesses.forEach((biz, idx) => { biz._originalIndex = idx; });
+
             // Sort by most recent
             businesses.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
 
@@ -2263,7 +2404,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const phone = biz.telephone_no || '';
                 const tagline = biz.business_tagline || '';
                 const photoUrl = biz.photo_url || '';
-                const bizId = biz.id || '#';
+                const bizId = biz._originalIndex;
                 const colorClass = cardColors[i % cardColors.length];
                 const textClass = (colorClass === 'bg-warning' || colorClass === 'bg-info') ? 'text-dark' : 'text-white';
 
@@ -2297,19 +2438,21 @@ document.addEventListener('DOMContentLoaded', function() {
                                     ${industry}
                                 </span>
                                 <h5 class="fw-bold mb-0 text-white text-truncate">${name}</h5>
-                                ${tagline ? `<small class="text-white" style="opacity:0.8;font-style:italic;">"${tagline}"</small>` : `<small class="text-white" style="opacity:0.8;">${industry}</small>`}
+                                ${tagline && tagline !== 'N/A' ? `<small class="text-white d-block text-truncate" style="opacity:0.8;font-style:italic;max-width:200px;">"${tagline}"</small>` : ''}
                             </div>
                         </div>
                         <div class="card-body p-0 d-flex flex-column flex-grow-1">
                             ${tagsHTML ? `<div class="mb-3"><div class="d-flex gap-2 small flex-wrap">${tagsHTML}</div></div>` : ''}
-                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color:rgba(255,255,255,0.1)!important;">
-                                <div class="small text-white" style="opacity:0.9;">
-                                    ${email ? `<i class="bi bi-envelope"></i> ${email}<br>` : ''}
-                                    ${phone ? `<i class="bi bi-telephone"></i> ${phone}` : ''}
+                            <div class="mt-auto pt-3 border-top" style="border-color:rgba(255,255,255,0.1)!important;">
+                                <div class="small text-white mb-2" style="opacity:0.9;overflow:hidden;">
+                                    ${email ? `<div class="text-truncate"><i class="bi bi-envelope"></i> ${email}</div>` : ''}
+                                    ${phone ? `<div class="text-truncate"><i class="bi bi-telephone"></i> ${phone}</div>` : ''}
                                 </div>
-                                <span class="btn py-1 px-3 text-white fw-bold" style="background-color:#D40032;border-radius:6px;font-size:0.8rem;">
-                                    View Details
-                                </span>
+                                <div class="d-flex justify-content-end">
+                                    <span class="btn py-1 px-3 text-white fw-bold" style="background-color:#D40032;border-radius:6px;font-size:0.8rem;white-space:nowrap;">
+                                        View Details
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </a>

@@ -78,11 +78,17 @@
 {{-- ======== DYNAMIC FETCH LOGIC ======== --}}
 <script>
     let allBusinesses = [];
+    let masterBusinesses = []; // unfiltered copy
     let currentPage = 1;
     const perPage = 12;
 
     document.addEventListener('DOMContentLoaded', function() {
         fetchBusinesses();
+
+        // Allow pressing Enter in the search input
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') handleSearch();
+        });
     });
 
     async function fetchBusinesses() {
@@ -100,8 +106,9 @@
 
             const result = await response.json();
             
-            allBusinesses = result.data || result || []; 
-            
+            masterBusinesses = result.data || result || [];
+            allBusinesses = [...masterBusinesses];
+
             sortData('asc');
             renderPage(1);
 
@@ -252,8 +259,25 @@
     }
 
     function handleSearch() {
-        const term = document.getElementById('searchInput').value.toLowerCase();
-        // Optional: Filter allBusinesses based on search term
+        const term = document.getElementById('searchInput').value.trim().toLowerCase();
+
+        if (!term) {
+            allBusinesses = [...masterBusinesses];
+        } else {
+            allBusinesses = masterBusinesses.filter(biz => {
+                const name = (biz.registered_business_name || '').toLowerCase();
+                const industry = (biz.industry || '').toLowerCase();
+                const tagline = (biz.business_tagline || '').toLowerCase();
+                const email = (biz.email || '').toLowerCase();
+                const tags = (Array.isArray(biz.tags) ? biz.tags.join(' ') : '').toLowerCase();
+                return name.includes(term) || industry.includes(term) || tagline.includes(term) || email.includes(term) || tags.includes(term);
+            });
+        }
+
+        // Re-apply current sort
+        const order = document.getElementById('sortSelect').value;
+        sortData(order);
+        renderPage(1);
     }
 </script>
 

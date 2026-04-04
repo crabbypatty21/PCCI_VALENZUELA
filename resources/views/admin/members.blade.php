@@ -651,7 +651,7 @@
 {{-- ======== SEARCH BAR + ADD NEW ======== --}}
 <div class="members-toolbar">
     <div class="search-box">
-        <input type="text" placeholder="Search company name . . .">
+        <input type="text" placeholder="Search company name . . ." id="memberSearchInput">
         <i class="bi bi-search search-icon"></i>
     </div>
     <button class="btn-add-new" type="button"><i class="bi bi-plus-lg"></i> Add New</button>
@@ -837,65 +837,101 @@
     // ==============================================
     // REAL API FETCH LOGIC
     // ==============================================
+    let allMembersData = [];
+
     document.addEventListener('DOMContentLoaded', function() {
-        fetchMembers(); // Run fetch function as soon as the page loads
+        fetchMembers();
+
+        document.getElementById('memberSearchInput').addEventListener('input', function() {
+            renderMembers(this.value.trim().toLowerCase());
+        });
     });
 
     async function fetchMembers() {
         const tbody = document.getElementById('membersTableBody');
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
 
         try {
             const response = await fetch(`${window.API_BASE_URL}/v1/members`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}` 
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
             if (!response.ok) throw new Error("Failed to fetch members");
 
             const data = await response.json();
-            
-            // Clear the "Loading..." placeholder row
-            tbody.innerHTML = '';
 
-            // Check if there are members in the database response
-            if (data.data && data.data.length > 0) {
-                
-                // Loop through your database records and create table rows
-                data.data.forEach(member => {
-                    
-                    // 1. Safely grab nested objects from your backend JSON
+            allMembersData = data.data || [];
+            renderMembers('');
+
+        } catch (error) {
+            console.error("Error loading members:", error);
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: red; padding: 20px;">Failed to load members from database.</td></tr>`;
+        }
+    }
+
+    function renderMembers(searchTerm) {
+        const tbody = document.getElementById('membersTableBody');
+        tbody.innerHTML = '';
+
+        const filtered = allMembersData.filter(member => {
+            if (!searchTerm) return true;
+
+            const applicant = member.applicant || {};
+            const profile = applicant.basic_profile || {};
+            const rep = applicant.official_representative || {};
+            const loc = profile.business_location || {};
+
+            const companyName = (profile.registered_business_name || '').toLowerCase();
+            const email = (profile.email || '').toLowerCase();
+            const contact = (profile.telephone_no || '').toLowerCase();
+            const repName = [rep.first_name, rep.mid_name, rep.surname].filter(Boolean).join(' ').toLowerCase();
+            const address = [loc.business_address, loc.city_municipality, loc.province].filter(Boolean).join(' ').toLowerCase();
+            const status = (member.status || '').toLowerCase();
+
+            return companyName.includes(searchTerm) || email.includes(searchTerm) || contact.includes(searchTerm) || repName.includes(searchTerm) || address.includes(searchTerm) || status.includes(searchTerm);
+        });
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No members found.</td></tr>`;
+            return;
+        }
+
+        filtered.forEach(member => {
+
+                    // 1. Safely grab nested objects matching actual API structure
                     const applicant = member.applicant || {};
-                    const addressObj = applicant.address || {};
-                    const repObj = applicant.representative || {};
+                    const profile = applicant.basic_profile || {};
+                    const loc = profile.business_location || {};
+                    const rep = applicant.official_representative || {};
 
-                    // 2. Map standard fields
-                    const companyName = applicant.registered_business_name || 'N/A';
-                    const email = applicant.email || 'N/A';
+                    // 2. Map standard fields from basic_profile
+                    const companyName = profile.registered_business_name || 'N/A';
+                    const email = profile.email || 'N/A';
                     const status = member.status || 'Pending';
-                    const contact = applicant.rep_contact_no || 'N/A';
+                    const contact = profile.telephone_no || rep.contact_no || 'N/A';
                     const memberType = member.membership_type_id === 1 ? 'Directory Member' : 'Regular Member';
-                    
-                    // 3. Construct full address (NOW INCLUDES REGION AND ZIP CODE!)
+
+                    // 3. Construct full address from business_location
                     let fullAddress = [];
-                    if (addressObj.business_address) fullAddress.push(addressObj.business_address);
-                    if (addressObj.city_municipality) fullAddress.push(addressObj.city_municipality);
-                    if (addressObj.province) fullAddress.push(addressObj.province);
-                    if (addressObj.region) fullAddress.push(addressObj.region);
-                    if (addressObj.zip_code) fullAddress.push(addressObj.zip_code);
-                    
+                    if (loc.business_address) fullAddress.push(loc.business_address);
+                    if (loc.city_municipality) fullAddress.push(loc.city_municipality);
+                    if (loc.province) fullAddress.push(loc.province);
+                    if (loc.region) fullAddress.push(loc.region);
+                    if (loc.zip_code) fullAddress.push(loc.zip_code);
+
                     const address = fullAddress.length > 0 ? fullAddress.join(', ') : 'N/A';
 
-                    // 4. Construct Representative Name
+                    // 4. Construct Representative Name from official_representative
                     let repName = [];
-                    if (repObj.first_name) repName.push(repObj.first_name);
-                    if (repObj.mid_name) repName.push(repObj.mid_name);
-                    if (repObj.surname) repName.push(repObj.surname);
+                    if (rep.first_name) repName.push(rep.first_name);
+                    if (rep.mid_name) repName.push(rep.mid_name);
+                    if (rep.surname) repName.push(rep.surname);
                     const registeredBy = repName.length > 0 ? repName.join(' ') : 'N/A';
-                    
+
                     // 5. Format the date nicely (e.g., "3/12/2026")
                     const regDate = member.created_at ? new Date(member.created_at).toLocaleDateString('en-US') : 'N/A';
 
@@ -929,15 +965,6 @@
                         </tr>
                     `;
                 });
-
-            } else {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No members found.</td></tr>`;
-            }
-
-        } catch (error) {
-            console.error("Error loading members:", error);
-            tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: red; padding: 20px;">Failed to load members from database.</td></tr>`;
-        }
     }
 </script>
 @endsection
