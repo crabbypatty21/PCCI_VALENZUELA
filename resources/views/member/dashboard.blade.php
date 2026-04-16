@@ -11,11 +11,30 @@
 <style>
 header, footer, .navbar, nav { display: none !important; }
 
+:root {
+    --member-bg: #f3f4f6;
+    --member-surface: #ffffff;
+    --member-surface-soft: #f9fafb;
+    --member-border: #e5e7eb;
+    --member-text: #111827;
+    --member-muted: #6b7280;
+}
+
+body.member-dark {
+    --member-bg: #0b1220;
+    --member-surface: #111827;
+    --member-surface-soft: #1f2937;
+    --member-border: #374151;
+    --member-text: #dbe4ef;
+    --member-muted: #93a3b8;
+}
+
 /* Allow natural scrolling again */
 html, body {
     margin: 0;
     padding: 0;
-    background: #f3f4f6; 
+    background: var(--member-bg);
+    color: var(--member-text);
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
@@ -29,21 +48,35 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 60px;
-    background: #ffffff;
+    background: var(--member-surface);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--member-border);
     z-index: 1050;
 }
 
 .topbar-brand { font-size: 18px; font-weight: bold; color: #b61b2a; width: 240px; display: flex; align-items: center; gap: 8px; }
 .topbar-search-wrapper { width: 35%; position: relative; }
 .topbar-search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 13px; }
-.topbar-search { width: 100%; padding: 6px 15px 6px 35px; border-radius: 50rem; border: 1px solid #e5e7eb; background: #f9fafb; font-size: 13px; }
+.topbar-search { width: 100%; padding: 6px 15px 6px 35px; border-radius: 50rem; border: 1px solid var(--member-border); background: var(--member-surface-soft); font-size: 13px; color: var(--member-text); }
 .topbar-actions { display: flex; align-items: center; gap: 15px; }
 .topbar-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #e5e7eb; }
+
+.theme-toggle-btn {
+    border: 1px solid var(--member-border);
+    background: var(--member-surface-soft);
+    color: var(--member-text);
+    border-radius: 999px;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
 /* =========================================
    NOTIFICATION PANEL CSS
@@ -88,8 +121,8 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     left: 0;
     width: 250px; 
     height: calc(100vh - 60px); 
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
+    background: var(--member-surface);
+    border-right: 1px solid var(--member-border);
     display: flex;
     flex-direction: column;
     z-index: 1000;
@@ -122,7 +155,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .content-section { display: none; padding-bottom: 40px; }
 
 /* Dashboard Cards */
-.custom-card { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #f3f4f6; padding: 20px; display: flex; flex-direction: column; margin-bottom: 20px;}
+.custom-card { background: var(--member-surface); border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid var(--member-border); padding: 20px; display: flex; flex-direction: column; margin-bottom: 20px;}
 
 /* Dashboard Specifics */
 .stat-box { padding: 20px; border-radius: 16px; color: white; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
@@ -131,7 +164,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .stat-teal { background: #ccfbf1; color: #0f766e; }
 
 .active-badge { background: #dcfce7; color: #15803d; padding: 6px 16px; border-radius: 50rem; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
-.pill-card { background: #ffffff; border-radius: 50rem; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f3f4f6; margin-bottom: 12px; }
+.pill-card { background: var(--member-surface); border-radius: 50rem; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid var(--member-border); margin-bottom: 12px; }
 .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: auto; padding-top: 15px;}
 .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; }
 .carousel-dot.active { background: #b61b2a; }
@@ -167,8 +200,618 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .logout-btn { background: #b00020; color: white; border: none; padding: 12px 30px; border-radius: 50rem; font-weight: bold; font-size: 15px; margin-top: 20px; align-self: flex-end;}
 
 /* Modals */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1200; justify-content: center; align-items: center; }
-.modal-content-box { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 450px; }
+.modal-overlay { display: none; position: fixed; top: 60px; left: 250px; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1200; justify-content: center; align-items: center; padding: 40px 30px; overflow: hidden; }
+.modal-content-box { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 450px; max-height: calc(100vh - 200px); overflow-y: auto; }
+#editProfileModal .modal-content-box { max-width: 900px !important; border-radius: 24px; }
+
+/* Document View Modal */
+.doc-view-modal {
+    width: 100%;
+    max-width: 840px;
+    max-height: 92vh;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+.doc-view-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.doc-view-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.doc-view-close {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.doc-view-close:hover {
+    background: #f9fafb;
+    color: #111827;
+}
+
+.doc-view-body {
+    padding: 14px;
+    background: #f8fafc;
+    min-height: 360px;
+    max-height: 62vh;
+    overflow: auto;
+}
+
+.doc-preview-box {
+    width: 100%;
+    min-height: 320px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#docViewModal,
+#editProfileModal,
+#docViewModal .doc-view-body,
+#editProfileModal .modal-content-box {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+#docViewModal::-webkit-scrollbar,
+#editProfileModal::-webkit-scrollbar,
+#docViewModal .doc-view-body::-webkit-scrollbar,
+#editProfileModal .modal-content-box::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+    background: transparent;
+}
+
+.doc-preview-box iframe {
+    width: 100%;
+    height: 62vh;
+    border: 0;
+}
+
+.doc-preview-image {
+    max-width: 100%;
+    max-height: 62vh;
+    object-fit: contain;
+    display: none;
+}
+
+.doc-preview-empty {
+    color: #6b7280;
+    text-align: center;
+    padding: 40px 20px;
+    display: none;
+}
+
+.doc-view-footer {
+    padding: 12px 16px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    background: #fff;
+}
+
+.doc-btn {
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #d1d5db;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.doc-btn-secondary {
+    background: #fff;
+    color: #374151;
+}
+
+.doc-btn-primary {
+    background: #b61b2a;
+    color: #fff;
+    border-color: #b61b2a;
+}
+
+.doc-btn-primary:hover {
+    background: #9c1624;
+    border-color: #9c1624;
+}
+
+body.member-dark .text-dark,
+body.member-dark .fw-bold {
+    color: var(--member-text) !important;
+}
+
+body.member-dark .text-muted {
+    color: var(--member-muted) !important;
+}
+
+body.member-dark .custom-table th {
+    background: var(--member-surface-soft);
+    border-bottom-color: var(--member-border);
+}
+
+body.member-dark .custom-table td,
+body.member-dark .doc-item,
+body.member-dark .sidebar-profile,
+body.member-dark .tableTop input,
+body.member-dark .setting-box,
+body.member-dark .modal-content-box,
+body.member-dark .doc-view-modal,
+body.member-dark .notification-panel {
+    background: var(--member-surface);
+    border-color: var(--member-border) !important;
+    color: var(--member-text);
+}
+
+/* Modal readability polish for dark mode */
+body.member-dark .modal-content-box,
+body.member-dark .doc-view-header,
+body.member-dark .doc-view-body,
+body.member-dark .doc-view-footer,
+body.member-dark #settingsModalAccount .modal-content-box,
+body.member-dark #settingsModalSecurity .modal-content-box,
+body.member-dark #settingsModalBilling .modal-content-box,
+body.member-dark #settingsModalPreferences .modal-content-box,
+body.member-dark #memberOtpModal .modal-content-box,
+body.member-dark #memberResetPasswordModal .modal-content-box,
+body.member-dark #cropPhotoModal .modal-content-box {
+    background: #121b2a !important;
+    color: var(--member-text) !important;
+    border-color: var(--member-border) !important;
+}
+
+body.member-dark .modal-content-box input,
+body.member-dark .modal-content-box select,
+body.member-dark .modal-content-box textarea,
+body.member-dark .modal-content-box div[contenteditable="true"],
+body.member-dark #settingsModalAccount .form-control,
+body.member-dark #settingsModalSecurity .form-control,
+body.member-dark #settingsModalBilling .form-control,
+body.member-dark #settingsModalPreferences .form-control {
+    background: #0f172a !important;
+    color: #dbe4ef !important;
+    border: 1px solid #334155 !important;
+}
+
+body.member-dark .modal-content-box input::placeholder,
+body.member-dark .modal-content-box textarea::placeholder {
+    color: #8ea0b6 !important;
+}
+
+body.member-dark .modal-content-box small,
+body.member-dark .modal-content-box label,
+body.member-dark .modal-content-box .text-muted,
+body.member-dark .modal-content-box th,
+body.member-dark .modal-content-box td {
+    color: #a9b8ca !important;
+}
+
+body.member-dark .modal-content-box .btn-light,
+body.member-dark .modal-content-box .btn-close,
+body.member-dark .doc-view-close,
+body.member-dark .doc-btn-secondary,
+body.member-dark .viewBtn {
+    background: #1e293b !important;
+    color: #dbe4ef !important;
+    border-color: #3b4a60 !important;
+}
+
+body.member-dark .doc-preview-box,
+body.member-dark #docPreviewEmpty {
+    background: #0f172a !important;
+    color: #9fb0c5 !important;
+    border-color: #334155 !important;
+}
+
+/* Specific fix: Edit Business Profile modal in dark mode */
+body.member-dark #editProfileModal .modal-content-box {
+    background: #0f172a !important;
+    color: #dbe4ef !important;
+}
+
+body.member-dark #editProfileModal .modal-content-box > div:first-child {
+    background: #111827 !important;
+    border-bottom-color: #334155 !important;
+}
+
+body.member-dark #editProfileModal .modal-content-box > div:first-child h5,
+body.member-dark #editProfileModal .modal-content-box h4,
+body.member-dark #editProfileModal .modal-content-box h6,
+body.member-dark #editProfileModal .modal-content-box p,
+body.member-dark #editProfileModal .modal-content-box span,
+body.member-dark #editProfileModal .modal-content-box small {
+    color: #dbe4ef !important;
+}
+
+body.member-dark #editProfileModal .modal-content-box div[style*="background: #f9fafb"] {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #dbe4ef !important;
+}
+
+body.member-dark #editProfileModal .modal-content-box div[style*="background: white"],
+body.member-dark #editProfileModal .modal-content-box button[style*="background: white"] {
+    background: #1e293b !important;
+    border-color: #3b4a60 !important;
+    color: #dbe4ef !important;
+}
+
+body.member-dark #editProfileModal .modal-content-box input,
+body.member-dark #editProfileModal .modal-content-box select,
+body.member-dark #editProfileModal .modal-content-box textarea {
+    background: #0b1324 !important;
+    color: #dbe4ef !important;
+    border-color: #334155 !important;
+}
+
+body.member-dark #editProfileModal .modal-content-box input::placeholder,
+body.member-dark #editProfileModal .modal-content-box textarea::placeholder {
+    color: #8ea0b6 !important;
+}
+
+/* Specific fix: Add Product modal in dark mode */
+body.member-dark #addProductModal .modal-content-box {
+    background: #0f172a !important;
+    color: #dbe4ef !important;
+}
+
+body.member-dark #addProductModal .modal-content-box > div:first-child {
+    background: #111827 !important;
+    border-bottom-color: #334155 !important;
+}
+
+body.member-dark #addProductModal .modal-content-box > div:first-child h5,
+body.member-dark #addProductModal .modal-content-box label,
+body.member-dark #addProductModal .modal-content-box .text-muted,
+body.member-dark #addProductModal .modal-content-box p,
+body.member-dark #addProductModal .modal-content-box span {
+    color: #dbe4ef !important;
+}
+
+body.member-dark #addProductModal .modal-content-box input,
+body.member-dark #addProductModal .modal-content-box select,
+body.member-dark #addProductModal .modal-content-box textarea {
+    background: #0b1324 !important;
+    color: #dbe4ef !important;
+    border-color: #334155 !important;
+}
+
+body.member-dark #addProductModal .modal-content-box input::placeholder,
+body.member-dark #addProductModal .modal-content-box textarea::placeholder {
+    color: #8ea0b6 !important;
+}
+
+body.member-dark #addProductModal .btn-close {
+    filter: invert(1) grayscale(100%);
+    opacity: 0.9;
+}
+
+body.member-dark #addProductModal .btn-close:hover {
+    opacity: 1;
+}
+
+/* Dark mode typography and contrast tuning */
+body.member-dark .sidebar-profile h5,
+body.member-dark .sidebar-profile p,
+body.member-dark .sidebar-profile small,
+body.member-dark .sidebar-menu li,
+body.member-dark .contactItem,
+body.member-dark .contactItem i,
+body.member-dark .doc-item,
+body.member-dark .pill-card,
+body.member-dark .custom-card {
+    color: #dbe4ef !important;
+}
+
+body.member-dark .sidebar-menu li.active {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-left-color: #be1e38;
+}
+
+body.member-dark .sidebar-menu li:hover:not(.active) {
+    background: #172033 !important;
+}
+
+body.member-dark .btn-light,
+body.member-dark .viewBtn,
+body.member-dark .editBtn {
+    background: #1f2937 !important;
+    color: #dbe4ef !important;
+    border-color: #334155 !important;
+}
+
+body.member-dark .stat-teal {
+    background: #153e3a;
+    color: #e6fffa;
+}
+
+body.member-dark #liveDate {
+    color: #c9f5ea !important;
+}
+
+body.member-dark #liveTime {
+    color: #7ff0d9 !important;
+}
+
+body.member-dark .pricing-card {
+    background: #111b2d;
+    color: #dbe4ef;
+    border-color: #be1e38;
+}
+
+body.member-dark .pricing-card h2 {
+    color: #e2e8f0;
+    border-bottom-color: #475569;
+}
+
+body.member-dark .pricing-card ul {
+    color: #b8c4d6;
+}
+
+body.member-dark .pricing-price {
+    background: #0f172a;
+    color: #fecdd3;
+    border-color: #be1e38;
+}
+
+body.member-dark .pricing-price.red {
+    background: #be1e38;
+    color: #ffffff;
+}
+
+/* Match dark-mode readability in My Business section */
+body.member-dark #section-business .custom-card,
+body.member-dark #section-business .contactItem,
+body.member-dark #section-business .contactItem i,
+body.member-dark #section-business .text-muted,
+body.member-dark #section-business h4,
+body.member-dark #section-business h5,
+body.member-dark #section-business h6,
+body.member-dark #section-business p,
+body.member-dark #section-business span,
+body.member-dark #section-business small {
+    color: #dbe4ef !important;
+}
+
+body.member-dark #section-business .border-start {
+    border-left-color: #334155 !important;
+}
+
+body.member-dark #section-business div[style*="background: #f9fafb"] {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #dbe4ef !important;
+}
+
+body.member-dark #section-business button[style*="background: white"],
+body.member-dark #section-business button[style*="background: #ffffff"] {
+    background: #1e293b !important;
+    border-color: #3b4a60 !important;
+    color: #dbe4ef !important;
+}
+
+/* Specific fix: Settings list + Preferences options in dark mode */
+body.member-dark #section-settings .setting-box {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+body.member-dark #section-settings .setting-box:hover {
+    background: #172033 !important;
+}
+
+body.member-dark #section-settings .setting-left,
+body.member-dark #section-settings .setting-left span,
+body.member-dark #section-settings .setting-left i,
+body.member-dark #section-settings .setting-box .fa-chevron-right {
+    color: #dbe4ef !important;
+}
+
+body.member-dark #settingsModalPreferences h6,
+body.member-dark #settingsModalPreferences p,
+body.member-dark #settingsModalPreferences .text-dark,
+body.member-dark #settingsModalPreferences .text-muted {
+    color: #dbe4ef !important;
+}
+
+body.member-dark #settingsModalPreferences .form-check-input {
+    background-color: #0b1324 !important;
+    border-color: #334155 !important;
+}
+
+body.member-dark #settingsModalPreferences .form-check-input:checked {
+    background-color: #be1e38 !important;
+    border-color: #be1e38 !important;
+}
+
+body.member-dark #settingsModalPreferences .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(190, 30, 56, 0.25) !important;
+}
+
+body.member-dark #settingsModalPreferences .dropdown-toggle,
+body.member-dark #settingsModalPreferences .dropdown-menu {
+    background: #1e293b !important;
+    color: #dbe4ef !important;
+    border-color: #3b4a60 !important;
+}
+
+body.member-dark #settingsModalPreferences .dropdown-item {
+    color: #dbe4ef !important;
+}
+
+body.member-dark #settingsModalPreferences .dropdown-item:hover,
+body.member-dark #settingsModalPreferences .dropdown-item:focus {
+    background: #334155 !important;
+    color: #f8fafc !important;
+}
+
+@media (max-width: 992px) {
+    .topbar {
+        padding: 0 12px;
+        gap: 10px;
+    }
+
+    .topbar-search-wrapper {
+        width: 42%;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin-top: 60px;
+        border-right: none;
+        border-bottom: 1px solid var(--member-border);
+    }
+
+    .sidebar-profile {
+        display: none;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        padding: 10px 12px;
+        white-space: nowrap;
+    }
+
+    .sidebar-menu li {
+        margin-bottom: 0;
+        flex: 0 0 auto;
+    }
+
+    .sidebar-divider {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+        margin-top: 0;
+        padding: 18px;
+    }
+
+    .modal-overlay {
+        left: 0;
+        top: 60px;
+        padding: 16px;
+    }
+
+    .tableTop {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .tableTop input {
+        width: 100%;
+    }
+
+    #section-settings .setting-box {
+        padding: 14px 14px;
+    }
+
+    #settingsModalPreferences .d-flex.justify-content-between.align-items-center.gap-3 {
+        align-items: flex-start !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .topbar-search-wrapper {
+        display: none;
+    }
+
+    .topbar-actions {
+        gap: 10px;
+    }
+
+    .topbar-avatar {
+        margin-left: 0 !important;
+    }
+
+    .main {
+        padding: 14px;
+    }
+
+    .titleBox {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+
+    .custom-card,
+    .modal-content-box {
+        border-radius: 12px;
+    }
+
+    .doc-view-modal {
+        max-height: 94vh;
+        border-radius: 12px;
+    }
+
+    .doc-view-body {
+        min-height: 280px;
+    }
+
+    .doc-preview-box iframe,
+    .doc-preview-image {
+        max-height: 50vh;
+        height: 50vh;
+    }
+
+    .doc-view-footer {
+        flex-direction: column-reverse;
+    }
+
+    .doc-btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    #settingsModalPreferences .dropdown,
+    #settingsModalPreferences .dropdown-toggle {
+        width: 100%;
+    }
+
+    #settingsModalPreferences .d-flex.justify-content-between.align-items-center.gap-3 {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #settingsModalPreferences .form-check.form-switch {
+        align-self: flex-start;
+    }
+}
 </style>
 
 <div class="topbar">
@@ -193,39 +836,28 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     </div>
 
     <div class="topbar-actions">
+        <button class="theme-toggle-btn" id="themeToggleBtn" type="button" onclick="toggleMemberThemeQuick()" title="Toggle theme">
+            <i class="fa fa-moon" id="themeToggleIcon"></i>
+        </button>
         <div class="position-relative" onclick="toggleNotificationPanel(event)" style="cursor:pointer; display: flex; align-items: center;">
             <i class="fa fa-bell fs-5 text-muted"></i>
             <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="margin-top: 4px; margin-left: -5px;"></span>
         </div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/ABC_Logo_2021.svg/1200px-ABC_Logo_2021.svg.png" class="topbar-avatar ms-3" id="topbarAvatar" alt="User">
+        <img src="{{ asset('images/PCCI-Logo.svg') }}" class="topbar-avatar ms-3" id="topbarAvatar" alt="User">
     </div>
 </div>
 
 <div class="notification-panel" id="notificationPanel">
     <div class="notif-header">
-        <h6 class="notif-header-title">Your Notification <span class="notif-badge">1 New</span></h6>
+        <h6 class="notif-header-title">Your Notification <span class="notif-badge" id="notifBadgeCount">0 New</span></h6>
         <button class="notif-clear-btn" onclick="clearNotifications(event)"><i class="fa fa-times"></i> Close</button>
     </div>
     <div class="notif-body">
-        <div class="notif-item notif-unread">
+        <div class="notif-item notif-read">
             <div class="notif-icon"><i class="fa fa-bell text-danger fs-5"></i></div>
             <div class="notif-text-content">
-                <p><strong>Mr. ABC</strong> your membership is near to <strong>expired</strong> to .........</p>
-                <small>Monday, February 23, 2026</small>
-            </div>
-        </div>
-        <div class="notif-item notif-read">
-            <div class="notif-icon"><i class="fa fa-check text-secondary fs-5"></i></div>
-            <div class="notif-text-content">
-                <p>Your business profile details were successfully <strong>updated</strong>.</p>
-                <small>Sunday, February 22, 2026</small>
-            </div>
-        </div>
-        <div class="notif-item notif-read">
-            <div class="notif-icon"><i class="fa fa-box-open text-secondary fs-5"></i></div>
-            <div class="notif-text-content">
-                <p>Your latest product <strong>Welding Services</strong> has been approved.</p>
-                <small>Friday, February 20, 2026</small>
+                <p id="notifPrimaryText">No new notifications.</p>
+                <small id="notifPrimaryDate">Just now</small>
             </div>
         </div>
     </div>
@@ -234,7 +866,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
 <div class="sidebar">
     <div class="sidebar-profile">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/ABC_Logo_2021.svg/1200px-ABC_Logo_2021.svg.png" id="sidebarImage" alt="Profile">
+        <img src="{{ asset('images/PCCI-Logo.svg') }}" id="sidebarImage" alt="Profile">
         <h5 id="sidebarCompany">Loading...</h5>
         <p id="sidebarName">Loading...</p>
         <small id="sidebarEmail">loading...</small>
@@ -262,13 +894,13 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         <div class="row mb-4 g-4">
             <div class="col-md-3">
                 <div class="stat-box stat-orange">
-                    <h2 class="fw-bold mb-0">12</h2>
+                    <h2 class="fw-bold mb-0" id="dashProductsCount">--</h2>
                     <p class="mb-0" style="font-size: 14px;">Products/Services</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-box stat-blue">
-                    <h2 class="fw-bold mb-0">3</h2>
+                    <h2 class="fw-bold mb-0" id="dashEventsCount">--</h2>
                     <p class="mb-0" style="font-size: 14px;">Upcoming Events</p>
                 </div>
             </div>
@@ -285,7 +917,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                 <div class="custom-card">
                     <div class="d-flex justify-content-between align-items-start mb-4">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/ABC_Logo_2021.svg/1200px-ABC_Logo_2021.svg.png" id="dashBizImage" style="width: 60px; height: 60px; border-radius: 50%; border: 1px solid #ddd; padding: 2px; object-fit: cover;">
+                            <img src="{{ asset('images/PCCI-Logo.svg') }}" id="dashBizImage" style="width: 60px; height: 60px; border-radius: 50%; border: 1px solid #ddd; padding: 2px; object-fit: cover;">
                             <div>
                                 <h5 class="fw-bold mb-0" id="dashBizName">Loading...</h5>
                                 <small class="text-muted" id="dashBizEmail">Loading...</small>
@@ -296,9 +928,9 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                         </button>
                     </div>
                     <div style="font-size: 14px;">
-                        <p class="mb-2"><strong class="text-muted d-inline-block" style="width: 140px;">Official Receipt No:</strong> <span class="text-dark fw-bold">123456789</span></p>
+                        <p class="mb-2"><strong class="text-muted d-inline-block" style="width: 140px;">Official Receipt No:</strong> <span class="text-dark fw-bold" id="dashOfficialReceiptNo">N/A</span></p>
                         <p class="mb-2"><strong class="text-muted d-inline-block" style="width: 140px;">Business Type:</strong> <span class="text-dark fw-bold" id="dashBizType">Loading...</span></p>
-                        <p class="mb-0"><strong class="text-muted d-inline-block" style="width: 140px;">Ownership Type:</strong> <span class="text-dark fw-bold">Solo Partnership</span></p>
+                        <p class="mb-0"><strong class="text-muted d-inline-block" style="width: 140px;">Ownership Type:</strong> <span class="text-dark fw-bold" id="dashOwnershipType">Not specified</span></p>
                     </div>
                 </div>
             </div>
@@ -311,7 +943,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                     </div>
                     <div style="font-size: 14px;" class="mb-4 flex-grow-1">
                         <p class="mb-2"><strong class="text-muted d-inline-block" style="width: 140px;">Member ID:</strong> <span class="text-dark fw-bold" id="dashMembershipID">...</span></p>
-                        <p class="mb-2"><strong class="text-muted d-inline-block" style="width: 140px;">Receipt No:</strong> <span class="text-dark fw-bold">987654321</span></p>
+                        <p class="mb-2"><strong class="text-muted d-inline-block" style="width: 140px;">Receipt No:</strong> <span class="text-dark fw-bold" id="dashReceiptNo">N/A</span></p>
                         <p class="mb-0"><strong class="text-muted d-inline-block" style="width: 140px;">Membership Type:</strong> <span class="text-dark fw-bold" id="dashMembershipType">Loading...</span></p>
                     </div>
                     <button class="btn btn-danger w-100 rounded-pill py-2 fw-bold mt-auto" onclick="switchTab('membership')">Renew Membership</button>
@@ -326,35 +958,22 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                     <button class="btn btn-link text-danger p-0 text-decoration-none fw-bold" style="font-size: 13px;" onclick="switchTab('products')">View All <i class="fa fa-arrow-right ms-1"></i></button>
                 </div>
 
-                <div class="pill-card">
-                    <b class="text-dark mb-0" style="font-size: 14px;">Welding Services</b>
-                    <a href="https://www.abccompany.com/welding" target="_blank" class="text-primary text-decoration-none fw-bold text-truncate" style="font-size: 13px; max-width: 200px;">
-                        www.abccompany.com/welding <i class="fa fa-external-link-alt ms-1"></i>
-                    </a>
-                </div>
-                <div class="pill-card">
-                    <b class="text-dark mb-0" style="font-size: 14px;">Metal Fabrication</b>
-                    <a href="https://www.abccompany.com/fab" target="_blank" class="text-primary text-decoration-none fw-bold text-truncate" style="font-size: 13px; max-width: 200px;">
-                        www.abccompany.com/fab <i class="fa fa-external-link-alt ms-1"></i>
-                    </a>
-                </div>
-                <div class="pill-card mb-0">
-                    <b class="text-dark mb-0" style="font-size: 14px;">Industrial Repair</b>
-                    <a href="https://www.abccompany.com/repair" target="_blank" class="text-primary text-decoration-none fw-bold text-truncate" style="font-size: 13px; max-width: 200px;">
-                        www.abccompany.com/repair <i class="fa fa-external-link-alt ms-1"></i>
-                    </a>
+                <div id="recentProductsList">
+                    <div class="pill-card mb-0">
+                        <b class="text-dark mb-0" style="font-size: 14px;">Loading products...</b>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="custom-card p-3">
-                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" 
+                    <img src="{{ asset('images/PCCI-Logo.svg') }}" 
                          class="w-100 rounded-3 mb-3" style="height: 150px; object-fit: cover;">
                     <div class="px-2">
-                        <h5 class="fw-bold text-dark mb-2">Business Workshop Plan</h5>
+                        <h5 class="fw-bold text-dark mb-2" id="dashEventTitle">No upcoming events</h5>
                         <div class="d-flex justify-content-between text-muted" style="font-size: 13px;">
-                            <span><i class="fa fa-calendar text-danger me-1"></i> Mar 25, 2026</span>
-                            <span><i class="fa fa-map-marker-alt text-danger me-1"></i> Valenzuela City</span>
+                            <span><i class="fa fa-calendar text-danger me-1"></i> <span id="dashEventDate">To be announced</span></span>
+                            <span><i class="fa fa-map-marker-alt text-danger me-1"></i> <span id="dashEventLocation">-</span></span>
                         </div>
                     </div>
                     <div class="carousel-dots">
@@ -374,7 +993,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         <div class="custom-card">
             <div class="d-flex justify-content-between align-items-start mb-4">
                 <div class="d-flex align-items-center gap-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/ABC_Logo_2021.svg/1200px-ABC_Logo_2021.svg.png" id="bizMainImage" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 1px solid #e5e7eb; padding: 4px;">
+                    <img src="{{ asset('images/PCCI-Logo.svg') }}" id="bizMainImage" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 1px solid #e5e7eb; padding: 4px;">
                     <div>
                         <h4 class="fw-bold mb-1" id="bizNameTitle">Loading...</h4>
                         <div class="text-muted" style="font-size: 15px;" id="bizIndustryTitle">Loading Industry...</div>
@@ -392,7 +1011,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                 <div class="col-md-5 border-start ps-4">
                     <h6 class="fw-bold mb-2">Membership Details</h6>
                     <p class="text-muted mb-0" style="font-size: 13px;">Expires Date</p>
-                    <p class="fw-bold mb-3" style="font-size: 14px;" id="bizExpiryText">March 1, 2027</p>
+                    <p class="fw-bold mb-3" style="font-size: 14px;" id="bizExpiryText">Loading...</p>
                     <p class="text-muted mb-0" style="font-size: 13px;">Membership Type</p>
                     <p class="fw-bold mb-0" style="font-size: 14px;" id="bizMembershipTypeText">Loading...</p>
                 </div>
@@ -438,73 +1057,303 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
 </div>
 
-<div class="modal-overlay" id="editProfileModal">
-    <div class="modal-content-box" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold mb-0 text-dark"><i class="fa fa-pen text-danger me-2"></i>Edit Business Profile</h5>
+<div class="modal-overlay" id="docViewModal" onclick="handleDocOverlay(event)">
+    <div class="doc-view-modal">
+        <div class="doc-view-header">
+            <h5 class="doc-view-title" id="docViewTitle"><i class="fa fa-file-lines text-danger"></i> Document Preview</h5>
+            <button class="doc-view-close" onclick="closeDocModal()"><i class="fa fa-xmark"></i></button>
+        </div>
+
+        <div class="doc-view-body">
+            <div class="doc-preview-box" id="docPreviewBox">
+                <img id="docPreviewImage" class="doc-preview-image" alt="Document preview">
+                <iframe id="docPreviewFrame" title="Document preview" style="display:none;"></iframe>
+                <div class="doc-preview-empty" id="docPreviewEmpty">
+                    <i class="fa fa-file-circle-xmark mb-2 d-block" style="font-size: 28px;"></i>
+                    No file available for this document yet.
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-view-footer">
+            <button class="doc-btn doc-btn-secondary" onclick="closeDocModal()"><i class="fa fa-xmark"></i> Close</button>
+            <a id="docOpenLink" class="doc-btn doc-btn-primary" href="#" target="_blank" rel="noopener noreferrer"><i class="fa fa-arrow-up-right-from-square"></i> Open Full File</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="editProfileModal" onclick="handleEditProfileOverlay(event)">
+    <div class="modal-content-box" style="max-width: 900px; max-height: 90vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; padding: 0;">
+        <!-- Modal Header -->
+        <div style="padding: 20px 25px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; background: #f9fafb;">
+            <h5 class="fw-bold mb-0 text-dark">Edit Business Profile</h5>
             <button class="btn-close" onclick="closeEditProfileModal()"></button>
         </div>
 
-        <div id="profileAlert" class="alert alert-danger" style="display: none; font-size: 13px;"></div>
-        
-        <h6 class="fw-bold mb-3 text-danger border-bottom pb-2">Business Details</h6>
-        <div class="mb-3">
-            <label class="form-label fw-bold text-muted" style="font-size: 13px;">Registered Business Name</label>
-            <input type="text" id="ep_companyName" class="form-control" placeholder="Company Name">
-        </div>
-        <div class="row mb-3 g-3">
-            <div class="col-md-6">
-                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Email Address</label>
-                <input type="email" id="ep_email" class="form-control" placeholder="example@email.com">
+        <!-- Modal Body -->
+        <div style="padding: 25px;">
+            <div id="profileAlert" class="alert alert-danger" style="display: none; font-size: 13px;"></div>
+            
+            <!-- Company Header Section -->
+            <div style="display: flex; gap: 20px; margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #e5e7eb; align-items: flex-start;">
+                <!-- Logo -->
+                <img id="ep_companyImage" src="{{ asset('images/PCCI-Logo.svg') }}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #e5e7eb; flex-shrink: 0;">
+                
+                <!-- Company Info -->
+                <div style="flex-grow: 1;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                        <h4 class="fw-bold mb-0 text-dark" id="ep_companyNameDisplay">Loading...</h4>
+                        <span class="badge rounded-pill" style="background: #dcfce7; color: #15803d; font-size: 11px; font-weight: bold;"><i class="fa fa-check-circle me-1"></i>Active</span>
+                    </div>
+                    <p class="mb-0 text-muted" style="font-size: 13px;" id="ep_companyTypeDisplay">Loading...</p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Contact Number</label>
-                <input type="text" id="ep_phone" class="form-control" placeholder="+63 912 345 6789">
-            </div>
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label fw-bold text-muted" style="font-size: 13px;">Industry / Type of Company</label>
-            <input type="text" id="ep_industry" class="form-control" placeholder="e.g. Manufacturing">
-        </div>
 
-        <div class="row mb-4 g-3">
-            <div class="col-md-7">
-                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Business Address</label>
-                <input type="text" id="ep_address" class="form-control" placeholder="Street Address">
-            </div>
-            <div class="col-md-5">
-                <label class="form-label fw-bold text-muted" style="font-size: 13px;">City/Municipality</label>
-                <input type="text" id="ep_city" class="form-control" placeholder="City">
-            </div>
-        </div>
-        
-        <h6 class="fw-bold mb-3 text-danger border-bottom pb-2">Official Representative</h6>
-        <div class="row mb-3 g-3">
-            <div class="col-md-6">
-                <label class="form-label fw-bold text-muted" style="font-size: 13px;">First Name</label>
-                <input type="text" id="ep_repFirstName" class="form-control" placeholder="First Name">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label fw-bold text-muted" style="font-size: 13px;">Surname</label>
-                <input type="text" id="ep_repLastName" class="form-control" placeholder="Last Name">
-            </div>
-        </div>
-        <div class="mb-4">
-            <label class="form-label fw-bold text-muted" style="font-size: 13px;">Designation</label>
-            <input type="text" id="ep_repDesignation" class="form-control" placeholder="e.g. CEO, Manager">
-        </div>
+            <!-- Two Column Layout -->
+            <div class="row g-4">
+                <!-- Left Column: Business Information -->
+                <div class="col-md-6">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 14px;">Business information</h6>
+                    
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">REGISTERED NAME</small>
+                            <div style="padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px;" id="ep_companyNameDisplay2">Loading...</div>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer;" onclick="editField('companyName')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
 
-        <div class="d-flex justify-content-end gap-2 mt-2">
-            <button class="btn btn-light fw-bold" onclick="closeEditProfileModal()">Cancel</button>
-            <button class="btn btn-danger fw-bold px-4" id="btnSaveProfile" onclick="saveProfile()">Save Changes</button>
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">BUSINESS TYPE</small>
+                            <select id="ep_businessType" class="form-control form-control-sm" style="padding: 8px 12px; font-size: 14px; background-color: #ffffff; color: #333; border: 1px solid #e5e7eb;">
+                                <option value="">Select Business Type</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Services">Services</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer; margin-top: 18px;" onclick="editField('businessType')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">BUSINESS DESCRIPTION</small>
+                        <textarea id="ep_description" class="form-control form-control-sm" style="padding: 8px 12px; font-size: 14px; resize: vertical; height: 100px; font-family: inherit; background-color: #ffffff; color: #333; border: 1px solid #e5e7eb;" placeholder="Enter business description"></textarea>
+                        <small class="text-muted d-block text-end mt-1">0/200</small>
+                    </div>
+
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">REPRESENTATIVE NAME</small>
+                            <div style="padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px;" id="ep_repNameDisplay">Loading...</div>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer;" onclick="editField('repName')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
+
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">REPRESENTATIVE POSITION</small>
+                            <div style="padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px;" id="ep_repPositionDisplay">Loading...</div>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer;" onclick="editField('repPosition')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
+
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">CONTACT NUMBER</small>
+                            <div style="padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px;" id="ep_contactDisplay">Loading...</div>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer;" onclick="editField('contact')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
+                </div>
+
+                <!-- Right Column: Address & Documentation -->
+                <div class="col-md-6">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 14px;">Address</h6>
+                    
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">ADDRESS</small>
+                            <div style="padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px;" id="ep_addressDisplay">Loading...</div>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer;" onclick="editField('address')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
+
+                    <div class="mb-4" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <small class="text-muted fw-bold d-block mb-1" style="font-size: 12px;">URL</small>
+                            <div style="padding: 8px 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 14px; word-break: break-all;" id="ep_urlDisplay">Loading...</div>
+                        </div>
+                        <button class="btn btn-sm" style="border: 1px solid #e5e7eb; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: white; cursor: pointer;" onclick="editField('url')"><i class="fa fa-pen"></i> Edit</button>
+                    </div>
+
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 14px;">Business Documentation</h6>
+                    
+                    <div class="mb-2" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                        <span style="font-size: 14px;">Mayor Permit</span>
+                        <button class="btn btn-sm" style="border: 1px solid #ccc; padding: 5px 12px; border-radius: 6px; font-size: 12px; background: white; color: #666; cursor: pointer;">Update</button>
+                    </div>
+                    
+                    <div class="mb-2" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                        <span style="font-size: 14px;">DTI Registration</span>
+                        <button class="btn btn-sm" style="border: 1px solid #ccc; padding: 5px 12px; border-radius: 6px; font-size: 12px; background: white; color: #666; cursor: pointer;">Update</button>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+                        <span style="font-size: 14px;">Secretary Certification</span>
+                        <button class="btn btn-sm" style="border: 1px solid #ccc; padding: 5px 12px; border-radius: 6px; font-size: 12px; background: white; color: #666; cursor: pointer;">Update</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                <button class="btn btn-light fw-bold px-4" style="border: 1px solid #e5e7eb;" onclick="closeEditProfileModal()">Cancel</button>
+                <button class="btn btn-danger fw-bold px-4" id="btnSaveProfile" onclick="saveProfile()">Save Changes</button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+function handleEditProfileOverlay(event) {
+    if (event.target === document.getElementById('editProfileModal')) {
+        closeEditProfileModal();
+    }
+}
+
+function setTextIfExists(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerText = value;
+}
+
+function syncBusinessPreviewFromEditor() {
+    const name = (document.getElementById('ep_companyNameDisplay2')?.innerText || '').trim();
+    const type = (document.getElementById('ep_businessType')?.value || '').trim();
+    const description = (document.getElementById('ep_description')?.value || '').trim();
+    const repName = (document.getElementById('ep_repNameDisplay')?.innerText || '').trim();
+    const repPosition = (document.getElementById('ep_repPositionDisplay')?.innerText || '').trim();
+    const contact = (document.getElementById('ep_contactDisplay')?.innerText || '').trim();
+    const address = (document.getElementById('ep_addressDisplay')?.innerText || '').trim();
+
+    if (name) {
+        setTextIfExists('ep_companyNameDisplay', name);
+        setTextIfExists('bizNameTitle', name);
+    }
+
+    if (type) {
+        setTextIfExists('ep_companyTypeDisplay', type);
+        setTextIfExists('bizIndustryTitle', type);
+        setTextIfExists('bizMembershipTypeText', type);
+    }
+
+    if (description) setTextIfExists('bizDescriptionText', description);
+    if (repName) setTextIfExists('repNameText', repName);
+    if (repPosition) setTextIfExists('repDesignationText', repPosition);
+    if (contact) {
+        setTextIfExists('bizPhoneText', contact);
+        setTextIfExists('repPhoneText', contact);
+    }
+    if (address) setTextIfExists('bizAddressText', address);
+}
+
+function placeCaretAtEnd(el) {
+    const range = document.createRange();
+    const sel = window.getSelection();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
+
+function enableInlineEdit(target, allowMultiline = false) {
+    if (!target) return;
+
+    if (!target.dataset.boundInlineEdit) {
+        target.addEventListener('input', syncBusinessPreviewFromEditor);
+        target.addEventListener('blur', function () {
+            const cleaned = (target.innerText || '').replace(/\n+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+            target.innerText = cleaned || target.dataset.prevValue || '';
+            target.contentEditable = 'false';
+            target.style.background = '#f9fafb';
+            target.style.border = '1px solid #e5e7eb';
+            syncBusinessPreviewFromEditor();
+        });
+
+        if (!allowMultiline) {
+            target.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    target.blur();
+                }
+            });
+        }
+
+        target.dataset.boundInlineEdit = '1';
+    }
+
+    target.dataset.prevValue = (target.innerText || '').trim();
+    target.contentEditable = 'true';
+    target.style.background = '#ffffff';
+    target.style.border = '1px solid #b61b2a';
+    target.style.outline = 'none';
+    target.focus();
+    placeCaretAtEnd(target);
+}
+
+function editField(field) {
+    const fieldConfig = {
+        companyName: { id: 'ep_companyNameDisplay2' },
+        repName: { id: 'ep_repNameDisplay' },
+        repPosition: { id: 'ep_repPositionDisplay' },
+        contact: { id: 'ep_contactDisplay' },
+        address: { id: 'ep_addressDisplay' },
+        url: { id: 'ep_urlDisplay' }
+    };
+
+    if (field === 'businessType') {
+        const businessTypeSelect = document.getElementById('ep_businessType');
+        if (businessTypeSelect) businessTypeSelect.focus();
+        return;
+    }
+
+    if (field === 'description') {
+        const descriptionInput = document.getElementById('ep_description');
+        if (descriptionInput) descriptionInput.focus();
+        return;
+    }
+
+    const config = fieldConfig[field];
+    if (!config) return;
+
+    const target = document.getElementById(config.id);
+    if (!target) return;
+
+    enableInlineEdit(target);
+}
+</script>
+
+<script>
 
 const token = localStorage.getItem('token');
+
+function applyMemberTheme(theme) {
+    const normalized = theme === 'dark' ? 'dark' : 'light';
+    localStorage.setItem('theme', normalized);
+    document.body.classList.toggle('member-dark', normalized === 'dark');
+
+    const icon = document.getElementById('themeToggleIcon');
+    const themeLabel = document.getElementById('themeLabel');
+    if (icon) icon.className = normalized === 'dark' ? 'fa fa-sun' : 'fa fa-moon';
+    if (themeLabel) themeLabel.innerText = normalized === 'dark' ? 'Dark' : 'Light';
+}
+
+window.applyMemberTheme = applyMemberTheme;
+
+function toggleMemberThemeQuick() {
+    const current = localStorage.getItem('theme') || 'light';
+    applyMemberTheme(current === 'dark' ? 'light' : 'dark');
+}
 
 // ==========================================
 // INITIALIZATION & AUTHENTICATION
@@ -515,9 +1364,23 @@ document.addEventListener('DOMContentLoaded', function(){
         return; 
     }
 
+    applyMemberTheme(localStorage.getItem('theme') || 'light');
+    seedUserFallbackUI();
     startLiveClock();
     fetchRealDashboardData(token);
 });
+
+function seedUserFallbackUI() {
+    const storedName = (localStorage.getItem('userName') || '').trim();
+    if (!storedName) return;
+
+    const nameParts = storedName.split(/\s+/).filter(Boolean);
+    const first = nameParts[0] || storedName;
+
+    setTextIfExists('sidebarName', storedName);
+    setTextIfExists('welcomeMessage', `Welcome, ${first}!`);
+    setTextIfExists('repNameText', storedName);
+}
 
 // Update the Date and Time in the Light-Teal widget
 function startLiveClock() {
@@ -564,7 +1427,13 @@ function clearNotifications(event) {
 
 function markAllRead(event) { 
     event.stopPropagation(); 
-    alert('All notifications marked as read!'); 
+    const badge = document.getElementById('notifBadgeCount');
+    const text = document.getElementById('notifPrimaryText');
+    const date = document.getElementById('notifPrimaryDate');
+    if (badge) badge.innerText = '0 New';
+    if (text) text.innerText = 'No new notifications.';
+    if (date) date.innerText = 'Just now';
+    document.getElementById('notificationPanel').style.display = 'none';
 }
 
 function logout() { 
@@ -574,96 +1443,451 @@ function logout() {
 
 function openAddProductModal() { document.getElementById('addProductModal').style.display = 'flex'; }
 function editProfileAlert() { alert("Edit Profile modal will open here!"); }
-function viewDocument(type) { alert("Viewing document: " + type); }
+
+function getNestedValue(obj, path) {
+    return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : null), obj);
+}
+
+function escapeHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function renderRecentProducts(products) {
+    const list = document.getElementById('recentProductsList');
+    if (!list) return;
+
+    const topProducts = Array.isArray(products) ? products.slice(0, 3) : [];
+    if (topProducts.length === 0) {
+        list.innerHTML = '<div class="pill-card mb-0"><b class="text-dark mb-0" style="font-size: 14px;">No products/services found</b></div>';
+        return;
+    }
+
+    list.innerHTML = topProducts.map((prod, index) => {
+        const name = escapeHtml(prod.name || 'Unnamed service');
+        const rawUrl = (prod.url || prod.service_url || '').trim();
+        const fullUrl = rawUrl && !rawUrl.startsWith('http') ? `https://${rawUrl}` : rawUrl;
+        const safeDisplayUrl = escapeHtml(rawUrl || 'No URL provided');
+        const safeFullUrl = escapeHtml(fullUrl || '#');
+        const marginClass = index === topProducts.length - 1 ? ' mb-0' : '';
+
+        return `
+            <div class="pill-card${marginClass}">
+                <b class="text-dark mb-0" style="font-size: 14px;">${name}</b>
+                ${rawUrl ? `<a href="${safeFullUrl}" target="_blank" class="text-primary text-decoration-none fw-bold text-truncate" style="font-size: 13px; max-width: 200px;">${safeDisplayUrl} <i class="fa fa-external-link-alt ms-1"></i></a>` : '<span class="text-muted" style="font-size: 13px;">No URL provided</span>'}
+            </div>
+        `;
+    }).join('');
+}
+
+async function fetchRecentProducts() {
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/v1/products`, {
+            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' }
+        });
+
+        if (response.status === 401) {
+            logout();
+            return;
+        }
+
+        const data = await response.json();
+        const products = data.data || [];
+        const countEl = document.getElementById('dashProductsCount');
+        if (countEl) countEl.innerText = String(products.length);
+        renderRecentProducts(products);
+    } catch (error) {
+        renderRecentProducts([]);
+    }
+}
+
+function normalizeDocumentUrl(raw) {
+    if (!raw || typeof raw !== 'string') return null;
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:') || trimmed.startsWith('blob:')) {
+        return trimmed;
+    }
+
+    if (trimmed.startsWith('/')) {
+        return trimmed;
+    }
+
+    if (trimmed.startsWith('storage/')) {
+        return '/' + trimmed;
+    }
+
+    return '/storage/' + trimmed;
+}
+
+function findDocumentUrl(type) {
+    const profile = window.currentProfileData || {};
+
+    const candidatePaths = {
+        mayors: [
+            'documents.mayors_permit',
+            'documents.mayor_permit',
+            'uploaded_documents.mayors_permit',
+            'uploaded_documents.mayor_permit',
+            'requirements.mayors_permit',
+            'attachments.mayors_permit',
+            'basic_profile.mayors_permit',
+            'mayors_permit',
+            'mayor_permit',
+            'business_permit',
+            'mayors_permit_url',
+            'business_permit_url'
+        ],
+        dti: [
+            'documents.dti_sec',
+            'documents.dti_or_sec',
+            'uploaded_documents.dti_sec',
+            'uploaded_documents.dti_or_sec',
+            'requirements.dti_sec',
+            'attachments.dti_sec',
+            'basic_profile.dti_sec',
+            'dti_sec',
+            'dti_or_sec',
+            'dti',
+            'sec',
+            'dti_sec_url',
+            'dti_url',
+            'sec_url'
+        ]
+    };
+
+    const paths = candidatePaths[type] || [];
+    for (const path of paths) {
+        const val = getNestedValue(profile, path);
+        const normalized = normalizeDocumentUrl(val);
+        if (normalized) return normalized;
+    }
+    return null;
+}
+
+function openDocModal(title, url) {
+    const modal = document.getElementById('docViewModal');
+    const titleEl = document.getElementById('docViewTitle');
+    const imgEl = document.getElementById('docPreviewImage');
+    const frameEl = document.getElementById('docPreviewFrame');
+    const emptyEl = document.getElementById('docPreviewEmpty');
+    const openLink = document.getElementById('docOpenLink');
+
+    titleEl.innerHTML = `<i class="fa fa-file-lines text-danger"></i> ${title}`;
+
+    imgEl.style.display = 'none';
+    frameEl.style.display = 'none';
+    emptyEl.style.display = 'none';
+    imgEl.src = '';
+    frameEl.src = '';
+
+    if (!url) {
+        emptyEl.style.display = 'block';
+        openLink.style.display = 'none';
+    } else {
+        openLink.style.display = 'inline-flex';
+        openLink.href = url;
+
+        const isImage = /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(url);
+        if (isImage) {
+            imgEl.src = url;
+            imgEl.style.display = 'block';
+        } else {
+            frameEl.src = url;
+            frameEl.style.display = 'block';
+        }
+    }
+
+    modal.style.display = 'flex';
+}
+
+function closeDocModal() {
+    const modal = document.getElementById('docViewModal');
+    const imgEl = document.getElementById('docPreviewImage');
+    const frameEl = document.getElementById('docPreviewFrame');
+    modal.style.display = 'none';
+    imgEl.src = '';
+    frameEl.src = '';
+}
+
+function handleDocOverlay(event) {
+    if (event.target.id === 'docViewModal') {
+        closeDocModal();
+    }
+}
+
+function viewDocument(type) {
+    const title = type === 'mayors' ? 'Mayor Permit' : 'DTI / SEC Document';
+    const fileUrl = findDocumentUrl(type);
+    openDocModal(title, fileUrl);
+}
+
+function applyProfileDataToUI(profile) {
+    if (!profile) return;
+
+    const basic = profile.basic_profile || {};
+    const org = profile.organization_membership || {};
+    const rep = profile.official_representative || {};
+    const loc = basic.business_location || {};
+
+    const companyName = basic.registered_business_name || 'Your Company';
+    const repName = `${rep.first_name || ''} ${rep.surname || ''}`.trim();
+    const memberID = `PCCI-${new Date().getFullYear()}-${String(profile.id || 0).padStart(4, '0')}`;
+    const memStatus = profile.status || 'Pending';
+    const memType = profile.membership_type || 'N/A';
+    const contactNo = basic.contact_number || basic.telephone_no || 'N/A';
+    const officialReceiptNo = profile.official_receipt_no || profile.or_number || profile.receipt_no || 'N/A';
+    const membershipReceiptNo = profile.membership_receipt_no || profile.receipt_no || 'N/A';
+    const ownershipType = org.ownership_type || org.organization_type || 'Not specified';
+
+    // Sidebar
+    setTextIfExists('sidebarCompany', companyName);
+    setTextIfExists('sidebarName', repName || 'No Rep Assigned');
+    setTextIfExists('sidebarEmail', basic.email || 'N/A');
+
+    if (profile.photo_url) {
+        const sidebarImage = document.getElementById('sidebarImage');
+        const topbarAvatar = document.getElementById('topbarAvatar');
+        const dashBizImage = document.getElementById('dashBizImage');
+        const bizMainImage = document.getElementById('bizMainImage');
+        if (sidebarImage) sidebarImage.src = profile.photo_url;
+        if (topbarAvatar) topbarAvatar.src = profile.photo_url;
+        if (dashBizImage) dashBizImage.src = profile.photo_url;
+        if (bizMainImage) bizMainImage.src = profile.photo_url;
+    }
+
+    // Dashboard
+    setTextIfExists('welcomeMessage', `Welcome, ${companyName}!`);
+    setTextIfExists('dashBizName', companyName);
+    setTextIfExists('dashBizEmail', basic.email || 'N/A');
+    setTextIfExists('dashBizType', org.type_of_company || 'Industry not specified');
+    setTextIfExists('dashMembershipStatus', memStatus.toUpperCase());
+    setTextIfExists('dashMembershipID', memberID);
+    setTextIfExists('dashMembershipType', memType);
+    setTextIfExists('dashOfficialReceiptNo', officialReceiptNo);
+    setTextIfExists('dashReceiptNo', membershipReceiptNo);
+    setTextIfExists('dashOwnershipType', ownershipType);
+
+    // My Business
+    setTextIfExists('bizNameTitle', companyName);
+    setTextIfExists('bizIndustryTitle', org.type_of_company || 'Industry not specified');
+    setTextIfExists('bizEmailText', basic.email || 'N/A');
+    setTextIfExists('bizPhoneText', contactNo);
+
+    const addressString = `${loc.business_address || ''}, ${loc.city_municipality || ''}`.trim().replace(/^,|,$/g, '');
+    setTextIfExists('bizAddressText', addressString || 'Address not provided');
+
+    setTextIfExists('bizMembershipTypeText', memType);
+    if (profile.date_approved) {
+        let d = new Date(profile.date_approved);
+        d.setFullYear(d.getFullYear() + 1);
+        setTextIfExists('bizExpiryText', d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+    } else {
+        setTextIfExists('bizExpiryText', 'Pending Approval');
+    }
+
+    setTextIfExists('repNameText', repName || 'N/A');
+    setTextIfExists('repDesignationText', rep.designation || 'Representative');
+    setTextIfExists('repEmailText', rep.email || basic.email || 'N/A');
+    setTextIfExists('repPhoneText', rep.contact_number || contactNo);
+
+    updateDashboardEventCard(profile);
+    updateMembershipPlanDetails(profile);
+
+    if (typeof syncSettingsFromProfile === 'function') {
+        syncSettingsFromProfile(profile);
+    }
+}
+
+function updateDashboardEventCard(profile) {
+    const events = profile?.events || profile?.upcoming_events || [];
+    const firstEvent = Array.isArray(events) && events.length ? events[0] : null;
+
+    const title = firstEvent?.title || firstEvent?.name || 'No upcoming events';
+    const eventDateRaw = firstEvent?.event_date || firstEvent?.date || null;
+    const location = firstEvent?.location || firstEvent?.venue || '-';
+
+    let dateText = 'To be announced';
+    if (eventDateRaw) {
+        const eventDate = new Date(eventDateRaw);
+        if (!Number.isNaN(eventDate.getTime())) {
+            dateText = eventDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+    }
+
+    setTextIfExists('dashEventTitle', title);
+    setTextIfExists('dashEventDate', dateText);
+    setTextIfExists('dashEventLocation', location);
+    setTextIfExists('dashEventsCount', String(Array.isArray(events) ? events.length : 0));
+}
+
+function updateMembershipPlanDetails(profile) {
+    const plans = profile?.available_plans || profile?.membership_plans || [];
+    if (Array.isArray(plans) && plans.length >= 2) {
+        const [primary, secondary] = plans;
+        setTextIfExists('membershipPlanPrimaryName', primary?.name || 'Plan A');
+        setTextIfExists('membershipPlanPrimaryPrice', primary?.price || primary?.amount || 'N/A');
+        setTextIfExists('membershipPlanSecondaryName', secondary?.name || 'Plan B');
+        setTextIfExists('membershipPlanSecondaryPrice', secondary?.price || secondary?.amount || 'N/A');
+        return;
+    }
+
+    const membershipType = (profile?.membership_type || '').toString().toLowerCase();
+    const annualAmount = profile?.annual_membership_fee || profile?.membership_fee || 'Php 500.00 / year';
+    const lifetimeAmount = profile?.lifetime_membership_fee || 'Php 10,000.00';
+
+    setTextIfExists('membershipPlanPrimaryName', 'Lifetime Sponsorship');
+    setTextIfExists('membershipPlanPrimaryPrice', lifetimeAmount);
+    setTextIfExists('membershipPlanSecondaryName', 'Yearly Subscription');
+    setTextIfExists('membershipPlanSecondaryPrice', annualAmount);
+
+    if (membershipType.includes('lifetime')) {
+        setTextIfExists('billingPlanLabel', 'Lifetime Sponsorship');
+    } else if (membershipType) {
+        setTextIfExists('billingPlanLabel', profile.membership_type);
+    }
+}
+
+function extractProfileFromResponse(data) {
+    if (!data) return null;
+
+    const candidates = [
+        data.data,
+        data.application,
+        data.profile,
+        data.applicant,
+        data.member,
+        data
+    ];
+
+    for (const item of candidates) {
+        if (!item) continue;
+        if (Array.isArray(item)) {
+            if (item.length > 0) return item[0];
+            continue;
+        }
+        if (typeof item === 'object') {
+            if (item.basic_profile || item.organization_membership || item.official_representative) {
+                return item;
+            }
+        }
+    }
+
+    return null;
+}
+
+function normalizeProfileShape(rawProfile) {
+    if (!rawProfile || typeof rawProfile !== 'object') return null;
+
+    if (rawProfile.basic_profile || rawProfile.organization_membership || rawProfile.official_representative) {
+        return rawProfile;
+    }
+
+    if (rawProfile.applicant && typeof rawProfile.applicant === 'object') {
+        const applicant = rawProfile.applicant;
+        if (applicant.basic_profile || applicant.organization_membership || applicant.official_representative) {
+            return {
+                ...applicant,
+                status: rawProfile.status || applicant.status,
+                id: rawProfile.id || applicant.id
+            };
+        }
+    }
+
+    const source = rawProfile.user && typeof rawProfile.user === 'object' ? rawProfile.user : rawProfile;
+    const name = (source.name || localStorage.getItem('userName') || '').trim();
+    const nameParts = name.split(/\s+/).filter(Boolean);
+
+    return {
+        id: source.id || rawProfile.id || 0,
+        status: source.status || rawProfile.status || 'Active',
+        membership_type: source.membership_type || rawProfile.membership_type || 'N/A',
+        basic_profile: {
+            registered_business_name: source.registered_business_name || source.company_name || source.business_name || name || 'Your Company',
+            email: source.email || rawProfile.email || 'N/A',
+            contact_number: source.contact_number || source.telephone_no || rawProfile.contact_number || 'N/A',
+            telephone_no: source.telephone_no || source.contact_number || rawProfile.telephone_no || 'N/A',
+            business_location: {
+                business_address: source.business_address || '',
+                city_municipality: source.city_municipality || ''
+            }
+        },
+        organization_membership: {
+            type_of_company: source.type_of_company || source.industry || 'N/A',
+            ownership_type: source.ownership_type || 'Not specified'
+        },
+        official_representative: {
+            first_name: source.first_name || nameParts.slice(0, -1).join(' ') || nameParts[0] || '',
+            surname: source.surname || (nameParts.length > 1 ? nameParts[nameParts.length - 1] : ''),
+            email: source.email || rawProfile.email || 'N/A',
+            contact_number: source.contact_number || source.telephone_no || 'N/A',
+            designation: source.designation || 'Representative'
+        }
+    };
+}
 
 // ========================================
 // REAL API FETCH LOGIC
 // ==========================================
 async function fetchRealDashboardData(token) {
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+    };
+
+    const endpoints = ['/v1/application', '/v1/user'];
+
     try {
-        // Updated to use the correct /v1/application endpoint
-        const response = await fetch(`${window.API_BASE_URL}/v1/application`, {
-            headers: { 
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json' 
+        for (const endpoint of endpoints) {
+            const response = await fetch(`${window.API_BASE_URL}${endpoint}`, { headers });
+
+            if (response.status === 401) {
+                logout();
+                return;
             }
-        });
-        
-        // Handle expired/invalid tokens just like the admin dashboard
-        if (response.status === 401) { 
-            logout(); 
-            return; 
+
+            if (!response.ok) continue;
+
+            const data = await response.json();
+            const rawProfile = extractProfileFromResponse(data);
+            const profile = normalizeProfileShape(rawProfile);
+
+            if (profile) {
+                window.currentProfileData = profile;
+                localStorage.setItem('member_profile_cache', JSON.stringify(profile));
+                applyProfileDataToUI(profile);
+                fetchRecentProducts();
+                return;
+            }
         }
 
-        const data = await response.json();
-
-        if (response.ok && data.data) {
-            window.currentProfileData = null;
-            // Depending on if the API returns an array or single object for the user's application
-            const profile = Array.isArray(data.data) ? data.data[0] : data.data;
-            window.currentProfileData = profile;
-            if (!profile) return;
-
-            const basic = profile.basic_profile || {};
-            const org = profile.organization_membership || {};
-            const rep = profile.official_representative || {};
-            const loc = basic.business_location || {};
-            
-            const companyName = basic.registered_business_name || 'Your Company';
-            const repName = `${rep.first_name || ''} ${rep.surname || ''}`.trim();
-            const memberID = `PCCI-${new Date().getFullYear()}-${String(profile.id).padStart(4, '0')}`;
-            const memStatus = profile.status || 'Pending';
-            const memType = profile.membership_type || 'N/A';
-
-            // Sidebar Injection
-            document.getElementById('sidebarCompany').innerText = companyName;
-            document.getElementById('sidebarName').innerText = repName || 'No Rep Assigned';
-            document.getElementById('sidebarEmail').innerText = basic.email || 'N/A';
-            if(profile.photo_url) {
-                document.getElementById('sidebarImage').src = profile.photo_url;
-                document.getElementById('topbarAvatar').src = profile.photo_url;
-                document.getElementById('dashBizImage').src = profile.photo_url;
-                document.getElementById('bizMainImage').src = profile.photo_url;
-            }
-
-            // Dashboard Title Injection
-            document.getElementById('welcomeMessage').innerText = `Welcome, ${companyName}!`;
-
-            // Dashboard Profile Card Injection
-            document.getElementById('dashBizName').innerText = companyName;
-            document.getElementById('dashBizEmail').innerText = basic.email || 'N/A';
-            document.getElementById('dashBizType').innerText = org.type_of_company || 'Industry not specified';
-
-            // Dashboard Membership Overview Card Injection
-            document.getElementById('dashMembershipStatus').innerText = memStatus.toUpperCase();
-            document.getElementById('dashMembershipID').innerText = memberID;
-            document.getElementById('dashMembershipType').innerText = memType;
-
-            // Restored "My Business" Tab Injection
-            document.getElementById('bizNameTitle').innerText = companyName;
-            document.getElementById('bizIndustryTitle').innerText = org.type_of_company || 'Industry not specified';
-            document.getElementById('bizEmailText').innerText = basic.email || 'N/A';
-            document.getElementById('bizPhoneText').innerText = basic.contact_number || 'N/A';
-            
-            const addressString = `${loc.business_address || ''}, ${loc.city_municipality || ''}`.trim().replace(/^,|,$/g, '');
-            document.getElementById('bizAddressText').innerText = addressString || 'Address not provided';
-            
-            document.getElementById('bizMembershipTypeText').innerText = memType;
-            if(profile.date_approved) {
-                let d = new Date(profile.date_approved);
-                d.setFullYear(d.getFullYear() + 1);
-                document.getElementById('bizExpiryText').innerText = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            } else {
-                document.getElementById('bizExpiryText').innerText = 'Pending Approval';
-            }
-
-            document.getElementById('repNameText').innerText = repName || 'N/A';
-            document.getElementById('repDesignationText').innerText = rep.designation || 'Representative';
-            document.getElementById('repEmailText').innerText = rep.email || basic.email || 'N/A';
-            document.getElementById('repPhoneText').innerText = rep.contact_number || basic.contact_number || 'N/A';
+        const cachedProfileRaw = localStorage.getItem('member_profile_cache');
+        if (cachedProfileRaw) {
+            const cachedProfile = JSON.parse(cachedProfileRaw);
+            const normalizedCached = normalizeProfileShape(cachedProfile);
+            window.currentProfileData = normalizedCached;
+            applyProfileDataToUI(normalizedCached);
+            fetchRecentProducts();
         }
     } catch(error) {
         console.error("Failed to fetch API Data:", error);
+        try {
+            const cachedProfileRaw = localStorage.getItem('member_profile_cache');
+            if (cachedProfileRaw) {
+                const cachedProfile = JSON.parse(cachedProfileRaw);
+                const normalizedCached = normalizeProfileShape(cachedProfile);
+                window.currentProfileData = normalizedCached;
+                applyProfileDataToUI(normalizedCached);
+                fetchRecentProducts();
+            }
+        } catch (_) {
+            // Ignore cache parse errors
+        }
     }
 }
 
@@ -686,6 +1910,9 @@ async function fetchProducts() {
         const data = await response.json();
         // Adjust "data.data" if your API wraps the array differently
         const products = data.data || []; 
+        const countEl = document.getElementById('dashProductsCount');
+        if (countEl) countEl.innerText = String(products.length);
+        renderRecentProducts(products);
         
         tbody.innerHTML = '';
         if(products.length === 0) {
@@ -697,8 +1924,9 @@ async function fetchProducts() {
             const name = prod.name || 'N/A';
             const desc = prod.description || '';
             const url = prod.url || prod.service_url || '#'; // Adjust property name to match your API response
-            const status = prod.status || 'Active';
-            const statusColor = status.toLowerCase() === 'active' ? 'green' : 'gray';
+            const rawStatus = (prod.status || 'active').toString().toLowerCase();
+            const status = rawStatus === 'inactive' ? 'Inactive' : 'Active';
+            const statusColor = rawStatus === 'active' ? 'green' : 'gray';
             
             // Format URL to be clickable
             const cleanUrl = url !== '#' && !url.startsWith('http') ? 'https://' + url : url;
@@ -711,7 +1939,7 @@ async function fetchProducts() {
                     <td>${urlDisplay}</td>
                     <td style="color: ${statusColor}; font-weight: bold;">${status}</td>
                     <td>
-                        <button class="btn btn-sm btn-light text-warning shadow-sm me-1" onclick="editProduct(${prod.id}, '${name.replace(/'/g, "\\'")}', '${desc.replace(/'/g, "\\'")}', '${url.replace(/'/g, "\\'")}')"><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-sm btn-light text-warning shadow-sm me-1" onclick="editProduct(${prod.id}, '${name.replace(/'/g, "\\'")}', '${desc.replace(/'/g, "\\'")}', '${url.replace(/'/g, "\\'")}', '${rawStatus.replace(/'/g, "\\'")}')"><i class="fa fa-pen"></i></button>
                         <button class="btn btn-sm btn-light text-danger shadow-sm" onclick="deleteProduct(${prod.id})"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
@@ -730,17 +1958,21 @@ function openAddProductModal() {
     document.getElementById('prodName').value = '';
     document.getElementById('prodUrl').value = '';
     document.getElementById('prodDesc').value = '';
+    document.getElementById('prodStatus').value = 'active';
+    document.getElementById('prodStatusWrap').style.display = 'none';
     document.getElementById('productAlert').style.display = 'none';
     document.getElementById('addProductModal').style.display = 'flex';
 }
 
 // 3. Open Edit Modal
-function editProduct(id, name, desc, url) {
+function editProduct(id, name, desc, url, status) {
     document.getElementById('productModalTitle').innerText = 'Edit Product';
     document.getElementById('prodId').value = id;
     document.getElementById('prodName').value = name;
     document.getElementById('prodDesc').value = desc === 'null' ? '' : desc;
     document.getElementById('prodUrl').value = url === 'null' || url === '#' ? '' : url;
+    document.getElementById('prodStatus').value = (status || 'active').toLowerCase() === 'inactive' ? 'inactive' : 'active';
+    document.getElementById('prodStatusWrap').style.display = 'block';
     document.getElementById('productAlert').style.display = 'none';
     document.getElementById('addProductModal').style.display = 'flex';
 }
@@ -756,6 +1988,8 @@ async function saveProduct() {
     const name = document.getElementById('prodName').value;
     const desc = document.getElementById('prodDesc').value;
     const url = document.getElementById('prodUrl').value;
+    const isUpdate = id !== '';
+    const status = isUpdate ? document.getElementById('prodStatus').value : 'active';
     const btn = document.getElementById('btnSaveProduct');
     const alertBox = document.getElementById('productAlert');
     
@@ -774,10 +2008,9 @@ async function saveProduct() {
         name: name,
         description: desc,
         url: url, // change to 'service_url' if that's what your API expects
-        status: 'active' 
+        status: status
     };
 
-    const isUpdate = id !== '';
     const endpoint = isUpdate ? `${window.API_BASE_URL}/v1/products/${id}` : `${window.API_BASE_URL}/v1/products`;
     
     // Note: If your Postman update route requires POST instead of PUT, change method here to 'POST'
@@ -842,34 +2075,51 @@ async function deleteProduct(id) {
 // ==========================================
 
 function openEditProfileModal() {
-    if (!window.currentProfileData) {
-        alert("Still loading profile data. Please wait a moment.");
-        return;
-    }
+    console.log('Opening edit profile modal...');
+    console.log('Profile data available:', !!window.currentProfileData);
     
-    const profile = window.currentProfileData;
+    // Get profile data if available, otherwise use defaults
+    const profile = window.currentProfileData || {};
     const basic = profile.basic_profile || {};
     const org = profile.organization_membership || {};
     const rep = profile.official_representative || {};
     const loc = basic.business_location || {};
 
-    // Populate Modal Inputs
-    document.getElementById('ep_companyName').value = basic.registered_business_name || '';
-    document.getElementById('ep_email').value = basic.email || '';
-    document.getElementById('ep_phone').value = basic.contact_number || '';
+    // Populate Modal Display Fields (for the new modal structure)
+    document.getElementById('ep_companyNameDisplay').innerText = basic.registered_business_name || 'Not provided';
+    document.getElementById('ep_companyNameDisplay2').innerText = basic.registered_business_name || 'Not provided';
+    document.getElementById('ep_companyTypeDisplay').innerText = org.type_of_company || 'Not provided';
     
-    document.getElementById('ep_industry').value = org.type_of_company || '';
+    document.getElementById('ep_businessType').value = org.type_of_company || '';
+    document.getElementById('ep_description').value = basic.business_description || '';
     
-    document.getElementById('ep_address').value = loc.business_address || '';
-    document.getElementById('ep_city').value = loc.city_municipality || '';
+    const fullName = ((rep.first_name || '') + ' ' + (rep.surname || '')).trim();
+    document.getElementById('ep_repNameDisplay').innerText = fullName || 'Not provided';
+    document.getElementById('ep_repPositionDisplay').innerText = rep.designation || 'Not provided';
+    document.getElementById('ep_contactDisplay').innerText = basic.contact_number || basic.telephone_no || 'Not provided';
     
-    document.getElementById('ep_repFirstName').value = rep.first_name || '';
-    document.getElementById('ep_repLastName').value = rep.surname || '';
-    document.getElementById('ep_repDesignation').value = rep.designation || '';
+    document.getElementById('ep_addressDisplay').innerText = loc.business_address || 'Not provided';
+    document.getElementById('ep_urlDisplay').innerText = basic.website_url || 'Not provided';
+
+    // Keep type/description and preview sections in sync while editing.
+    const businessTypeEl = document.getElementById('ep_businessType');
+    const descriptionEl = document.getElementById('ep_description');
+    if (businessTypeEl && !businessTypeEl.dataset.syncBound) {
+        businessTypeEl.addEventListener('change', syncBusinessPreviewFromEditor);
+        businessTypeEl.dataset.syncBound = '1';
+    }
+    if (descriptionEl && !descriptionEl.dataset.syncBound) {
+        descriptionEl.addEventListener('input', syncBusinessPreviewFromEditor);
+        descriptionEl.dataset.syncBound = '1';
+    }
+    syncBusinessPreviewFromEditor();
 
     // Show Modal
     document.getElementById('profileAlert').style.display = 'none';
-    document.getElementById('editProfileModal').style.display = 'flex';
+    const modal = document.getElementById('editProfileModal');
+    console.log('Modal element:', modal);
+    modal.style.display = 'flex';
+    console.log('Modal should now be visible');
 }
 
 function closeEditProfileModal() {
@@ -899,25 +2149,41 @@ async function saveProfile() {
     payload.organization_membership = payload.organization_membership || {};
     payload.official_representative = payload.official_representative || {};
 
-    // 2. Override ONLY the fields that are in the Edit Profile modal
-    payload.basic_profile.registered_business_name = document.getElementById('ep_companyName').value;
-    payload.basic_profile.email = document.getElementById('ep_email').value;
-    
-    // Note: The sample JSON uses 'telephone_no', so we use that here
-    payload.basic_profile.telephone_no = document.getElementById('ep_phone').value; 
-    
-    payload.organization_membership.type_of_company = document.getElementById('ep_industry').value;
-    
-    payload.basic_profile.business_location.business_address = document.getElementById('ep_address').value;
-    payload.basic_profile.business_location.city_municipality = document.getElementById('ep_city').value;
-    
-    payload.official_representative.first_name = document.getElementById('ep_repFirstName').value;
-    payload.official_representative.surname = document.getElementById('ep_repLastName').value;
-    payload.official_representative.designation = document.getElementById('ep_repDesignation').value;
+    // 2. Override fields from the current modal controls/display values.
+    const companyName = (document.getElementById('ep_companyNameDisplay2')?.innerText || '').trim();
+    const businessType = (document.getElementById('ep_businessType')?.value || '').trim();
+    const businessDescription = (document.getElementById('ep_description')?.value || '').trim();
+    const contactNumber = (document.getElementById('ep_contactDisplay')?.innerText || '').trim();
+    const addressDisplay = (document.getElementById('ep_addressDisplay')?.innerText || '').trim();
+    const repNameDisplay = (document.getElementById('ep_repNameDisplay')?.innerText || '').trim();
+    const repDesignation = (document.getElementById('ep_repPositionDisplay')?.innerText || '').trim();
+    const websiteUrl = (document.getElementById('ep_urlDisplay')?.innerText || '').trim();
+
+    if (companyName) payload.basic_profile.registered_business_name = companyName;
+    if (businessDescription !== '') payload.basic_profile.business_description = businessDescription;
+    if (contactNumber) {
+        payload.basic_profile.telephone_no = contactNumber;
+        payload.basic_profile.contact_number = contactNumber;
+    }
+    if (businessType) payload.organization_membership.type_of_company = businessType;
+    if (websiteUrl) payload.basic_profile.website_url = websiteUrl;
+
+    if (addressDisplay) {
+        const parts = addressDisplay.split(',').map(p => p.trim()).filter(Boolean);
+        payload.basic_profile.business_location.business_address = parts[0] || payload.basic_profile.business_location.business_address || '';
+        payload.basic_profile.business_location.city_municipality = parts.slice(1).join(', ') || payload.basic_profile.business_location.city_municipality || '';
+    }
+
+    if (repNameDisplay) {
+        const nameParts = repNameDisplay.split(/\s+/).filter(Boolean);
+        payload.official_representative.first_name = nameParts.slice(0, -1).join(' ') || nameParts[0] || payload.official_representative.first_name || '';
+        payload.official_representative.surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : (payload.official_representative.surname || '');
+    }
+    if (repDesignation) payload.official_representative.designation = repDesignation;
 
     try {
         const response = await fetch(`${window.API_BASE_URL}/v1/application`, {
-            method: 'POST', // Use POST as required by your backend
+            method: 'PUT', // /v1/application update route supports PUT
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -929,8 +2195,10 @@ async function saveProfile() {
         const data = await response.json();
 
         if (response.ok || response.status === 200 || response.status === 201) {
+            // Apply optimistic UI update immediately so users see changes right after closing modal.
+            window.currentProfileData = payload;
+            applyProfileDataToUI(payload);
             closeEditProfileModal();
-            fetchRealDashboardData(token); // Refresh the UI with the updated data
             alert('Profile updated successfully!'); 
         } else {
             alertBox.innerText = data.message || 'Failed to update profile.';

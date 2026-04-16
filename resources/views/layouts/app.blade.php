@@ -171,24 +171,39 @@
                 background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2826, 26, 46, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
             }
             
-            /* Mobile Navigation */
-            @media (max-width: 991.98px) {
+            /* --- RESPONSIVE MOBILE MENU FIX --- */
+            /* Mobile Navigation (Matches navbar-expand-xl) */
+            @media (max-width: 1199.98px) {
                 .navbar-collapse {
-                    background-color: #fff;
-                    padding: 1rem;
-                    border-radius: 8px;
+                    background-color: var(--bg-card); /* Adapts to light/dark mode */
+                    padding: 1.5rem;
+                    border-radius: 12px;
                     margin-top: 1rem;
                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                    border: 1px solid var(--border-color);
                 }
                 
-                .navbar-collapse .navbar-nav .nav-link {
-                    color: #1a1a2e !important;
+                .navbar-collapse .navbar-nav .nav-link,
+                .navbar-collapse .nav-link-custom {
+                    color: var(--text-main) !important; /* Forces text to be visible on mobile */
                     padding: 0.75rem 1rem !important;
+                    margin-bottom: 0.5rem;
+                    display: block;
                 }
                 
-                .navbar-collapse .navbar-nav .nav-link:hover {
-                    background-color: var(--pcci-light);
+                .navbar-collapse .nav-link-custom:hover,
+                .navbar-collapse .active-nav-underline {
+                    background-color: var(--pcci-red);
+                    color: #ffffff !important;
                     border-radius: 6px;
+                    text-decoration: none !important;
+                }
+                
+                /* Ensures the action buttons sit nicely on mobile */
+                .navbar-collapse .btn {
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 0.5rem;
                 }
             }
             
@@ -627,7 +642,6 @@
     </head>
     <body>
 
-        <!-- LOADING SCREEN -->
         <div class="pcci-loader-overlay" id="pcciLoader">
             <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI" class="pcci-loader-logo">
             <div class="pcci-loader-bar-track">

@@ -39,7 +39,7 @@
     .search-box {
         position: relative;
         flex: 1;
-        max-width: 400px;
+        max-width: 360px;
     }
     .search-box input {
         width: 100%;
@@ -83,24 +83,28 @@
         width: 100%;
         border-collapse: collapse;
         font-size: 0.9rem;
+        table-layout: fixed;
     }
     .users-table thead {
         background: #f8f8f8;
     }
     .users-table th {
-        padding: 14px 18px;
+        padding: 12px 14px;
         text-align: left;
         font-weight: 700;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.04em;
         color: #555;
         border-bottom: 2px solid #e0e0e0;
     }
     .users-table td {
-        padding: 14px 18px;
+        padding: 12px 14px;
         border-bottom: 1px solid #f0f0f0;
         color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .users-table tr:hover { background: #fdf2f4; }
 
@@ -215,6 +219,54 @@
         color: #999;
     }
     .empty-state i { font-size: 3rem; margin-bottom: 12px; display: block; color: #ddd; }
+
+    @media (max-width: 992px) {
+        .page-header {
+            padding: 24px;
+            font-size: 1.6rem;
+        }
+
+        .search-box {
+            max-width: 100%;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 12px;
+        }
+
+        .users-table {
+            min-width: 760px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .page-header {
+            padding: 20px 16px;
+            font-size: 1.3rem;
+        }
+
+        .toolbar {
+            gap: 10px;
+        }
+
+        .btn-register {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modal-box {
+            padding: 20px 16px;
+        }
+
+        .modal-btn-row {
+            flex-direction: column;
+        }
+
+        .users-table {
+            min-width: 680px;
+        }
+    }
 </style>
 
 <div class="page-header">Admin Users</div>

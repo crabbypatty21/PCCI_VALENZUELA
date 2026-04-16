@@ -154,6 +154,44 @@
         transition: all 0.2s;
     }
     .btn-remove:hover { border-color: #be1e38; color: #be1e38; }
+
+    @media (max-width: 768px) {
+        .profile-card {
+            padding: 20px;
+            max-width: 100%;
+        }
+
+        .avatar-section {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .profile-card {
+            padding: 16px;
+        }
+
+        .avatar-preview {
+            width: 84px;
+            height: 84px;
+        }
+
+        .avatar-preview .initials {
+            font-size: 1.6rem;
+        }
+
+        .avatar-actions {
+            width: 100%;
+        }
+
+        .btn-upload,
+        .btn-remove,
+        .btn-save {
+            width: 100%;
+        }
+    }
 </style>
 
 {{-- Profile Info Card --}}

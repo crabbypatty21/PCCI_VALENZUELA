@@ -110,6 +110,37 @@
         .detail-row-inline .detail-field { flex: 1 1 45%; min-width: 140px; }
         .applicant-actions { flex-direction: column; }
     }
+
+    @media (max-width: 576px) {
+        .applicant-header-banner {
+            padding: 24px 16px;
+            font-size: 1.25rem;
+        }
+
+        .applicant-detail-card-header h3 {
+            font-size: 1rem;
+        }
+
+        .applicant-detail-body {
+            padding: 14px 14px 16px;
+            max-height: none;
+        }
+
+        .detail-row,
+        .detail-row-inline {
+            gap: 6px 12px;
+        }
+
+        .btn-approve,
+        .btn-reject {
+            width: 100%;
+            padding: 11px 14px;
+        }
+
+        .modal-content {
+            padding: 20px 14px;
+        }
+    }
 </style>
 
 {{-- ======== RED HEADER BANNER ======== --}}

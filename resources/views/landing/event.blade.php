@@ -3,60 +3,60 @@
 @section('title', 'Events - PCCI Valenzuela')
 
 @section('content')
-
-{{-- Add this line to the top of EVERY file! --}}
 @include('partials.api-config')
 
 {{-- HERO SECTION --}}
 <div class="w-100 mb-0 d-flex flex-column align-items-center" style="
-    height: 623px;
+    min-height: 500px;
     margin-top: -1px;
     background-color: var(--bg-hero);
     background-size: cover;
     background-position: center;
     padding-top: 130px;
+    padding-bottom: 50px;
     transition: background-color 0.3s ease;
 ">
-    <div class="container d-flex flex-column align-items-center text-center">
+    <div class="container d-flex flex-column align-items-center text-center px-3">
 
         <span class="mb-3 d-block"
-            style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; max-width: 1522px; text-align: center;">
+            style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: clamp(1rem, 3vw, 1.5rem); line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; text-align: center;">
             PCCI - VALENZUELA
         </span>
 
         <h1 class="headline-text fw-bold mb-4 text-uppercase"
-            style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
-            <span style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">Events</span>
+            style="color: #ffffff !important; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: clamp(3rem, 8vw, 4rem); line-height: 100%; letter-spacing: 0;">
+            Events
         </h1>
 
-        <p style="color: #ffffff !important; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 100%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1262px; height: auto; margin: 0 auto 21px auto;">
+        <p style="color: #ffffff !important; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(1rem, 3vw, 1.5rem); line-height: 1.5; text-align: center; width: 100%; max-width: 1000px; margin: 0 auto;">
             Join our community events designed to foster networking, learning, and business growth opportunities for all chamber members.
         </p>
     </div>
 </div>
 
 <div class="py-5" style="background-color: var(--bg-section); transition: background-color 0.3s ease;">
-    <div class="container mb-5">
+    <div class="container mb-5 px-3 px-lg-4">
 
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
-            <div class="w-100" style="max-width: 400px;">
+        {{-- RESPONSIVE FILTERS & SEARCH --}}
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-5 gap-3">
+            <div class="w-100 w-lg-50" style="max-width: 500px;">
                 <div class="input-group shadow-sm rounded overflow-hidden border-0" style="background-color: var(--bg-input);">
-                    <span class="input-group-text border-0 ps-3" style="background-color: transparent;">
+                    <span class="input-group-text border-0 ps-3 bg-transparent">
                         <i class="bi bi-search text-secondary" style="font-size: 1.1rem;"></i>
                     </span>
-                    <input type="text" id="eventSearchInput" class="form-control border-0 py-2 shadow-none text-secondary"
-                           style="font-family: 'DM Sans', sans-serif; background-color: transparent;"
-                           placeholder="Search events..." aria-label="Search"
+                    <input type="text" id="eventSearchInput" class="form-control border-0 py-3 shadow-none text-secondary bg-transparent"
+                           style="font-family: 'DM Sans', sans-serif;"
+                           placeholder="Search events by title or location..." aria-label="Search"
                            oninput="filterEvents()">
                 </div>
             </div>
 
-            <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-end" style="font-family: 'DM Sans', sans-serif;">
-                <select id="eventCategoryFilter" class="form-select form-select-sm border-0 shadow-sm" onchange="filterEvents()" style="width: auto; cursor: pointer; font-weight: 500; padding: 10px 30px 10px 15px; background-color: var(--bg-input); color: var(--text-main);">
+            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 w-100 w-lg-auto justify-content-center justify-content-lg-end" style="font-family: 'DM Sans', sans-serif;">
+                <select id="eventCategoryFilter" class="form-select border-0 shadow-sm flex-grow-1 flex-sm-grow-0" onchange="filterEvents()" style="padding: 12px 30px 12px 15px; background-color: var(--bg-input); color: var(--text-main);">
                     <option value="" selected>All Categories</option>
                 </select>
 
-                <select id="eventStatusFilter" class="form-select form-select-sm border-0 shadow-sm" onchange="filterEvents()" style="width: auto; cursor: pointer; font-weight: 500; padding: 10px 30px 10px 15px; background-color: var(--bg-input); color: var(--text-main);">
+                <select id="eventStatusFilter" class="form-select border-0 shadow-sm flex-grow-1 flex-sm-grow-0" onchange="filterEvents()" style="padding: 12px 30px 12px 15px; background-color: var(--bg-input); color: var(--text-main);">
                     <option value="" selected>All Status</option>
                     <option value="upcoming">Upcoming</option>
                     <option value="ongoing">Ongoing</option>
@@ -76,10 +76,10 @@
         </div>
 
         {{-- Pagination --}}
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4 gap-3">
-            <div id="eventsShowingText" class="small fw-medium" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;"></div>
-            <nav>
-                <ul class="pagination mb-0" id="eventsPagination"></ul>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 gap-3">
+            <div id="eventsShowingText" class="small fw-medium text-center text-md-start w-100 w-md-auto" style="color: var(--text-muted); font-family: 'DM Sans', sans-serif;"></div>
+            <nav class="overflow-auto w-100 w-md-auto d-flex justify-content-center justify-content-md-end">
+                <ul class="pagination mb-0 flex-wrap justify-content-center gap-1" id="eventsPagination"></ul>
             </nav>
         </div>
 
@@ -88,14 +88,14 @@
 
 {{-- MODAL --}}
 <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden; background-color: var(--bg-card);">
-            <div class="modal-header border-0 pb-0 pt-4 px-4">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; background-color: var(--bg-card);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4 align-items-start">
                 <div>
                     <span id="modalCategory" class="d-inline-block rounded px-2 py-1 mb-2 fw-bold text-uppercase"
                           style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #fff1f3; color: #D40032; letter-spacing: 0.05em;">
                     </span>
-                    <h4 id="modalTitle" class="modal-title fw-bold" style="font-family: 'Poppins', sans-serif; color: var(--text-main);"></h4>
+                    <h4 id="modalTitle" class="modal-title fw-bold" style="font-family: 'Poppins', sans-serif; color: var(--text-main); font-size: clamp(1.25rem, 4vw, 1.5rem);"></h4>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -121,7 +121,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-geo-alt text-danger me-3 fs-5"></i>
-                                <div><small class="d-block" style="font-size: 0.75rem; color: var(--text-muted);">Location</small><strong id="modalLocation" style="font-size: 0.9rem; color: var(--text-main);"></strong></div>
+                                <div style="width: calc(100% - 40px);"><small class="d-block" style="font-size: 0.75rem; color: var(--text-muted);">Location</small><strong id="modalLocation" class="d-block text-truncate" style="font-size: 0.9rem; color: var(--text-main);"></strong></div>
                             </div>
                         </div>
                     </div>
@@ -129,8 +129,8 @@
                     <div class="col-md-7 d-flex flex-column">
                         <div id="modalDescription" style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.7; max-height: 300px; overflow-y: auto; padding-right: 10px; color: var(--text-main);">
                         </div>
-                        <div class="mt-auto pt-3">
-                            <button class="btn text-white w-100 fw-bold text-uppercase py-2"
+                        <div class="mt-4 mt-md-auto pt-3">
+                            <button class="btn text-white w-100 fw-bold text-uppercase py-3"
                                     style="font-family: 'DM Sans', sans-serif; background-color: #D40032; border-radius: 6px; letter-spacing: 0.05em;">
                                 Register for this Event
                             </button>
@@ -147,7 +147,7 @@ let allEvents = [];
 let allCategories = [];
 let filteredEvents = [];
 let eventsCurrentPage = 1;
-const eventsPerPage = 9; // 3 rows x 3 columns
+const eventsPerPage = 9; 
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchLandingEvents();
@@ -196,15 +196,10 @@ async function fetchLandingCategories() {
     }
 }
 
-function escapeHtmlAttr(str) {
-    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
 function getEventImageSrc(ev) {
     const rawImg = ev.imagel || ev.image || null;
     if (!rawImg) return null;
     if (rawImg.startsWith('http') || rawImg.startsWith('data:')) return rawImg;
-    // Images are stored on the API server, not locally
     const apiOrigin = window.API_BASE_URL.replace(/\/api\/?$/, '');
     return apiOrigin + '/storage/' + rawImg;
 }
@@ -235,10 +230,8 @@ function filterEvents() {
         const desc = (ev.description || '').toLowerCase();
         const loc = (ev.location || '').toLowerCase();
         const matchSearch = !search || title.includes(search) || desc.includes(search) || loc.includes(search);
-
         const evCatId = ev.category_id || (ev.category && ev.category.id) || '';
         const matchCat = !catFilter || String(evCatId) === catFilter;
-
         const matchStatus = !statusFilter || (ev.status || '').toLowerCase() === statusFilter;
 
         return matchSearch && matchCat && matchStatus;
@@ -260,7 +253,6 @@ function renderEventsPage() {
 
     renderEvents(pageEvents);
 
-    // Update showing text
     const showingEl = document.getElementById('eventsShowingText');
     if (total === 0) {
         showingEl.textContent = '0 results';
@@ -268,17 +260,14 @@ function renderEventsPage() {
         showingEl.textContent = `Showing ${start + 1}-${Math.min(start + eventsPerPage, total)} of ${total} events`;
     }
 
-    // Render pagination
     renderEventsPagination(totalPages);
 }
 
 function renderEventsPagination(totalPages) {
     const container = document.getElementById('eventsPagination');
     container.innerHTML = '';
-
     if (totalPages <= 1) return;
 
-    // Previous
     container.innerHTML += `
         <li class="page-item ${eventsCurrentPage === 1 ? 'disabled' : ''}">
             <a class="page-link border-0 shadow-sm" style="cursor:pointer;color:var(--text-muted);background:var(--bg-input,#fff);" onclick="goToEventsPage(${eventsCurrentPage - 1})">Previous</a>
@@ -294,7 +283,6 @@ function renderEventsPagination(totalPages) {
             </li>`;
     }
 
-    // Next
     container.innerHTML += `
         <li class="page-item ${eventsCurrentPage === totalPages ? 'disabled' : ''}">
             <a class="page-link border-0 shadow-sm" style="cursor:pointer;color:var(--text-muted);background:var(--bg-input,#fff);" onclick="goToEventsPage(${eventsCurrentPage + 1})">Next</a>
@@ -306,7 +294,6 @@ function goToEventsPage(page) {
     if (page < 1 || page > totalPages) return;
     eventsCurrentPage = page;
     renderEventsPage();
-    // Scroll to grid
     document.getElementById('eventsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -348,18 +335,18 @@ function renderEvents(events) {
                           style="font-family: 'DM Sans', sans-serif; font-size: 0.65rem; background-color: #fff1f3; color: #D40032; letter-spacing: 0.05em;">
                         ${category}
                     </span>
-                    <h5 class="fw-bold mb-2" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; line-height: 1.4; color: var(--text-main);">
+                    <h5 class="fw-bold mb-2 text-truncate w-100" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; line-height: 1.4; color: var(--text-main);" title="${title}">
                         ${title}
                     </h5>
                     <div class="d-flex flex-column gap-2 small mb-3" style="font-family: 'DM Sans', sans-serif; color: var(--text-muted);">
                         <div class="d-flex align-items-center gap-2"><i class="bi bi-calendar3 text-danger"></i><span>${date}</span></div>
                         <div class="d-flex align-items-center gap-2"><i class="bi bi-clock text-danger"></i><span>${time}</span></div>
-                        <div class="d-flex align-items-center gap-2"><i class="bi bi-geo-alt text-danger"></i><span>${location}</span></div>
+                        <div class="d-flex align-items-center gap-2 w-100"><i class="bi bi-geo-alt text-danger"></i><span class="text-truncate">${location}</span></div>
                     </div>
                     <div class="mt-auto pt-3 d-flex justify-content-end" style="border-top: 1px solid var(--border-color);">
-                        <button type="button" class="btn py-1 px-3 text-white fw-bold d-flex align-items-center gap-2"
+                        <button type="button" class="btn py-2 px-3 text-white fw-bold d-flex align-items-center justify-content-center gap-2 w-100 w-sm-auto"
                                 onclick="openEventModal(${evId})"
-                                style="font-family: 'DM Sans', sans-serif; font-size: 0.8rem; background-color: #D40032; border-radius: 6px; letter-spacing: 0.05em;">
+                                style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; background-color: #D40032; border-radius: 6px; letter-spacing: 0.05em;">
                             View Details
                         </button>
                     </div>
@@ -368,7 +355,6 @@ function renderEvents(events) {
         </div>`;
     }).join('');
 
-    // After rendering HTML, inject images via DOM (avoids URL encoding issues with innerHTML)
     events.forEach(ev => {
         const imgSrc = getEventImageSrc(ev);
         if (!imgSrc) return;
@@ -419,5 +405,11 @@ function openEventModal(id) {
     modal.show();
 }
 </script>
+
+<style>
+    .w-lg-50 { width: 50% !important; }
+    @media (max-width: 991.98px) { .w-lg-50 { width: 100% !important; } }
+    @media (min-width: 576px) { .w-sm-auto { width: auto !important; } }
+</style>
 
 @endsection

@@ -1,1616 +1,856 @@
 @extends('layouts.admin')
 
-@section('title', 'Board of Trustees - PCCI')
+@section('title', 'PCCI Board of Trustees')
 
 @section('content')
 
 @include('partials.api-config')
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-<style>
-    .board-wrapper {
-        font-family: 'Montserrat', sans-serif;
-        --dark-red: #be1e38;
-        --light-red: #df5861;
-        --text-dark: #222222;
-        --text-gray: #b0b0b0;
-        --pill-bg: #e5e5e5;
-    }
-
-    /* BANNER */
-    .board-wrapper .board-banner {
-        background-color: var(--dark-red);
-        color: #ffffff;
-        padding: 36px 40px;
-        border-radius: 10px;
-        font-size: 2.2rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 30px;
-    }
-
-    /* TOOLBAR */
-    .board-wrapper .board-toolbar {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 40px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .board-wrapper .toolbar-search {
-        position: relative;
-        flex: 1;
-        max-width: 500px;
-    }
-
-    .board-wrapper .toolbar-search i {
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #b0b0b0;
-        font-size: 1.1rem;
-    }
-
-    .board-wrapper .toolbar-search input {
-        width: 100%;
-        height: 45px;
-        box-sizing: border-box;
-        padding: 0 16px 0 46px;
-        border: 1.5px solid var(--dark-red);
-        border-radius: 6px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--text-dark);
-        text-transform: uppercase;
-        outline: none;
-        background: #ffffff;
-    }
-
-    .board-wrapper .toolbar-search input::placeholder { color: #c0c0c0; font-weight: 500; letter-spacing: 0.5px; }
-
-    .board-wrapper .toolbar-filter {
-        height: 45px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 0 24px;
-        border: 1.5px solid var(--dark-red);
-        border-radius: 6px;
-        background: #ffffff;
-        color: #b0b0b0;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: 0.2s ease;
-    }
-
-    .board-wrapper .toolbar-filter i { font-size: 1.3rem; color: #b0b0b0; }
-    .board-wrapper .toolbar-filter:hover { background: #fdf2f2; }
-
-    .board-wrapper .toolbar-add {
-        height: 45px;
-        box-sizing: border-box;
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0 32px;
-        border: none;
-        border-radius: 6px;
-        background-color: #be1e38;
-        color: #ffffff;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: 0.2s ease;
-        white-space: nowrap;
-    }
-
-    .board-wrapper .toolbar-add i { font-size: 1.2rem; }
-    .board-wrapper .toolbar-add:hover { background-color: #ff0000; }
-
-    /* CARD GRID */
-    .board-wrapper .board-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
-    }
-
-    .board-wrapper .board-card {
-        border: 1.5px solid var(--dark-red);
-        border-radius: 8px;
-        background: #ffffff;
-        padding: 35px 20px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .board-wrapper .card-photo {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 25px;
-        background-color: #f0f0f0;
-    }
-
-    .board-wrapper .card-photo-placeholder {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: #e8e8e8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 25px;
-        font-size: 3.5rem;
-        color: #bbb;
-    }
-
-    .board-wrapper .card-name {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        text-transform: uppercase;
-        margin-bottom: 12px;
-        letter-spacing: 0.5px;
-    }
-
-    .board-wrapper .card-position-pill {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #888888;
-        background-color: var(--pill-bg);
-        padding: 6px 18px;
-        border-radius: 20px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 30px;
-    }
-
-    .board-wrapper .card-actions {
-        display: flex;
-        gap: 10px;
-        width: 100%;
-        margin-top: auto;
-    }
-
-    .board-wrapper .btn-card {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        padding: 10px 4px;
-        border: 1px solid var(--dark-red);
-        border-radius: 4px;
-        background: #ffffff;
-        color: var(--text-gray);
-        font-size: 0.65rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        cursor: pointer;
-        text-decoration: none;
-        transition: 0.2s ease;
-    }
-
-    .board-wrapper .btn-card:hover { background: #fdf2f2; color: var(--dark-red); }
-
-    /* ============================================== */
-    /* ADD / EDIT BOARD MODAL                         */
-    /* ============================================== */
-    .add-board-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.45);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .add-board-overlay.active { display: flex; }
-
-    .add-board-modal {
-        font-family: 'Montserrat', sans-serif;
-        background: #ffffff;
-        border-radius: 10px;
-        width: 100%;
-        max-width: 360px;
-        padding: 28px 28px 24px;
-        position: relative;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-        animation: modalIn 0.22s ease;
-    }
-
-    @keyframes modalIn {
-        from { transform: scale(0.94); opacity: 0; }
-        to   { transform: scale(1);    opacity: 1; }
-    }
-
-    .add-board-modal .modal-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .add-board-modal .modal-header-icon {
-        width: 38px; height: 38px;
-        background: #A81C31; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 1.1rem; flex-shrink: 0;
-    }
-
-    .add-board-modal .modal-title {
-        font-size: 1rem; font-weight: 800;
-        color: #222; text-transform: uppercase; letter-spacing: 1px;
-    }
-
-    .add-board-modal .modal-close {
-        position: absolute; top: 16px; right: 16px;
-        width: 28px; height: 28px;
-        border: 1.5px solid #ccc; border-radius: 5px;
-        background: #fff; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1rem; color: #888; transition: 0.15s;
-    }
-
-    .add-board-modal .modal-close:hover { border-color: #A81C31; color: #A81C31; }
-
-    /* Photo Upload */
-    .add-board-modal .photo-upload-wrapper {
-        display: flex; justify-content: center;
-        margin-bottom: 22px; position: relative;
-    }
-
-    .add-board-modal .photo-preview {
-        width: 130px; height: 130px; border-radius: 50%;
-        background: #e8e8e8;
-        display: flex; align-items: center; justify-content: center;
-        overflow: hidden; position: relative;
-    }
-
-    .add-board-modal .photo-preview img { width: 100%; height: 100%; object-fit: cover; display: none; }
-    .add-board-modal .photo-preview .default-icon { font-size: 4rem; color: #bbb; }
-
-    .add-board-modal .photo-add-btn {
-        position: absolute; bottom: 4px; right: calc(50% - 65px + 6px);
-        width: 26px; height: 26px; background: #222;
-        border-radius: 50%; border: none; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 1rem; transition: 0.15s;
-    }
-
-    .add-board-modal .photo-add-btn:hover { background: #A81C31; }
-
-    /* Form Fields */
-    .add-board-modal .form-row { display: flex; gap: 10px; margin-bottom: 10px; }
-    .add-board-modal .form-field { flex: 1; position: relative; }
-
-    .add-board-modal .form-field i {
-        position: absolute; left: 12px; top: 50%;
-        transform: translateY(-50%); color: #bbb; font-size: 0.9rem;
-    }
-
-    .add-board-modal .form-input {
-        width: 100%; box-sizing: border-box; height: 40px;
-        border: 1.5px solid #ddd; border-radius: 6px;
-        padding: 0 12px 0 34px;
-        font-family: 'Montserrat', sans-serif; font-size: 0.75rem;
-        font-weight: 600; color: #444; text-transform: uppercase;
-        outline: none; transition: border-color 0.15s;
-    }
-
-    .add-board-modal .form-input::placeholder { color: #bbb; font-weight: 500; }
-    .add-board-modal .form-input:focus { border-color: #A81C31; }
-
-    /* Gender */
-    .add-board-modal .gender-row {
-        display: flex; align-items: center; gap: 16px;
-        height: 40px; border: 1.5px solid #ddd; border-radius: 6px;
-        padding: 0 14px; margin-bottom: 10px;
-        font-size: 0.75rem; font-weight: 600; color: #bbb;
-        text-transform: uppercase; box-sizing: border-box;
-    }
-
-    .add-board-modal .gender-row label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #555; font-size: 0.75rem; font-weight: 600; }
-    .add-board-modal .gender-row input[type="radio"] { accent-color: #A81C31; cursor: pointer; }
-
-    /* Shared dropdown styles */
-    .add-board-modal .position-wrapper,
-    .add-board-modal .status-wrapper { position: relative; margin-bottom: 10px; }
-
-    .add-board-modal .position-select-btn,
-    .add-board-modal .status-select-btn {
-        width: 100%; height: 40px;
-        border: 1.5px solid #ddd; border-radius: 6px; padding: 0 14px;
-        font-family: 'Montserrat', sans-serif; font-size: 0.75rem;
-        font-weight: 600; color: #bbb; text-transform: uppercase;
-        background: #fff; cursor: pointer;
-        display: flex; align-items: center; justify-content: space-between;
-        transition: border-color 0.15s; box-sizing: border-box; outline: none;
-    }
-
-    .add-board-modal .position-select-btn.has-value,
-    .add-board-modal .status-select-btn.has-value { color: #444; }
-
-    .add-board-modal .position-select-btn:hover,
-    .add-board-modal .position-select-btn.open,
-    .add-board-modal .status-select-btn:hover,
-    .add-board-modal .status-select-btn.open { border-color: #A81C31; }
-
-    .add-board-modal .position-select-btn i,
-    .add-board-modal .status-select-btn i { font-size: 1rem; color: #aaa; transition: transform 0.15s; }
-
-    .add-board-modal .position-select-btn.open i,
-    .add-board-modal .status-select-btn.open i { transform: rotate(180deg); }
-
-    .add-board-modal .position-dropdown,
-    .add-board-modal .status-dropdown {
-        display: none; position: absolute;
-        top: calc(100% + 4px); left: 0; right: 0;
-        background: #fff; border: 1.5px solid #ddd; border-radius: 6px;
-        z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        max-height: 230px; overflow-y: auto;
-    }
-
-    .add-board-modal .position-dropdown.open,
-    .add-board-modal .status-dropdown.open { display: block; }
-
-    .add-board-modal .position-option,
-    .add-board-modal .status-option {
-        padding: 10px 16px;
-        font-family: 'Montserrat', sans-serif; font-size: 0.78rem;
-        font-weight: 600; color: #555; text-transform: uppercase;
-        letter-spacing: 0.4px; cursor: pointer;
-        transition: background 0.1s, color 0.1s;
-    }
-
-    .add-board-modal .position-option:hover,
-    .add-board-modal .status-option:hover { background: #fdf2f2; color: #A81C31; }
-
-    .add-board-modal .position-option.selected,
-    .add-board-modal .status-option.selected { color: #A81C31; }
-
-    .add-board-modal .add-position-row {
-        display: flex; align-items: center; gap: 10px;
-        padding: 10px 16px;
-        border-top: 1.5px solid #eee;
-        border-left: none; border-right: none; border-bottom: none;
-        background: none; width: 100%;
-        font-family: 'Montserrat', sans-serif; font-size: 0.78rem;
-        font-weight: 700; color: #333; text-transform: uppercase;
-        letter-spacing: 0.4px; cursor: pointer; transition: color 0.15s;
-    }
-
-    .add-board-modal .add-position-row i { font-size: 1.15rem; color: #333; transition: color 0.15s; }
-    .add-board-modal .add-position-row:hover { color: #A81C31; }
-    .add-board-modal .add-position-row:hover i { color: #A81C31; }
-
-    /* Modal Footer */
-    .add-board-modal .modal-footer { display: flex; gap: 10px; margin-top: 18px; }
-
-    .add-board-modal .btn-clear {
-        flex: 1; height: 40px;
-        border: 1.5px solid #A81C31; border-radius: 6px;
-        background: #fff; color: #A81C31;
-        font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700;
-        text-transform: uppercase; cursor: pointer; transition: 0.15s;
-    }
-
-    .add-board-modal .btn-clear:hover { background: #fdf2f2; }
-
-    .add-board-modal .btn-confirm {
-        flex: 1; height: 40px; border: none; border-radius: 6px;
-        background: #A81C31; color: #fff;
-        font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700;
-        text-transform: uppercase; cursor: pointer; transition: 0.15s;
-    }
-
-    .add-board-modal .btn-confirm:hover { background: #c0283f; }
-
-    /* ============================================== */
-    /* RESPONSIVE                                     */
-    /* ============================================== */
-    @media (max-width: 1200px) {
-        .board-wrapper .board-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    @media (max-width: 900px) {
-        .board-wrapper .board-banner { font-size: 1.6rem; padding: 36px 40px; }
-        .board-wrapper .board-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-        .board-wrapper .board-toolbar { flex-wrap: wrap; gap: 10px; }
-        .board-wrapper .toolbar-search { max-width: 100%; flex: 1 1 180px; }
-        .board-wrapper .toolbar-add { margin-left: auto; }
-        .add-board-modal { max-width: 420px; padding: 24px 22px 20px; }
-    }
-
-    @media (max-width: 600px) {
-        .board-wrapper .board-banner { font-size: 1.2rem; padding: 20px 18px; border-radius: 6px; margin-bottom: 20px; }
-        .board-wrapper .board-toolbar { flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-        .board-wrapper .toolbar-search { flex: 1 1 100%; max-width: 100%; order: 1; }
-        .board-wrapper .toolbar-filter { flex: 1; justify-content: center; order: 2; }
-        .board-wrapper .toolbar-add { flex: 1; margin-left: 0; justify-content: center; order: 3; }
-        .board-wrapper .board-grid { grid-template-columns: 1fr; gap: 14px; }
-        .add-board-overlay { align-items: flex-end; }
-        .add-board-modal {
-            max-width: 100%; width: 100%; border-radius: 16px 16px 0 0;
-            padding: 24px 18px 32px; animation: slideUp 0.25s ease;
-            max-height: 92vh; overflow-y: auto;
-        }
-        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .add-board-modal .photo-preview { width: 110px; height: 110px; }
-        .add-board-modal .photo-preview .default-icon { font-size: 3.2rem; }
-        .add-board-modal .photo-add-btn { right: calc(50% - 55px + 6px); }
-        .add-board-modal .form-row { flex-direction: column; gap: 8px; }
-        .add-board-modal .position-dropdown,
-        .add-board-modal .status-dropdown { top: auto; bottom: calc(100% + 4px); max-height: 180px; }
-        .add-board-modal .modal-footer { gap: 8px; }
-        .add-board-modal .btn-clear, .add-board-modal .btn-confirm { height: 44px; font-size: 0.82rem; }
-    }
-
-    @media (max-width: 400px) {
-        .board-wrapper .board-banner { font-size: 1rem; padding: 16px 14px; }
-        .board-wrapper .board-grid { gap: 10px; }
-        .add-board-modal { padding: 20px 14px 28px; }
-        .add-board-modal .modal-title { font-size: 0.88rem; }
-        .add-board-modal .gender-row { gap: 10px; padding: 0 10px; font-size: 0.7rem; }
-    }
-
-    /* ============================================== */
-    /* ADD POSITION MODAL                             */
-    /* ============================================== */
-    .add-pos-overlay {
-        display: none; position: fixed; inset: 0;
-        background: rgba(0,0,0,0.38); z-index: 10000;
-        align-items: center; justify-content: center; padding: 16px;
-    }
-
-    .add-pos-overlay.active { display: flex; }
-
-    .add-pos-modal {
-        font-family: 'Montserrat', sans-serif; background: #ffffff;
-        border-radius: 8px; width: 100%; max-width: 360px;
-        padding: 32px 32px 28px; position: relative;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.22);
-        animation: modalIn 0.2s cubic-bezier(.22,.68,0,1.2);
-    }
-
-    .add-pos-modal .modal-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
-
-    .add-pos-modal .modal-header-icon {
-        width: 42px; height: 42px; background: #A81C31; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 1.15rem; flex-shrink: 0;
-    }
-
-    .add-pos-modal .modal-title { font-size: 1.05rem; font-weight: 800; color: #1a1a1a; text-transform: uppercase; letter-spacing: 1.5px; }
-
-    .add-pos-modal .modal-close {
-        position: absolute; top: 18px; right: 18px; width: 30px; height: 30px;
-        border: 1.5px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.1rem; color: #888; transition: border-color 0.15s, color 0.15s;
-    }
-
-    .add-pos-modal .modal-close:hover { border-color: #A81C31; color: #A81C31; }
-
-    .add-pos-field { margin-bottom: 0; }
-
-    .add-pos-input {
-        width: 100%; box-sizing: border-box; height: 44px;
-        border: 1.5px solid #A81C31; border-radius: 6px; padding: 0 16px;
-        font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 500;
-        color: #333; outline: none; transition: box-shadow 0.15s, border-color 0.15s;
-        margin-bottom: 20px; background: #fff; letter-spacing: 0.5px;
-    }
-
-    .add-pos-input::placeholder { color: #bbb; font-weight: 500; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.8px; }
-    .add-pos-input:focus { box-shadow: 0 0 0 3px rgba(168,28,49,0.1); }
-    .add-pos-input.error { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,0.12); }
-
-    .add-pos-modal .modal-footer { display: flex; gap: 12px; margin-top: 0; }
-
-    .add-pos-modal .btn-clear {
-        flex: 1; height: 42px; border: 1.5px solid #A81C31; border-radius: 6px;
-        background: #fff; color: #A81C31; font-family: 'Montserrat', sans-serif;
-        font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-        cursor: pointer; transition: background 0.15s;
-    }
-
-    .add-pos-modal .btn-clear:hover { background: #fdf2f2; }
-
-    .add-pos-modal .btn-confirm {
-        flex: 1; height: 42px; border: none; border-radius: 6px;
-        background: #A81C31; color: #fff; font-family: 'Montserrat', sans-serif;
-        font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-        cursor: pointer; transition: background 0.15s;
-    }
-
-    .add-pos-modal .btn-confirm:hover { background: #c0283f; }
-
-    @media (max-width: 600px) {
-        .add-pos-overlay { align-items: flex-end; padding: 0; }
-        .add-pos-modal { max-width: 100%; border-radius: 16px 16px 0 0; padding: 26px 20px 36px; animation: slideUp 0.25s ease; }
-    }
-
-    @media (max-width: 400px) {
-        .add-pos-modal { padding: 22px 16px 30px; }
-        .add-pos-modal .modal-footer { flex-direction: column; gap: 8px; }
-        .add-pos-modal .btn-clear, .add-pos-modal .btn-confirm { width: 100%; }
-    }
-
-    /* ============================================== */
-    /* VIEW PROFILE MODAL                             */
-    /* ============================================== */
-    .view-profile-overlay {
-        display: none; position: fixed; inset: 0;
-        background: rgba(0,0,0,0.45); z-index: 9999;
-        align-items: center; justify-content: center; padding: 16px;
-    }
-
-    .view-profile-overlay.active { display: flex; }
-
-    .view-profile-modal {
-        font-family: 'Montserrat', sans-serif; background: #ffffff;
-        border-radius: 12px; width: 100%; max-width: 340px;
-        padding: 40px 28px 40px; position: relative;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-        display: flex; flex-direction: column; align-items: center;
-        text-align: center; animation: modalIn 0.22s ease;
-    }
-
-    .view-profile-modal .vp-close {
-        position: absolute; top: 14px; right: 14px;
-        width: 28px; height: 28px;
-        border: 1.5px solid #ccc; border-radius: 5px;
-        background: #fff; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1rem; color: #888; transition: 0.15s;
-    }
-
-    .view-profile-modal .vp-close:hover { border-color: #A81C31; color: #A81C31; }
-
-    .view-profile-modal .vp-photo {
-        width: 170px; height: 170px; border-radius: 50%;
-        object-fit: cover; margin-bottom: 28px; background: #f0f0f0;
-    }
-
-    .view-profile-modal .vp-photo-placeholder {
-        width: 170px; height: 170px; border-radius: 50%;
-        background: #e8e8e8; display: flex; align-items: center;
-        justify-content: center; margin-bottom: 28px;
-        font-size: 5rem; color: #bbb;
-    }
-
-    .view-profile-modal .vp-name {
-        font-size: 1.05rem; font-weight: 800; color: #1a1a1a;
-        text-transform: uppercase; letter-spacing: 0.5px;
-        margin-bottom: 16px; line-height: 1.3;
-    }
-
-    .view-profile-modal .vp-position-pill {
-        font-size: 0.65rem; font-weight: 700; color: #888;
-        background: #e5e5e5; padding: 7px 24px;
-        border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
-    }
-
-    @media (max-width: 600px) {
-        .view-profile-overlay { align-items: flex-end; padding: 0; }
-        .view-profile-modal {
-            max-width: 100%; border-radius: 16px 16px 0 0;
-            padding: 32px 20px 44px; animation: slideUp 0.25s ease;
-        }
-        .view-profile-modal .vp-photo,
-        .view-profile-modal .vp-photo-placeholder { width: 140px; height: 140px; }
-    }
-
-    /* ============================================== */
-    /* FILTER DROPDOWN PANEL                          */
-    /* ============================================== */
-    .filter-wrapper { position: relative; }
-
-    .toolbar-filter.filter-active {
-        background: #fdf2f2;
-        color: var(--dark-red);
-    }
-    .toolbar-filter.filter-active i { color: var(--dark-red); }
-
-    .filter-panel {
-        display: none;
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        background: #fff;
-        border: 1.5px solid #ddd;
-        border-radius: 8px;
-        z-index: 500;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.10);
-        min-width: 230px;
-        padding: 16px;
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    .filter-panel.open { display: block; }
-
-    .filter-panel-title {
-        font-size: 0.62rem;
-        font-weight: 700;
-        color: #aaa;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-    }
-
-    .filter-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 14px;
-    }
-
-    .filter-chip {
-        padding: 5px 14px;
-        border: 1.5px solid #ddd;
-        border-radius: 20px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.63rem;
-        font-weight: 700;
-        color: #888;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        cursor: pointer;
-        background: #fff;
-        transition: 0.15s;
-    }
-
-    .filter-chip:hover { border-color: var(--dark-red); color: var(--dark-red); }
-    .filter-chip.chip-active { border-color: var(--dark-red); background: var(--dark-red); color: #fff; }
-
-    .filter-divider { border: none; border-top: 1px solid #eee; margin: 10px 0; }
-
-    .filter-clear-btn {
-        width: 100%; height: 34px;
-        border: 1.5px solid #ddd; border-radius: 6px;
-        background: #fff; color: #888;
-        font-family: 'Montserrat', sans-serif; font-size: 0.68rem;
-        font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-        cursor: pointer; transition: 0.15s;
-    }
-
-    .filter-clear-btn:hover { border-color: var(--dark-red); color: var(--dark-red); }
-
-    /* No results */
-    .board-no-results {
-        display: none;
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 60px 20px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #ccc;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .board-no-results i { display: block; font-size: 2.8rem; margin-bottom: 12px; color: #ddd; }
-
-    /* PRESIDENT FEATURED SECTION — About page style */
-    .president-section {
-        display: none;
-        background-color: #252631;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 40px;
-    }
-
-    .president-section.visible { display: flex; }
-
-    .president-section .pres-info {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 48px 40px;
-    }
-
-    .president-section .pres-label {
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--dark-red);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 14px;
-    }
-
-    .president-section .pres-heading {
-        font-size: clamp(1.5rem, 3vw, 2.2rem);
-        font-weight: 800;
-        color: #ffffff;
-        line-height: 1.2;
-        margin-bottom: 24px;
-    }
-
-    .president-section .pres-subtitle {
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: var(--dark-red);
-        margin-bottom: 6px;
-    }
-
-    .president-section .pres-text {
-        font-size: 0.88rem;
-        color: rgba(255,255,255,0.75);
-        line-height: 1.7;
-        margin-bottom: 20px;
-    }
-
-    .president-section .pres-quote-box {
-        background: rgba(255,255,255,0.06);
-        border-left: 4px solid var(--dark-red);
-        border-radius: 0 8px 8px 0;
-        padding: 18px 20px;
-        margin-bottom: 24px;
-    }
-
-    .president-section .pres-quote-box p {
-        font-size: 0.85rem;
-        font-style: italic;
-        color: rgba(255,255,255,0.8);
-        line-height: 1.7;
-        margin: 0 0 10px;
-    }
-
-    .president-section .pres-quote-box .pres-quote-author {
-        font-size: 0.8rem;
-        font-weight: 700;
-        font-style: normal;
-        color: #fff;
-        margin: 0;
-    }
-
-    .president-section .pres-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--dark-red);
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 10px 24px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.72rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        text-decoration: none;
-        transition: background 0.2s;
-    }
-
-    .president-section .pres-link:hover { background: #ff0000; }
-
-    .president-section .pres-image-wrap {
-        flex: 1;
-        position: relative;
-        min-height: 480px;
-    }
-
-    .president-section .pres-image-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    .president-section .pres-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 24px 28px;
-        background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-        color: #fff;
-    }
-
-    .president-section .pres-overlay h5 {
-        font-size: 1rem;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        margin: 0 0 4px;
-        color: #fff;
-    }
-
-    .president-section .pres-overlay p {
-        font-size: 0.8rem;
-        font-weight: 500;
-        opacity: 0.85;
-        margin: 0;
-        color: #fff;
-    }
-
-    @media (max-width: 900px) {
-        .president-section.visible { flex-direction: column; }
-        .president-section .pres-info { padding: 32px 24px; }
-        .president-section .pres-image-wrap { min-height: 350px; }
-    }
-
-    @media (max-width: 600px) {
-        .president-section .pres-info { padding: 24px 18px; }
-        .president-section .pres-image-wrap { min-height: 280px; }
-    }
-
-    /* Loading state */
-    .board-loading {
-        display: none;
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 60px 20px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #ccc;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .board-loading i { display: block; font-size: 2.8rem; margin-bottom: 12px; color: #ddd; }
-</style>
-
-<div class="board-wrapper">
-    <div class="board-banner">Board of Trustees</div>
-
-    <div class="board-toolbar">
-        <div class="toolbar-search">
-            <i class="bi bi-search"></i>
-            <input type="text" id="searchInput" placeholder="Search">
+<div class="trustees-page">
+
+    <div class="page-banner">
+        <h1>BOARD OF TRUSTEES</h1>
+    </div>
+
+    {{-- Status Messages container --}}
+    <div id="statusMessageContainer" class="status-container" style="display: none;"></div>
+
+    {{-- Toolbar --}}
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <input type="text" class="search-input w-100 w-md-auto" placeholder="SEARCH TRUSTEES..." id="searchInput">
         </div>
-        <div class="filter-wrapper">
-            <button class="toolbar-filter" id="filterBtn">
-                <i class="bi bi-sliders"></i> Filter
-            </button>
-            <div class="filter-panel" id="filterPanel">
-                <div class="filter-panel-title">Position</div>
-                {{-- Position chips will be populated dynamically from API --}}
-                <div class="filter-chips" id="positionChips">
-                    {{-- e.g. <button class="filter-chip" data-filter="position" data-value="President">President</button> --}}
-                </div>
-                <hr class="filter-divider">
-                <div class="filter-panel-title">Status</div>
-                <div class="filter-chips">
-                    <button class="filter-chip" data-filter="status" data-value="Active">Active</button>
-                    <button class="filter-chip" data-filter="status" data-value="Inactive">Inactive</button>
-                </div>
-                <hr class="filter-divider">
-                <button class="filter-clear-btn" id="filterClearBtn">Clear Filters</button>
-            </div>
-        </div>
-        <button class="toolbar-add" id="openAddBoard">
-            <i class="bi bi-plus-lg"></i> Add
+        <button class="btn-add w-100 w-md-auto" onclick="openAddModal()">
+            <i class="bi bi-person-plus-fill"></i> ADD NEW TRUSTEE
         </button>
     </div>
 
-    {{-- PRESIDENT FEATURED SECTION --}}
-    <div class="president-section" id="presidentSection">
-        <div class="pres-info">
-            <div class="pres-label">Our Purpose</div>
-            <div class="pres-heading">Guiding Principles for a Thriving Valenzuela.</div>
-
-            <div class="pres-subtitle">Our Mission</div>
-            <div class="pres-text">
-                To champion the growth and success of Valenzuela businesses through robust advocacy, impactful networking, comprehensive development programs, and dedicated community engagement.
-            </div>
-
-            <div class="pres-subtitle">Our Vision</div>
-            <div class="pres-text">
-                To be the leading catalyst for a vibrant, innovative, and sustainable business environment in Valenzuela City, recognized for driving economic prosperity and community well-being.
-            </div>
-
-            <div class="pres-quote-box">
-                <p>"Together, we are forging a resilient and dynamic future for Valenzuela. Our Chamber is committed to empowering every member to reach their full potential and contribute to our city's collective success."</p>
-                <p class="pres-quote-author" id="presidentQuoteAuthor">– President, PCCI Valenzuela</p>
-            </div>
-
-            <a href="/leadership" class="pres-link">
-                Meet Our Leadership <i class="bi bi-arrow-right"></i>
-            </a>
+    {{-- Table Section --}}
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="trustee-table" id="trusteeTable">
+                <thead>
+                    <tr>
+                        <th width="80">IMAGE</th>
+                        <th>NAME</th>
+                        <th>POSITION</th>
+                        <th width="150" class="text-center">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody id="trusteeTableBody">
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            <i class="fa fa-spinner fa-spin me-2"></i> Loading trustees...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="pres-image-wrap">
-            <img src="" alt="" class="img-fluid shadow-sm" id="presidentPhoto" style="display:none;">
-            <div class="pres-overlay" id="presidentOverlay" style="display:none;">
-                <h5 id="presOverlayName"></h5>
-                <p id="presOverlayTitle">President, PCCI Valenzuela</p>
-            </div>
+        
+        <div class="pagination-container" id="paginationControls">
+            {{-- Injected via JS --}}
         </div>
-    </div>
-
-    {{-- BOARD GRID --}}
-    <div class="board-grid" id="boardGrid">
-
-        <div class="board-loading" id="loadingState" style="display:flex; flex-direction:column; align-items:center;">
-            <i class="bi bi-arrow-repeat"></i>
-            Loading trustees…
-        </div>
-
-        <div class="board-no-results" id="noResults">
-            <i class="bi bi-person-x"></i>
-            No members found
-        </div>
-
     </div>
 </div>
 
-<!-- VIEW PROFILE MODAL -->
-<div class="view-profile-overlay" id="viewProfileOverlay">
-    <div class="view-profile-modal">
-        <button class="vp-close" id="closeViewProfile"><i class="bi bi-x"></i></button>
-        <img src="" alt="" class="vp-photo" id="vpPhoto" style="display:none;">
-        <div class="vp-photo-placeholder" id="vpPhotoPlaceholder" style="display:none;">
-            <i class="bi bi-person-fill"></i>
-        </div>
-        <div class="vp-name" id="vpName"></div>
-        <div class="vp-position-pill" id="vpPosition"></div>
-    </div>
-</div>
-
-<!-- ADD / EDIT BOARD MODAL (shared) -->
-<div class="add-board-overlay" id="addBoardOverlay">
-    <div class="add-board-modal">
-
+{{-- =========================================
+     ADD/EDIT TRUSTEE MODAL
+========================================= --}}
+<div class="modal-overlay" id="trusteeModalOverlay">
+    <div class="edit-modal">
         <div class="modal-header">
-            <div class="modal-header-icon"><i class="bi bi-person-fill"></i></div>
-            <span class="modal-title" id="modalTitle">Add Board</span>
+            <h2 id="modalTitle">ADD NEW TRUSTEE</h2>
+            <button class="modal-close" onclick="closeTrusteeModal()">&times;</button>
         </div>
 
-        <button class="modal-close" id="closeAddBoard"><i class="bi bi-x"></i></button>
+        <div class="modal-body">
+            <form id="trusteeForm" onsubmit="return false;">
+                <input type="hidden" id="trusteeId">
+                <input type="hidden" id="currentImageUrl">
 
-        <div class="photo-upload-wrapper">
-            <div class="photo-preview" id="photoPreview">
-                <i class="bi bi-person-fill default-icon" id="defaultIcon"></i>
-                <img id="previewImg" src="" alt="Preview">
-            </div>
-            <button class="photo-add-btn" id="photoAddBtn" title="Upload photo">
-                <i class="bi bi-plus"></i>
-            </button>
-            <input type="file" id="photoInput" accept="image/*" style="display:none;">
+                {{-- Image Upload & Preview --}}
+                <div class="image-upload-section">
+                    <div class="image-preview" id="imagePreviewContainer">
+                        <img id="imagePreview" src="" alt="Trustee Image" style="display:none;">
+                        <div class="image-placeholder" id="imagePlaceholder">
+                            <i class="bi bi-person-bounding-box"></i>
+                            <span>NO IMAGE</span>
+                        </div>
+                    </div>
+                    <div class="upload-controls">
+                        <label class="btn-upload" for="trusteeImage">
+                            <i class="bi bi-upload"></i> UPLOAD PHOTO
+                        </label>
+                        <input type="file" id="trusteeImage" accept="image/*" style="display:none;" onchange="previewImage(this)">
+                        <small class="text-muted d-block mt-2">Format: JPG, PNG. Max: 2MB.</small>
+                    </div>
+                </div>
+
+                {{-- Form Fields --}}
+                <div class="row g-3 mt-2">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-bold">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-bold">Middle Name</label>
+                        <input type="text" class="form-control" id="middleName">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-bold">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-bold">Gender <span class="text-danger">*</span></label>
+                        <select class="form-select" id="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-bold">Position <span class="text-danger">*</span></label>
+                        <select class="form-select" id="positionId" required>
+                            <option value="" disabled selected>Loading positions...</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
         </div>
 
-        <div class="form-row">
-            <div class="form-field">
-                <i class="bi bi-person"></i>
-                <input type="text" id="lastName" class="form-input" placeholder="Last Name" autocomplete="off">
-            </div>
-            <div class="form-field">
-                <i class="bi bi-person"></i>
-                <input type="text" id="firstName" class="form-input" placeholder="First Name" autocomplete="off">
-            </div>
+        <div class="modal-footer d-flex flex-column flex-sm-row gap-2">
+            <button class="btn-cancel w-100 w-sm-auto" onclick="closeTrusteeModal()">CANCEL</button>
+            <button class="btn-save w-100 w-sm-auto" id="saveTrusteeBtn" onclick="saveTrustee()">SAVE TRUSTEE</button>
         </div>
-
-        <div class="gender-row">
-            <span>Gender:</span>
-            <label><input type="radio" name="gender" value="male"> Male</label>
-            <label><input type="radio" name="gender" value="female"> Female</label>
-        </div>
-
-        <div class="position-wrapper">
-            <button type="button" class="position-select-btn" id="positionBtn">
-                <span id="positionLabel">Position</span>
-                <i class="bi bi-chevron-down"></i>
-            </button>
-            <div class="position-dropdown" id="positionDropdown">
-                {{-- Options populated dynamically --}}
-                <button type="button" class="add-position-row" id="openAddPosition">
-                    <i class="bi bi-plus-circle"></i> Add Position
-                </button>
-            </div>
-        </div>
-
-        <div class="status-wrapper">
-            <button type="button" class="status-select-btn" id="statusBtn">
-                <span id="statusLabel">Status</span>
-                <i class="bi bi-chevron-down"></i>
-            </button>
-            <div class="status-dropdown" id="statusDropdown">
-                <div class="status-option" data-value="Active">Active</div>
-                <div class="status-option" data-value="Inactive">Inactive</div>
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <button class="btn-clear" id="clearFormBtn">Clear</button>
-            <button class="btn-confirm" id="confirmBtn">Confirm</button>
-        </div>
-
     </div>
 </div>
 
-<!-- ADD POSITION MODAL -->
-<div class="add-pos-overlay" id="addPosOverlay">
-    <div class="add-pos-modal">
-
+{{-- =========================================
+     DELETE CONFIRMATION MODAL
+========================================= --}}
+<div class="modal-overlay" id="deleteModalOverlay">
+    <div class="edit-modal" style="max-width: 400px;">
         <div class="modal-header">
-            <div class="modal-header-icon"><i class="bi bi-person-fill"></i></div>
-            <span class="modal-title">Add Position</span>
+            <h2 class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> CONFIRM DELETE</h2>
+            <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
         </div>
-
-        <button class="modal-close" id="closePosModal"><i class="bi bi-x"></i></button>
-
-        <div class="add-pos-field">
-            <input type="text" id="positionInput" class="add-pos-input" placeholder="Type the position" autocomplete="off">
+        <div class="modal-body text-center py-4">
+            <p class="mb-0 fs-5">Are you sure you want to remove <br><strong id="deleteTrusteeName">this trustee</strong>?</p>
+            <p class="text-muted small mt-2">This action cannot be undone.</p>
+            <input type="hidden" id="deleteTrusteeId">
         </div>
-
-        <div class="modal-footer">
-            <button class="btn-clear" id="clearPosBtn">Clear</button>
-            <button class="btn-confirm" id="confirmPosBtn">Confirm</button>
+        <div class="modal-footer d-flex flex-column flex-sm-row gap-2">
+            <button class="btn-cancel w-100 w-sm-auto" onclick="closeDeleteModal()">CANCEL</button>
+            <button class="btn-save bg-danger w-100 w-sm-auto" onclick="confirmDelete()">YES, DELETE</button>
         </div>
-
     </div>
 </div>
+
+
+<style>
+    .trustees-page {
+        font-family: 'Inter', sans-serif;
+        padding: 0 0 60px 0;
+        background: #f4f6f9;
+        min-height: 100vh;
+    }
+
+    /* Banner */
+    .page-banner {
+        background: #be1e38;
+        padding: 36px 40px;
+        margin-bottom: 28px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 12px rgba(190, 30, 56, 0.15);
+    }
+    .page-banner h1 {
+        color: #fff;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 900;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    /* Toolbar */
+    .toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+        padding: 0 40px;
+        margin-bottom: 24px;
+        gap: 16px;
+    }
+    @media (min-width: 768px) {
+        .toolbar { flex-direction: row; align-items: center; }
+        .w-md-auto { width: auto !important; }
+    }
+    @media (max-width: 767.98px) {
+        .page-banner { padding: 25px 20px; }
+        .toolbar { padding: 0 20px; }
+    }
+
+    .toolbar-left {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+    .search-input {
+        flex: 1;
+        max-width: 400px;
+        height: 46px;
+        border: 1.5px solid #ddd;
+        border-radius: 8px;
+        padding: 0 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #444;
+        background: #fff;
+        transition: all 0.2s;
+    }
+    .search-input:focus { border-color: #be1e38; outline: none; box-shadow: 0 0 0 3px rgba(190, 30, 56, 0.1); }
+
+    .btn-add {
+        height: 46px;
+        padding: 0 28px;
+        background: #be1e38;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.2s;
+        box-shadow: 0 4px 6px rgba(190, 30, 56, 0.2);
+    }
+    .btn-add:hover { background: #9a182d; transform: translateY(-1px); box-shadow: 0 6px 12px rgba(190, 30, 56, 0.3); }
+
+    /* Table Container */
+    .table-container {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        margin: 0 20px;
+        overflow: hidden;
+    }
+    @media (min-width: 768px) {
+        .table-container { margin: 0 40px; }
+    }
+
+    .trustee-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        min-width: 600px; /* Forces scroll on very small screens to prevent squishing */
+    }
+    .trustee-table th {
+        background: #f8f9fa;
+        color: #555;
+        font-weight: 800;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        padding: 16px 24px;
+        text-transform: uppercase;
+        border-bottom: 2px solid #eaeaea;
+    }
+    .trustee-table td {
+        padding: 16px 24px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f0f0f0;
+        color: #333;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+    .trustee-table tbody tr:hover { background-color: #fafbfc; }
+    .trustee-table tbody tr:last-child td { border-bottom: none; }
+
+    /* Avatar Thumbnail */
+    .avatar-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #eee;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .avatar-wrapper i {
+        color: #aaa;
+        font-size: 1.5rem;
+    }
+
+    /* Badges */
+    .badge-position {
+        background: #eef2f7;
+        color: #4a5568;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 1px solid #e2e8f0;
+    }
+
+    /* Action Buttons */
+    .action-btns {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+    .btn-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 1rem;
+    }
+    .btn-edit-icon { background: #e3f2fd; color: #0d6efd; }
+    .btn-edit-icon:hover { background: #0d6efd; color: #fff; }
+    .btn-delete-icon { background: #fde8e8; color: #dc3545; }
+    .btn-delete-icon:hover { background: #dc3545; color: #fff; }
+
+    /* Pagination */
+    .pagination-container {
+        padding: 16px 24px;
+        border-top: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+    }
+    .page-btn {
+        min-width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #dee2e6;
+        background: #fff;
+        color: #495057;
+        margin: 0 4px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    .page-btn:hover { background: #e9ecef; }
+    .page-btn.active { background: #be1e38; color: #fff; border-color: #be1e38; }
+    .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Status Messages */
+    .status-container {
+        margin: 0 20px 20px;
+        padding: 16px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    @media (min-width: 768px) {
+        .status-container { margin: 0 40px 20px; }
+    }
+    .status-success { background: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
+    .status-error { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
+
+    /* =====================
+       MODALS
+    ===================== */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: 1050;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+        padding: 15px; /* Prevent touching edges on mobile */
+    }
+    .modal-overlay.active { display: flex; }
+
+    .edit-modal {
+        background: #fff;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 700px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        overflow: hidden;
+        animation: modalFadeIn 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh; /* Prevents modal from being taller than screen */
+    }
+    @keyframes modalFadeIn {
+        from { transform: scale(0.95); opacity: 0; }
+        to   { transform: scale(1); opacity: 1; }
+    }
+
+    .edit-modal .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 32px;
+        border-bottom: 1px solid #eee;
+        background: #fafafa;
+    }
+    .edit-modal .modal-header h2 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #222;
+        margin: 0;
+    }
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.75rem;
+        color: #aaa;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        transition: color 0.2s;
+    }
+    .modal-close:hover { color: #dc3545; }
+
+    .edit-modal .modal-body {
+        padding: 32px;
+        overflow-y: auto; /* Makes form scrollable if screen is small */
+    }
+
+    /* Image Upload Section inside Modal */
+    .image-upload-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 24px;
+        border-bottom: 1px dashed #eee;
+    }
+    @media (min-width: 576px) {
+        .image-upload-section { flex-direction: row; align-items: center; gap: 24px; }
+        .w-sm-auto { width: auto !important; }
+    }
+
+    .image-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid #eee;
+        background: #f8f9fa;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+    }
+    .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .image-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #aaa;
+    }
+    .image-placeholder i { font-size: 2.5rem; margin-bottom: 4px; }
+    .image-placeholder span { font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; }
+
+    .btn-upload {
+        background: #fff;
+        color: #be1e38;
+        border: 2px solid #be1e38;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+    .btn-upload:hover { background: #be1e38; color: #fff; }
+
+    .edit-modal .modal-footer {
+        padding: 24px 32px;
+        border-top: 1px solid #eee;
+        background: #fafafa;
+        justify-content: flex-end;
+    }
+    .btn-cancel, .btn-save {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+    }
+    .btn-cancel { background: #e2e8f0; color: #4a5568; }
+    .btn-cancel:hover { background: #cbd5e1; }
+    .btn-save { background: #be1e38; color: #fff; box-shadow: 0 4px 6px rgba(190, 30, 56, 0.2); }
+    .btn-save:hover { background: #9a182d; transform: translateY(-1px); }
+    .btn-save:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+</style>
 
 <script>
-(function () {
+    // State variables
+    let trusteesData = [];
+    let positionsData = [];
+    let currentPage = 1;
+    let itemsPerPage = 10;
+    const baseUrl = window.API_BASE_URL || 'https://pcci-laravel-api.onrender.com/api';
 
-    const API_URL = window.API_BASE_URL + '/v1/trustees';
+    document.addEventListener('DOMContentLoaded', () => {
+        loadPositions();
+        loadTrustees();
 
-    /* ============================================== */
-    /* RENDER HELPERS                                 */
-    /* ============================================== */
-
-    /**
-     * Build a trustee card element from an API record.
-     * Expected fields (adjust to match your actual API response):
-     *   trustee.id, trustee.first_name, trustee.last_name,
-     *   trustee.gender, trustee.position, trustee.status, trustee.photo_url
-     */
-    function getPositionName(trustee) {
-        if (trustee.position && typeof trustee.position === 'object') return trustee.position.position || '';
-        if (typeof trustee.position === 'string') return trustee.position || '';
-        return '';
-    }
-
-    function getPositionId(trustee) {
-        if (trustee.position && typeof trustee.position === 'object') return trustee.position.id || 0;
-        if (trustee.board_position_id) return trustee.board_position_id;
-        return 999;
-    }
-
-    function renderCard(trustee) {
-        const gender    = (trustee.gender || '').toLowerCase();
-        const prefix    = gender === 'female' ? 'Ms.' : 'Mr.';
-        const fullName  = `${prefix} ${trustee.firstname || ''} ${trustee.middlename ? ' ' + trustee.middlename + ' ' : ' '}${trustee.lastname || ''}`.trim();
-        const position  = getPositionName(trustee);
-        const status    = trustee.status    || 'Active';
-        const photoUrl  = trustee.image_url || '';
-
-        const card = document.createElement('div');
-        card.className = 'board-card';
-        card.dataset.lastname  = trustee.lastname  || '';
-        card.dataset.firstname = trustee.firstname || '';
-        card.dataset.gender    = gender;
-        card.dataset.position  = position;
-        card.dataset.status    = status;
-        card.dataset.photo     = photoUrl;
-        card.dataset.id        = trustee.id || '';
-
-        card.innerHTML = `
-            ${photoUrl
-                ? `<img src="${photoUrl}" class="card-photo" alt="${fullName}">`
-                : `<div class="card-photo-placeholder"><i class="bi bi-person-fill"></i></div>`
-            }
-            <div class="card-name">${fullName}</div>
-            <div class="card-position-pill">${position}</div>
-            <div class="card-actions">
-                <button class="btn-card btn-view-profile"><i class="bi bi-eye"></i> View Profile</button>
-                <button class="btn-card btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-            </div>
-        `;
-
-        /* Attach edit listener */
-        card.querySelector('.btn-edit').addEventListener('click', function () {
-            openModal('edit', card);
+        // Search listener
+        document.getElementById('searchInput').addEventListener('input', function() {
+            currentPage = 1;
+            renderTable();
         });
+    });
 
-        /* Attach view-profile listener */
-        card.querySelector('.btn-view-profile').addEventListener('click', function () {
-            const imgEl  = card.querySelector('.card-photo');
-            vpName.textContent     = card.querySelector('.card-name').textContent.trim();
-            vpPosition.textContent = card.querySelector('.card-position-pill').textContent.trim();
-
-            if (imgEl && imgEl.src) {
-                vpPhoto.src = imgEl.src;
-                vpPhoto.style.display = 'block';
-                vpPhotoPlaceholder.style.display = 'none';
-            } else {
-                vpPhoto.style.display = 'none';
-                vpPhotoPlaceholder.style.display = 'flex';
-            }
-            vpOverlay.classList.add('active');
-        });
-
-        return card;
+    function showStatus(message, type = 'success') {
+        const container = document.getElementById('statusMessageContainer');
+        container.className = `status-container status-${type}`;
+        container.innerHTML = type === 'success' 
+            ? `<i class="bi bi-check-circle-fill fs-5"></i> <span>${message}</span>`
+            : `<i class="bi bi-exclamation-circle-fill fs-5"></i> <span>${message}</span>`;
+        container.style.display = 'flex';
+        
+        setTimeout(() => { container.style.display = 'none'; }, 4000);
     }
 
-    /**
-     * Populate the position filter chips from the unique positions in the loaded data.
-     */
-    function populatePositionChips(trustees) {
-        const seen      = new Set();
-        const container = document.getElementById('positionChips');
-        container.innerHTML = '';
-
-        trustees.forEach(t => {
-            const pos = getPositionName(t);
-            if (pos && !seen.has(pos)) {
-                seen.add(pos);
-                const btn = document.createElement('button');
-                btn.className      = 'filter-chip';
-                btn.dataset.filter = 'position';
-                btn.dataset.value  = pos;
-                btn.textContent    = pos;
-                btn.addEventListener('click', onChipClick);
-                container.appendChild(btn);
-            }
-        });
-    }
-
-    /**
-     * Populate the position dropdown inside the Add/Edit modal.
-     */
-    function populatePositionDropdown(positions) {
-        const dropdown   = document.getElementById('positionDropdown');
-        const addPosRow  = document.getElementById('openAddPosition');
-
-        /* Remove existing options (keep the "Add Position" row) */
-        dropdown.querySelectorAll('.position-option').forEach(el => el.remove());
-
-        positions.forEach(pos => {
-            const opt = document.createElement('div');
-            opt.className    = 'position-option';
-            opt.dataset.value = pos;
-            opt.textContent  = pos;
-            opt.addEventListener('click', () => pickPosition(pos, opt));
-            dropdown.insertBefore(opt, addPosRow);
-        });
-    }
-
-    /* ============================================== */
-    /* FETCH TRUSTEES FROM API                        */
-    /* ============================================== */
-    function loadTrustees() {
-        const grid        = document.getElementById('boardGrid');
-        const loadingEl   = document.getElementById('loadingState');
-        const noResultsEl = document.getElementById('noResults');
-
-        loadingEl.style.display = 'flex';
-        noResultsEl.style.display = 'none';
-
-        fetch(API_URL)
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return res.json();
-            })
-            .then(data => {
-                loadingEl.style.display = 'none';
-
-                /*
-                 * Adjust the path below to match your actual API response shape.
-                 * Common patterns:
-                 *   data          — if the API returns an array directly
-                 *   data.data     — if wrapped in { data: [...] }
-                 *   data.trustees — if wrapped in { trustees: [...] }
-                 */
-                const trustees = Array.isArray(data) ? data : (data.data || data.trustees || []);
-
-                /* Sort by position ID (President first, etc.) */
-                trustees.sort((a, b) => {
-                    return Number(getPositionId(a)) - Number(getPositionId(b));
-                });
-
-                /* Clear existing cards (keep the loading / no-results sentinels) */
-                grid.querySelectorAll('.board-card').forEach(c => c.remove());
-
-                if (trustees.length === 0) {
-                    noResultsEl.style.display = 'block';
-                    return;
-                }
-
-                /* Find and display the President */
-                const president = trustees.find(t => {
-                    const pos = getPositionName(t).toLowerCase();
-                    return pos === 'president';
-                });
-
-                const presSection      = document.getElementById('presidentSection');
-                const presPhoto        = document.getElementById('presidentPhoto');
-                const presOverlay      = document.getElementById('presidentOverlay');
-                const presOverlayName  = document.getElementById('presOverlayName');
-                const presOverlayTitle = document.getElementById('presOverlayTitle');
-                const presQuoteAuthor  = document.getElementById('presidentQuoteAuthor');
-
-                if (president) {
-                    const pGender = (president.gender || '').toLowerCase();
-                    const pPrefix = pGender === 'female' ? 'Ms.' : 'Mr.';
-                    const pName   = `${pPrefix} ${president.firstname || ''}${president.middlename ? ' ' + president.middlename : ''} ${president.lastname || ''}`.trim();
-                    const posTitle = getPositionName(president);
-
-                    if (president.image_url) {
-                        presPhoto.src = president.image_url;
-                        presPhoto.alt = pName;
-                        presPhoto.style.display = 'block';
-                        presOverlay.style.display = 'block';
-                        presOverlayName.textContent = pName;
-                        presOverlayTitle.textContent = posTitle + ', PCCI Valenzuela';
-                    }
-
-                    presQuoteAuthor.textContent = '– ' + pName + ', ' + posTitle;
-                    presSection.classList.add('visible');
-                }
-
-                trustees.forEach(t => grid.insertBefore(renderCard(t), noResultsEl));
-
-                /* Populate filter chips and modal dropdown from live data */
-                populatePositionChips(trustees);
-                const uniquePositions = [...new Set(trustees.map(t => getPositionName(t)).filter(Boolean))];
-                populatePositionDropdown(uniquePositions);
-            })
-            .catch(err => {
-                loadingEl.style.display = 'none';
-                noResultsEl.innerHTML   = '<i class="bi bi-exclamation-circle"></i> Failed to load trustees.';
-                noResultsEl.style.display = 'block';
-                console.error('Trustees API error:', err);
+    // --- FETCH DATA ---
+    async function loadPositions() {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${baseUrl}/v1/board-positions`, {
+                headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
             });
+            if(res.ok) {
+                const json = await res.json();
+                positionsData = json.data || json || [];
+                populatePositionDropdown();
+            }
+        } catch(e) { console.error("Error loading positions:", e); }
     }
 
-    /* Initial load */
-    loadTrustees();
-
-    /* ============================================== */
-    /* SEARCH & FILTER                                */
-    /* ============================================== */
-    const searchInput  = document.getElementById('searchInput');
-    const filterBtn    = document.getElementById('filterBtn');
-    const filterPanel  = document.getElementById('filterPanel');
-    const filterClear  = document.getElementById('filterClearBtn');
-    const noResults    = document.getElementById('noResults');
-    const allCards     = () => document.querySelectorAll('.board-card');
-
-    let activeFilters  = { position: null, status: null };
-
-    /* Toggle filter panel */
-    filterBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        filterPanel.classList.toggle('open');
-        filterBtn.classList.toggle('filter-active', filterPanel.classList.contains('open'));
-    });
-
-    document.addEventListener('click', e => {
-        if (!filterPanel.contains(e.target) && e.target !== filterBtn) {
-            filterPanel.classList.remove('open');
-            filterBtn.classList.remove('filter-active');
-        }
-    });
-
-    /* Chip toggle */
-    function onChipClick(e) {
-        const chip     = e.currentTarget;
-        const filter   = chip.dataset.filter;
-        const value    = chip.dataset.value;
-        const isActive = chip.classList.contains('chip-active');
-
-        /* Deactivate sibling chips in the same group */
-        filterPanel.querySelectorAll(`.filter-chip[data-filter="${filter}"]`).forEach(c => c.classList.remove('chip-active'));
-
-        if (!isActive) {
-            chip.classList.add('chip-active');
-            activeFilters[filter] = value;
-        } else {
-            activeFilters[filter] = null;
-        }
-
-        applyFilters();
-        updateFilterBtnStyle();
-    }
-
-    /* Attach to status chips (static) */
-    document.querySelectorAll('.filter-chip[data-filter="status"]').forEach(c => c.addEventListener('click', onChipClick));
-
-    /* Clear all */
-    filterClear.addEventListener('click', () => {
-        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('chip-active'));
-        activeFilters = { position: null, status: null };
-        applyFilters();
-        updateFilterBtnStyle();
-    });
-
-    /* Search */
-    searchInput.addEventListener('input', applyFilters);
-
-    function applyFilters() {
-        const query        = searchInput.value.toLowerCase().trim();
-        const posFilter    = activeFilters.position ? activeFilters.position.toLowerCase() : null;
-        const statusFilter = activeFilters.status   ? activeFilters.status.toLowerCase()   : null;
-        let visibleCount   = 0;
-
-        allCards().forEach(card => {
-            const name     = ((card.dataset.firstname || '') + ' ' + (card.dataset.lastname || '')).toLowerCase();
-            const position = (card.dataset.position || '').toLowerCase();
-            const status   = (card.dataset.status   || '').toLowerCase();
-
-            const matchSearch   = !query        || name.includes(query) || position.includes(query);
-            const matchPosition = !posFilter    || position === posFilter;
-            const matchStatus   = !statusFilter || status   === statusFilter;
-
-            const visible = matchSearch && matchPosition && matchStatus;
-            card.style.display = visible ? '' : 'none';
-            if (visible) visibleCount++;
+    function populatePositionDropdown() {
+        const select = document.getElementById('positionId');
+        select.innerHTML = '<option value="" disabled selected>Select Position</option>';
+        positionsData.forEach(pos => {
+            const opt = document.createElement('option');
+            opt.value = pos.id;
+            opt.textContent = pos.position;
+            select.appendChild(opt);
         });
-
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
-    function updateFilterBtnStyle() {
-        const hasFilter = activeFilters.position || activeFilters.status;
-        filterBtn.classList.toggle('filter-active', !!hasFilter);
-        filterBtn.innerHTML = hasFilter
-            ? `<i class="bi bi-sliders"></i> Filtered`
-            : `<i class="bi bi-sliders"></i> Filter`;
+    async function loadTrustees() {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${baseUrl}/v1/trustees`, {
+                headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
+            });
+            if(res.ok) {
+                const json = await res.json();
+                trusteesData = json.data || json || [];
+                
+                // Sort by position importance
+                trusteesData.sort((a, b) => {
+                    const aId = a.board_position_id || (a.position && a.position.id) || 999;
+                    const bId = b.board_position_id || (b.position && b.position.id) || 999;
+                    return Number(aId) - Number(bId);
+                });
+                
+                renderTable();
+            } else {
+                showStatus("Failed to load trustees.", "error");
+            }
+        } catch(e) {
+            console.error(e);
+            showStatus("Network error while loading data.", "error");
+        }
     }
 
-    /* ============================================== */
-    /* VIEW PROFILE MODAL                             */
-    /* ============================================== */
-    const vpOverlay          = document.getElementById('viewProfileOverlay');
-    const vpPhoto            = document.getElementById('vpPhoto');
-    const vpPhotoPlaceholder = document.getElementById('vpPhotoPlaceholder');
-    const vpName             = document.getElementById('vpName');
-    const vpPosition         = document.getElementById('vpPosition');
+    // --- RENDER TABLE ---
+    function renderTable() {
+        const tbody = document.getElementById('trusteeTableBody');
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        
+        // Filter
+        let filtered = trusteesData;
+        if(query) {
+            filtered = trusteesData.filter(t => {
+                const name = `${t.firstname} ${t.lastname}`.toLowerCase();
+                const pos = (t.position && t.position.position ? t.position.position : '').toLowerCase();
+                return name.includes(query) || pos.includes(query);
+            });
+        }
 
-    document.getElementById('closeViewProfile').addEventListener('click', () => vpOverlay.classList.remove('active'));
-    vpOverlay.addEventListener('click', e => { if (e.target === vpOverlay) vpOverlay.classList.remove('active'); });
+        // Pagination calculations
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        if(currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+        
+        const startIdx = (currentPage - 1) * itemsPerPage;
+        const pagedData = filtered.slice(startIdx, startIdx + itemsPerPage);
 
-    /* ============================================== */
-    /* ADD / EDIT BOARD MODAL                         */
-    /* ============================================== */
-    const overlay      = document.getElementById('addBoardOverlay');
-    const modalTitle   = document.getElementById('modalTitle');
-    const openBtn      = document.getElementById('openAddBoard');
-    const closeBtn     = document.getElementById('closeAddBoard');
-    const clearBtn     = document.getElementById('clearFormBtn');
-    const confirmBtn   = document.getElementById('confirmBtn');
-    const positionBtn  = document.getElementById('positionBtn');
-    const positionDrop = document.getElementById('positionDropdown');
-    const positionLbl  = document.getElementById('positionLabel');
-    const statusBtn    = document.getElementById('statusBtn');
-    const statusDrop   = document.getElementById('statusDropdown');
-    const statusLbl    = document.getElementById('statusLabel');
-    const photoAddBtn  = document.getElementById('photoAddBtn');
-    const photoInput   = document.getElementById('photoInput');
-    const previewImg   = document.getElementById('previewImg');
-    const defaultIcon  = document.getElementById('defaultIcon');
+        tbody.innerHTML = '';
 
-    let selectedPosition = '';
-    let selectedStatus   = 'Active';
-    let isEditMode       = false;
+        if(pagedData.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center py-5 text-muted">No trustees found.</td></tr>`;
+            renderPagination(0, 1);
+            return;
+        }
 
-    /* Reset form to blank state */
-    function resetForm() {
-        document.getElementById('lastName').value  = '';
-        document.getElementById('firstName').value = '';
-        document.querySelectorAll('input[name="gender"]').forEach(r => r.checked = false);
-
-        document.querySelectorAll('.position-option').forEach(o => o.classList.remove('selected'));
-        selectedPosition = '';
-        positionLbl.textContent = 'Position';
-        positionBtn.classList.remove('has-value', 'open');
-        positionDrop.classList.remove('open');
-
-        document.querySelectorAll('.status-option').forEach(o => o.classList.remove('selected'));
-        const activeOpt = statusDrop.querySelector('[data-value="Active"]');
-        if (activeOpt) activeOpt.classList.add('selected');
-        selectedStatus = 'Active';
-        statusLbl.textContent = 'Active';
-        statusBtn.classList.add('has-value');
-        statusBtn.classList.remove('open');
-        statusDrop.classList.remove('open');
-
-        previewImg.style.display = 'none';
-        previewImg.src = '';
-        defaultIcon.style.display = '';
-        photoInput.value = '';
-    }
-
-    /* Open modal in add or edit mode */
-    function openModal(mode, card) {
-        isEditMode = (mode === 'edit');
-        modalTitle.textContent = isEditMode ? 'Edit Board' : 'Add Board';
-        resetForm();
-
-        if (isEditMode && card) {
-            const fn = card.dataset.firstname || '';
-            const ln = card.dataset.lastname  || '';            
-            const gn = card.dataset.gender    || '';
-            const pos = card.dataset.position || '';
-            const st  = card.dataset.status   || '';
-            const ph  = card.dataset.photo    || '';
-
-            document.getElementById('firstName').value = fn;
-            document.getElementById('lastName').value  = ln;
-
-            const gInput = document.querySelector(`input[name="gender"][value="${gn}"]`);
-            if (gInput) gInput.checked = true;
-
-            if (ph) {
-                previewImg.src = ph;
-                previewImg.style.display = 'block';
-                defaultIcon.style.display = 'none';
+        pagedData.forEach(t => {
+            const tr = document.createElement('tr');
+            
+            const fullName = `${t.firstname} ${t.middlename ? t.middlename + ' ' : ''}${t.lastname}`;
+            const posName = t.position && t.position.position ? t.position.position : 'No Position';
+            
+            let avatarHtml = `<i class="bi bi-person-fill"></i>`;
+            if(t.image_url) {
+                avatarHtml = `<img src="${t.image_url}" alt="${fullName}" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\\'bi bi-person-fill\\'></i>';">`;
             }
 
-            const pOpt = positionDrop.querySelector(`.position-option[data-value="${pos}"]`);
-            if (pOpt) pickPosition(pos, pOpt);
+            // Storing full object in JSON for easy edit modal population
+            const dataStr = encodeURIComponent(JSON.stringify(t));
 
-            const sOpt = statusDrop.querySelector(`.status-option[data-value="${st}"]`);
-            if (sOpt) pickStatus(st, sOpt);
-        }
+            tr.innerHTML = `
+                <td><div class="avatar-wrapper shadow-sm">${avatarHtml}</div></td>
+                <td>
+                    <div class="fw-bold text-dark">${fullName}</div>
+                    <div class="small text-muted">${t.gender || ''}</div>
+                </td>
+                <td><span class="badge-position shadow-sm">${posName}</span></td>
+                <td>
+                    <div class="action-btns">
+                        <button class="btn-icon btn-edit-icon" onclick="openEditModal('${dataStr}')" title="Edit">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn-icon btn-delete-icon" onclick="openDeleteModal(${t.id}, '${fullName.replace(/'/g, "\\'")}')" title="Delete">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
 
-        overlay.classList.add('active');
+        renderPagination(totalPages, currentPage);
     }
 
-    /* ADD button */
-    openBtn.addEventListener('click', () => openModal('add'));
+    function renderPagination(totalPages, current) {
+        const container = document.getElementById('paginationControls');
+        container.innerHTML = '';
+        
+        if(totalPages <= 1) return;
 
-    /* Close */
-    closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
-    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
+        // Prev
+        const prev = document.createElement('button');
+        prev.className = 'page-btn';
+        prev.innerHTML = '<i class="bi bi-chevron-left"></i>';
+        prev.disabled = (current === 1);
+        prev.onclick = () => { currentPage--; renderTable(); };
+        container.appendChild(prev);
 
-    /* Clear form */
-    clearBtn.addEventListener('click', resetForm);
+        // Numbers
+        for(let i=1; i<=totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.className = `page-btn ${i === current ? 'active' : ''}`;
+            btn.innerText = i;
+            btn.onclick = () => { currentPage = i; renderTable(); };
+            container.appendChild(btn);
+        }
 
-    /* Confirm — wire your POST / PATCH call here */
-    confirmBtn.addEventListener('click', () => {
-        /* TODO: submit form data to your backend */
-        overlay.classList.remove('active');
-        loadTrustees(); /* refresh grid after save */
-    });
-
-    /* Photo upload */
-    photoAddBtn.addEventListener('click', () => photoInput.click());
-    photoInput.addEventListener('change', () => {
-        const file = photoInput.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = e => {
-            previewImg.src = e.target.result;
-            previewImg.style.display = 'block';
-            defaultIcon.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-    });
-
-    /* Position dropdown */
-    positionBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        positionBtn.classList.toggle('open');
-        positionDrop.classList.toggle('open');
-        statusBtn.classList.remove('open');
-        statusDrop.classList.remove('open');
-    });
-
-    function pickPosition(value, el) {
-        document.querySelectorAll('.position-option').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedPosition = value;
-        positionLbl.textContent = value;
-        positionBtn.classList.add('has-value');
-        positionBtn.classList.remove('open');
-        positionDrop.classList.remove('open');
+        // Next
+        const next = document.createElement('button');
+        next.className = 'page-btn';
+        next.innerHTML = '<i class="bi bi-chevron-right"></i>';
+        next.disabled = (current === totalPages);
+        next.onclick = () => { currentPage++; renderTable(); };
+        container.appendChild(next);
     }
 
-    /* Status dropdown */
-    statusBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        statusBtn.classList.toggle('open');
-        statusDrop.classList.toggle('open');
-        positionBtn.classList.remove('open');
-        positionDrop.classList.remove('open');
-    });
-
-    function pickStatus(value, el) {
-        document.querySelectorAll('.status-option').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedStatus = value;
-        statusLbl.textContent = value;
-        statusBtn.classList.add('has-value');
-        statusBtn.classList.remove('open');
-        statusDrop.classList.remove('open');
+    // --- MODAL HANDLING ---
+    function previewImage(input) {
+        if(input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('imagePreview').src = e.target.result;
+                document.getElementById('imagePreview').style.display = 'block';
+                document.getElementById('imagePlaceholder').style.display = 'none';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 
-    document.querySelectorAll('.status-option').forEach(opt => {
-        opt.addEventListener('click', () => pickStatus(opt.dataset.value, opt));
-    });
+    function clearModal() {
+        document.getElementById('trusteeForm').reset();
+        document.getElementById('trusteeId').value = '';
+        document.getElementById('currentImageUrl').value = '';
+        document.getElementById('trusteeImage').value = '';
+        
+        document.getElementById('imagePreview').src = '';
+        document.getElementById('imagePreview').style.display = 'none';
+        document.getElementById('imagePlaceholder').style.display = 'flex';
+    }
 
-    /* Close dropdowns on outside click */
-    document.addEventListener('click', e => {
-        if (!positionBtn.contains(e.target) && !positionDrop.contains(e.target)) {
-            positionBtn.classList.remove('open');
-            positionDrop.classList.remove('open');
+    function openAddModal() {
+        clearModal();
+        document.getElementById('modalTitle').innerText = 'ADD NEW TRUSTEE';
+        document.getElementById('saveTrusteeBtn').innerText = 'SAVE TRUSTEE';
+        document.getElementById('trusteeModalOverlay').classList.add('active');
+    }
+
+    function openEditModal(encodedData) {
+        clearModal();
+        const t = JSON.parse(decodeURIComponent(encodedData));
+        
+        document.getElementById('modalTitle').innerText = 'EDIT TRUSTEE';
+        document.getElementById('saveTrusteeBtn').innerText = 'UPDATE TRUSTEE';
+        
+        document.getElementById('trusteeId').value = t.id;
+        document.getElementById('firstName').value = t.firstname || '';
+        document.getElementById('middleName').value = t.middlename || '';
+        document.getElementById('lastName').value = t.lastname || '';
+        document.getElementById('gender').value = t.gender || '';
+        
+        if(t.position && t.position.id) {
+            document.getElementById('positionId').value = t.position.id;
         }
-        if (!statusBtn.contains(e.target) && !statusDrop.contains(e.target)) {
-            statusBtn.classList.remove('open');
-            statusDrop.classList.remove('open');
+
+        if(t.image_url) {
+            document.getElementById('currentImageUrl').value = t.image_url;
+            document.getElementById('imagePreview').src = t.image_url;
+            document.getElementById('imagePreview').style.display = 'block';
+            document.getElementById('imagePlaceholder').style.display = 'none';
         }
-    });
 
-    /* ============================================== */
-    /* ADD POSITION MODAL                             */
-    /* ============================================== */
-    const addPosOverlay  = document.getElementById('addPosOverlay');
-    const openAddPosBtn  = document.getElementById('openAddPosition');
-    const closePosBtn    = document.getElementById('closePosModal');
-    const positionInput  = document.getElementById('positionInput');
-    const clearPosBtn    = document.getElementById('clearPosBtn');
-    const confirmPosBtn  = document.getElementById('confirmPosBtn');
+        document.getElementById('trusteeModalOverlay').classList.add('active');
+    }
 
-    openAddPosBtn.addEventListener('click', () => {
-        positionDrop.classList.remove('open');
-        positionBtn.classList.remove('open');
-        positionInput.value = '';
-        positionInput.classList.remove('error');
-        addPosOverlay.classList.add('active');
-    });
+    function closeTrusteeModal() {
+        document.getElementById('trusteeModalOverlay').classList.remove('active');
+    }
 
-    closePosBtn.addEventListener('click', () => addPosOverlay.classList.remove('active'));
-    addPosOverlay.addEventListener('click', e => { if (e.target === addPosOverlay) addPosOverlay.classList.remove('active'); });
-    clearPosBtn.addEventListener('click', () => { positionInput.value = ''; positionInput.classList.remove('error'); });
+    function openDeleteModal(id, name) {
+        document.getElementById('deleteTrusteeId').value = id;
+        document.getElementById('deleteTrusteeName').innerText = name;
+        document.getElementById('deleteModalOverlay').classList.add('active');
+    }
 
-    confirmPosBtn.addEventListener('click', () => {
-        const val = positionInput.value.trim();
-        if (!val) { positionInput.classList.add('error'); return; }
-        positionInput.classList.remove('error');
+    function closeDeleteModal() {
+        document.getElementById('deleteModalOverlay').classList.remove('active');
+    }
 
-        /* TODO: optionally POST new position to your backend */
+    // --- CRUD OPERATIONS ---
+    async function saveTrustee() {
+        const form = document.getElementById('trusteeForm');
+        if(!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
 
-        /* Add option to the dropdown immediately */
-        const opt = document.createElement('div');
-        opt.className    = 'position-option';
-        opt.dataset.value = val;
-        opt.textContent  = val;
-        opt.addEventListener('click', () => pickPosition(val, opt));
-        positionDrop.insertBefore(opt, openAddPosBtn);
+        const id = document.getElementById('trusteeId').value;
+        const btn = document.getElementById('saveTrusteeBtn');
+        const token = localStorage.getItem('token');
+        
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SAVING...';
 
-        /* Also add a filter chip */
-        const chip = document.createElement('button');
-        chip.className      = 'filter-chip';
-        chip.dataset.filter = 'position';
-        chip.dataset.value  = val;
-        chip.textContent    = val;
-        chip.addEventListener('click', onChipClick);
-        document.getElementById('positionChips').appendChild(chip);
+        const formData = new FormData();
+        formData.append('firstname', document.getElementById('firstName').value);
+        formData.append('middlename', document.getElementById('middleName').value);
+        formData.append('lastname', document.getElementById('lastName').value);
+        formData.append('gender', document.getElementById('gender').value);
+        formData.append('board_position_id', document.getElementById('positionId').value);
+        
+        const imageFile = document.getElementById('trusteeImage').files[0];
+        if(imageFile) {
+            formData.append('image', imageFile);
+        }
 
-        addPosOverlay.classList.remove('active');
-        pickPosition(val, opt);
-    });
+        const url = id ? `${baseUrl}/v1/trustees/${id}` : `${baseUrl}/v1/trustees`;
+        
+        // If updating via POST with FormData in Laravel, need _method spoofing
+        if(id) {
+            formData.append('_method', 'PUT');
+        }
 
-})();
+        try {
+            const res = await fetch(url, {
+                method: 'POST', // Always POST for FormData, let Laravel spoof PUT
+                headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+
+            if(res.ok) {
+                closeTrusteeModal();
+                showStatus(id ? "Trustee updated successfully!" : "Trustee added successfully!");
+                loadTrustees();
+            } else {
+                const errData = await res.json();
+                console.error(errData);
+                alert("Failed to save: " + (errData.message || "Validation error"));
+            }
+        } catch(e) {
+            console.error(e);
+            alert("Network error.");
+        } finally {
+            btn.disabled = false;
+            btn.innerText = id ? 'UPDATE TRUSTEE' : 'SAVE TRUSTEE';
+        }
+    }
+
+    async function confirmDelete() {
+        const id = document.getElementById('deleteTrusteeId').value;
+        const token = localStorage.getItem('token');
+        
+        try {
+            const res = await fetch(`${baseUrl}/v1/trustees/${id}`, {
+                method: 'DELETE',
+                headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
+            });
+
+            if(res.ok) {
+                closeDeleteModal();
+                showStatus("Trustee removed successfully!");
+                loadTrustees();
+            } else {
+                alert("Failed to delete trustee.");
+            }
+        } catch(e) {
+            console.error(e);
+            alert("Network error.");
+        }
+    }
+
 </script>
 
 @endsection

@@ -257,14 +257,8 @@
 <div class="applicant-toolbar">
     <div class="toolbar-group">
         <span class="toolbar-label">Status:</span>
-        <button class="sort-btn active" data-filter="all" onclick="filterByStatus('all', this)">
-            <i class="bi bi-grid"></i> All
-        </button>
-        <button class="sort-btn" data-filter="pending" onclick="filterByStatus('pending', this)">
+        <button class="sort-btn active" type="button" disabled>
             <i class="bi bi-clock"></i> Pending
-        </button>
-        <button class="sort-btn" data-filter="paid" onclick="filterByStatus('paid', this)">
-            <i class="bi bi-check-circle"></i> Paid
         </button>
     </div>
     <div class="toolbar-group" style="margin-left: auto;">
@@ -283,7 +277,6 @@
 {{-- ======== DYNAMIC FETCH LOGIC ======== --}}
 <script>
     let allApplicants = [];
-    let currentFilter = 'all';
     let nameSortAsc = null; // null = no sort, true = A-Z, false = Z-A
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -328,16 +321,6 @@
         }
     }
 
-    function filterByStatus(status, btn) {
-        currentFilter = status;
-
-        // Update active button
-        document.querySelectorAll('.toolbar-group [data-filter]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        applyFiltersAndSort();
-    }
-
     function toggleSortName() {
         const btn = document.getElementById('sortNameBtn');
 
@@ -369,13 +352,11 @@
             });
         }
 
-        // Filter by status
-        if (currentFilter !== 'all') {
-            filtered = filtered.filter(app => {
-                const status = (app.status || '').toLowerCase();
-                return status === currentFilter;
-            });
-        }
+        // Always show pending applicants only
+        filtered = filtered.filter(app => {
+            const status = (app.status || '').toLowerCase();
+            return status === 'pending';
+        });
 
         // Sort by name
         if (nameSortAsc !== null) {
@@ -394,7 +375,7 @@
         grid.innerHTML = '';
 
         if (applicants.length === 0) {
-            grid.innerHTML = '<div class="grid-message">No applicants found.</div>';
+            grid.innerHTML = '<div class="grid-message">No pending applicants found.</div>';
             return;
         }
 

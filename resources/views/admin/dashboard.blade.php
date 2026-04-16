@@ -12,31 +12,51 @@
     .dashboard-header-banner {
         background-color: var(--pcci-red, #be1e38);
         color: #fff;
-        padding: 36px 40px;
+        padding: clamp(20px, 4vw, 36px) clamp(16px, 5vw, 40px);
         border-radius: 10px;
-        font-size: 2rem;
+        font-size: clamp(1.25rem, 3.5vw, 2rem);
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 30px;
+        margin-bottom: clamp(18px, 3vw, 30px);
         letter-spacing: 1px;
     }
-    .dashboard-stats { display: flex; gap: 24px; margin-bottom: 40px; }
+    .dashboard-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(12px, 2vw, 24px);
+        margin-bottom: clamp(20px, 4vw, 40px);
+    }
     .dash-stat-card {
         border: 2px solid #ff0000; border-top: 3px solid var(--pcci-red, #be1e38);
-        border-radius: 10px; padding: 20px 24px; background: #f9f9f9;
-        width: 220px; min-height: 100px; display: flex; flex-direction: column;
+        border-radius: 10px;
+        padding: clamp(14px, 2.5vw, 20px) clamp(14px, 3vw, 24px);
+        background: #f9f9f9;
+        flex: 1 1 220px;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
         justify-content: space-between; text-decoration: none; color: inherit; transition: all 0.2s ease;
     }
     .dash-stat-card:hover { border-color: var(--pcci-red, #be1e38); box-shadow: 0 6px 20px rgba(190, 30, 56, 0.1); transform: translateY(-2px); text-decoration: none; color: inherit;}
-    .dash-stat-card-title { font-size: 1rem; font-weight: 800; text-transform: uppercase; color: #111; letter-spacing: 0.3px; }
-    .dash-stat-card-value { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 16px; }
-    .dash-stat-card-value i { color: var(--pcci-red, #be1e38); font-size: 1.3rem; }
-    .dash-stat-card-value .count { font-size: 1.5rem; font-weight: 700; color: #111; }
+    .dash-stat-card-title { font-size: clamp(0.9rem, 2vw, 1rem); font-weight: 800; text-transform: uppercase; color: #111; letter-spacing: 0.3px; }
+    .dash-stat-card-value { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: clamp(10px, 2vw, 16px); }
+    .dash-stat-card-value i { color: var(--pcci-red, #be1e38); font-size: clamp(1rem, 2.5vw, 1.3rem); }
+    .dash-stat-card-value .count { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #111; }
     .count-loading {
         display: inline-block; width: 20px; height: 20px; border: 3px solid #eee;
         border-top: 3px solid var(--pcci-red, #be1e38); border-radius: 50%; animation: countSpin 0.8s linear infinite;
     }
     @keyframes countSpin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 768px) {
+        .dashboard-stats {
+            flex-direction: column;
+        }
+
+        .dash-stat-card {
+            flex-basis: 100%;
+        }
+    }
 
 </style>
 

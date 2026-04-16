@@ -498,6 +498,73 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 11px; flex-shrink: 0;
   }
+
+  @media (max-width: 992px) {
+    .ev-header {
+      padding: 24px;
+    }
+
+    .ev-header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+    }
+
+    .ev-toolbar {
+      padding: 14px 18px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ev-search {
+      width: 100%;
+    }
+
+    .ev-add-btn {
+      margin-left: 0;
+    }
+
+    .ev-body {
+      padding: 16px;
+    }
+
+    .ev-grid {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .ev-card-img,
+    .ev-card-img-placeholder {
+      height: 210px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .ev-header {
+      padding: 20px 14px;
+    }
+
+    .ev-header h1 {
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+    }
+
+    .ev-add-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .ev-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ev-card-actions {
+      flex-direction: column;
+    }
+
+    .ev-btn {
+      width: 100%;
+    }
+  }
 </style>
 
 <div class="ev-page">

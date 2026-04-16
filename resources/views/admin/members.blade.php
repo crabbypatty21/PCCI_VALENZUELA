@@ -104,7 +104,7 @@
         border: 2px solid var(--pcci-red);
         border-radius: 12px;
         overflow: hidden;
-        margin-bottom: 0;
+            table-layout: fixed;
     }
 
     .members-table {
@@ -112,7 +112,7 @@
         border-collapse: collapse;
         font-size: 0.88rem;
     }
-
+            padding: 12px 10px;
     /* --- Table Header --- */
     .members-table thead th {
         background-color: var(--pcci-red);
@@ -120,10 +120,13 @@
         font-weight: 700;
         font-size: 0.82rem;
         padding: 14px 12px;
-        text-align: left;
+            padding: 12px 10px;
         white-space: nowrap;
         border-right: 1px solid rgba(255,255,255,0.15);
         position: relative;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         cursor: default;
     }
 
@@ -587,9 +590,15 @@
         }
 
         .members-table {
-            min-width: 800px;
+                min-width: 720px;
         }
     }
+        @media (max-width: 768px) {
+            .members-table th,
+            .members-table td {
+                padding: 10px 8px;
+            }
+        }
 
     @media (max-width: 576px) {
         .members-toolbar {
@@ -686,7 +695,7 @@
     <div class="members-pagination">
         <div class="pagination-left">
             <label>Rows per page</label>
-            <select>
+            <select id="rowsPerPageSelect">
                 <option value="10" selected>10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -696,10 +705,10 @@
             Page 1 of 1
         </div>
         <div class="pagination-right">
-            <button class="pagination-btn disabled" title="First"><i class="bi bi-chevron-double-left"></i></button>
-            <button class="pagination-btn disabled" title="Previous"><i class="bi bi-chevron-left"></i></button>
-            <button class="pagination-btn disabled" title="Next"><i class="bi bi-chevron-right"></i></button>
-            <button class="pagination-btn disabled" title="Last"><i class="bi bi-chevron-double-right"></i></button>
+            <button class="pagination-btn disabled" id="firstPageBtn" title="First" type="button"><i class="bi bi-chevron-double-left"></i></button>
+            <button class="pagination-btn disabled" id="prevPageBtn" title="Previous" type="button"><i class="bi bi-chevron-left"></i></button>
+            <button class="pagination-btn disabled" id="nextPageBtn" title="Next" type="button"><i class="bi bi-chevron-right"></i></button>
+            <button class="pagination-btn disabled" id="lastPageBtn" title="Last" type="button"><i class="bi bi-chevron-double-right"></i></button>
         </div>
     </div>
 </div>
@@ -838,12 +847,48 @@
     // REAL API FETCH LOGIC
     // ==============================================
     let allMembersData = [];
+    let currentPage = 1;
+    let rowsPerPage = 10;
+    let currentSearchTerm = '';
 
     document.addEventListener('DOMContentLoaded', function() {
         fetchMembers();
 
+        document.getElementById('rowsPerPageSelect').addEventListener('change', function() {
+            rowsPerPage = Number(this.value) || 10;
+            currentPage = 1;
+            renderMembers(currentSearchTerm);
+        });
+
         document.getElementById('memberSearchInput').addEventListener('input', function() {
-            renderMembers(this.value.trim().toLowerCase());
+            currentSearchTerm = this.value.trim().toLowerCase();
+            currentPage = 1;
+            renderMembers(currentSearchTerm);
+        });
+
+        document.getElementById('firstPageBtn').addEventListener('click', function() {
+            if (this.classList.contains('disabled')) return;
+            currentPage = 1;
+            renderMembers(currentSearchTerm);
+        });
+
+        document.getElementById('prevPageBtn').addEventListener('click', function() {
+            if (this.classList.contains('disabled')) return;
+            currentPage -= 1;
+            renderMembers(currentSearchTerm);
+        });
+
+        document.getElementById('nextPageBtn').addEventListener('click', function() {
+            if (this.classList.contains('disabled')) return;
+            currentPage += 1;
+            renderMembers(currentSearchTerm);
+        });
+
+        document.getElementById('lastPageBtn').addEventListener('click', function() {
+            if (this.classList.contains('disabled')) return;
+            const filtered = getFilteredMembers(currentSearchTerm);
+            currentPage = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
+            renderMembers(currentSearchTerm);
         });
     });
 
@@ -865,6 +910,9 @@
             const data = await response.json();
 
             allMembersData = data.data || [];
+            currentPage = 1;
+            currentSearchTerm = '';
+            document.getElementById('memberSearchInput').value = '';
             renderMembers('');
 
         } catch (error) {
@@ -877,31 +925,25 @@
         const tbody = document.getElementById('membersTableBody');
         tbody.innerHTML = '';
 
-        const filtered = allMembersData.filter(member => {
-            if (!searchTerm) return true;
+        const filtered = getFilteredMembers(searchTerm);
+        const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
 
-            const applicant = member.applicant || {};
-            const profile = applicant.basic_profile || {};
-            const rep = applicant.official_representative || {};
-            const loc = profile.business_location || {};
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
 
-            const companyName = (profile.registered_business_name || '').toLowerCase();
-            const email = (profile.email || '').toLowerCase();
-            const contact = (profile.telephone_no || '').toLowerCase();
-            const repName = [rep.first_name, rep.mid_name, rep.surname].filter(Boolean).join(' ').toLowerCase();
-            const address = [loc.business_address, loc.city_municipality, loc.province].filter(Boolean).join(' ').toLowerCase();
-            const status = (member.status || '').toLowerCase();
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const pageItems = filtered.slice(startIndex, startIndex + rowsPerPage);
 
-            return companyName.includes(searchTerm) || email.includes(searchTerm) || contact.includes(searchTerm) || repName.includes(searchTerm) || address.includes(searchTerm) || status.includes(searchTerm);
-        });
+        updatePaginationUI(filtered.length, totalPages);
 
         if (filtered.length === 0) {
             tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No members found.</td></tr>`;
             return;
         }
 
-        filtered.forEach(member => {
-
+        pageItems.forEach(member => {
+                    
                     // 1. Safely grab nested objects matching actual API structure
                     const applicant = member.applicant || {};
                     const profile = applicant.basic_profile || {};
@@ -965,6 +1007,55 @@
                         </tr>
                     `;
                 });
+    }
+
+    function getFilteredMembers(searchTerm) {
+        return allMembersData.filter(member => {
+            if (!searchTerm) return true;
+
+            const applicant = member.applicant || {};
+            const profile = applicant.basic_profile || {};
+            const rep = applicant.official_representative || {};
+            const loc = profile.business_location || {};
+
+            const companyName = (profile.registered_business_name || '').toLowerCase();
+            const email = (profile.email || '').toLowerCase();
+            const contact = (profile.telephone_no || '').toLowerCase();
+            const repName = [rep.first_name, rep.mid_name, rep.surname].filter(Boolean).join(' ').toLowerCase();
+            const address = [loc.business_address, loc.city_municipality, loc.province].filter(Boolean).join(' ').toLowerCase();
+            const status = (member.status || '').toLowerCase();
+
+            return companyName.includes(searchTerm) || email.includes(searchTerm) || contact.includes(searchTerm) || repName.includes(searchTerm) || address.includes(searchTerm) || status.includes(searchTerm);
+        });
+    }
+
+    function updatePaginationUI(totalItems, totalPages) {
+        const firstBtn = document.getElementById('firstPageBtn');
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+        const lastBtn = document.getElementById('lastPageBtn');
+        const center = document.querySelector('.pagination-center');
+
+        if (center) {
+            if (totalItems === 0) {
+                center.textContent = 'Page 0 of 0';
+            } else {
+                center.textContent = `Page ${currentPage} of ${totalPages}`;
+            }
+        }
+
+        const isFirst = currentPage <= 1 || totalItems === 0;
+        const isLast = currentPage >= totalPages || totalItems === 0;
+
+        [firstBtn, prevBtn].forEach(btn => {
+            if (!btn) return;
+            btn.classList.toggle('disabled', isFirst);
+        });
+
+        [nextBtn, lastBtn].forEach(btn => {
+            if (!btn) return;
+            btn.classList.toggle('disabled', isLast);
+        });
     }
 </script>
 @endsection

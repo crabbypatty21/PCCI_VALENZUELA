@@ -218,9 +218,9 @@
                 </a>
             </div>
 
-            <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-2 mt-3 mt-xl-0" style="font-family: 'DM Sans', sans-serif;">
+            <div class="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2 mt-4 mt-xl-0 border-top border-xl-0 pt-3 pt-xl-0" style="font-family: 'DM Sans', sans-serif; border-color: rgba(255,255,255,0.1) !important;">
                 
-               <div class="theme-switch-wrapper">
+               <div class="theme-switch-wrapper mb-3 mb-xl-0 justify-content-center justify-content-xl-start">
                    <label class="theme-switch" for="theme-checkbox">
                        <input type="checkbox" id="theme-checkbox" />
                        <div class="slider round">
@@ -232,21 +232,21 @@
 
                 <a href="{{ url('/login') }}" 
                    id="join-pcci-btn"
-                   class="btn btn-pcci-slide text-nowrap rounded-2 px-4">
+                   class="btn btn-pcci-slide text-nowrap rounded-2 px-4 mb-2 mb-xl-0">
                     Join PCCI
                 </a>
 
                 @if (Route::has('login'))
-                    <div class="d-flex gap-2 ps-xl-3 border-start-xl" style="border-color: rgba(255,255,255,0.3) !important;">
+                    <div class="d-flex flex-column flex-xl-row gap-2 ps-xl-3 border-start-xl border-white-50">
                         @auth
                             <a href="{{ url('/dashboard') }}" 
-                               class="btn btn-outline-light rounded-pill px-4">
+                               class="btn btn-outline-danger btn-outline-light-xl rounded-pill px-4">
                                 Dashboard
                             </a>
                         @else
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" 
-                                   class="btn btn-outline-light rounded-pill px-4 text-nowrap">
+                                   class="btn btn-outline-danger btn-outline-light-xl rounded-pill px-4 text-nowrap">
                                     Register
                                 </a>
                             @endif

@@ -14,34 +14,45 @@
    * Use any of these classes on your banner/title across all pages.
    */
 
-  /* Banner wrapper — red background strip */
+  /* Banner wrapper - red background strip */
   .page-header,
   .ev-header,
   .admin-header {
     background: #9B1B2A;
     padding: 26px 32px 22px;
     flex-shrink: 0;
+    width: 100%;
   }
 
-  /* H1 inside any banner — Poppins, bold, white, uppercase */
+  /* H1 inside any banner - Poppins, bold, white, uppercase */
   .page-header h1,
   .ev-header h1,
   .admin-header h1,
   .admin-page-title {
     font-family: 'Poppins', sans-serif !important;
-    font-size: 2rem;          /* h1 equivalent */
+    font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 900;
     color: #ffffff;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     margin: 0;
     line-height: 1.2;
+    word-break: break-word;
+  }
+
+  /* Responsive padding for mobile headers */
+  @media (max-width: 767.98px) {
+    .page-header,
+    .ev-header,
+    .admin-header {
+      padding: 20px 20px 18px;
+    }
   }
 </style>
 
 {{--
   ============================================================
-  USAGE — in each page blade file use this pattern:
+  USAGE - in each page blade file use this pattern:
 
   <div class="page-header">
       <h1>DASHBOARD</h1>

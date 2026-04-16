@@ -533,6 +533,132 @@
   .ev-btn-confirm:hover { background: var(--red-dark); }
   .ev-btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
 
+  /* View modal (clean card layout) */
+  .ev-view-modal {
+    width: 760px;
+    max-width: 96vw;
+  }
+
+  .ev-view-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ev-view-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .ev-view-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: .3px;
+    line-height: 1.2;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .ev-view-body {
+    padding: 22px 24px;
+  }
+
+  .ev-view-content {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  .ev-view-media {
+    width: 100%;
+  }
+
+  .ev-view-img,
+  .ev-view-placeholder {
+    width: 100%;
+    height: 260px;
+    border-radius: 10px;
+  }
+
+  .ev-view-img {
+    object-fit: cover;
+    border: 1px solid var(--border);
+    display: none;
+    background: #fff;
+  }
+
+  .ev-view-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .ev-view-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ev-view-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .ev-view-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+    min-width: 0;
+  }
+
+  .ev-view-meta-row i {
+    color: var(--red);
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .ev-view-meta-row span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ev-view-status-wrap {
+    margin-top: 2px;
+  }
+
+  .ev-view-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .ev-view-footer {
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+
+  .ev-view-footer .ev-btn-clear,
+  .ev-view-footer .ev-btn-confirm {
+    max-width: 170px;
+  }
+
   /* Empty state */
   .ev-empty {
     grid-column: 1 / -1;
@@ -542,6 +668,99 @@
   }
   .ev-empty i { font-size: 40px; margin-bottom: 12px; display: block; }
   .ev-empty p { font-family: 'DM Sans', sans-serif; font-size: 14px; }
+
+  @media (max-width: 992px) {
+    .ev-header {
+      padding: 24px;
+    }
+
+    .ev-header h1,
+    .page-header h1,
+    .admin-header h1,
+    .admin-page-title {
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+    }
+
+    .ev-toolbar {
+      padding: 14px 18px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ev-search {
+      width: 100%;
+    }
+
+    .ev-add-btn {
+      margin-left: 0;
+    }
+
+    .ev-body {
+      padding: 16px;
+    }
+
+    .ev-grid {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .ev-header {
+      padding: 20px 14px;
+    }
+
+    .ev-header h1,
+    .page-header h1,
+    .admin-header h1,
+    .admin-page-title {
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+    }
+
+    .ev-filter-btn,
+    .ev-add-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .ev-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ev-card-actions {
+      flex-direction: column;
+    }
+
+    .ev-btn {
+      width: 100%;
+    }
+
+    .ev-view-title {
+      font-size: 1.15rem;
+    }
+
+    .ev-view-content {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .ev-view-img,
+    .ev-view-placeholder {
+      height: 210px;
+    }
+
+    .ev-view-footer {
+      flex-direction: column-reverse;
+    }
+
+    .ev-view-footer .ev-btn-clear,
+    .ev-view-footer .ev-btn-confirm {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
 </style>
 
 <div class="ev-page">
@@ -744,60 +963,58 @@
 
 {{-- VIEW EVENT DETAILS MODAL --}}
 <div class="ev-modal-overlay" id="evViewModal" onclick="evHandleViewOverlay(event)">
-  <div class="ev-modal" style="width:680px;max-width:96vw;">
+  <div class="ev-modal ev-view-modal">
 
-    <div class="ev-modal-header" style="border-bottom:1px solid var(--border);">
-      <div class="ev-modal-header-left" style="flex-direction:column;align-items:flex-start;gap:6px;">
-        <h2 id="evViewTitle" style="font-size:26px;letter-spacing:.5px;color:var(--text);">Event Details</h2>
-        <span id="evViewTag" class="ev-tag" style="font-size:11px;"></span>
+    <div class="ev-modal-header ev-view-header">
+      <div class="ev-view-header-left">
+        <h2 id="evViewTitle" class="ev-view-title">Event Details</h2>
+        <span id="evViewTag" class="ev-tag"></span>
       </div>
       <button class="ev-modal-close" onclick="evCloseViewModal()"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <div class="ev-modal-body" style="padding:24px;">
-      <div style="display:flex;gap:24px;align-items:flex-start;">
+    <div class="ev-modal-body ev-view-body">
+      <div class="ev-view-content">
 
         {{-- Left: Image --}}
-        <div style="flex-shrink:0;width:260px;">
-          <img id="evViewImg" src="" alt=""
-            style="width:260px;height:260px;object-fit:cover;border-radius:10px;display:none;border:1px solid var(--border);">
+        <div class="ev-view-media">
+          <img id="evViewImg" src="" alt="" class="ev-view-img">
           <div id="evViewImgPlaceholder"
-            style="width:260px;height:260px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:48px;"
-            class="ev-card-img-placeholder c1"></div>
+            class="ev-card-img-placeholder ev-view-placeholder c1"></div>
         </div>
 
         {{-- Right: Info --}}
-        <div style="flex:1;min-width:0;">
-          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <i class="fa-regular fa-calendar" style="color:var(--red);font-size:15px;width:18px;text-align:center;flex-shrink:0;"></i>
-              <span id="evViewDate" style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:var(--text);"></span>
+        <div class="ev-view-info">
+          <div class="ev-view-meta">
+            <div class="ev-view-meta-row">
+              <i class="fa-regular fa-calendar"></i>
+              <span id="evViewDate"></span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <i class="fa-regular fa-clock" style="color:var(--red);font-size:15px;width:18px;text-align:center;flex-shrink:0;"></i>
-              <span id="evViewTime" style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:var(--text);"></span>
+            <div class="ev-view-meta-row">
+              <i class="fa-regular fa-clock"></i>
+              <span id="evViewTime"></span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <i class="fa-solid fa-location-dot" style="color:var(--red);font-size:15px;width:18px;text-align:center;flex-shrink:0;"></i>
-              <span id="evViewLocation" style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:var(--text);"></span>
+            <div class="ev-view-meta-row">
+              <i class="fa-solid fa-location-dot"></i>
+              <span id="evViewLocation"></span>
             </div>
           </div>
 
           {{-- Status badge --}}
-          <div style="margin-bottom:14px;">
-            <span id="evViewStatus" class="ev-status" style="font-size:12px;"></span>
+          <div class="ev-view-status-wrap">
+            <span id="evViewStatus" class="ev-status"></span>
           </div>
 
           {{-- Description --}}
           <div id="evViewDesc"
-            style="font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--muted);line-height:1.7;max-height:220px;overflow-y:auto;padding-right:6px;">
+            class="ev-view-desc">
           </div>
         </div>
 
       </div>
     </div>
 
-    <div class="ev-modal-footer" style="justify-content:flex-end;padding-top:0;">
+    <div class="ev-modal-footer ev-view-footer">
       <button class="ev-btn-clear" onclick="evCloseViewModal()">Close</button>
       <button class="ev-btn-confirm" id="evViewEditBtn" onclick="">Edit Event</button>
     </div>

@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'PCCI Admin')</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
     <style>
         :root {
             --pcci-red: #be1e38;
@@ -18,7 +23,8 @@
             font-family: 'Inter', sans-serif;
             display: flex;
             height: 100vh;
-            background-color: #fff;
+            background-color: #f4f6f9; /* Soft background for the whole admin area */
+            overflow: hidden;
         }
 
         /* ============================================== */
@@ -27,12 +33,21 @@
 
         .sidebar {
             width: var(--sidebar-width);
+            background-color: #ffffff;
             border-right: 1px solid #e0e0e0;
             display: flex;
             flex-direction: column;
             padding: 20px 0;
             flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1050;
         }
+
+        /* Custom Scrollbar for Sidebar */
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
         .admin-profile {
             padding: 0 25px 20px;
@@ -40,7 +55,12 @@
             align-items: center;
             gap: 15px;
             border-bottom: 1px solid #f0f0f0;
+            text-decoration: none; 
+            cursor: pointer; 
+            transition: background 0.2s;
         }
+        
+        .admin-profile:hover { background-color: #fff1f3; }
 
         .avatar {
             width: 55px;
@@ -52,7 +72,7 @@
 
         .admin-info span { display: block; }
         .role { font-size: 11px; color: #888; text-transform: uppercase; font-weight: 600; }
-        .name { font-size: 1.2rem; font-weight: 700; color: var(--pcci-red); }
+        .name { font-size: 1.1rem; font-weight: 700; color: var(--pcci-red); }
 
         .menu-label {
             padding: 25px 25px 10px;
@@ -73,6 +93,8 @@
             font-size: 0.95rem;
             gap: 12px;
             transition: 0.2s;
+            border-radius: 0 25px 25px 0;
+            margin-right: 15px;
         }
 
         .nav-link.active {
@@ -86,9 +108,7 @@
         }
 
         /* --- Content Dropdown --- */
-        .nav-dropdown {
-            position: relative;
-        }
+        .nav-dropdown { position: relative; }
 
         .nav-dropdown-toggle {
             display: flex;
@@ -103,8 +123,9 @@
             cursor: pointer;
             border: none;
             background: none;
-            width: 100%;
+            width: calc(100% - 15px);
             text-align: left;
+            border-radius: 0 25px 25px 0;
         }
 
         .nav-dropdown-toggle.active {
@@ -123,9 +144,7 @@
             transition: transform 0.3s ease;
         }
 
-        .nav-dropdown-toggle.open .chevron {
-            transform: rotate(180deg);
-        }
+        .nav-dropdown-toggle.open .chevron { transform: rotate(180deg); }
 
         /* Sub-menu */
         .nav-dropdown-menu {
@@ -135,9 +154,7 @@
             background: #fafafa;
         }
 
-        .nav-dropdown-menu.open {
-            max-height: 300px;
-        }
+        .nav-dropdown-menu.open { max-height: 300px; }
 
         .nav-dropdown-menu a {
             display: flex;
@@ -153,34 +170,14 @@
         }
 
         .nav-dropdown-menu a::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #ccc;
-            position: absolute;
-            left: 42px;
-            transition: background 0.2s;
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: #ccc; position: absolute; left: 42px; transition: background 0.2s;
         }
 
-        .nav-dropdown-menu a:hover {
-            background-color: #fff1f3;
-            color: var(--pcci-red);
-        }
-
-        .nav-dropdown-menu a:hover::before {
-            background: var(--pcci-red);
-        }
-
-        .nav-dropdown-menu a.active {
-            color: var(--pcci-red);
-            font-weight: 700;
-            background: #fff1f3;
-        }
-
-        .nav-dropdown-menu a.active::before {
-            background: var(--pcci-red);
-        }
+        .nav-dropdown-menu a:hover { background-color: #fff1f3; color: var(--pcci-red); }
+        .nav-dropdown-menu a:hover::before { background: var(--pcci-red); }
+        .nav-dropdown-menu a.active { color: var(--pcci-red); font-weight: 700; background: #fff1f3; }
+        .nav-dropdown-menu a.active::before { background: var(--pcci-red); }
 
         /* --- Logout --- */
         .logout-box { padding: 20px; margin-top: auto; }
@@ -194,135 +191,141 @@
             font-weight: 700;
             cursor: pointer;
             transition: background 0.2s;
+            text-transform: uppercase;
         }
 
-        .btn-logout:hover {
-            background-color: var(--pcci-red);
-        }
+        .btn-logout:hover { background-color: var(--pcci-red); }
 
         /* ============================================== */
         /* MAIN CONTENT                                   */
         /* ============================================== */
 
-        .main { flex: 1; overflow-y: auto; padding: 40px; }
-
-        .dashboard-header {
-            background-color: var(--pcci-red);
-            color: white;
-            padding: 25px 35px;
-            border-radius: 10px;
-            font-size: 2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 30px;
+        .main { 
+            flex: 1; 
+            overflow-y: auto; 
+            overflow-x: hidden;
+            background-color: #f4f6f9; 
+            position: relative;
         }
 
-        .stats-container { display: flex; gap: 20px; }
-        .stat-card {
-            flex: 1;
-            border: 1px solid var(--pcci-red);
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 250px;
+        .admin-content-shell {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px clamp(16px, 2.5vw, 28px) 32px;
+            box-sizing: border-box;
         }
-
-        .stat-card .title { font-weight: 800; text-transform: uppercase; font-size: 0.9rem; }
-        .stat-card .value {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4rem;
-            margin-top: 15px;
-            font-weight: 600;
-        }
-        .stat-card i { color: var(--pcci-red); }
 
         /* ============================================== */
-        /* MOBILE HAMBURGER BUTTON                        */
+        /* MOBILE HAMBURGER BUTTON & OVERLAY              */
         /* ============================================== */
 
         .hamburger-btn {
             display: none;
             position: fixed;
-            top: 14px;
-            left: 14px;
+            top: 15px;
+            left: 15px;
             z-index: 1100;
             background: var(--pcci-red);
             color: #fff;
             border: none;
             border-radius: 8px;
-            width: 44px;
-            height: 44px;
-            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            font-size: 1.5rem;
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(190, 30, 56, 0.3);
             transition: background 0.2s;
         }
 
-        .hamburger-btn:hover {
-            background: #a01a30;
-        }
+        .hamburger-btn:hover { background: #9a182d; }
 
-        /* Overlay behind sidebar on mobile */
         .sidebar-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            z-index: 1040;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .sidebar-overlay.active {
-            display: block;
+        .sidebar-overlay.active { display: block; opacity: 1; }
+
+        .back-to-top-btn {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 46px;
+            height: 46px;
+            border: none;
+            border-radius: 999px;
+            background: var(--pcci-red);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(190, 30, 56, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, background-color 0.2s ease;
+            z-index: 1200;
+        }
+
+        .back-to-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top-btn:hover {
+            background: #9a182d;
         }
 
         /* ============================================== */
-        /* RESPONSIVE                                     */
+        /* RESPONSIVE BREAKPOINTS                         */
         /* ============================================== */
 
-        @media (max-width: 992px) {
-            .hamburger-btn {
-                display: flex;
-            }
+        @media (max-width: 991.98px) {
+            .hamburger-btn { display: flex; }
 
             .sidebar {
                 position: fixed;
                 top: 0;
                 left: 0;
                 bottom: 0;
-                z-index: 1050;
-                background: #fff;
                 transform: translateX(-100%);
-                transition: transform 0.3s ease;
+                transition: transform 0.3s ease-in-out;
                 box-shadow: none;
             }
 
             .sidebar.open {
                 transform: translateX(0);
-                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+                box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15);
             }
 
-            .main {
-                padding: 80px 24px 40px;
-                width: 100%;
-            }
+            .main { width: 100%; }
+            
+            /* Add top padding to body content so it isn't hidden under hamburger */
+            .admin-content-shell > :first-child { padding-top: 75px !important; }
         }
 
-        @media (max-width: 576px) {
-            .sidebar {
-                width: 260px;
-            }
-
-            .main {
-                padding: 72px 14px 30px;
-            }
+        @media (max-width: 575.98px) {
+            .sidebar { width: 280px; }
+            .hamburger-btn { top: 10px; left: 10px; width: 40px; height: 40px; font-size: 1.25rem; }
+            .back-to-top-btn { right: 14px; bottom: 14px; width: 42px; height: 42px; }
         }
     </style>
+    
+    @include('layouts.admin-title-style')
 </head>
 <body>
+
     {{-- Mobile hamburger button --}}
     <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle sidebar">
         <i class="bi bi-list" id="hamburgerIcon"></i>
@@ -332,11 +335,11 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <aside class="sidebar" id="adminSidebar">
-        <a href="{{ route('admin.profile') }}" class="admin-profile" style="text-decoration: none; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#fff1f3'" onmouseout="this.style.backgroundColor=''">
+        <a href="{{ route('admin.profile') }}" class="admin-profile">
             <img src="https://i.pravatar.cc/150?u=default" class="avatar" id="sidebarAvatar" alt="Admin">
-            <div class="admin-info">
+            <div class="admin-info text-truncate w-100">
                 <span class="role">Admin</span>
-                <span class="name" id="sidebarAdminName">ADMIN</span>
+                <span class="name text-truncate" id="sidebarAdminName">ADMIN</span>
             </div>
         </a>
         <script>
@@ -386,17 +389,27 @@
             </div>
         </nav>
 
-        <div class="logout-box">
+        <div class="logout-box mt-auto">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="btn-logout">LOG OUT</button>
+                <button type="submit" class="btn-logout d-flex justify-content-center align-items-center gap-2">
+                    <i class="bi bi-box-arrow-right"></i> LOG OUT
+                </button>
             </form>
         </div>
     </aside>
 
-    <main class="main">
-        @yield('content')
+    <main class="main" id="mainContent">
+        <div class="admin-content-shell">
+            @yield('content')
+        </div>
     </main>
+
+    <button class="back-to-top-btn" id="adminBackToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Content dropdown toggle
@@ -418,12 +431,14 @@
             sidebar.classList.add('open');
             overlay.classList.add('active');
             hamburgerIcon.classList.replace('bi-list', 'bi-x-lg');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling bg
         }
 
         function closeSidebar() {
             sidebar.classList.remove('open');
             overlay.classList.remove('active');
             hamburgerIcon.classList.replace('bi-x-lg', 'bi-list');
+            document.body.style.overflow = ''; // Restore scrolling
         }
 
         hamburgerBtn.addEventListener('click', function() {
@@ -439,11 +454,28 @@
         // Close sidebar when a nav link is clicked (mobile)
         sidebar.querySelectorAll('.nav-link, .nav-dropdown-menu a, .btn-logout').forEach(function(link) {
             link.addEventListener('click', function() {
-                if (window.innerWidth <= 992) {
+                if (window.innerWidth <= 991.98) {
                     closeSidebar();
                 }
             });
         });
+
+        // Back to top button for all admin pages (scroll container is .main)
+        const adminMainContent = document.getElementById('mainContent');
+        const adminBackToTop = document.getElementById('adminBackToTop');
+
+        function toggleAdminBackToTop() {
+            if (!adminMainContent || !adminBackToTop) return;
+            adminBackToTop.classList.toggle('show', adminMainContent.scrollTop > 220);
+        }
+
+        if (adminMainContent && adminBackToTop) {
+            adminMainContent.addEventListener('scroll', toggleAdminBackToTop);
+            adminBackToTop.addEventListener('click', function() {
+                adminMainContent.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            toggleAdminBackToTop();
+        }
     </script>
 </body>
 </html>

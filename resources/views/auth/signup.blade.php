@@ -2,7 +2,6 @@
 @include('partials.api-config')
 @section('content')
 <style>
-    /* Reusing your exact styles */
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Poppins:wght@600;700;800&display=swap');
 
     body {
@@ -57,14 +56,6 @@
         display: block;
     }
 
-    .bank-details {
-        font-size: 0.9rem;
-        color: #d1d5db;
-        font-style: italic;
-        margin-bottom: 8px;
-        line-height: 1.4;
-    }
-
     .text-danger { color: #e32636; }
 
     .form-control-dark, .form-select-dark {
@@ -99,7 +90,6 @@
         padding: 5px 10px;
         transition: 0.3s;
     }
-    .form-control-dark[type="file"]::file-selector-button:hover { background-color: #4e598c; }
 
     .form-select-dark {
         appearance: none;
@@ -139,7 +129,7 @@
     }
     
     .success-icon {
-        color: #22c55e; /* Bright Green */
+        color: #22c55e;
         font-size: 2.5rem;
         -webkit-text-stroke: 2px;
     }
@@ -152,7 +142,7 @@
     }
 
     .info-box {
-        background-color: #4b4f5e; /* Lighter than bg */
+        background-color: #4b4f5e;
         border-radius: 8px;
         padding: 20px;
         margin-top: 40px;
@@ -172,12 +162,12 @@
         font-weight: 700;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         transition: all 0.3s ease; 
+        text-align: center;
     }
     .btn-next:hover { 
         background-color: #e32636; 
         color: white; 
         transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(227, 38, 54, 0.3);
     }
     
     .btn-next:disabled {
@@ -192,8 +182,9 @@
         padding: 12px 30px;
         border-radius: 8px;
         font-weight: 700;
-        margin-right: auto;
         transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
     }
     .btn-prev:hover { 
         background-color: #f0f0f0; 
@@ -202,20 +193,6 @@
 
     .d-none { display: none !important; }
 
-    .footer {
-        background-color: #A40033 !important; /* PCCI Red */
-    }
-
-    .footer a:hover {
-        color: #ffffff !important;
-        text-decoration: underline;
-    }
-    
-    .footer .rounded {
-        background-color: rgba(255, 255, 255, 0.2) !important;
-    }
-
-    /* New Error Style */
     #global-error {
         background-color: rgba(220, 53, 69, 0.2);
         color: #ff6b6b;
@@ -226,16 +203,38 @@
         display: none;
         text-align: center;
     }
+
+    /* ===== RESPONSIVE MEDIA QUERIES ===== */
+    @media (max-width: 767.98px) {
+        .glass-card {
+            padding: 25px 20px;
+            min-height: auto;
+        }
+        .hero-title {
+            font-size: clamp(2rem, 8vw, 3.5rem) !important;
+        }
+    }
+    
+    @media (max-width: 575.98px) {
+        .btn-prev, .btn-next {
+            width: 100%;
+        }
+        /* Make form label and helper text stack neatly */
+        .d-flex.justify-content-between .helper-text-right {
+            font-size: 0.65rem;
+            align-self: flex-end;
+        }
+    }
 </style>
 
 <div class="registration-container">
     <div class="container">
         <div class="row align-items-center">
             
-            <div class="col-lg-6 pe-lg-5 mb-5 mb-lg-0">
+            <div class="col-lg-6 pe-lg-5 mb-5 mb-lg-0 text-center text-lg-start">
                 <p class="fw-bold mb-2" style="letter-spacing: 1px; font-family: 'Poppins', sans-serif;">Member Registration</p>
                 <h1 class="hero-title mb-2" style="font-size: 3.5rem; font-weight: 800; line-height: 1.1;">Become a <span style="color: #e32636;">Member</span></h1>
-                <p class="lead fw-bold" style="max-width: 1000px; color: #d6d6d6; padding-top: 0px;">
+                <p class="lead fw-bold mx-auto mx-lg-0" style="max-width: 1000px; color: #d6d6d6; padding-top: 0px;">
                     Join our vibrant community of business leaders and entrepreneurs. 
                     Complete your registration to unlock networking opportunities and business growth.
                 </p>
@@ -264,7 +263,7 @@
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="d-flex align-items-center">
                                     <i id="header-icon" class="bi bi-person fs-3 me-3"></i> 
-                                    <h3 id="header-title" class="mb-0 fw-bold step-title">Basic Profile</h3>
+                                    <h3 id="header-title" class="mb-0 fw-bold step-title fs-4 fs-sm-3">Basic Profile</h3>
                                 </div>
                                 <span id="step-counter" class="text-white small">Step 1 of 5</span>
                             </div>
@@ -289,7 +288,7 @@
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label-custom">Business Trade Name <span class="text-danger">*</span></label>
-                                    <span class="helper-text-right">Operating Name/DBA/Brand Name</span>
+                                    <span class="helper-text-right">Operating Name/DBA</span>
                                 </div>
                                 <input type="text" name="trade_name" class="form-control form-control-dark" placeholder="Enter your business trade name" required>
                             </div>
@@ -298,47 +297,47 @@
                                 <input type="text" name="business_address" class="form-control form-control-dark" placeholder="Enter your business address" required>
                             </div>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">City/Municipality <span class="text-danger">*</span></label>
                                     <input type="text" name="city_municipality" class="form-control form-control-dark" placeholder="Enter your municipality" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Province <span class="text-danger">*</span></label>
                                     <input type="text" name="province" class="form-control form-control-dark" placeholder="Enter your province" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Region <span class="text-danger">*</span></label>
                                     <input type="text" name="region" class="form-control form-control-dark" placeholder="Enter your region" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Zip Code <span class="text-danger">*</span></label>
                                     <input type="text" name="zip_code" class="form-control form-control-dark" placeholder="Enter your zip code" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Telephone Number <span class="text-danger">*</span></label>
                                     <input type="text" name="telephone_no" class="form-control form-control-dark" placeholder="Ex. (02) 8352-5000" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label-custom">Website/Social Media Link <span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <label class="form-label-custom">Website/Social <span class="text-danger">*</span></label>
                                     <input type="text" name="website" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label-custom">Member's Date of Birth <span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <label class="form-label-custom">Date of Birth <span class="text-danger">*</span></label>
                                     <input type="date" name="member_dob" class="form-control form-control-dark" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Email <span class="text-danger">*</span></label>
                                     <input type="email" name="email" class="form-control form-control-dark" placeholder="Enter your email" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-4">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">TIN No. <span class="text-danger">*</span></label>
                                     <input type="text" name="tin_no" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
@@ -354,7 +353,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end">
+                            
+                            {{-- RESPONSIVE BUTTON WRAPPER --}}
+                            <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2 mt-4">
                                 <a href="{{ route('login') }}" class="btn btn-prev">Back to Login</a>
                                 <button type="button" class="btn btn-next" onclick="validateAndNext(1, 2)">Next</button>
                             </div>
@@ -362,36 +363,38 @@
 
                         <div id="step-2" class="d-none">
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Surname <span class="text-danger">*</span></label>
                                     <input type="text" name="rep_surname" class="form-control form-control-dark" placeholder="Enter your surname" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">First Name <span class="text-danger">*</span></label>
                                     <input type="text" name="rep_first_name" class="form-control form-control-dark" placeholder="Enter your first name" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Middle Name <span class="text-danger">*</span></label>
                                     <input type="text" name="rep_mi" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Designation <span class="text-danger">*</span></label>
                                     <input type="text" name="rep_designation" class="form-control form-control-dark" placeholder="Enter your designation" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-4">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Date of Birth <span class="text-danger">*</span></label>
                                     <input type="date" name="rep_dob" class="form-control form-control-dark" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Contact Number <span class="text-danger">*</span></label>
                                     <input type="text" name="rep_contact_no" class="form-control form-control-dark" placeholder="Enter your contact number" required>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mt-4">
+
+                            {{-- RESPONSIVE BUTTON WRAPPER --}}
+                            <div class="d-flex flex-column-reverse flex-sm-row justify-content-between gap-2 mt-4">
                                 <button type="button" class="btn btn-prev" onclick="goToStep(1)">Previous</button>
                                 <button type="button" class="btn btn-next" onclick="validateAndNext(2, 3)">Next</button>
                             </div>
@@ -399,36 +402,38 @@
 
                         <div id="step-3" class="d-none">
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Surname <span class="text-danger">*</span></label>
                                     <input type="text" name="alt_surname" class="form-control form-control-dark" placeholder="Enter your surname" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">First Name <span class="text-danger">*</span></label>
                                     <input type="text" name="alt_first_name" class="form-control form-control-dark" placeholder="Enter your first name" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Middle Name <span class="text-danger">*</span></label>
                                     <input type="text" name="alt_mi" class="form-control form-control-dark" placeholder="Put N/A if none" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Designation <span class="text-danger">*</span></label>
                                     <input type="text" name="alt_designation" class="form-control form-control-dark" placeholder="Enter your designation" required>
                                 </div>
                             </div>
                             <div class="row g-3 mb-4">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Date of Birth <span class="text-danger">*</span></label>
                                     <input type="date" name="alt_dob" class="form-control form-control-dark" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <label class="form-label-custom">Contact Number <span class="text-danger">*</span></label>
                                     <input type="text" name="alt_contact_no" class="form-control form-control-dark" placeholder="Enter your contact number" required>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mt-4">
+
+                            {{-- RESPONSIVE BUTTON WRAPPER --}}
+                            <div class="d-flex flex-column-reverse flex-sm-row justify-content-between gap-2 mt-4">
                                 <button type="button" class="btn btn-prev" onclick="goToStep(2)">Previous</button>
                                 <button type="button" class="btn btn-next" onclick="validateAndNext(3, 4)">Next</button>
                             </div>
@@ -443,7 +448,9 @@
                                     <option value="No">No</option>
                                 </select>
                             </div>
-                            <div class="d-flex justify-content-between mt-5">
+
+                            {{-- RESPONSIVE BUTTON WRAPPER --}}
+                            <div class="d-flex flex-column-reverse flex-sm-row justify-content-between gap-2 mt-5">
                                 <button type="button" class="btn btn-prev" onclick="goToStep(3)">Previous</button>
                                 <button type="button" class="btn btn-next" onclick="validateAndNext(4, 5)">Next</button>
                             </div>
@@ -475,7 +482,8 @@
                                 <input type="file" name="proof_of_payment" class="form-control form-control-dark" accept="image/*,.pdf" required>
                             </div>
 
-                            <div class="d-flex justify-content-between mt-4">
+                            {{-- RESPONSIVE BUTTON WRAPPER --}}
+                            <div class="d-flex flex-column-reverse flex-sm-row justify-content-between gap-2 mt-4">
                                 <button type="button" class="btn btn-prev" onclick="goToStep(4)">Previous</button>
                                 <button type="button" id="finalSubmitBtn" class="btn btn-next" onclick="submitData()">Submit</button>
                             </div>

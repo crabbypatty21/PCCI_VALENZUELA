@@ -49,6 +49,7 @@
 
     .form-header h1 {
         font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 5vw, 2.5rem); /* Responsive Font */
         margin-bottom: 5px;
     }
 
@@ -118,6 +119,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap; /* Allows wrap on very small screens */
+        gap: 10px;
         margin-bottom: 30px;
         font-size: 0.9rem;
         color: var(--text-grey);
@@ -184,9 +187,17 @@
         display: none; 
     }
 
-    @media (max-width: 900px) {
+    /* ===== RESPONSIVE MEDIA QUERIES ===== */
+    @media (max-width: 991.98px) {
         .login-container { flex-direction: column; }
         .login-image-side { height: 250px; order: -1; }
+        .login-form-side { padding: 40px; }
+    }
+
+    @media (max-width: 575.98px) {
+        .login-page-wrapper { padding-top: 100px; padding-bottom: 40px; }
+        .login-form-side { padding: 30px 20px; }
+        .form-options { flex-direction: column; align-items: flex-start; }
     }
 </style>
 

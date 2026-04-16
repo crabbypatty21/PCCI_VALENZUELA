@@ -10,7 +10,7 @@
     
     /* Hero Background */
     .leadership-hero {
-        background-color: var(--bg-hero); /* Uses CSS Variable */
+        background-color: var(--bg-hero);
         transition: background-color 0.3s ease;
     }
 
@@ -21,7 +21,8 @@
         position: relative;
         overflow: hidden;
         border-radius: 12px;
-        background-color: var(--bg-card); /* Dark Mode Card */
+        background-color: var(--bg-card);
+        height: 100%;
     }
     
     .officer-card:hover {
@@ -83,34 +84,80 @@
     body.dark-mode .card-bg-adaptive {
         background-color: var(--bg-card);
     }
+
+    /* =========================================
+       RESPONSIVE ENHANCEMENTS
+       ========================================= */
+
+    /* Mobile Optimizations */
+    @media (max-width: 576px) {
+        .officer-overlay {
+            padding: 1rem;
+        }
+
+        .officer-overlay h5 {
+            font-size: 0.9rem !important;
+        }
+
+        .officer-overlay p {
+            font-size: 0.7rem !important;
+        }
+    }
+
+    /* Tablet and below adjustments */
+    @media (max-width: 768px) {
+        .leadership-hero {
+            text-align: center;
+        }
+
+        #president-headline {
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem) !important;
+        }
+    }
+
+    /* Large screens */
+    @media (min-width: 1200px) {
+        .officer-card img {
+            height: 350px;
+        }
+    }
+
+    /* Small touch-friendly spacing for buttons */
+    @media (max-width: 576px) {
+        .btn {
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 </style>
 
-{{-- 
-    HERO SECTION 
-    - Updated to match About/Contact Page Structure (623px height)
---}}
+{{-- HERO SECTION --}}
 <div class="w-100 mb-0 d-flex flex-column align-items-center leadership-hero" style="
-    height: 623px;
+    min-height: clamp(350px, 60vh, 500px);
     margin-top: -1px; 
-    padding-top: 130px;
+    padding-top: clamp(60px, 15vw, 130px);
+    padding-bottom: clamp(30px, 8vw, 50px);
 ">
-    <div class="container d-flex flex-column align-items-center text-center">
+    <div class="container d-flex flex-column align-items-center text-center px-3">
         
         {{-- Subtitle --}}
         <span class="text-white mb-3 d-block" 
-            style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: 24px; line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; text-align: center;">
+            style="font-family: 'DM Sans', sans-serif; font-weight: 900; font-size: clamp(1rem, 3vw, 1.5rem); line-height: 100%; letter-spacing: 0; text-transform: uppercase; width: 100%; text-align: center;">
             PCCI - VALENZUELA
         </span>
 
         {{-- Main Headline --}}
         <h1 class="headline-text fw-bold mb-4 text-uppercase text-white" 
-            style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">
-            Meet Our <span style="color: #EB3223; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 63px; line-height: 100%; letter-spacing: 0;">Leadership</span>
+            style="font-family: 'DM Sans', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); line-height: 100%; letter-spacing: 0;">
+            Meet Our <span style="color: #EB3223;">Leadership</span>
         </h1>
 
         {{-- Paragraph --}}
         <p class="text-white" 
-        style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 24px; line-height: 120%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1262px; margin: 0 auto;">
+        style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(1rem, 3vw, 1.5rem); line-height: 120%; letter-spacing: 0; text-align: center; width: 100%; max-width: 1000px; margin: 0 auto;">
             The dedicated visionaries and industry leaders driving economic growth and innovation in Valenzuela City.
         </p>
     </div>
@@ -118,33 +165,33 @@
 
 {{-- President Spotlight Section --}}
 <div class="py-5 bg-adaptive">
-    <div class="container py-4">
-        <div class="row align-items-center g-5">
+    <div class="container py-4 px-3 px-md-4">
+        <div class="row align-items-center g-3 g-lg-5">
             <div class="col-lg-5 order-lg-2">
-                <div class="position-relative">
+                <div class="position-relative mx-auto" style="max-width: 500px;">
                     {{-- Image --}}
                     <img id="president-img" src=""
-                         alt=""
-                         class="img-fluid shadow-lg"
-                         style="border-radius: 12px; border: 8px solid #F53003;">
+                         alt="President Spotlight"
+                         class="img-fluid shadow-lg w-100 object-fit-cover"
+                         style="border-radius: 12px; border: 8px solid #F53003; aspect-ratio: 4/5;">
 
                     {{-- Name Tag --}}
-                    <div class="position-absolute bottom-0 start-0 p-4 shadow-sm card-bg-adaptive" style="border-radius: 0 12px 0 12px; max-width: 80%;">
-                        <h5 id="president-name" class="fw-bold mb-0 text-danger" style="font-family: 'Poppins', sans-serif;"></h5>
-                        <small id="president-position" class="fw-bold text-uppercase text-muted-adaptive" style="letter-spacing: 0.05em; font-family: 'DM Sans', sans-serif;"></small>
+                    <div class="position-absolute bottom-0 start-0 p-2 p-sm-3 p-md-4 shadow-sm card-bg-adaptive" style="border-radius: 0 12px 0 12px; max-width: 95%; width: clamp(150px, 80vw, 450px);">
+                        <h5 id="president-name" class="fw-bold mb-1 text-danger text-truncate" style="font-family: 'Poppins', sans-serif; font-size: clamp(0.9rem, 2.5vw, 1.25rem);"></h5>
+                        <small id="president-position" class="fw-bold text-uppercase text-muted-adaptive text-truncate d-block" style="letter-spacing: 0.05em; font-family: 'DM Sans', sans-serif; font-size: clamp(0.65rem, 1.5vw, 0.8rem);"></small>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 order-lg-1">
+            <div class="col-lg-7 order-lg-1 text-center text-lg-start">
                 <span class="text-danger fw-bold mb-3 d-block text-uppercase" style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em;">
                     Message from the President
                 </span>
                 <h2 id="president-headline" class="fw-bold mb-4 text-adaptive" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.3;">
                     Steering Valenzuela Towards a Resilient Future.
                 </h2>
-                <p id="president-message" class="text-muted-adaptive mb-4" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; font-size: 1.05rem;">
+                <p id="president-message" class="text-muted-adaptive mb-4 mx-auto mx-lg-0" style="font-family: 'DM Sans', sans-serif; line-height: 1.8; font-size: 1.05rem; max-width: 800px;">
                 </p>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center justify-content-lg-start gap-3">
                     <div style="width: 60px; height: 4px; background-color: #F53003;"></div>
                     <span id="president-attribution" class="fst-italic fw-bold text-adaptive" style="font-family: 'DM Sans', sans-serif;"></span>
                 </div>
@@ -155,7 +202,7 @@
 
 {{-- Executive Officers Section --}}
 <div class="py-5 bg-adaptive">
-    <div class="container py-4">
+    <div class="container py-4 px-3 px-md-4">
         {{-- Section Header --}}
         <div class="text-center mb-5">
             <span class="text-danger fw-bold mb-2 d-block text-uppercase" style="font-family: 'DM Sans', sans-serif; letter-spacing: 0.1em; font-size: 0.9rem;">
@@ -167,7 +214,7 @@
         </div>
 
         {{-- Empty container where JS will inject the cards --}}
-        <div id="trustees-list" class="row g-4">
+        <div id="trustees-list" class="row g-4 justify-content-center">
             <div class="col-12 text-center text-muted">
                 <p><i class="fa fa-spinner fa-spin text-danger me-2"></i> Loading trustees...</p>
             </div>
@@ -178,13 +225,13 @@
 
 {{-- Call to Action --}}
 <div class="py-5 text-white" style="background-color: #D40032;">
-    <div class="container text-center py-4">
-        <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif;">Want to Join our Leadership?</h2>
-        <p class="mb-4 opacity-90 mx-auto" style="font-family: 'DM Sans', sans-serif; max-width: 600px; font-size: 1.1rem;">
+    <div class="container text-center py-4 px-3 px-md-4">
+        <h2 class="fw-bold mb-4 text-uppercase" style="font-family: 'Poppins', sans-serif; font-size: clamp(1.25rem, 3.5vw, 2.5rem);">Want to Join our Leadership?</h2>
+        <p class="mb-4 opacity-90 mx-auto" style="font-family: 'DM Sans', sans-serif; max-width: 600px; font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.6;">
             We are always looking for passionate business leaders to join our committees and help shape the future of Valenzuela.
         </p>
-        <a href="{{ url('/contact') }}" class="btn btn-light fw-bold px-5 py-3 text-uppercase shadow-sm" 
-           style="color: #D40032; border-radius: 6px; font-family: 'DM Sans', sans-serif; letter-spacing: 0.05em;">
+        <a href="{{ url('/contact') }}" class="btn btn-light fw-bold px-3 px-sm-4 px-md-5 py-2 py-sm-3 text-uppercase shadow-sm" 
+           style="color: #D40032; border-radius: 6px; font-family: 'DM Sans', sans-serif; letter-spacing: 0.05em; display: inline-block; font-size: clamp(0.9rem, 2vw, 1rem);">
             Contact the Secretariat
         </a>
     </div>
@@ -240,19 +287,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     const imageUrl = trustee.image_url || fallbackImage;
 
                     const card = document.createElement('div');
-                    card.className = "col-md-6 col-lg-3";
+                    // Responsive column sizing
+                    card.className = "col-12 col-sm-6 col-md-4 col-lg-3";
 
                     card.innerHTML = `
                         <div class="officer-card">
                             <img src="${imageUrl}"
                                  alt="${firstName} ${lastName}"
-                                 style="height: 400px; width: 100%; object-fit: cover;">
+                                 style="height: 350px; width: 100%; object-fit: cover;">
 
                             <div class="officer-overlay">
-                                <h5 class="fw-bold mb-1" style="font-family: 'Poppins', sans-serif; text-transform: capitalize;">
+                                <h5 class="fw-bold mb-1 text-truncate w-100" style="font-family: 'Poppins', sans-serif; text-transform: capitalize;" title="${firstName}${middleName}${lastName}">
                                     ${firstName}${middleName}${lastName}
                                 </h5>
-                                <p class="mb-0 small text-uppercase" style="opacity: 0.9; letter-spacing: 0.05em; font-size: 0.75rem; font-family: 'DM Sans', sans-serif;">
+                                <p class="mb-0 small text-uppercase text-truncate w-100" style="opacity: 0.9; letter-spacing: 0.05em; font-size: 0.75rem; font-family: 'DM Sans', sans-serif;" title="${position}">
                                     ${position}
                                 </p>
                             </div>

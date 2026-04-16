@@ -1,0 +1,144 @@
+/* Reset Layout Constraints */
+header, footer, .navbar, nav { display: none !important; }
+html, body { margin: 0; padding: 0; background: #f3f4f6; font-family: 'Inter', 'Poppins', sans-serif; overflow-x: hidden; transition: background-color 0.3s, color 0.3s;}
+main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+
+/* =========================================
+   1. TOP NAVIGATION BAR (FIXED)
+   ========================================= */
+.topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 70px; background: #ffffff;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); z-index: 1050; transition: background-color 0.3s;
+}
+.topbar-search-wrapper { width: 300px; position: relative; }
+.topbar-search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 13px; }
+.topbar-search { width: 100%; height: 36px; padding: 6px 15px 6px 35px; border-radius: 8px; border: 1px solid #eee; background: #eee; font-size: 13px; outline: none; transition: 0.3s;}
+.topbar-actions { display: flex; align-items: center; gap: 15px; }
+.topbar-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #e5e7eb; cursor: pointer; }
+
+/* =========================================
+   2. NOTIFICATION PANEL
+   ========================================= */
+.notification-panel {
+    position: fixed; top: 60px; right: 60px; width: 320px; background: #ffffff; border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb; display: none; flex-direction: column; z-index: 1100; overflow: hidden;
+}
+.notif-header { background-color: #b61b2a; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
+.notif-header-title { font-weight: bold; font-size: 13px; margin: 0;}
+.notif-badge { background-color: white; color: black; padding: 2px 8px; border-radius: 50rem; font-size: 10px; font-weight: bold; }
+.notif-clear-btn { background-color: white; color: black; border: none; padding: 4px 10px; border-radius: 50rem; font-size: 10px; font-weight: bold; cursor: pointer; }
+.notif-body { max-height: 350px; overflow-y: auto; display: flex; flex-direction: column; }
+.notif-item { display: flex; padding: 12px 15px; border-bottom: 1px solid #f3f4f6; gap: 10px; }
+.notif-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; font-size: 12px;}
+.notif-text-content p { margin: 0; font-size: 12px; color: #111827; line-height: 1.3; }
+.notif-text-content small { font-size: 10px; color: #6b7280; }
+.notif-footer { padding: 10px; text-align: center; font-size: 12px; font-weight: bold; color: #4b5563; background-color: #ffffff; cursor: pointer; border-top: 1px solid #e5e7eb;}
+
+/* =========================================
+   3. SIDEBAR (FIXED)
+   ========================================= */
+.sidebar {
+    position: fixed; top: 70px; left: 0; width: 250px; height: calc(100vh - 70px);
+    background: #f8f9fb; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; z-index: 1000; overflow-y: auto; transition: background-color 0.3s;
+}
+.sidebar-profile { padding: 20px 15px 15px; text-align: center; border-bottom: 1px solid #e5e7eb; }
+.sidebar-profile img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 1px solid #e5e7eb; margin-bottom: 10px; }
+.sidebar-profile h5 { font-size: 15px; font-weight: bold; margin-bottom: 0; color: #111; }
+.sidebar-profile p { font-size: 13px; font-weight: bold; color: #4b5563; margin-bottom: 0; }
+.sidebar-profile small { font-size: 12px; color: #777; }
+
+.sidebar-menu { list-style: none; padding: 15px 10px; margin: 0; flex-grow: 1; }
+.sidebar-menu li { height: 45px; padding: 0 15px; margin-bottom: 4px; cursor: pointer; font-weight: 600; font-size: 14px; color: #4b5563; border-radius: 8px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+.sidebar-menu li i { font-size: 16px; width: 20px; text-align: center; }
+.sidebar-menu li.active { background: #e5e7eb; color: #111; border-left: 4px solid #b61b2a;}
+.sidebar-menu li:hover:not(.active) { background: #eef0f4; }
+.sidebar-divider { border-top: 1px solid #e5e7eb; margin: 10px; }
+
+/* =========================================
+   4. MAIN CONTENT AREA & COMPONENTS
+   ========================================= */
+.main { margin-top: 70px; margin-left: 250px; padding: 25px; min-height: calc(100vh - 70px); background: #f4f6f9; transition: background-color 0.3s;}
+.content-section { display: none; padding-bottom: 40px; }
+.fade-in { animation: fadeIn 0.3s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Floating Cards Base */
+.floating-card { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 16px; border: none; transition: 0.3s; }
+.custom-card { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); padding: 20px; margin-bottom: 20px; transition: 0.3s;}
+
+/* Specific Summary Cards (Dashboard) */
+.summary-card { width: 100%; height: 105px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); padding: 20px; color: white; position: relative; overflow: hidden; display: flex; align-items: center;}
+.summary-card.dash-card { flex-direction: column; align-items: flex-start; justify-content: center; }
+.summary-card .icon-circle { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0;}
+.summary-card .label { font-size: 14px; font-weight: 500; opacity: 0.9; margin-bottom: 2px; }
+.summary-card .value { font-size: 26px; font-weight: bold; margin: 0; line-height: 1; }
+.summary-card .bg-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 40px; opacity: 0.2; }
+
+.bg-red { background: linear-gradient(135deg, #e53935, #c62828); }
+.bg-green { background: linear-gradient(135deg, #43a047, #2e7d32); }
+.bg-orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
+
+/* Small Info Card */
+.small-info-card { width: 280px; height: 75px; display: flex; align-items: center; gap: 15px; }
+.small-info-card .icon-box { width: 40px; height: 40px; border-radius: 8px; background: #e3f2fd; color: #1976d2; display: flex; justify-content: center; align-items: center; font-size: 18px; }
+.small-info-card p { margin: 0; font-size: 12px; color: #555; font-weight: 500; }
+.small-info-card p span { font-weight: bold; color: #222; }
+
+/* Charts Area */
+.chart-container { height: 280px; width: 100%; position: relative; }
+.card-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.card-title-row h5 { font-size: 16px; font-weight: bold; margin: 0; color: #333; }
+
+/* Table Area */
+.table-card { min-height: 350px; padding: 15px 20px; }
+.custom-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.custom-table th { background: #f8f9fb; color: #777; font-weight: 600; padding: 12px 10px; text-align: left; position: sticky; top: 0; z-index: 1;}
+.custom-table td { padding: 12px 10px; border-bottom: 1px solid #eee; color: #444; vertical-align: middle; height: 45px;}
+.custom-table tbody tr:hover { background-color: #f9fafb; }
+
+/* Action Buttons & Badges */
+.action-btn { height: 30px; padding: 0 10px; border-radius: 6px; border: none; font-size: 12px; font-weight: bold; cursor: pointer; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 5px; margin-right: 4px;}
+.btn-gray { background-color: #9ca3af; width: 85px; }
+.btn-green { background-color: #22c55e; width: auto; padding: 0 12px;} 
+.btn-red { background-color: #ef4444; width: 75px; } 
+
+.action-icon-btn { width: 32px; height: 32px; padding: 0; border-radius: 6px; transition: 0.2s; display: inline-flex; justify-content: center; align-items: center; font-size: 14px;}
+.action-icon-btn:hover { background-color: #e5e7eb; }
+
+/* Status Badges */
+.status-badge { display: inline-block; padding: 4px 0; border-radius: 50rem; font-size: 12px; color: white; text-align: center; width: 100px; font-weight: 500; }
+.status-completed { background-color: #22c55e; }
+.status-pending { background-color: #f59e0b; }
+.status-failed { background-color: #ef4444; }
+
+/* =========================================
+   REPORTS TAB SPECIFIC STYLES & DROPDOWN
+   ========================================= */
+.reports-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.report-stat-card { background: #ffffff; border-radius: 12px; padding: 16px; height: 120px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; gap: 6px; transition: 0.3s; }
+.report-stat-card .report-label { font-size: 12px; color: #777; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+.report-stat-card .report-value { font-size: 24px; font-weight: 600; color: #111; margin: 0; line-height: 1;}
+.report-stat-card .report-indicator { font-size: 11px; font-weight: 600; }
+.text-green { color: #22c55e !important; }
+.text-red { color: #ef4444 !important; }
+.report-chart-box { background: #ffffff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); height: 300px; display: flex; flex-direction: column; transition: 0.3s; }
+.mini-card-container { display: flex; gap: 16px; align-items: center; justify-content: center; height: 100%; }
+.mini-stat-card { background: #f8f9fb; border-radius: 12px; width: 150px; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #eee; transition: 0.3s; }
+.mini-stat-card .m-val { font-size: 20px; font-weight: 600; color: #111; line-height: 1.2;}
+.mini-stat-card .m-lbl { font-size: 12px; color: #777; }
+.report-flat-table { width: 100%; border-collapse: collapse; }
+.report-flat-table td { padding: 12px 0; border-bottom: 1px solid #eee; font-size: 13px; color: #111; font-weight: 500;}
+.report-flat-table tr:last-child td { border-bottom: none; }
+
+.report-dropdown-menu { position: absolute; right: 0; top: 100%; margin-top: 8px; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 220px; padding: 8px; display: none; flex-direction: column; z-index: 1050; border: 1px solid #e5e7eb; animation: fadeIn 0.2s ease-in-out;}
+.report-dropdown-item { padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; color: #4b5563; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+.report-dropdown-item:hover { background: #f3f4f6; color: #111; }
+.report-dropdown-item i { font-size: 16px; text-align: center; width: 20px; }
+.trans-filter-divider { height: 1px; background: #eee; margin: 4px 0; border: none; }
+
+/* =========================================
+   MODALS AND SETTINGS UI
+   ========================================= */
+/* Include the rest of your Settings UI, Dark Mode overrides, and Modal classes here from your original file */
+/* ... (I have omitted the very long block of modal and dark mode CSS for brevity, but you paste it all here) ... */

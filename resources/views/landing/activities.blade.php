@@ -318,7 +318,7 @@
     }
     .page-banner h1 {
         color: #fff;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 4vw, 2rem); /* Fluid text */
         font-weight: 900;
         margin: 0;
         letter-spacing: 1px;
@@ -339,9 +339,11 @@
         align-items: center;
         gap: 16px;
         flex: 1;
+        flex-wrap: wrap;
     }
     .search-input {
         flex: 1;
+        min-width: 250px;
         max-width: 380px;
         height: 46px;
         border: 1.5px solid #ccc;
@@ -370,6 +372,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         transition: all 0.2s;
     }
@@ -391,6 +394,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         transition: background 0.2s, transform 0.15s;
     }
@@ -403,8 +407,22 @@
         gap: 24px;
         padding: 0 40px;
     }
-    @media (max-width: 1100px) { .activity-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 680px)  { .activity-grid { grid-template-columns: 1fr; padding: 0 16px; } .toolbar { padding: 0 16px; } }
+    
+    /* Responsive Fixes for Grid & Toolbar */
+    @media (max-width: 1100px) { 
+        .activity-grid { grid-template-columns: repeat(2, 1fr); } 
+    }
+    @media (max-width: 768px) {
+        .page-banner { padding: 25px 20px; border-radius: 0; }
+        .toolbar { padding: 0 20px; flex-direction: column; align-items: stretch; }
+        .toolbar-left { flex-direction: column; align-items: stretch; }
+        .search-input { max-width: 100%; min-width: 100%; }
+        .btn-filter, .btn-add-activity { width: 100%; }
+        .activity-grid { padding: 0 20px; gap: 16px; }
+    }
+    @media (max-width: 680px)  { 
+        .activity-grid { grid-template-columns: 1fr; } 
+    }
 
     /* Card */
     .activity-card {
@@ -452,6 +470,7 @@
     }
     .card-actions {
         display: flex;
+        flex-wrap: wrap; /* Allows buttons to stack if completely squished */
         gap: 10px;
         padding: 14px 16px;
         border-top: 1px solid #f0f0f0;
@@ -462,7 +481,7 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
-        padding: 8px 0;
+        padding: 10px 0;
         border-radius: 7px;
         font-size: 0.78rem;
         font-weight: 700;
@@ -473,6 +492,7 @@
         cursor: pointer;
         background: transparent;
         font-family: 'Inter', sans-serif;
+        min-width: 100px;
     }
     .btn-view { color: var(--pcci-red, #be1e38); border-color: var(--pcci-red, #be1e38); }
     .btn-view:hover { background: var(--pcci-red, #be1e38); color: #fff; }
@@ -491,6 +511,7 @@
         align-items: center;
         justify-content: center;
         backdrop-filter: blur(2px);
+        padding: 15px; /* Prevents touching screen edges on mobile */
     }
     .modal-overlay.active { display: flex; }
 
@@ -679,13 +700,14 @@
         font-family: 'Inter', sans-serif;
     }
     .btn-save:hover { background: #9a182d; transform: translateY(-1px); }
+    
     /* =====================
        VIEW ACTIVITY MODAL
     ===================== */
     #viewModalOverlay .view-modal {
         background: #fff;
         border-radius: 14px;
-        width: 90%;
+        width: 100%;
         max-width: 740px;
         max-height: 90vh;
         overflow: hidden;
@@ -717,12 +739,12 @@
     .view-modal-close:hover { background: #f0f0f0; border-color: #aaa; color: #222; }
 
     .view-modal-inner {
-        padding: 32px 32px 28px;
+        padding: 32px;
         overflow-y: auto;
     }
 
     .view-title {
-        font-size: 1.85rem;
+        font-size: clamp(1.4rem, 4vw, 1.85rem);
         font-weight: 900;
         color: #111;
         margin: 0 0 10px 0;
@@ -813,9 +835,12 @@
         margin: 0;
     }
 
-    @media (max-width: 600px) {
+    /* Stack Image on top of text on small screens */
+    @media (max-width: 768px) {
         .view-content-row { flex-direction: column; }
-        .view-photo-wrap { width: 100%; }
+        .view-photo-wrap { width: 100%; aspect-ratio: 16/9;}
+        .view-photo-wrap img { aspect-ratio: auto; }
+        .view-modal-inner { padding: 24px 20px; }
     }
 </style>
 
