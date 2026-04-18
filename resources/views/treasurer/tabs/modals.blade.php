@@ -4,7 +4,7 @@
         <h5 class="fw-bold mb-3"><i class="fa fa-file-invoice text-danger me-2"></i> Process Applicant Payment</h5>
         
         <div class="modal-img-wrapper mb-4" id="modalImgWrapper">
-            <div id="modalSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fs-2"></i><br><small>Loading Image...</small></div>
+            <div id="modalSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fs-2" style="display: block; margin-bottom: 8px;"></i><small>Loading Image...</small></div>
             <img id="modalImage" src="" alt="Proof of Payment" style="display: none;" onload="onImageLoad()">
         </div>
 
@@ -43,7 +43,10 @@
         <button class="modal-close-x" onclick="hideSimpleProofModal()">&times;</button>
         <h5 class="fw-bold mb-3"><i class="fa fa-image text-primary me-2"></i> View Proof</h5>
         <div class="modal-img-wrapper">
-            <div id="simpleModalSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fs-2"></i><br><small>Loading</small></div>
+            <div id="simpleModalSpinner" class="text-muted">
+                <i class="fa fa-spinner fa-spin fs-2" style="display: block; margin-bottom: 8px;"></i>
+                <small style="display: block; text-align: center;">Loading Image...</small>
+            </div>
             <img id="simpleModalImage" src="" alt="Proof of Payment" style="display: none;" onload="onSimpleImageLoad()">
         </div>
     </div>
@@ -52,35 +55,31 @@
 {{-- ADD PAYMENT MODAL (NEW) --}}
 <div class="custom-modal-overlay" id="addPaymentModal" onclick="closeAddPaymentOverlay(event)">
     <div class="custom-modal-card add-payment-modal-card" onclick="event.stopPropagation()">
-        <button class="modal-close-x" onclick="hideAddPaymentModal()">&times;</button>
+        <button type="button" class="modal-close-x" onclick="closeAddPaymentModal(event)">&times;</button>
         <div class="add-payment-modal-header">
             <div class="add-payment-modal-icon-container">
                 <i class="fa fa-user fs-1 text-dark"></i>
                 <div class="add-payment-modal-check-icon"><i class="fa fa-check"></i></div>
             </div>
-            <h5 class="add-payment-modal-title">Add Payment</h5>
+            <h5 class="add-payment-modal-title" id="addPaymentModalTitle">Add Payment</h5>
         </div>
         
         <div class="add-payment-modal-body">
             <div class="add-payment-form-group">
                 <label class="add-payment-label">Members</label>
-                <select class="add-payment-input form-select" style="font-size: 13px;">
-                    <option selected>Juan Dela Cruz</option>
-                    <option>Other Member A</option>
-                    <option>Other Member B</option>
-                </select>
+                <input type="text" class="add-payment-input" id="transactionMemberInput" value="Juan Dela Cruz">
             </div>
             <div class="add-payment-form-group">
                 <label class="add-payment-label">OR Number</label>
-                <input type="text" class="add-payment-input" value="9403-4783" readonly>
+                <input type="text" class="add-payment-input" id="transactionOrNumber" value="9403-4783" readonly>
             </div>
             <div class="add-payment-form-group">
                 <label class="add-payment-label">Payment Date</label>
-                <input type="text" class="add-payment-input" value="02-11-2027" readonly>
+                <input type="text" class="add-payment-input" id="transactionPaymentDate" value="02-11-2027" readonly>
             </div>
             <div class="add-payment-form-group">
                 <label class="add-payment-label">Membership Type</label>
-                <select class="add-payment-input form-select" style="font-size: 13px;">
+                <select class="add-payment-input form-select" id="transactionMembershipType" style="font-size: 13px;">
                     <option selected>Annual</option>
                     <option>Semi-Annual</option>
                     <option>Quarterly</option>
@@ -88,7 +87,7 @@
             </div>
             <div class="add-payment-form-group">
                 <label class="add-payment-label">Payment Type</label>
-                <select class="add-payment-input form-select" style="font-size: 13px;">
+                <select class="add-payment-input form-select" id="transactionPaymentType" style="font-size: 13px;">
                     <option selected>GCash</option>
                     <option>Cash</option>
                     <option>Bank Transfer</option>
@@ -96,11 +95,11 @@
             </div>
             <div class="add-payment-form-group">
                 <label class="add-payment-label">Proof of Payment</label>
-                <input type="text" class="add-payment-input" value="Upload image (png, jpg)" readonly style="color: #999;">
+                <input type="text" class="add-payment-input" id="transactionProofInput" value="Upload image (png, jpg)" readonly style="color: #999;">
             </div>
             <div class="add-payment-form-group">
                 <label class="add-payment-label">Receiver</label>
-                <select class="add-payment-input form-select" style="font-size: 13px;">
+                <select class="add-payment-input form-select" id="transactionReceiverSelect" style="font-size: 13px;">
                     <option selected>Jesus Versula</option>
                     <option>Admin Person B</option>
                 </select>
@@ -109,7 +108,7 @@
 
         <div class="add-payment-modal-footer">
             <button class="add-payment-btn-clear" onclick="clearPaymentForm()">Clear Form</button>
-            <button class="add-payment-btn-confirm" onclick="confirmPaymentAdd()">Confirm</button>
+            <button class="add-payment-btn-confirm" id="transactionModalConfirmBtn" onclick="confirmPaymentAdd()">Confirm</button>
         </div>
     </div>
 </div>
@@ -118,7 +117,7 @@
 <div class="custom-modal-overlay" id="otpModal" onclick="closeOtpOverlay(event)">
     <div class="custom-modal-card otp-modal-card" onclick="event.stopPropagation()">
         <h5 class="otp-title">Reset Password</h5>
-        <p class="otp-subtitle">Enter the code sent to <span>example@gmail.com</span> to reset your password</p>
+        <p class="otp-subtitle">Enter the code sent to <span id="otpTargetEmail">your email</span> to reset your password</p>
         <div class="otp-input-container">
             <input type="text" maxlength="1" class="otp-box" oninput="moveToNext(this, event)">
             <input type="text" maxlength="1" class="otp-box" oninput="moveToNext(this, event)">
@@ -161,6 +160,17 @@
         <div class="reset-pw-actions">
             <button class="reset-pw-btn-cancel" onclick="hideResetPasswordModal()">Cancel</button>
             <button class="reset-pw-btn-submit" id="resetPwSubmitBtn" onclick="submitNewPassword()">Reset Password</button>
+        </div>
+    </div>
+</div>
+
+{{-- OTP FLOW FEEDBACK MODAL --}}
+<div class="custom-modal-overlay" id="otpFeedbackModal" onclick="closeOtpFeedbackOverlay(event)">
+    <div class="custom-modal-card otp-feedback-modal-card" onclick="event.stopPropagation()">
+        <h5 class="otp-feedback-title" id="otpFeedbackTitle">Notice</h5>
+        <p class="otp-feedback-message" id="otpFeedbackMessage">Message</p>
+        <div class="text-end mt-3">
+            <button class="btn btn-danger px-4 py-2 fw-bold rounded-pill" onclick="hideOtpFeedbackModal()">OK</button>
         </div>
     </div>
 </div>

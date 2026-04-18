@@ -200,7 +200,9 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
                 <img src="{{ asset('images/PCCI-Logo.svg') }}" alt="PCCI Logo" class="w-100 h-100 object-fit-contain p-1">
             </div>
             <div class="d-flex flex-column d-none d-sm-flex">
-                <span class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.2;">PCCI - Valenzuela</span>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.2;">PCCI - Valenzuela</span>
+                </div>
             </div>
         </a>
     </div>
@@ -873,8 +875,16 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 
         try {
             const response = await fetch(`/treasurer/process-payment/${currentApplicantId}`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ membership_type_id: currentSelectedType })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
+                body: JSON.stringify({
+                    membership_type_id: currentSelectedType,
+                    membership_type: 'Regular'
+                })
             });
 
             if (response.ok || response.status === 200 || response.status === 201) {
@@ -907,7 +917,7 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         document.getElementById('applicantSearch').addEventListener('input', applyApplicantFilters);
 
         const savedTab = localStorage.getItem('activeTab') || 'dashboard';
-        switchTab(savedTab);
+        switchTab(savedTab, false);
     });
 
     function applyMemberFilters() {
@@ -1067,7 +1077,41 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
         if(reportBar) new Chart(reportBar, { type: 'bar', data: { labels: ['Jan'], datasets: [{ label: 'Micro', data: [120], backgroundColor: '#3b82f6'}] }, options: { responsive: true, maintainAspectRatio: false } });
     }
 
-    function switchTab(tabName) {
+    function refreshTabData(tabName) {
+        if (tabName === 'dashboard') {
+            if (typeof fetchApplicants === 'function') fetchApplicants();
+            if (typeof fetchMembers === 'function') fetchMembers();
+            if (typeof fetchRecentPayments === 'function') fetchRecentPayments();
+            if (typeof fetchTransactions === 'function') fetchTransactions();
+            if (typeof initCharts === 'function') initCharts();
+            return;
+        }
+
+        if (tabName === 'members' && typeof fetchMembers === 'function') {
+            fetchMembers();
+            return;
+        }
+
+        if (tabName === 'applicants') {
+            if (typeof fetchApplicants === 'function') fetchApplicants();
+            if (typeof fetchRecentPayments === 'function') fetchRecentPayments();
+            return;
+        }
+
+        if (tabName === 'transactions' && typeof fetchTransactions === 'function') {
+            fetchTransactions();
+            return;
+        }
+
+        if (tabName === 'reports') {
+            if (typeof fetchApplicants === 'function') fetchApplicants();
+            if (typeof fetchMembers === 'function') fetchMembers();
+            if (typeof fetchTransactions === 'function') fetchTransactions();
+            if (typeof initCharts === 'function') initCharts();
+        }
+    }
+
+    function switchTab(tabName, shouldReload = true) {
         localStorage.setItem('activeTab', tabName); 
         document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
         document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
@@ -1078,6 +1122,12 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
             document.querySelector('.sidebar').classList.remove('open');
             document.getElementById('sidebarOverlay').classList.remove('active');
             document.body.style.overflow = '';
+        }
+
+        refreshTabData(tabName);
+
+        if (shouldReload) {
+            window.location.reload();
         }
     }
 </script>

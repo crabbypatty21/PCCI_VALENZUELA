@@ -80,15 +80,15 @@
                 <div class="col-md-6">
                     <label class="text-muted mb-1 w-100" style="font-size: 12px;">Last Name</label>
                     <div class="position-relative">
-                        <input type="text" class="new-acc-input" id="settingsLastName" value="Jesus">
-                        <button class="new-acc-edit"><i class="fa fa-edit"></i> Edit</button>
+                        <input type="text" class="new-acc-input" id="settingsLastName" value="" readonly>
+                        <button type="button" class="new-acc-edit" onclick="toggleAccountField('settingsLastName')"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="text-muted mb-1 w-100" style="font-size: 12px;">First Name</label>
                     <div class="position-relative">
-                        <input type="text" class="new-acc-input" id="settingsFirstName" value="Versula">
-                        <button class="new-acc-edit"><i class="fa fa-edit"></i> Edit</button>
+                        <input type="text" class="new-acc-input" id="settingsFirstName" value="" readonly>
+                        <button type="button" class="new-acc-edit" onclick="toggleAccountField('settingsFirstName')"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                 </div>
             </div>
@@ -100,22 +100,22 @@
                 <div class="col-md-6">
                     <label class="text-muted mb-1 w-100" style="font-size: 12px;">Email</label>
                     <div class="position-relative">
-                        <input type="email" class="new-acc-input" id="settingsEmailInput" value="versulajesus@gmail.com">
-                        <button class="new-acc-edit"><i class="fa fa-edit"></i> Edit</button>
+                        <input type="email" class="new-acc-input" id="settingsEmailInput" value="" readonly>
+                        <button type="button" class="new-acc-edit" onclick="toggleAccountField('settingsEmailInput')"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="text-muted mb-1 w-100" style="font-size: 12px;">Contact Number</label>
                     <div class="position-relative">
-                        <input type="text" class="new-acc-input" value="0967 567 1234">
-                        <button class="new-acc-edit"><i class="fa fa-edit"></i> Edit</button>
+                        <input type="text" class="new-acc-input" id="settingsContactInput" value="" readonly>
+                        <button type="button" class="new-acc-edit" onclick="toggleAccountField('settingsContactInput')"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-end gap-2 mt-5">
                 <button class="new-acc-action-gray shadow-sm">Deactive Account</button>
-                <button class="new-acc-action-dark shadow-sm">Delete Account</button>
+                <button type="button" class="new-acc-action-dark shadow-sm" onclick="saveAccountSettings()">Save Changes</button>
             </div>
         </div>
     </div>
@@ -143,7 +143,7 @@
                         <i class="fa fa-lock fs-4 text-dark"></i>
                         <span class="fw-bold text-dark fs-5" style="font-size: 16px !important;">Change Password</span>
                     </div>
-                    <button class="sec-btn-update shadow-sm" onclick="openOtpModal()">Update Password</button>
+                    <button class="sec-btn-update shadow-sm" id="requestOtpBtn" onclick="requestPasswordChangeOtp()">Update Password</button>
                 </div>
             </div>
 

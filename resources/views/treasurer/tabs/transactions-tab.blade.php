@@ -86,5 +86,11 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="d-flex justify-content-center align-items-center mt-3 mb-3" style="height: 50px; gap: 15px;">
+            <button id="transaction-prev-btn" class="btn btn-sm btn-light border rounded" onclick="prevTransactionPage()"><i class="fa fa-chevron-left"></i></button>
+            <span style="font-size: 14px; font-weight: bold; color: #4b5563;" id="transaction-pagination-text">Page 1 of 1</span>
+            <button id="transaction-next-btn" class="btn btn-sm btn-light border rounded" onclick="nextTransactionPage()"><i class="fa fa-chevron-right"></i></button>
+        </div>
     </div>
 </div>

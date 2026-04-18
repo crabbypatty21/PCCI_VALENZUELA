@@ -95,10 +95,13 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .bg-orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
 
 /* Small Info Card */
-.small-info-card { width: 280px; height: 75px; display: flex; align-items: center; gap: 15px; }
-.small-info-card .icon-box { width: 40px; height: 40px; border-radius: 8px; background: #e3f2fd; color: #1976d2; display: flex; justify-content: center; align-items: center; font-size: 18px; }
-.small-info-card p { margin: 0; font-size: 12px; color: #555; font-weight: 500; }
-.small-info-card p span { font-weight: bold; color: #222; }
+.small-info-card { width: 100%; min-height: 88px; display: flex; align-items: center; gap: 14px; }
+.small-info-card .icon-box { width: 44px; height: 44px; border-radius: 10px; background: #eef4ff; color: #1d4ed8; display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0; }
+.small-info-content { flex: 1; min-width: 0; }
+.small-info-content p { margin: 0; font-size: 14px; color: #374151; font-weight: 600; line-height: 1.35; }
+.small-info-content p + p { margin-top: 2px; font-size: 13px; font-weight: 500; }
+.small-info-filter-wrap { flex-shrink: 0; }
+.dashboard-inline-filter { min-width: 126px; border-radius: 10px; border: 1px solid #d1d5db; font-weight: 600; font-size: 13px; background-color: #fff; }
 
 /* Charts Area */
 .chart-container { height: clamp(200px, 40vw, 280px); width: 100%; position: relative; }
@@ -111,6 +114,12 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .custom-table th { background: #f8f9fb; color: #777; font-weight: 600; padding: clamp(8px, 1vw, 12px) clamp(6px, 1vw, 10px); text-align: left; position: sticky; top: 0; z-index: 1;}
 .custom-table td { padding: clamp(8px, 1vw, 12px) clamp(6px, 1vw, 10px); border-bottom: 1px solid #eee; color: #444; vertical-align: middle; height: clamp(40px, 6vw, 45px);}
 .custom-table tbody tr:hover { background-color: #f9fafb; }
+
+/* Center all columns in dashboard Recent Payments table */
+.recent-payments-table th,
+.recent-payments-table td {
+    text-align: center !important;
+}
 
 /* Action Buttons & Badges */
 .action-btn { height: clamp(26px, 4vw, 30px); padding: 0 clamp(8px, 2vw, 10px); border-radius: 6px; border: none; font-size: clamp(10px, 1.5vw, 12px); font-weight: bold; cursor: pointer; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 5px; margin-right: 4px;}
@@ -158,9 +167,42 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .custom-modal-overlay { position: fixed; top: 0; left: 250px; width: calc(100% - 250px); height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1060; backdrop-filter: blur(3px); }
 .custom-modal-card { background: #ffffff; width: 90%; max-width: 700px; border-radius: 16px; padding: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; animation: slideIn 0.3s ease-out; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-.modal-close-x { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #888; cursor: pointer; border: none; background: none; line-height: 1; }
+.modal-close-x { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #888; cursor: pointer; border: none; background: none; line-height: 1; z-index: 2; }
 .modal-img-wrapper { width: 100%; min-height: 120px; display: flex; justify-content: center; align-items: center; position: relative; }
 .modal-img-wrapper img { max-width: 100%; max-height: 400px; width: auto; height: auto; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: block; }
+
+#proofModal .modal-img-wrapper {
+    min-height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#proofModal #modalSpinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#simpleProofModal #simpleModalSpinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
 
 /* Process payment modal: keep this one tighter than other modals */
 #proofModal .custom-modal-card {
@@ -252,6 +294,10 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
 .otp-box { width: 55px; height: 55px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 24px; text-align: center; color: #111; outline: none; transition: 0.2s; }
 .otp-box:focus { background: #fff; border-color: #b61b2a; box-shadow: 0 0 0 2px rgba(182, 27, 42, 0.1); }
 
+.otp-feedback-modal-card { background: #ffffff; max-width: 420px !important; padding: 26px; border-radius: 12px; border: none; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+.otp-feedback-title { font-size: 20px; font-weight: 700; margin: 0 0 8px 0; color: #111; }
+.otp-feedback-message { font-size: 14px; margin: 0; color: #4b5563; line-height: 1.5; }
+
 .reset-pw-modal-card { background: #ffffff; max-width: 450px !important; padding: 30px; border-radius: 12px; border: none; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 .reset-pw-title { font-size: 20px; font-weight: bold; margin-bottom: 5px; color: #111; }
 .reset-pw-subtitle { font-size: 14px; color: #666; margin-bottom: 25px; }
@@ -342,6 +388,9 @@ body.dark-mode .otp-subtitle { color: #aaa; }
 body.dark-mode .otp-subtitle span { color: #fff; }
 body.dark-mode .otp-box { background: #2d2d2d; border-color: #444; color: #fff; }
 body.dark-mode .otp-box:focus { background: #333; border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); }
+body.dark-mode .otp-feedback-modal-card { background: #1c1c1c; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+body.dark-mode .otp-feedback-title { color: #fff; }
+body.dark-mode .otp-feedback-message { color: #d1d5db; }
 
 body.dark-mode .reset-pw-modal-card { background: #1c1c1c; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 body.dark-mode .reset-pw-title { color: #fff; }
@@ -545,7 +594,7 @@ body.dark-mode .back-to-top-btn:hover {
     }
 
     #proofModal .modal-img-wrapper {
-        min-height: 90px;
+        min-height: 160px;
         margin-bottom: 12px !important;
     }
 
@@ -665,14 +714,14 @@ body.dark-mode .back-to-top-btn:hover {
 {{-- NOTIFICATION PANEL --}}
 <div class="notification-panel" id="notificationPanel">
     <div class="notif-header">
-        <h6 class="notif-header-title">Notifications <span class="notif-badge">0 New</span></h6>
+        <h6 class="notif-header-title">Notifications <span class="notif-badge" id="notifBadge">0 New</span></h6>
         <button class="notif-clear-btn" onclick="clearNotifications(event)"><i class="fa fa-times"></i></button>
     </div>
-    <div class="notif-body">
+    <div class="notif-body" id="notifBody">
         <div class="notif-item" style="background: #f9fafb;">
             <div class="notif-icon" style="background: white; border: 1px solid #ddd;"><i class="fa fa-info-circle text-primary fs-5"></i></div>
             <div class="notif-text-content">
-                <p>Loading notifications...</p>
+                <p>No notifications yet.</p>
             </div>
         </div>
     </div>

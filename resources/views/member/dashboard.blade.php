@@ -20,7 +20,7 @@ header, footer, .navbar, nav { display: none !important; }
     --member-muted: #6b7280;
 }
 
-body.member-dark {
+body.dark-mode {
     --member-bg: #0b1220;
     --member-surface: #111827;
     --member-surface-soft: #1f2937;
@@ -346,332 +346,345 @@ main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; 
     border-color: #9c1624;
 }
 
-body.member-dark .text-dark,
-body.member-dark .fw-bold {
+body.dark-mode .text-dark,
+body.dark-mode .fw-bold {
     color: var(--member-text) !important;
 }
 
-body.member-dark .text-muted {
+body.dark-mode .text-muted {
     color: var(--member-muted) !important;
 }
 
-body.member-dark .custom-table th {
+body.dark-mode .custom-table th {
     background: var(--member-surface-soft);
     border-bottom-color: var(--member-border);
 }
 
-body.member-dark .custom-table td,
-body.member-dark .doc-item,
-body.member-dark .sidebar-profile,
-body.member-dark .tableTop input,
-body.member-dark .setting-box,
-body.member-dark .modal-content-box,
-body.member-dark .doc-view-modal,
-body.member-dark .notification-panel {
+body.dark-mode .custom-table td,
+body.dark-mode .doc-item,
+body.dark-mode .sidebar-profile,
+body.dark-mode .tableTop input,
+body.dark-mode .setting-box,
+body.dark-mode .modal-content-box,
+body.dark-mode .doc-view-modal,
+body.dark-mode .notification-panel {
     background: var(--member-surface);
     border-color: var(--member-border) !important;
     color: var(--member-text);
 }
 
 /* Modal readability polish for dark mode */
-body.member-dark .modal-content-box,
-body.member-dark .doc-view-header,
-body.member-dark .doc-view-body,
-body.member-dark .doc-view-footer,
-body.member-dark #settingsModalAccount .modal-content-box,
-body.member-dark #settingsModalSecurity .modal-content-box,
-body.member-dark #settingsModalBilling .modal-content-box,
-body.member-dark #settingsModalPreferences .modal-content-box,
-body.member-dark #memberOtpModal .modal-content-box,
-body.member-dark #memberResetPasswordModal .modal-content-box,
-body.member-dark #cropPhotoModal .modal-content-box {
+body.dark-mode .modal-content-box,
+body.dark-mode .doc-view-header,
+body.dark-mode .doc-view-body,
+body.dark-mode .doc-view-footer,
+body.dark-mode #settingsModalAccount .modal-content-box,
+body.dark-mode #settingsModalSecurity .modal-content-box,
+body.dark-mode #settingsModalBilling .modal-content-box,
+body.dark-mode #settingsModalPreferences .modal-content-box,
+body.dark-mode #memberOtpModal .modal-content-box,
+body.dark-mode #memberResetPasswordModal .modal-content-box,
+body.dark-mode #cropPhotoModal .modal-content-box {
     background: #121b2a !important;
     color: var(--member-text) !important;
     border-color: var(--member-border) !important;
 }
 
-body.member-dark .modal-content-box input,
-body.member-dark .modal-content-box select,
-body.member-dark .modal-content-box textarea,
-body.member-dark .modal-content-box div[contenteditable="true"],
-body.member-dark #settingsModalAccount .form-control,
-body.member-dark #settingsModalSecurity .form-control,
-body.member-dark #settingsModalBilling .form-control,
-body.member-dark #settingsModalPreferences .form-control {
+body.dark-mode .modal-content-box input,
+body.dark-mode .modal-content-box select,
+body.dark-mode .modal-content-box textarea,
+body.dark-mode .modal-content-box div[contenteditable="true"],
+body.dark-mode #settingsModalAccount .form-control,
+body.dark-mode #settingsModalSecurity .form-control,
+body.dark-mode #settingsModalBilling .form-control,
+body.dark-mode #settingsModalPreferences .form-control,
+body.dark-mode #section-settings .form-control {
     background: #0f172a !important;
     color: #dbe4ef !important;
     border: 1px solid #334155 !important;
 }
 
-body.member-dark .modal-content-box input::placeholder,
-body.member-dark .modal-content-box textarea::placeholder {
+body.dark-mode .modal-content-box input::placeholder,
+body.dark-mode .modal-content-box textarea::placeholder {
     color: #8ea0b6 !important;
 }
 
-body.member-dark .modal-content-box small,
-body.member-dark .modal-content-box label,
-body.member-dark .modal-content-box .text-muted,
-body.member-dark .modal-content-box th,
-body.member-dark .modal-content-box td {
+body.dark-mode .modal-content-box small,
+body.dark-mode .modal-content-box label,
+body.dark-mode .modal-content-box .text-muted,
+body.dark-mode .modal-content-box th,
+body.dark-mode .modal-content-box td {
     color: #a9b8ca !important;
 }
 
-body.member-dark .modal-content-box .btn-light,
-body.member-dark .modal-content-box .btn-close,
-body.member-dark .doc-view-close,
-body.member-dark .doc-btn-secondary,
-body.member-dark .viewBtn {
+body.dark-mode .modal-content-box .btn-light,
+body.dark-mode .modal-content-box .btn-close,
+body.dark-mode .doc-view-close,
+body.dark-mode .doc-btn-secondary,
+body.dark-mode .viewBtn {
     background: #1e293b !important;
     color: #dbe4ef !important;
     border-color: #3b4a60 !important;
 }
 
-body.member-dark .doc-preview-box,
-body.member-dark #docPreviewEmpty {
+body.dark-mode .doc-preview-box,
+body.dark-mode #docPreviewEmpty {
     background: #0f172a !important;
     color: #9fb0c5 !important;
     border-color: #334155 !important;
 }
 
 /* Specific fix: Edit Business Profile modal in dark mode */
-body.member-dark #editProfileModal .modal-content-box {
+body.dark-mode #editProfileModal .modal-content-box {
     background: #0f172a !important;
     color: #dbe4ef !important;
 }
 
-body.member-dark #editProfileModal .modal-content-box > div:first-child {
+body.dark-mode #editProfileModal .modal-content-box > div:first-child {
     background: #111827 !important;
     border-bottom-color: #334155 !important;
 }
 
-body.member-dark #editProfileModal .modal-content-box > div:first-child h5,
-body.member-dark #editProfileModal .modal-content-box h4,
-body.member-dark #editProfileModal .modal-content-box h6,
-body.member-dark #editProfileModal .modal-content-box p,
-body.member-dark #editProfileModal .modal-content-box span,
-body.member-dark #editProfileModal .modal-content-box small {
+body.dark-mode #editProfileModal .modal-content-box > div:first-child h5,
+body.dark-mode #editProfileModal .modal-content-box h4,
+body.dark-mode #editProfileModal .modal-content-box h6,
+body.dark-mode #editProfileModal .modal-content-box p,
+body.dark-mode #editProfileModal .modal-content-box span,
+body.dark-mode #editProfileModal .modal-content-box small {
     color: #dbe4ef !important;
 }
 
-body.member-dark #editProfileModal .modal-content-box div[style*="background: #f9fafb"] {
+body.dark-mode #editProfileModal .modal-content-box div[style*="background: #f9fafb"] {
     background: #0f172a !important;
     border-color: #334155 !important;
     color: #dbe4ef !important;
 }
 
-body.member-dark #editProfileModal .modal-content-box div[style*="background: white"],
-body.member-dark #editProfileModal .modal-content-box button[style*="background: white"] {
+body.dark-mode #editProfileModal .modal-content-box div[style*="background: white"],
+body.dark-mode #editProfileModal .modal-content-box button[style*="background: white"] {
     background: #1e293b !important;
     border-color: #3b4a60 !important;
     color: #dbe4ef !important;
 }
 
-body.member-dark #editProfileModal .modal-content-box input,
-body.member-dark #editProfileModal .modal-content-box select,
-body.member-dark #editProfileModal .modal-content-box textarea {
+body.dark-mode #editProfileModal .modal-content-box input,
+body.dark-mode #editProfileModal .modal-content-box select,
+body.dark-mode #editProfileModal .modal-content-box textarea {
     background: #0b1324 !important;
     color: #dbe4ef !important;
     border-color: #334155 !important;
 }
 
-body.member-dark #editProfileModal .modal-content-box input::placeholder,
-body.member-dark #editProfileModal .modal-content-box textarea::placeholder {
+body.dark-mode #editProfileModal .modal-content-box input::placeholder,
+body.dark-mode #editProfileModal .modal-content-box textarea::placeholder {
     color: #8ea0b6 !important;
 }
 
 /* Specific fix: Add Product modal in dark mode */
-body.member-dark #addProductModal .modal-content-box {
+body.dark-mode #addProductModal .modal-content-box {
     background: #0f172a !important;
     color: #dbe4ef !important;
 }
 
-body.member-dark #addProductModal .modal-content-box > div:first-child {
+body.dark-mode #addProductModal .modal-content-box > div:first-child {
     background: #111827 !important;
     border-bottom-color: #334155 !important;
 }
 
-body.member-dark #addProductModal .modal-content-box > div:first-child h5,
-body.member-dark #addProductModal .modal-content-box label,
-body.member-dark #addProductModal .modal-content-box .text-muted,
-body.member-dark #addProductModal .modal-content-box p,
-body.member-dark #addProductModal .modal-content-box span {
+body.dark-mode #addProductModal .modal-content-box > div:first-child h5,
+body.dark-mode #addProductModal .modal-content-box label,
+body.dark-mode #addProductModal .modal-content-box .text-muted,
+body.dark-mode #addProductModal .modal-content-box p,
+body.dark-mode #addProductModal .modal-content-box span {
     color: #dbe4ef !important;
 }
 
-body.member-dark #addProductModal .modal-content-box input,
-body.member-dark #addProductModal .modal-content-box select,
-body.member-dark #addProductModal .modal-content-box textarea {
+body.dark-mode #addProductModal .modal-content-box input,
+body.dark-mode #addProductModal .modal-content-box select,
+body.dark-mode #addProductModal .modal-content-box textarea {
     background: #0b1324 !important;
     color: #dbe4ef !important;
     border-color: #334155 !important;
 }
 
-body.member-dark #addProductModal .modal-content-box input::placeholder,
-body.member-dark #addProductModal .modal-content-box textarea::placeholder {
+body.dark-mode #addProductModal .modal-content-box input::placeholder,
+body.dark-mode #addProductModal .modal-content-box textarea::placeholder {
     color: #8ea0b6 !important;
 }
 
-body.member-dark #addProductModal .btn-close {
+body.dark-mode #addProductModal .btn-close {
     filter: invert(1) grayscale(100%);
     opacity: 0.9;
 }
 
-body.member-dark #addProductModal .btn-close:hover {
+body.dark-mode #addProductModal .btn-close:hover {
     opacity: 1;
 }
 
 /* Dark mode typography and contrast tuning */
-body.member-dark .sidebar-profile h5,
-body.member-dark .sidebar-profile p,
-body.member-dark .sidebar-profile small,
-body.member-dark .sidebar-menu li,
-body.member-dark .contactItem,
-body.member-dark .contactItem i,
-body.member-dark .doc-item,
-body.member-dark .pill-card,
-body.member-dark .custom-card {
+body.dark-mode .sidebar-profile h5,
+body.dark-mode .sidebar-profile p,
+body.dark-mode .sidebar-profile small,
+body.dark-mode .sidebar-menu li,
+body.dark-mode .contactItem,
+body.dark-mode .contactItem i,
+body.dark-mode .doc-item,
+body.dark-mode .pill-card,
+body.dark-mode .custom-card {
     color: #dbe4ef !important;
 }
 
-body.member-dark .sidebar-menu li.active {
+body.dark-mode .sidebar-menu li.active {
     background: #1e293b !important;
     color: #f1f5f9 !important;
     border-left-color: #be1e38;
 }
 
-body.member-dark .sidebar-menu li:hover:not(.active) {
+body.dark-mode .sidebar-menu li:hover:not(.active) {
     background: #172033 !important;
 }
 
-body.member-dark .btn-light,
-body.member-dark .viewBtn,
-body.member-dark .editBtn {
+body.dark-mode .btn-light,
+body.dark-mode .viewBtn,
+body.dark-mode .editBtn {
     background: #1f2937 !important;
     color: #dbe4ef !important;
     border-color: #334155 !important;
 }
 
-body.member-dark .stat-teal {
+body.dark-mode .stat-teal {
     background: #153e3a;
     color: #e6fffa;
 }
 
-body.member-dark #liveDate {
+body.dark-mode #liveDate {
     color: #c9f5ea !important;
 }
 
-body.member-dark #liveTime {
+body.dark-mode #liveTime {
     color: #7ff0d9 !important;
 }
 
-body.member-dark .pricing-card {
+body.dark-mode .pricing-card {
     background: #111b2d;
     color: #dbe4ef;
     border-color: #be1e38;
 }
 
-body.member-dark .pricing-card h2 {
+body.dark-mode .pricing-card h2 {
     color: #e2e8f0;
     border-bottom-color: #475569;
 }
 
-body.member-dark .pricing-card ul {
+body.dark-mode .pricing-card ul {
     color: #b8c4d6;
 }
 
-body.member-dark .pricing-price {
+body.dark-mode .pricing-price {
     background: #0f172a;
     color: #fecdd3;
     border-color: #be1e38;
 }
 
-body.member-dark .pricing-price.red {
+body.dark-mode .pricing-price.red {
     background: #be1e38;
     color: #ffffff;
 }
 
 /* Match dark-mode readability in My Business section */
-body.member-dark #section-business .custom-card,
-body.member-dark #section-business .contactItem,
-body.member-dark #section-business .contactItem i,
-body.member-dark #section-business .text-muted,
-body.member-dark #section-business h4,
-body.member-dark #section-business h5,
-body.member-dark #section-business h6,
-body.member-dark #section-business p,
-body.member-dark #section-business span,
-body.member-dark #section-business small {
+body.dark-mode #section-business .custom-card,
+body.dark-mode #section-business .contactItem,
+body.dark-mode #section-business .contactItem i,
+body.dark-mode #section-business .text-muted,
+body.dark-mode #section-business h4,
+body.dark-mode #section-business h5,
+body.dark-mode #section-business h6,
+body.dark-mode #section-business p,
+body.dark-mode #section-business span,
+body.dark-mode #section-business small {
     color: #dbe4ef !important;
 }
 
-body.member-dark #section-business .border-start {
+body.dark-mode #section-business .border-start {
     border-left-color: #334155 !important;
 }
 
-body.member-dark #section-business div[style*="background: #f9fafb"] {
+body.dark-mode #section-business div[style*="background: #f9fafb"] {
     background: #0f172a !important;
     border-color: #334155 !important;
     color: #dbe4ef !important;
 }
 
-body.member-dark #section-business button[style*="background: white"],
-body.member-dark #section-business button[style*="background: #ffffff"] {
+body.dark-mode #section-business button[style*="background: white"],
+body.dark-mode #section-business button[style*="background: #ffffff"] {
     background: #1e293b !important;
     border-color: #3b4a60 !important;
     color: #dbe4ef !important;
 }
 
 /* Specific fix: Settings list + Preferences options in dark mode */
-body.member-dark #section-settings .setting-box {
+body.dark-mode #section-settings .setting-box {
     background: #0f172a !important;
     border-color: #334155 !important;
 }
 
-body.member-dark #section-settings .setting-box:hover {
+body.dark-mode #section-settings .setting-box:hover {
     background: #172033 !important;
 }
 
-body.member-dark #section-settings .setting-left,
-body.member-dark #section-settings .setting-left span,
-body.member-dark #section-settings .setting-left i,
-body.member-dark #section-settings .setting-box .fa-chevron-right {
+body.dark-mode #section-settings .setting-left,
+body.dark-mode #section-settings .setting-left span,
+body.dark-mode #section-settings .setting-left i,
+body.dark-mode #section-settings .setting-box .fa-chevron-right {
     color: #dbe4ef !important;
 }
 
-body.member-dark #settingsModalPreferences h6,
-body.member-dark #settingsModalPreferences p,
-body.member-dark #settingsModalPreferences .text-dark,
-body.member-dark #settingsModalPreferences .text-muted {
+body.dark-mode #settingsModalPreferences h6,
+body.dark-mode #settingsModalPreferences p,
+body.dark-mode #settingsModalPreferences .text-dark,
+body.dark-mode #settingsModalPreferences .text-muted,
+body.dark-mode #settings-preferences h6,
+body.dark-mode #settings-preferences p,
+body.dark-mode #settings-preferences .text-dark,
+body.dark-mode #settings-preferences .text-muted {
     color: #dbe4ef !important;
 }
 
-body.member-dark #settingsModalPreferences .form-check-input {
+body.dark-mode #settingsModalPreferences .form-check-input,
+body.dark-mode #settings-preferences .form-check-input {
     background-color: #0b1324 !important;
     border-color: #334155 !important;
 }
 
-body.member-dark #settingsModalPreferences .form-check-input:checked {
+body.dark-mode #settingsModalPreferences .form-check-input:checked,
+body.dark-mode #settings-preferences .form-check-input:checked {
     background-color: #be1e38 !important;
     border-color: #be1e38 !important;
 }
 
-body.member-dark #settingsModalPreferences .form-check-input:focus {
+body.dark-mode #settingsModalPreferences .form-check-input:focus,
+body.dark-mode #settings-preferences .form-check-input:focus {
     box-shadow: 0 0 0 0.2rem rgba(190, 30, 56, 0.25) !important;
 }
 
-body.member-dark #settingsModalPreferences .dropdown-toggle,
-body.member-dark #settingsModalPreferences .dropdown-menu {
+body.dark-mode #settingsModalPreferences .dropdown-toggle,
+body.dark-mode #settingsModalPreferences .dropdown-menu,
+body.dark-mode #settings-preferences .dropdown-toggle,
+body.dark-mode #settings-preferences .dropdown-menu {
     background: #1e293b !important;
     color: #dbe4ef !important;
     border-color: #3b4a60 !important;
 }
 
-body.member-dark #settingsModalPreferences .dropdown-item {
+body.dark-mode #settingsModalPreferences .dropdown-item,
+body.dark-mode #settings-preferences .dropdown-item {
     color: #dbe4ef !important;
 }
 
-body.member-dark #settingsModalPreferences .dropdown-item:hover,
-body.member-dark #settingsModalPreferences .dropdown-item:focus {
+body.dark-mode #settingsModalPreferences .dropdown-item:hover,
+body.dark-mode #settingsModalPreferences .dropdown-item:focus,
+body.dark-mode #settings-preferences .dropdown-item:hover,
+body.dark-mode #settings-preferences .dropdown-item:focus {
     background: #334155 !important;
     color: #f8fafc !important;
 }
@@ -742,7 +755,8 @@ body.member-dark #settingsModalPreferences .dropdown-item:focus {
         padding: 14px 14px;
     }
 
-    #settingsModalPreferences .d-flex.justify-content-between.align-items-center.gap-3 {
+    #settingsModalPreferences .d-flex.justify-content-between.align-items-center.gap-3,
+    #settings-preferences .d-flex.justify-content-between.align-items-center.gap-3 {
         align-items: flex-start !important;
     }
 }
@@ -799,16 +813,20 @@ body.member-dark #settingsModalPreferences .dropdown-item:focus {
     }
 
     #settingsModalPreferences .dropdown,
-    #settingsModalPreferences .dropdown-toggle {
+    #settingsModalPreferences .dropdown-toggle,
+    #settings-preferences .dropdown,
+    #settings-preferences .dropdown-toggle {
         width: 100%;
     }
 
-    #settingsModalPreferences .d-flex.justify-content-between.align-items-center.gap-3 {
+    #settingsModalPreferences .d-flex.justify-content-between.align-items-center.gap-3,
+    #settings-preferences .d-flex.justify-content-between.align-items-center.gap-3 {
         flex-direction: column;
         gap: 12px;
     }
 
-    #settingsModalPreferences .form-check.form-switch {
+    #settingsModalPreferences .form-check.form-switch,
+    #settings-preferences .form-check.form-switch {
         align-self: flex-start;
     }
 }
@@ -836,8 +854,8 @@ body.member-dark #settingsModalPreferences .dropdown-item:focus {
     </div>
 
     <div class="topbar-actions">
-        <button class="theme-toggle-btn" id="themeToggleBtn" type="button" onclick="toggleMemberThemeQuick()" title="Toggle theme">
-            <i class="fa fa-moon" id="themeToggleIcon"></i>
+        <button class="btn btn-sm border d-flex align-items-center gap-2 text-muted fw-bold px-3 py-1" onclick="toggleDarkMode()" id="darkModeBtn" style="border-radius: 50rem; background: #f9fafb; font-size: 13px;">
+            <i class="fa fa-moon" id="darkModeIcon"></i> <span id="darkModeText">Dark Mode</span>
         </button>
         <div class="position-relative" onclick="toggleNotificationPanel(event)" style="cursor:pointer; display: flex; align-items: center;">
             <i class="fa fa-bell fs-5 text-muted"></i>
@@ -1337,22 +1355,22 @@ function editField(field) {
 
 const token = localStorage.getItem('token');
 
-function applyMemberTheme(theme) {
-    const normalized = theme === 'dark' ? 'dark' : 'light';
-    localStorage.setItem('theme', normalized);
-    document.body.classList.toggle('member-dark', normalized === 'dark');
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('member-dark');
 
-    const icon = document.getElementById('themeToggleIcon');
-    const themeLabel = document.getElementById('themeLabel');
-    if (icon) icon.className = normalized === 'dark' ? 'fa fa-sun' : 'fa fa-moon';
-    if (themeLabel) themeLabel.innerText = normalized === 'dark' ? 'Dark' : 'Light';
-}
+    const icon = document.getElementById('darkModeIcon');
+    const text = document.getElementById('darkModeText');
 
-window.applyMemberTheme = applyMemberTheme;
-
-function toggleMemberThemeQuick() {
-    const current = localStorage.getItem('theme') || 'light';
-    applyMemberTheme(current === 'dark' ? 'light' : 'dark');
+    if (document.body.classList.contains('dark-mode')) {
+        if (icon) icon.classList.replace('fa-moon', 'fa-sun');
+        if (text) text.innerText = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        if (icon) icon.classList.replace('fa-sun', 'fa-moon');
+        if (text) text.innerText = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+    }
 }
 
 // ==========================================
@@ -1364,10 +1382,25 @@ document.addEventListener('DOMContentLoaded', function(){
         return; 
     }
 
-    applyMemberTheme(localStorage.getItem('theme') || 'light');
+    initMemberNotifications();
+
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.body.classList.add('member-dark');
+        setTimeout(() => {
+            const icon = document.getElementById('darkModeIcon');
+            const text = document.getElementById('darkModeText');
+            if (icon) icon.classList.replace('fa-moon', 'fa-sun');
+            if (text) text.innerText = 'Light Mode';
+        }, 50);
+    }
+
     seedUserFallbackUI();
     startLiveClock();
-    fetchRealDashboardData(token);
+
+    const hashTab = (window.location.hash || '').replace('#', '').trim();
+    const savedTab = hashTab || localStorage.getItem('activeTab') || 'dashboard';
+    switchTab(savedTab, false);
 });
 
 function seedUserFallbackUI() {
@@ -1396,17 +1429,215 @@ function startLiveClock() {
 }
 
 // Tab Logic
-function switchTab(tabName) {
+let currentActiveTab = 'dashboard';
+
+function refreshMemberTabData(tabName) {
+    if (!token) return;
+
+    if (tabName === 'products') {
+        fetchProducts();
+        return;
+    }
+
+    // Dashboard, Business, Membership, and Settings depend on profile/application payload.
+    fetchRealDashboardData(token);
+}
+
+function switchTab(tabName, shouldReload = true) {
+    currentActiveTab = tabName;
+    localStorage.setItem('activeTab', tabName);
+
+    // Match treasurer behavior: user tab clicks always force a same-page hard refresh.
+    if (shouldReload) {
+        window.location.href = `${window.location.pathname}?refresh=${Date.now()}#${tabName}`;
+        return;
+    }
+
     document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
     document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
     document.getElementById('section-' + tabName).style.display = 'block'; // Block restores natural scroll flow
     const activeNav = document.getElementById('nav-' + tabName);
     if(activeNav) activeNav.classList.add('active');
 
-    if (tabName === 'products') fetchProducts();
+    refreshMemberTabData(tabName);
 }
 
 // Notification Logic
+const MEMBER_NOTIFICATIONS_URL = 'http://127.0.0.1:8000/api/v1/notifications';
+const MEMBER_NOTIF_CACHE_KEY = 'member_notifications_cache_v1';
+const MEMBER_NOTIF_LAST_CHECK_KEY = 'member_notifications_last_check_date_v1';
+const MEMBER_NOTIF_READ_DATE_KEY = 'member_notifications_read_date_v1';
+
+function getTodayKey() {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+}
+
+function getRelativeTimeText(dateValue) {
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return 'Just now';
+
+    const diffMs = Date.now() - date.getTime();
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 1) return 'Just now';
+    if (diffMin < 60) return `${diffMin} min ago`;
+
+    const diffHrs = Math.floor(diffMin / 60);
+    if (diffHrs < 24) return `${diffHrs} hr${diffHrs > 1 ? 's' : ''} ago`;
+
+    const diffDays = Math.floor(diffHrs / 24);
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function normalizeNotificationItems(payload) {
+    const list = Array.isArray(payload?.data)
+        ? payload.data
+        : Array.isArray(payload?.notifications)
+            ? payload.notifications
+            : Array.isArray(payload)
+                ? payload
+                : [];
+
+    return list.map((item, index) => {
+        const title = item.title || item.subject || item.type || 'Notification';
+        const message = item.message || item.body || item.description || 'You have a new notification.';
+        const createdAt = item.created_at || item.createdAt || item.date || item.updated_at || new Date().toISOString();
+        const severity = String(item.severity || item.level || item.status || '').toLowerCase();
+
+        let iconClass = 'fa-bell';
+        let toneClass = 'text-primary';
+        if (severity.includes('danger') || severity.includes('error') || severity.includes('failed')) {
+            iconClass = 'fa-exclamation-circle';
+            toneClass = 'text-danger';
+        } else if (severity.includes('warning') || severity.includes('expir')) {
+            iconClass = 'fa-exclamation-triangle';
+            toneClass = 'text-warning';
+        } else if (severity.includes('success') || severity.includes('ok') || severity.includes('completed')) {
+            iconClass = 'fa-check-circle';
+            toneClass = 'text-success';
+        }
+
+        return {
+            id: item.id || `notif-${index}`,
+            title,
+            message,
+            createdAt,
+            iconClass,
+            toneClass,
+            sortTime: new Date(createdAt).getTime() || 0
+        };
+    }).sort((a, b) => b.sortTime - a.sortTime);
+}
+
+function readCachedNotifications() {
+    try {
+        const raw = localStorage.getItem(MEMBER_NOTIF_CACHE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed?.items) ? parsed.items : [];
+    } catch (_) {
+        return [];
+    }
+}
+
+function writeCachedNotifications(items) {
+    localStorage.setItem(MEMBER_NOTIF_CACHE_KEY, JSON.stringify({
+        checkedAt: new Date().toISOString(),
+        items: Array.isArray(items) ? items : []
+    }));
+}
+
+function renderMemberNotifications(items) {
+    const notifBody = document.querySelector('#notificationPanel .notif-body');
+    const notifBadge = document.getElementById('notifBadgeCount');
+    if (!notifBody || !notifBadge) return;
+
+    const todayKey = getTodayKey();
+    const markedReadToday = localStorage.getItem(MEMBER_NOTIF_READ_DATE_KEY) === todayKey;
+    const unreadCount = markedReadToday ? 0 : items.length;
+
+    if (items.length === 0) {
+        notifBody.innerHTML = `
+            <div class="notif-item notif-read">
+                <div class="notif-icon"><i class="fa fa-check-circle text-success fs-5"></i></div>
+                <div class="notif-text-content">
+                    <p>No new notifications.</p>
+                    <small>Daily check is up to date.</small>
+                </div>
+            </div>
+        `;
+    } else {
+        notifBody.innerHTML = items.slice(0, 8).map(item => `
+            <div class="notif-item ${markedReadToday ? 'notif-read' : 'notif-unread'}">
+                <div class="notif-icon"><i class="fa ${item.iconClass} ${item.toneClass} fs-5"></i></div>
+                <div class="notif-text-content">
+                    <p><strong>${escapeHtml(item.title)}:</strong> ${escapeHtml(item.message)}</p>
+                    <small>${getRelativeTimeText(item.createdAt)}</small>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    notifBadge.innerText = `${unreadCount} New`;
+}
+
+async function refreshMemberNotifications(options = {}) {
+    const { force = false } = options;
+    const todayKey = getTodayKey();
+    const lastCheckDate = localStorage.getItem(MEMBER_NOTIF_LAST_CHECK_KEY);
+
+    if (!force && lastCheckDate === todayKey) {
+        renderMemberNotifications(readCachedNotifications());
+        return;
+    }
+
+    try {
+        const response = await fetch(MEMBER_NOTIFICATIONS_URL, {
+            headers: {
+                'Accept': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
+        });
+
+        if (response.status === 401) {
+            logout();
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch notifications');
+        }
+
+        const payload = await response.json();
+        const items = normalizeNotificationItems(payload);
+        writeCachedNotifications(items);
+        localStorage.setItem(MEMBER_NOTIF_LAST_CHECK_KEY, todayKey);
+        localStorage.removeItem(MEMBER_NOTIF_READ_DATE_KEY);
+        renderMemberNotifications(items);
+    } catch (error) {
+        renderMemberNotifications(readCachedNotifications());
+    }
+}
+
+function scheduleMemberNotificationMidnightCheck() {
+    const now = new Date();
+    const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5);
+    const delay = Math.max(1000, nextMidnight.getTime() - now.getTime());
+
+    setTimeout(async () => {
+        await refreshMemberNotifications({ force: true });
+        scheduleMemberNotificationMidnightCheck();
+    }, delay);
+}
+
+function initMemberNotifications() {
+    renderMemberNotifications(readCachedNotifications());
+    refreshMemberNotifications();
+    scheduleMemberNotificationMidnightCheck();
+}
+
 function toggleNotificationPanel(event) {
     event.stopPropagation(); 
     const panel = document.getElementById('notificationPanel');
@@ -1427,12 +1658,8 @@ function clearNotifications(event) {
 
 function markAllRead(event) { 
     event.stopPropagation(); 
-    const badge = document.getElementById('notifBadgeCount');
-    const text = document.getElementById('notifPrimaryText');
-    const date = document.getElementById('notifPrimaryDate');
-    if (badge) badge.innerText = '0 New';
-    if (text) text.innerText = 'No new notifications.';
-    if (date) date.innerText = 'Just now';
+    localStorage.setItem(MEMBER_NOTIF_READ_DATE_KEY, getTodayKey());
+    renderMemberNotifications(readCachedNotifications());
     document.getElementById('notificationPanel').style.display = 'none';
 }
 

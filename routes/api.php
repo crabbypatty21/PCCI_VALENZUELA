@@ -37,6 +37,11 @@ Route::get('/v1/membership-types', function () {
     ]);
 });
 
+// Password OTP request proxy for Treasurer Security > Update Password
+Route::post('/user/confirm-password-change', [TreasurerProxyController::class, 'confirmPasswordChange']);
+Route::post('/user/verify-password-otp', [TreasurerProxyController::class, 'verifyPasswordOtp']);
+Route::post('/user/request-password-change', [TreasurerProxyController::class, 'requestPasswordChange']);
+
 Route::prefix('v1')->group(function () {
 
     // Leadership Route

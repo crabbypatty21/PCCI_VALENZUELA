@@ -59,6 +59,12 @@ Route::get('/treasurer-dashboard', function () {
 Route::post('/treasurer/process-payment/{id}', [\App\Http\Controllers\Api\TreasurerProxyController::class, 'processPayment'])
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
 
+Route::put('/treasurer/transactions/{id}', [\App\Http\Controllers\Api\TreasurerProxyController::class, 'updateTransaction'])
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
+
+Route::delete('/treasurer/transactions/{id}', [\App\Http\Controllers\Api\TreasurerProxyController::class, 'cancelTransaction'])
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
+
 // member dashboard route
 Route::get('/member-dashboard', function () {
     return view('member.dashboard');

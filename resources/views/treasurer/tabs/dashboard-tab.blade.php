@@ -32,10 +32,18 @@
 
     {{-- SMALL INFO CARD --}}
     <div class="floating-card small-info-card mb-4">
-        <div class="icon-box"><i class="fa fa-calendar-check"></i></div>
-        <div>
-            <p>Today's Payments: <span id="today-payments-amt" class="text-success fs-6">₱0</span></p>
-            <p>Yesterday payment: <span id="yesterday-payments-amt" class="text-muted fw-bold">₱0</span></p>
+        <div class="icon-box"><i class="fa fa-money-check-dollar"></i></div>
+        <div class="small-info-content">
+            <p><span id="today-payments-label">Today's Payments:</span> <strong id="today-payments-amt" class="text-dark">₱0.00</strong></p>
+            <p><span id="yesterday-payments-label" class="text-muted">Yesterday payment:</span> <span id="yesterday-payments-amt" class="text-muted fw-bold">₱0.00</span></p>
+        </div>
+        <div class="small-info-filter-wrap">
+            <select id="dashboardPaymentRange" class="form-select form-select-sm dashboard-inline-filter">
+                <option value="day" selected>This Day</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="year">This Year</option>
+            </select>
         </div>
     </div>
 
@@ -45,9 +53,11 @@
             <div class="floating-card">
                 <div class="card-title-row">
                     <h5>Membership Revenue</h5>
-                    <select class="form-select form-select-sm" style="width: auto; font-size: 12px; cursor: pointer;">
-                        <option>This Month</option>
-                        <option>This Year</option>
+                    <select id="dashboardRevenueRange" class="form-select form-select-sm" style="width: auto; font-size: 12px; cursor: pointer;">
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month" selected>This Month</option>
+                        <option value="year">This Year</option>
                     </select>
                 </div>
                 <div class="chart-container">
@@ -76,7 +86,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="custom-table">
+            <table class="custom-table recent-payments-table">
                 <thead>
                     <tr>
                         <th>Business Name</th>
@@ -85,10 +95,11 @@
                         <th>OR Number</th>
                         <th>Date</th>
                         <th>Proof of Payment</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="recent-payments-table-body">
-                    <tr><td colspan="6" class="text-center py-4">Loading records...</td></tr>
+                    <tr><td colspan="7" class="text-center py-4">Loading records...</td></tr>
                 </tbody>
             </table>
         </div>

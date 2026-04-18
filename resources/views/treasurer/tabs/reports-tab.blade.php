@@ -25,13 +25,13 @@
     <div class="reports-grid">
         <div class="report-stat-card">
             <div class="report-label">Monthly Revenue</div>
-            <div class="report-value">₱24,500</div>
-            <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> 8.2% <span class="text-muted fw-normal">vs last month</span></div>
+            <div class="report-value" id="report-monthly-revenue">₱0.00</div>
+            <div class="report-indicator text-green" id="report-monthly-revenue-trend"><i class="fa fa-arrow-up"></i> 0.0% <span class="text-muted fw-normal">vs last month</span></div>
         </div>
         <div class="report-stat-card">
             <div class="report-label">Total Active Members</div>
             <div class="report-value" id="report-active-members">0</div>
-            <div class="report-indicator text-green"><i class="fa fa-arrow-up"></i> 12 <span class="text-muted fw-normal">new this week</span></div>
+            <div class="report-indicator text-green" id="report-new-this-week"><i class="fa fa-arrow-up"></i> 0 <span class="text-muted fw-normal">new this week</span></div>
         </div>
         <div class="report-stat-card">
             <div class="report-label">Pending Verifications</div>
@@ -40,8 +40,8 @@
         </div>
         <div class="report-stat-card">
             <div class="report-label">Failed / Cancelled</div>
-            <div class="report-value text-red">0</div>
-            <div class="report-indicator text-green"><i class="fa fa-arrow-down"></i> 2.1% <span class="text-muted fw-normal">vs last month</span></div>
+            <div class="report-value text-red" id="report-failed-count">0</div>
+            <div class="report-indicator text-green" id="report-failed-trend"><i class="fa fa-arrow-down"></i> 0 <span class="text-muted fw-normal">vs last month</span></div>
         </div>
     </div>
 
@@ -70,11 +70,11 @@
                 <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Collection Status</h6>
                 <div class="mini-card-container">
                     <div class="mini-stat-card">
-                        <div class="m-val text-green">92%</div>
+                        <div class="m-val text-green" id="report-collected-percent">0%</div>
                         <div class="m-lbl">Collected</div>
                     </div>
                     <div class="mini-stat-card">
-                        <div class="m-val text-red">8%</div>
+                        <div class="m-val text-red" id="report-overdue-percent">0%</div>
                         <div class="m-lbl">Overdue</div>
                     </div>
                 </div>
@@ -84,10 +84,9 @@
             <div class="report-chart-box h-100" style="overflow-y: auto;">
                 <h6 class="fw-bold mb-3 text-dark" style="font-size: 15px;">Business Type Distribution</h6>
                 <table class="report-flat-table">
-                    <tr><td>Retail & Merchandising</td><td class="text-end fw-bold">45%</td></tr>
-                    <tr><td>Manufacturing</td><td class="text-end fw-bold">25%</td></tr>
-                    <tr><td>Services & Consulting</td><td class="text-end fw-bold">20%</td></tr>
-                    <tr><td>IT & Technology</td><td class="text-end fw-bold">10%</td></tr>
+                    <tbody id="report-business-type-body">
+                        <tr><td colspan="2" class="text-muted">No business types available.</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
